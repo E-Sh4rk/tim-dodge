@@ -9,4 +9,4 @@ install:
   - sudo ./generate.sh && yes Y|sudo ./monogame-linux.run; # install monogame sdk
 script:
   - (cd Content && mono /opt/monogame-pipeline/MGCB.exe /rebuild /@:"Content.mgcb" /outputDir:"../bin/Release/")
-  - (cd .. && xbuild /p:Configuration=Release tim_dodge.sln)
+  - xbuild /p:Configuration=Release tim_dodge.sln
