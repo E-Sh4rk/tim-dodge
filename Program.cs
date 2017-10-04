@@ -20,11 +20,11 @@ namespace tim_dodge
 	static class Program
 #endif
 	{
-		private static Game1 game;
+		private static TimGame game;
 
 		internal static void RunGame()
 		{
-			game = new Game1();
+			game = new TimGame();
 			game.Run();
 #if !__IOS__ && !__TVOS__
 			game.Dispose();

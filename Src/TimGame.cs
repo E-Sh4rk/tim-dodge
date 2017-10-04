@@ -9,15 +9,23 @@ namespace tim_dodge
 	/// <summary>
 	/// This is the main type for your game.
 	/// </summary>
-	public class Game1 : Game
+	public class TimGame : Game
 	{
 		GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
 
-		public Game1()
+		public const int WINDOW_WIDTH = 1280;
+		public const int WINDOW_HEIGHT = 720;
+		World world;
+		Player player;
+
+		public TimGame()
 		{
 			graphics = new GraphicsDeviceManager(this);
 			Content.RootDirectory = "Content";
+
+			graphics.PreferredBackBufferWidth = WINDOW_WIDTH;
+			graphics.PreferredBackBufferHeight = WINDOW_HEIGHT;
 		}
 
 		/// <summary>
@@ -28,7 +36,8 @@ namespace tim_dodge
 		/// </summary>
 		protected override void Initialize()
 		{
-			// TODO: Add your initialization logic here
+			world = new World();
+			player = new Player(22, 80, 138, world); // 22 sprites (ici vers la droite) 
 
 			base.Initialize();
 		}
@@ -42,7 +51,13 @@ namespace tim_dodge
 			// Create a new SpriteBatch, which can be used to draw textures.
 			spriteBatch = new SpriteBatch(GraphicsDevice);
 
-			//TODO: use this.Content to load your game content here 
+			world.Texture = Content.Load<Texture2D>("background/winter");
+			world.Position = new Vector2(0, 0);
+			world.colorTab = new Color[world.Texture.Width * world.Texture.Height];
+			world.Texture.GetData<Color>(world.colorTab);
+
+			player.Texture = Content.Load<Texture2D>("character/Tim");
+			player.Position = new Vector2(500, 538);
 		}
 
 		/// <summary>
@@ -59,9 +74,13 @@ namespace tim_dodge
 				Exit();
 #endif
 
-			// TODO: Add your update logic here
+			graphics.PreferredBackBufferWidth = WINDOW_WIDTH;
+			graphics.PreferredBackBufferHeight = WINDOW_HEIGHT;
+			player.UpdateFrame(gameTime);
+			player.Move(Keyboard.GetState());
 
 			base.Update(gameTime);
+
 		}
 
 		/// <summary>
@@ -72,7 +91,10 @@ namespace tim_dodge
 		{
 			graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
 
-			//TODO: Add your drawing code here
+			spriteBatch.Begin();
+			world.Draw(spriteBatch);
+			player.DrawAnimation(spriteBatch);
+			spriteBatch.End();
 
 			base.Draw(gameTime);
 		}
