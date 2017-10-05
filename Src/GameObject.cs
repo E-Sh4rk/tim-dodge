@@ -59,7 +59,7 @@ namespace tim_dodge
 
 			Source = new Rectangle(
 				//((int)frameIndex-1) * (frameWidth+16) + 30,
-				testTim[((int)frameIndex)],
+				testTim[((int)frameIndex)%22],
 				38,
 				frameWidth,
 				frameHeight);
@@ -72,7 +72,7 @@ namespace tim_dodge
 		// Durée depuis laquelle l'image est à l'écran
 		public float time;
 		// Durée de visibilité d'une image
-		public float frameTime = 0.5f;
+		public float frameTime = 0.1f;
 		// Indice de l'image en cours
 
 		public enum framesIndex
