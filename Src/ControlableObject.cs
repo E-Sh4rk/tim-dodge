@@ -39,24 +39,28 @@ namespace tim_dodge
 			{
 				nokey = true;
 				direction = Direction.LEFT;
+				sprite.ChangeDirection(direction);
 			}
 
 			if (state.IsKeyDown(Keys.S) || state.IsKeyDown(Keys.Down))
 			{
 				nokey = true;
 				direction = Direction.BOTTOM;
+				sprite.ChangeDirection(direction);
 			}
 
 			if (state.IsKeyDown(Keys.D) || state.IsKeyDown(Keys.Right))
 			{
 				nokey = true;
 				direction = Direction.RIGHT;
+				sprite.ChangeDirection(direction);
 			}
 
 			if (state.IsKeyDown(Keys.Z) || state.IsKeyDown(Keys.Up))
 			{
 				nokey = true;
 				direction = Direction.TOP;
+				sprite.ChangeDirection(direction);
 			}
 
 			if(!nokey)

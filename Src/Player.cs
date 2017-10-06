@@ -14,9 +14,9 @@ namespace tim_dodge
 			: base(pos, vel, acc, fric, wei)
 		{
 			JumpSpeed = new Vector2(0, -20);
-			DashForceLeft = new Vector2(-0.6f, 0);
+			DashForceLeft = new Vector2(-0.5f, 0);
 			DashForceRight = -DashForceLeft;
-			DashSpeedLeft = new Vector2(-0.7f, 0);
+			DashSpeedLeft = new Vector2(-0.4f, 0);
 			DashSpeedRight = -DashSpeedLeft;
 			sprite = new Sprite();
 		}

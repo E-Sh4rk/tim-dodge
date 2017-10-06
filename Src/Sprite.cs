@@ -32,7 +32,7 @@ namespace tim_dodge
 			Walk = 1
 		}
 
-		public const float FrameTime = 0.1f;
+		public const float FrameTime = 0.02f;
 		public const int NbState = 2;
 
 		public float time;
