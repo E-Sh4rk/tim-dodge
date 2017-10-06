@@ -5,7 +5,7 @@ solution: tim_dodge.sln
 before_install:
   - wget http://www.monogame.net/releases/v3.6/monogame-sdk.run
   - chmod 777 ./monogame-sdk.run
-  - wget https://github.com/MonoGame/MonoGame.Dependencies/raw/master/FreeImage.NET/Linux/x64/libfreeimage-3.17.0.so
+  - wget https://github.com/MonoGame/MonoGame.Dependencies/raw/master/FreeImage.NET/Linux/x86/libfreeimage-3.17.0.so
   - chmod 777 ./libfreeimage-3.17.0.so
 install:
   - sudo apt-get install -qq monodevelop libopenal-dev referenceassemblies-pcl ttf-mscorefonts-installer gtk-sharp3; # install needed packages for the monogame sdk
