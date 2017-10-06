@@ -107,42 +107,8 @@ namespace tim_dodge
 			while (time > FrameTime)
 			{
 				NextFrame();
-				/*
-				switch (direction)
-				{
-					case Collision.Direction.NONE:
-						frameIndex = nextFrame(frameIndex);
-						break;
-
-					case Collision.Direction.TOP:
-						frameIndex = nextFrame(frameIndex);
-						break;
-
-					case Collision.Direction.RIGHT:
-						frameIndex = nextFrame(frameIndex);
-						s = SpriteEffects.None;
-						break;
-
-					case Collision.Direction.LEFT:
-						frameIndex = nextFrame(frameIndex);
-						s = SpriteEffects.FlipHorizontally;
-						break;
-				}
-*/
 				time = 0f;
 			}
-			/*
-			if (Math.Abs(Velocity.X) > 0.5)
-			{
-				ChangeState(State.Walk);
-			}
-			else
-			{
-				ChangeState(State.Stay);
-			}
-*/
-
-
 		}
 
 		public int NumberOfSprite()
