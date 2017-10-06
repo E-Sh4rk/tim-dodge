@@ -32,19 +32,19 @@ namespace tim_dodge
 			Weight = wei;
 		}
 
-		private int Sol = 538;
+		public int Sol = 538;
 
 
 		public void UpdateMove()
 		{
 			Velocity += Acceleration + Weight;
 			Position += Velocity;
-			//Acceleration.X = 0;
-			//Acceleration.Y = 0;
+			Acceleration.X = 0;
+			Acceleration.Y = 0;
 			Position += Velocity;
 			Velocity *= Friction;
 
-			if (Position.Y > Sol)
+			if (Position.Y >= Sol)
 			{
 				Position.Y = Sol;
 				Velocity.Y = 0;

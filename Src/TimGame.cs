@@ -38,7 +38,7 @@ namespace tim_dodge
 		protected override void Initialize()
 		{
 			world = new World();
-			player = new Player(new Vector2(500, 500), new Vector2(0,0), new Vector2(0,0), new Vector2(0.2f,0), new Vector2(0,1));
+			player = new Player(new Vector2(500, 500), new Vector2(0,0), new Vector2(0,0), new Vector2(0.8f, 0.8f), new Vector2(0, 2));
 
 			base.Initialize();
 		}

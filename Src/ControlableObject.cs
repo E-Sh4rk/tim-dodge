@@ -33,30 +33,37 @@ namespace tim_dodge
 
 		public void GetDirection(KeyboardState state)
 		{
-			if (state.IsKeyDown(Keys.Z) || state.IsKeyDown(Keys.Up))
-			{
-				direction = Direction.TOP;
-			}
+			var nokey = false;
 
-			else if (state.IsKeyDown(Keys.Q) || state.IsKeyDown(Keys.Left))
+			if (state.IsKeyDown(Keys.Q) || state.IsKeyDown(Keys.Left))
 			{
+				nokey = true;
 				direction = Direction.LEFT;
 			}
 
-			else if (state.IsKeyDown(Keys.S) || state.IsKeyDown(Keys.Down))
+			if (state.IsKeyDown(Keys.S) || state.IsKeyDown(Keys.Down))
 			{
+				nokey = true;
 				direction = Direction.BOTTOM;
 			}
 
-			else if (state.IsKeyDown(Keys.D) || state.IsKeyDown(Keys.Right))
+			if (state.IsKeyDown(Keys.D) || state.IsKeyDown(Keys.Right))
 			{
+				nokey = true;
 				direction = Direction.RIGHT;
 			}
 
-			else
+			if (state.IsKeyDown(Keys.Z) || state.IsKeyDown(Keys.Up))
+			{
+				nokey = true;
+				direction = Direction.TOP;
+			}
+
+			if(!nokey)
 			{
 				direction = Direction.NONE;
 			}
+			// TODO RIGHT/UP, LEFT/UP
 
 		}
 
