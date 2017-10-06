@@ -4,144 +4,67 @@ using Microsoft.Xna.Framework.Input;
 
 namespace tim_dodge
 {
-	public class Player : GameObject
+	public class Player : ControlableObject
 	{
 		public Player()
 		{
-
 		}
 
-		public Player(int totalAnimationFrames, int frameWidth, int frameHeight, World world)
-			: base(totalAnimationFrames, frameWidth, frameHeight, world)
+		public Player(Vector2 pos, Vector2 vel, Vector2 acc, Vector2 fric, Vector2 wei)
+			: base(pos, vel, acc, fric, wei)
 		{
-			direction = Collision.Direction.RIGHT;
-			frameIndex = framesIndex.R1;
-			_collidedDirection = Collision.Direction.NONE;
+			JumpSpeed = new Vector2(0, -15);
+			DashForceLeft = new Vector2(-1.8f, 0);
+			DashForceRight = -DashForceLeft;
+			DashSpeedLeft = new Vector2(-1, 0);
+			DashSpeedRight = -DashSpeedLeft;
+			sprite = new Sprite();
 		}
 
+		protected Vector2 JumpSpeed;
+		protected Vector2 DashForceLeft;
+		protected Vector2 DashForceRight;
+		protected Vector2 DashSpeedLeft;
+		protected Vector2 DashSpeedRight;
 
-		public static bool noJump = true;
-		public static bool noKey = true;
-		public static bool possibleJump = true;
+	
+		public bool InJump()
+		{
+			// TODO : condition for being in jump 
+			return (Position.Y <= 538);
+		}
 
 		public void Move(KeyboardState state)
 		{
-			noKey = true;
-			if (state.IsKeyDown(Keys.Z) || state.IsKeyDown(Keys.Up))
+			GetDirection(state); // put the direction in direction
+
+			switch (direction)
 			{
-				direction = Collision.Direction.TOP;
-				/*
-				if (!Collision.Collided(this, world))
-				{
-					if (collidedDirection != Collision.Direction.TOP)
+				case Direction.TOP:
+					if (!InJump())
 					{
-						collidedDirection = Collision.Direction.NONE;
-						Position.Y -= 1;
+						Velocity += JumpSpeed;
 					}
-				}
-				*/
-				if (possibleJump)
-				{
-					Velocity.Y = -jumpForce;
-					possibleJump = false;
-				}
-				noKey = false;
+					break;
 
-			}
+				case Direction.LEFT:
+					Acceleration = DashForceLeft;
+					Velocity += DashSpeedLeft;
+					break;
 
-			if (state.IsKeyDown(Keys.Q) || state.IsKeyDown(Keys.Left))
-			{
-				direction = Collision.Direction.LEFT;
-				/*
-				if (!Collision.Collided(this, world))
-				{
-					if (collidedDirection != Collision.Direction.LEFT)
-					{
-						collidedDirection = Collision.Direction.NONE;
-						Position.X -= 1;
-					}
-				}
-				*/
-				Acceleration.X = -rightForceAcc;
-				Velocity.X -= rightForceSpeed;
-				noKey = false;
-			}
-			if (state.IsKeyDown(Keys.S) || state.IsKeyDown(Keys.Down))
-			{
-				direction = Collision.Direction.BOTTOM;
-				/*
-				if (!Collision.Collided(this, world))
-				{
-					if (collidedDirection != Collision.Direction.BOTTOM)
-					{
-						collidedDirection = Collision.Direction.NONE;
-						Position.Y += 1;
-					}
-				}
-				*/
-				Velocity.Y = jumpForce;
-				noKey = false;
-			}
-			if (state.IsKeyDown(Keys.D) || state.IsKeyDown(Keys.Right))
-			{
-				direction = Collision.Direction.RIGHT;
-				/*
-				if (!Collision.Collided(this, world))
-				{
-					if (collidedDirection != Collision.Direction.RIGHT)
-					{
-						collidedDirection = Collision.Direction.NONE;
-						Position.X += 1;
-					}
-				}
-				*/
-				Acceleration.X = rightForceAcc;
-				Velocity.X += rightForceSpeed;
-				noKey = false;
-			}
+				case Direction.RIGHT:
+					Acceleration = DashForceRight;
+					Velocity += DashSpeedRight;
+					break;
 
-			if(noKey)
-			{
-				direction = Collision.Direction.NONE;
-				Acceleration = new Vector2(0,0);
-			}
+				case Direction.BOTTOM:
+					//Acceleration = DashForceLeft;
+					//Velocity += DashSpeedLeft;
+					break;
 
-		}
-
-		private Collision.Direction _collidedDirection;
-		public Collision.Direction collidedDirection
-		{
-			get { return _collidedDirection; }
-			set { _collidedDirection = value; }
-		}
-
-		private float frictionX = 0.8f;
-		private float frictionY = 1.0f;
-		private int sol = 538;
-		public Vector2 Gravity = new Vector2(0, 1);
-		private int jumpForce = 15;
-		private float rightForceAcc = 1.8f;
-		private float rightForceSpeed = 1f;
-		
-		public void UpdateMove()
-		{
-			//Acceleration += Gravity;
-			Velocity += Acceleration + Gravity;
-			Acceleration.X = 0;
-			Acceleration.Y = 0;
-			Position += Velocity;
-			Velocity.X *= frictionX;
-			Velocity.Y *= frictionY;
-
-			if (Position.Y >= sol)
-			{
-				possibleJump = true;
-				Position.Y = sol;
-				Velocity.Y = 0;
-			}
-			else
-			{
-				possibleJump = false;
+				case Direction.NONE:
+					//
+					break;
 			}
 
 		}

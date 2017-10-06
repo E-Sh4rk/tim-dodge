@@ -1,5 +1,4 @@
 ﻿using System;
-
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -26,6 +25,8 @@ namespace tim_dodge
 
 			graphics.PreferredBackBufferWidth = WINDOW_WIDTH;
 			graphics.PreferredBackBufferHeight = WINDOW_HEIGHT;
+			Sprite test = new Sprite();
+			test.LoadXml();
 		}
 
 		/// <summary>
@@ -37,7 +38,7 @@ namespace tim_dodge
 		protected override void Initialize()
 		{
 			world = new World();
-			player = new Player(22, 80, 138, world); // 22 sprites (ici vers la droite) 
+			player = new Player(new Vector2(500, 500), new Vector2(0,0), new Vector2(0,0), new Vector2(0.2f,0), new Vector2(0,1));
 
 			base.Initialize();
 		}
@@ -52,12 +53,11 @@ namespace tim_dodge
 			spriteBatch = new SpriteBatch(GraphicsDevice);
 
 			world.Texture = Content.Load<Texture2D>("background/winter");
-			world.Position = new Vector2(0, 0);
-			world.colorTab = new Color[world.Texture.Width * world.Texture.Height];
-			world.Texture.GetData<Color>(world.colorTab);
+			//world.colorTab = new Color[world.Texture.Width * world.Texture.Height];
+			//world.Texture.GetData<Color>(world.colorTab);
 
 			player.Texture = Content.Load<Texture2D>("character/Tim");
-			player.Position = new Vector2(500, 538);
+
 		}
 
 		/// <summary>
@@ -76,7 +76,9 @@ namespace tim_dodge
 
 			graphics.PreferredBackBufferWidth = WINDOW_WIDTH;
 			graphics.PreferredBackBufferHeight = WINDOW_HEIGHT;
-			player.UpdateFrame(gameTime);
+			var sprite = new Sprite();
+
+			player.sprite.UpdateFrame(gameTime);
 			player.Move(Keyboard.GetState());
 			player.UpdateMove();
 
@@ -94,7 +96,7 @@ namespace tim_dodge
 
 			spriteBatch.Begin();
 			world.Draw(spriteBatch);
-			player.DrawAnimation(spriteBatch);
+			player.Draw(spriteBatch);
 			spriteBatch.End();
 
 			base.Draw(gameTime);
