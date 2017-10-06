@@ -78,6 +78,7 @@ namespace tim_dodge
 			graphics.PreferredBackBufferHeight = WINDOW_HEIGHT;
 			player.UpdateFrame(gameTime);
 			player.Move(Keyboard.GetState());
+			player.UpdateMove();
 
 			base.Update(gameTime);
 
