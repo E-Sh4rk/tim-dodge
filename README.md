@@ -22,6 +22,8 @@ To generate the doc: `make doc`
 
 To run: `make run`
 
+To run the tests : `make test`
+
 To clean: `make clean`
 
 You can also open the project (`tim_dodge.sln`) with MonoDevelop if you want to debug it.

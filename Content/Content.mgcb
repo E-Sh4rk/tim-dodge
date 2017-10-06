@@ -49,8 +49,3 @@
 /processorParam:TextureFormat=Color
 /build:background/winter.jpg
 
-#begin character/Tim.xml
-/importer:XmlImporter
-/processor:PassThroughProcessor
-/build:character/Tim.xml
-

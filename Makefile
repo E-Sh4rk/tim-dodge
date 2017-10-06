@@ -13,4 +13,7 @@ doc:
 	$(DOXYGEN)/bin/doxygen doxygen_cfg
 
 clean:
-	rm -fr bin obj Documentation
+	rm -fr bin obj Documentation tim_tests/bin tim_tests/obj
+
+test:
+	cd tim_tests/bin/Release && mono tim_tests.exe

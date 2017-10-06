@@ -63,4 +63,10 @@ monodroid*.msi
 # Misc
 tim_dodge.userprefs
 Documentation
+tim_tests/ipch/
+tim_tests/obj/
+tim_tests/[Bb]in
+tim_tests/[Dd]ebug*/
+tim_tests/[Rr]elease*/
+tim_tests/[Bb]uild/
 
