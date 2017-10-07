@@ -115,7 +115,7 @@ namespace tim_dodge
 
 			if (all != null)
 			{
-				rect = new RectAllSprite[all.Attributes.Count];
+				rect = new RectAllSprite[all.ChildNodes.Count];
 
 				int i = 0;
 				foreach (System.Xml.XmlElement child in all)
