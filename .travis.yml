@@ -9,7 +9,7 @@ before_install:
   #- chmod 777 ./libfreeimage-3.17.0.so
   - echo -e "deb http://archive.ubuntu.com/ubuntu xenial main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list
   - echo -e "APT::Default-Release \"trusty\";" | sudo tee -a /etc/apt/apt.conf
-  - echo -e "Package: libfreeimage-dev\nPin: release n=xenial\nPin-Priority: 900\n" | sudo tee -a /etc/apt/preferences
+  - echo -e "Package:libfreeimage-dev\nPin:release n=xenial\nPin-Priority:900\n" | sudo tee -a /etc/apt/preferences
 install:
   - sudo apt-get -qq update
   - sudo apt-get -qq upgrade
