@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
@@ -25,7 +26,7 @@ namespace tim_dodge
 			BOTTOM = 3
 		}
 
-		public Direction direction
+		public List<Direction> direction
 		{
 			get;
 			protected set;
@@ -34,38 +35,39 @@ namespace tim_dodge
 		public void GetDirection(KeyboardState state)
 		{
 			var nokey = false;
+			direction = new List<Direction>();
 
 			if (state.IsKeyDown(Keys.Q) || state.IsKeyDown(Keys.Left))
 			{
 				nokey = true;
-				direction = Direction.LEFT;
+				direction.Add(Direction.LEFT);
 				sprite.ChangeDirection(direction);
 			}
 
 			if (state.IsKeyDown(Keys.S) || state.IsKeyDown(Keys.Down))
 			{
 				nokey = true;
-				direction = Direction.BOTTOM;
+				direction.Add(Direction.BOTTOM);
 				sprite.ChangeDirection(direction);
 			}
 
 			if (state.IsKeyDown(Keys.D) || state.IsKeyDown(Keys.Right))
 			{
 				nokey = true;
-				direction = Direction.RIGHT;
+				direction.Add(Direction.RIGHT);
 				sprite.ChangeDirection(direction);
 			}
 
 			if (state.IsKeyDown(Keys.Z) || state.IsKeyDown(Keys.Up))
 			{
 				nokey = true;
-				direction = Direction.TOP;
+				direction.Add(Direction.TOP);
 				sprite.ChangeDirection(direction);
 			}
 
 			if(!nokey)
 			{
-				direction = Direction.NONE;
+				direction.Add(Direction.NONE);
 			}
 			// TODO RIGHT/UP, LEFT/UP
 
