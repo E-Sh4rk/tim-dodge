@@ -5,12 +5,20 @@ solution: tim_dodge.sln
 before_install:
   - wget http://www.monogame.net/releases/v3.6/monogame-sdk.run
   - chmod 777 ./monogame-sdk.run
-  - wget https://github.com/MonoGame/MonoGame.Dependencies/raw/master/FreeImage.NET/Linux/x86/libfreeimage-3.17.0.so
-  - chmod 777 ./libfreeimage-3.17.0.so
+  - wget http://downloads.sourceforge.net/freeimage/FreeImage3170.zip
+  - unzip FreeImage3170.zip
+  #- echo -e "deb http://archive.ubuntu.com/ubuntu xenial main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list
+  #- echo -e "APT::Default-Release \"trusty\";" | sudo tee -a /etc/apt/apt.conf
+  #- echo -e "Package:libfreeimage-dev\nPin:release n=xenial\nPin-Priority:900\n" | sudo tee -a /etc/apt/preferences
+  #- echo -e "Package:*\nPin:release n=trusty\nPin-Priority:500\n" | sudo tee -a /etc/apt/preferences
 install:
   - sudo apt-get install -qq monodevelop libopenal-dev referenceassemblies-pcl ttf-mscorefonts-installer gtk-sharp3; # install needed packages for the monogame sdk
+  - (cd FreeImage && make && sudo make install)
   - yes Y|sudo ./monogame-sdk.run; # install monogame sdk
-  - sudo mv ./libfreeimage-3.17.0.so /usr/lib/mono/xbuild/MonoGame/v3.0/Tools/libfreeimage-3.17.0.so
+  #- sudo apt-get -qq update
+  #- sudo apt-get -qq upgrade
+  #- sudo apt-get install -qq libfreeimage-dev
 script:
- # - (cd Content && mono /usr/lib/mono/xbuild/MonoGame/v3.0/Tools/MGCB.exe /rebuild /@:"Content.mgcb" /outputDir:"../bin/Release/")
- # - xbuild /p:Configuration=Release tim_dodge.sln
+  #- (cd Content && mono /usr/lib/mono/xbuild/MonoGame/v3.0/Tools/MGCB.exe /rebuild /@:"Content.mgcb" /outputDir:"../bin/Release/")
+  - make tim
+  - make test
