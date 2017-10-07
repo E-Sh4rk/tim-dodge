@@ -5,6 +5,7 @@ using System.Collections;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 
 namespace tim_dodge
 {
@@ -67,36 +68,18 @@ namespace tim_dodge
 			}	
 		}
 
-		private ControlableObject.Direction Direction;
+		private List<ControlableObject.Direction> Direction;
 
-		public void ChangeDirection(ControlableObject.Direction newdirection)
+		public void ChangeDirection(List<ControlableObject.Direction> newdirection)
 		{
 			if (newdirection != Direction)
 			{
 				Direction = newdirection;
-
-				switch (newdirection)
-				{
-					case ControlableObject.Direction.TOP:
-						//
-						break;
-
-					case ControlableObject.Direction.LEFT:
-						Effect = SpriteEffects.FlipHorizontally;
-						break;
-
-					case ControlableObject.Direction.RIGHT:
-						Effect = SpriteEffects.None;
-						break;
-
-					case ControlableObject.Direction.BOTTOM:
-						//
-						break;
-
-					case ControlableObject.Direction.NONE:
-						//
-						break;
-				}
+				if (Direction.Exists(el => el == ControlableObject.Direction.LEFT))
+					Effect = SpriteEffects.FlipHorizontally;
+			
+				if (Direction.Exists(el => el == ControlableObject.Direction.RIGHT))
+					Effect = SpriteEffects.None;
 			}
 		}
 

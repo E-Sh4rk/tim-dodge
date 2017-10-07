@@ -13,15 +13,20 @@ namespace tim_dodge
 		public Player(Vector2 pos, Vector2 vel, Vector2 acc, Vector2 fric, Vector2 wei)
 			: base(pos, vel, acc, fric, wei)
 		{
-			JumpSpeed = new Vector2(0, -20);
+			JumpSpeedUp = new Vector2(0, -25);
+			JumpSpeedLeft = new Vector2(-5f, -22);
+			JumpSpeedRight = JumpSpeedLeft;
+			JumpSpeedRight.X = -JumpSpeedRight.X;
 			DashForceLeft = new Vector2(-0.5f, 0);
 			DashForceRight = -DashForceLeft;
-			DashSpeedLeft = new Vector2(-0.4f, 0);
+			DashSpeedLeft = new Vector2(-0.5f, 0);
 			DashSpeedRight = -DashSpeedLeft;
 			sprite = new Sprite();
 		}
 
-		protected Vector2 JumpSpeed;
+		protected Vector2 JumpSpeedUp;
+		protected Vector2 JumpSpeedLeft;
+		protected Vector2 JumpSpeedRight;
 		protected Vector2 DashForceLeft;
 		protected Vector2 DashForceRight;
 		protected Vector2 DashSpeedLeft;
@@ -38,33 +43,34 @@ namespace tim_dodge
 		{
 			GetDirection(state); // put the direction in direction
 
-			switch (direction)
+			if (direction.Exists(el => el == Direction.TOP))
 			{
-				case Direction.TOP:
-					if (!InJump())
-					{
-						Velocity = JumpSpeed;
-					}
-					break;
+				if (!InJump())
+				{
+					if (direction.Exists(el => el == Direction.RIGHT))
+						Velocity = JumpSpeedRight;
+					else if (direction.Exists(el => el == Direction.LEFT))
+						Velocity = JumpSpeedLeft;
+					else
+						Velocity = JumpSpeedUp;
+				}
+			}
 
-				case Direction.LEFT:
-					Acceleration = DashForceLeft;
-					Velocity += DashSpeedLeft;
-					break;
+			if (direction.Exists(el => el == Direction.LEFT))
+			{
+				Acceleration = DashForceLeft;
+				Velocity += DashSpeedLeft;
+			}
 
-				case Direction.RIGHT:
-					Acceleration = DashForceRight;
-					Velocity += DashSpeedRight;
-					break;
+			if (direction.Exists(el => el == Direction.RIGHT))
+			{
+				Acceleration = DashForceRight;
+				Velocity += DashSpeedRight;
+			}
 
-				case Direction.BOTTOM:
-					//Acceleration = DashForceLeft;
-					//Velocity += DashSpeedLeft;
-					break;
-
-				case Direction.NONE:
-					//
-					break;
+			if (direction.Exists(el => el == Direction.BOTTOM))
+			{
+				// TODO : "S'accroupir
 			}
 
 			if (Math.Abs(Velocity.X) > 0.5)
