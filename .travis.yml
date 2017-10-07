@@ -12,7 +12,7 @@ before_install:
   - echo -e "Package:libfreeimage-dev\nPin:release n=xenial\nPin-Priority:900\n" | sudo tee -a /etc/apt/preferences
 install:
   - sudo apt-get -qq update
-  - sudo apt-get -qq upgrade
+  #- sudo apt-get -qq upgrade
   - sudo apt-get install -qq libfreeimage-dev monodevelop libopenal-dev referenceassemblies-pcl ttf-mscorefonts-installer gtk-sharp3; # install needed packages for the monogame sdk
   - yes Y|sudo ./monogame-sdk.run; # install monogame sdk
   #- sudo mv ./libfreeimage-3.17.0.so /usr/lib/mono/xbuild/MonoGame/v3.0/Tools/libfreeimage-3.17.0.so
