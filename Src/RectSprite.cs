@@ -12,6 +12,7 @@ namespace tim_dodge
 		}
 
 		public Rectangle source;
+
 		public RectSprite(System.Xml.XmlAttributeCollection ligne)
 		{
 			int[] att = new int[] { 0, 0, 0, 0 };
@@ -25,7 +26,6 @@ namespace tim_dodge
 				}
 			}
 			source = new Rectangle(att[1], att[2], att[0], att[3]);
-
 		}
 	}
 

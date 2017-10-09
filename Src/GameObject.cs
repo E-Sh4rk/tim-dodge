@@ -6,11 +6,12 @@ namespace tim_dodge
 {
 	public class GameObject
 	{
-		public Texture2D Texture;
+		public Texture Texture;
 		public Vector2 Position;
 
 		public GameObject()
 		{
+			Texture = new Texture();
 		}
 
 	}
