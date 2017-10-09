@@ -16,15 +16,15 @@ namespace tim_dodge
 			Sprite = null;
 		}
 
-		public Vector2 Size
+		public Point Size
 		{
 			get
 			{
 				if (Sprite != null)
-					return new Vector2(Sprite.RectOfSprite().Size.X, Sprite.RectOfSprite().Size.Y);
+					return new Point(Sprite.RectOfSprite().Size.X, Sprite.RectOfSprite().Size.Y);
 				if (Texture == null)
-					return new Vector2(0,0);
-				return new Vector2(Texture.Image.Width, Texture.Image.Height);
+					return new Point(0,0);
+				return new Point(Texture.Image.Width, Texture.Image.Height);
 			}
 		}
 		public Point TexturePosition
@@ -40,7 +40,7 @@ namespace tim_dodge
 		public void Draw(SpriteBatch spriteBatch)
 		{
 			if (Sprite != null)
-				spriteBatch.Draw(Texture.Image, Position, new Rectangle(TexturePosition, Size.ToPoint()), Color.White, 0f, new Vector2(0, 0), new Vector2(1, 1), Sprite.Effect, 0f);
+				spriteBatch.Draw(Texture.Image, Position, new Rectangle(TexturePosition, Size), Color.White, 0f, new Vector2(0, 0), new Vector2(1, 1), Sprite.Effect, 0f);
 			else
 				spriteBatch.Draw(Texture.Image, Position, Color.White);
 		}
