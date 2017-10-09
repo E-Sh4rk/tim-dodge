@@ -18,6 +18,8 @@ namespace tim_tests
 				failed++;
 			}
 
+			// TODO: tests collisions
+
 			if (failed == 0)
 				Console.WriteLine("All tests passed!");
 			else

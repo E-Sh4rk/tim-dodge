@@ -6,6 +6,11 @@ namespace tim_dodge
 {
 	public class GameObject
 	{
+		private static int next_id = 1;
+
+		private int id = 0;
+		public int ID { get { return id; } }
+
 		public Texture Texture;
 		public Sprite Sprite;
 		public Vector2 Position;
@@ -14,6 +19,8 @@ namespace tim_dodge
 		{
 			Texture = new Texture();
 			Sprite = null;
+			id = next_id;
+			next_id++;
 		}
 
 		public Point Size
