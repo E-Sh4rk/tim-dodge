@@ -51,6 +51,7 @@
     <Compile Include="Src\Sprite.cs" />
     <Compile Include="Src\RectSprite.cs" />
     <Compile Include="Src\PhysicalObject.cs" />
+    <Compile Include="Src\Map.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.manifest" />
