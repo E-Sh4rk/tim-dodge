@@ -54,7 +54,7 @@ namespace tim_dodge
 
 		public void Draw(SpriteBatch spriteBatch)
 		{
-			spriteBatch.Draw(Texture, Position, sprite.RectOfSprite(), Color.White, 0f, new Vector2(0, 0), new Vector2(1, 1), sprite.Effect, 0f);
+			spriteBatch.Draw(Texture.Image, Position, sprite.RectOfSprite(), Color.White, 0f, new Vector2(0, 0), new Vector2(1, 1), sprite.Effect, 0f);
 		}
 
 

@@ -17,7 +17,7 @@ namespace tim_dodge
 
 		public void Draw(SpriteBatch spriteBatch)
 		{
-			spriteBatch.Draw(Texture, Position, Color.White);
+			spriteBatch.Draw(Texture.Image, Position, Color.White);
 		}
 
 	}

@@ -50,6 +50,7 @@
     <Compile Include="Src\UnmovableObject.cs" />
     <Compile Include="Src\Sprite.cs" />
     <Compile Include="Src\RectSprite.cs" />
+    <Compile Include="Src\Texture.cs" />
     <Compile Include="Src\PhysicalObject.cs" />
     <Compile Include="Src\Map.cs" />
   </ItemGroup>
