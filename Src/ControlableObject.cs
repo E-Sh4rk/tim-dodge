@@ -41,28 +41,28 @@ namespace tim_dodge
 			{
 				nokey = true;
 				direction.Add(Direction.LEFT);
-				sprite.ChangeDirection(direction);
+				Sprite.ChangeDirection(direction);
 			}
 
 			if (state.IsKeyDown(Keys.S) || state.IsKeyDown(Keys.Down))
 			{
 				nokey = true;
 				direction.Add(Direction.BOTTOM);
-				sprite.ChangeDirection(direction);
+				Sprite.ChangeDirection(direction);
 			}
 
 			if (state.IsKeyDown(Keys.D) || state.IsKeyDown(Keys.Right))
 			{
 				nokey = true;
 				direction.Add(Direction.RIGHT);
-				sprite.ChangeDirection(direction);
+				Sprite.ChangeDirection(direction);
 			}
 
 			if (state.IsKeyDown(Keys.Z) || state.IsKeyDown(Keys.Up))
 			{
 				nokey = true;
 				direction.Add(Direction.TOP);
-				sprite.ChangeDirection(direction);
+				Sprite.ChangeDirection(direction);
 			}
 
 			if(!nokey)

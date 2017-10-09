@@ -14,13 +14,38 @@ namespace tim_dodge
 		{
 		}
 
-		public Texture2D Image;
-		public BitArray Mask;
-
-		public void getBitmap()
+		protected Texture2D image = null;
+		public Texture2D Image
 		{
-			Color[] T = new Color[Image.Width * Image.Height];
-			Image.GetData(T);
+			get
+			{
+				return image;
+			}
+			set
+			{
+				image = value;
+				mask = null;
+			}
+		}
+		protected BitArray mask = null;
+		public BitArray Mask
+		{
+			get
+			{
+				if (mask == null)
+					computeMask();
+				return mask;
+			}
+			protected set
+			{
+				mask = value;
+			}
+		}
+
+		protected void computeMask()
+		{
+			Color[] T = new Color[image.Width * image.Height];
+			image.GetData(T);
 			Mask = new BitArray(T.Select(c => c != new Color(0,0,0,0)).ToArray());
 			// Mask = new BitArray(T.Select(c => c.A != 0).ToArray());
 		}
@@ -32,19 +57,7 @@ namespace tim_dodge
 		/// <param name="j">Number of columns</param>
 		public bool getAlpha(int i, int j)
 		{
-			return Mask[i * Image.Width + j];
-		}
-
-		/// <summary>
-		/// Return a boolean which correspond to have a object or not
-		/// </summary>
-		/// <param name="i">Number of ligne</param>
-		/// <param name="j">Number of columns</param>
-		/// <param name="x">Offsets of ligne</param>
-		/// <param name="y">Offsets of columns</param>
-		public bool getAlpha(int i, int j, int x, int y)
-		{
-			return Mask[(i + x) * Image.Width + j + y];
+			return Mask[i * image.Width + j];
 		}
 	}
 }

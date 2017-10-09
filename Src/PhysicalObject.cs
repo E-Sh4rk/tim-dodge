@@ -26,11 +26,6 @@ namespace tim_dodge
 			get;
 			protected set;
 		}
-		public Sprite sprite
-		{
-			get;
-			protected set;
-		}
 
 		public void ApplyNewForce(Vector2 force, int reciprocal_id = -1)
 		{

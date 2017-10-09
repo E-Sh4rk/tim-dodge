@@ -47,7 +47,6 @@
     <Compile Include="Src\World.cs" />
     <Compile Include="Src\MovableObject.cs" />
     <Compile Include="Src\ControlableObject.cs" />
-    <Compile Include="Src\UnmovableObject.cs" />
     <Compile Include="Src\Sprite.cs" />
     <Compile Include="Src\RectSprite.cs" />
     <Compile Include="Src\Texture.cs" />

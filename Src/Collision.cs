@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using Microsoft.Xna.Framework;
 namespace tim_dodge
 {
@@ -17,17 +18,18 @@ namespace tim_dodge
 			}
 			return null;
 		}
-		public static bool sprite_collision(Sprite s1, Sprite s2)
+		public static bool sprite_collision(PhysicalObject o1, PhysicalObject o2)
 		{
 			// TODO
 			return false;
 		}
-		public static Vector2? optimized_sprite_collision(Sprite s1, Sprite s2)
+		public static Vector2? object_collision(PhysicalObject o1, PhysicalObject o2)
 		{
-			Vector2? rect_col = rect_collision(s1.RectOfSprite(), s2.RectOfSprite());
+			Vector2? rect_col = rect_collision(new Rectangle(o1.Position.ToPoint(), o1.Size.ToPoint()),
+			                                  new Rectangle(o2.Position.ToPoint(), o2.Size.ToPoint()));
 			if (rect_col == null)
 				return null;
-			if (sprite_collision(s1, s2))
+			if (sprite_collision(o1, o2))
 				return rect_col;
 			return null;
 		}

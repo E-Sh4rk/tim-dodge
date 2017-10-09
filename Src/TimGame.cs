@@ -57,7 +57,6 @@ namespace tim_dodge
 			//world.Texture.GetData<Color>(world.colorTab);
 
 			player.Texture.Image = Content.Load<Texture2D>("character/Tim");
-			player.Texture.getBitmap();
 		}
 
 		/// <summary>
@@ -78,7 +77,7 @@ namespace tim_dodge
 			graphics.PreferredBackBufferHeight = WINDOW_HEIGHT;
 			var sprite = new Sprite();
 
-			player.sprite.UpdateFrame(gameTime);
+			player.Sprite.UpdateFrame(gameTime);
 			player.Move(Keyboard.GetState());
 			player.UpdateMove();
 

@@ -12,16 +12,9 @@ namespace tim_dodge
 		protected Vector2 Friction;
 		protected Vector2 Weight;
 
-		public Sprite sprite
-		{
-			get;
-			protected set;
-		}
-
 		public MovableObject()
 		{
 		}
-
 
 		public MovableObject(Vector2 pos, Vector2 vel, Vector2 acc, Vector2 fric, Vector2 wei)
 		{
@@ -51,13 +44,6 @@ namespace tim_dodge
 			}
 
 		}
-
-		public void Draw(SpriteBatch spriteBatch)
-		{
-			spriteBatch.Draw(Texture.Image, Position, sprite.RectOfSprite(), Color.White, 0f, new Vector2(0, 0), new Vector2(1, 1), sprite.Effect, 0f);
-		}
-
-
 
 	}
 }

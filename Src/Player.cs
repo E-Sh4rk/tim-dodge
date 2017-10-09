@@ -21,7 +21,7 @@ namespace tim_dodge
 			DashForceRight = -DashForceLeft;
 			DashSpeedLeft = new Vector2(-0.5f, 0);
 			DashSpeedRight = -DashSpeedLeft;
-			sprite = new Sprite();
+			Sprite = new Sprite();
 		}
 
 		protected Vector2 JumpSpeedUp;
@@ -75,12 +75,12 @@ namespace tim_dodge
 
 			if (Math.Abs(Velocity.X) > 0.5)
 			{
-				sprite.ChangeState(Sprite.State.Walk);
+				Sprite.ChangeState(Sprite.State.Walk);
 			}
 
 			else
 			{
-				sprite.ChangeState(Sprite.State.Stay);
+				Sprite.ChangeState(Sprite.State.Stay);
 			}
 				
 		}
