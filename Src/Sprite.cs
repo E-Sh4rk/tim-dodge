@@ -50,7 +50,7 @@ namespace tim_dodge
 
 		private int nowFrame;
 
-		public void NextFrame()
+		protected void NextFrame()
 		{
 			nowFrame += 1;
 			if (nowFrame == NumberOfSprite())
@@ -103,7 +103,7 @@ namespace tim_dodge
 			return (rect[(int)nowState][nowFrame]).source;
 		}
 
-		public void LoadXml()
+		private void LoadXml()
 		{
 			var res = GetType().Module.Assembly.GetManifestResourceStream("tim_dodge.Content.character.TimXml.xml");
 			var stream = new System.IO.StreamReader(res); 

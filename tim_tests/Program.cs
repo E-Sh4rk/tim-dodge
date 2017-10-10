@@ -35,9 +35,9 @@ namespace tim_tests
 			// Test 2, collisions
 			int test2 = 0;
 			Texture2D t1 = loadTexture("Collisions.1.png");
-			tim_dodge.PhysicalObject o1 = new tim_dodge.PhysicalObject(new tim_dodge.Texture(t1), null);
+			tim_dodge.PhysicalObject o1 = new tim_dodge.PhysicalObject(new tim_dodge.Texture(t1), null, new Vector2(0f, 0f));
 			Texture2D t2 = loadTexture("Collisions.2.png");
-			tim_dodge.PhysicalObject o2 = new tim_dodge.PhysicalObject(new tim_dodge.Texture(t2), null);
+			tim_dodge.PhysicalObject o2 = new tim_dodge.PhysicalObject(new tim_dodge.Texture(t2), null, new Vector2(0f, 0f));
 			if (tim_dodge.Collision.object_collision(o1, o2) != null)
 				test2++;
 			o2.Position = new Vector2(1.0f, 0.0f);

@@ -26,8 +26,6 @@ namespace tim_dodge
 
 			graphics.PreferredBackBufferWidth = WINDOW_WIDTH;
 			graphics.PreferredBackBufferHeight = WINDOW_HEIGHT;
-			Sprite test = new Sprite();
-			test.LoadXml();
 		}
 
 		/// <summary>
