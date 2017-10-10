@@ -16,8 +16,8 @@ namespace tim_tests
 
 		public static int Main(string[] args)
 		{
-			/*g = new SimulatedGame();
-			g.RunOneFrame();*/
+			g = new SimulatedGame();
+			g.RunOneFrame();
 
 			int failed = 0;
 
@@ -32,7 +32,7 @@ namespace tim_tests
 			}
 
 			// Test 2, collisions
-			/*int test2 = 0;
+			int test2 = 0;
 			Texture2D t1 = loadTexture("Collisions.1.png");
 			tim_dodge.PhysicalObject o1 = new tim_dodge.PhysicalObject(new tim_dodge.Texture(t1), null);
 			Texture2D t2 = loadTexture("Collisions.2.png");
@@ -46,7 +46,7 @@ namespace tim_tests
 			if (test2 == 0)
 				Console.WriteLine("Test 2 passed!");
 			else
-				Console.WriteLine("Test 2 failed!");*/
+				Console.WriteLine("Test 2 failed!");
 
 			if (failed == 0)
 				Console.WriteLine("All tests passed!");

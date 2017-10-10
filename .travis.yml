@@ -15,10 +15,11 @@ install:
   - sudo apt-get install -qq monodevelop libopenal-dev referenceassemblies-pcl ttf-mscorefonts-installer gtk-sharp3; # install needed packages for the monogame sdk
   - (cd FreeImage && make && sudo make install)
   - yes Y|sudo ./monogame-sdk.run; # install monogame sdk
+  - sudo apt-get install xvfb
   #- sudo apt-get -qq update
   #- sudo apt-get -qq upgrade
   #- sudo apt-get install -qq libfreeimage-dev
 script:
   #- (cd Content && mono /usr/lib/mono/xbuild/MonoGame/v3.0/Tools/MGCB.exe /rebuild /@:"Content.mgcb" /outputDir:"../bin/Release/")
   - make tim
-  - make test
+  - xvfb-run make test
