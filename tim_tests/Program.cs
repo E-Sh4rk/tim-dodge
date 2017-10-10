@@ -18,6 +18,7 @@ namespace tim_tests
 		{
 			g = new SimulatedGame();
 			g.RunOneFrame();
+			Console.WriteLine("Simulated game initialized!");
 
 			int failed = 0;
 
@@ -47,6 +48,10 @@ namespace tim_tests
 				Console.WriteLine("Test 2 passed!");
 			else
 				Console.WriteLine("Test 2 failed!");
+
+			g.Exit();
+			g.Dispose();
+			Console.WriteLine("Simulated game disposed!");
 
 			if (failed == 0)
 				Console.WriteLine("All tests passed!");
