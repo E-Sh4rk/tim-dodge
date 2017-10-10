@@ -51,15 +51,5 @@ namespace tim_dodge
 			// Mask = new BitArray(T.Select(c => c != new Color(0,0,0,0)).ToArray());
 			Mask = new BitArray(T.Select(c => c.A != 0).ToArray());
 		}
-
-		/// <summary>
-		/// Return a boolean which correspond to have a object or not
-		/// </summary>
-		/// <param name="i">Number of ligne</param>
-		/// <param name="j">Number of columns</param>
-		public bool getAlpha(int i, int j)
-		{
-			return Mask[i * image.Width + j];
-		}
 	}
 }
