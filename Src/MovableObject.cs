@@ -14,7 +14,7 @@ namespace tim_dodge
 
 		public MovableObject(Texture t, Sprite s, Vector2 pos, Vector2 vel, Vector2 acc, Vector2 fric, Vector2 wei): base (t, s)
 		{
-			Position = pos;
+			position = pos;
 			Acceleration = acc;
 			Velocity = vel;
 			Friction = fric;
@@ -27,15 +27,15 @@ namespace tim_dodge
 		public void UpdateMove()
 		{
 			Velocity += Acceleration + Weight;
-			Position += Velocity;
+			position += Velocity;
 			Acceleration.X = 0;
 			Acceleration.Y = 0;
-			Position += Velocity;
+			position += Velocity;
 			Velocity *= Friction;
 
-			if (Position.Y >= Sol)
+			if (position.Y >= Sol)
 			{
-				Position.Y = Sol;
+				position.Y = Sol;
 				Velocity.Y = 0;
 			}
 

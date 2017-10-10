@@ -31,7 +31,7 @@ namespace tim_dodge
 		public bool InJump()
 		{
 			// TODO : condition for being in jump 
-			return (Position.Y < Sol);
+			return (position.Y < Sol);
 		}
 
 		public void Move(KeyboardState state)

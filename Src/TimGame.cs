@@ -80,7 +80,6 @@ namespace tim_dodge
 			player.UpdateMove();
 
 			base.Update(gameTime);
-
 		}
 
 		/// <summary>

@@ -19,7 +19,12 @@ namespace tim_dodge
 		{
 			get;
 		}
-		public Vector2 Position = new Vector2(0.0f, 0.0f);
+		protected Vector2 position = new Vector2(0.0f, 0.0f);
+		public Vector2 Position
+		{
+			get { return position; }
+			set { position = value; }
+		}
 
 		public GameObject(Texture texture, Sprite sprite)
 		{
@@ -53,9 +58,9 @@ namespace tim_dodge
 		public void Draw(SpriteBatch spriteBatch)
 		{
 			if (Sprite != null)
-				spriteBatch.Draw(Texture.Image, Position, new Rectangle(TexturePosition, Size), Color.White, 0f, new Vector2(0, 0), new Vector2(1, 1), Sprite.Effect, 0f);
+				spriteBatch.Draw(Texture.Image, position, new Rectangle(TexturePosition, Size), Color.White, 0f, new Vector2(0, 0), new Vector2(1, 1), Sprite.Effect, 0f);
 			else
-				spriteBatch.Draw(Texture.Image, Position, Color.White);
+				spriteBatch.Draw(Texture.Image, position, Color.White);
 		}
 
 	}
