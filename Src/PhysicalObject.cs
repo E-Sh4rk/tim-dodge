@@ -44,6 +44,7 @@ namespace tim_dodge
 		}
 
 		const float collision_factor = 1.0f;
+		const float gravity = 9.81f;
 		public void UpdatePosition(List<PhysicalObject> objects, Map map, GameTime gameTime)
 		{
 			double t = gameTime.ElapsedGameTime.TotalSeconds;
@@ -51,7 +52,8 @@ namespace tim_dodge
 			previous_time = t;
 
 			// Compute gravity, friction...
-			// TODO
+			forces.Add(new Vector2(0.0f, gravity * Mass));
+			// TODO: Compute friction
 
 			// Compute collisions with other physical objects and, depending on the relative direction of the center of the sprite,
 			// compute what resulting force in this direction need to be applied (depending on the difference of velocity in this direction and

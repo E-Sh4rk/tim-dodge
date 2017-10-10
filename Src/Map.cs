@@ -35,26 +35,23 @@ namespace tim_dodge
 			grounds = new Rectangle[] { new Rectangle(0, 538, TimGame.WINDOW_WIDTH, 100) };
 		}
 
+		public bool onTheGround(PhysicalObject o)
+		{
+			Point size = o.Size;
+			size.X = size.X + 1;
+			Rectangle ro = new Rectangle(o.Position.ToPoint(), size);
+			foreach (Rectangle r in grounds)
+			{
+				if (Collision.rect_collision(ro, r) != null)
+					return true;
+			}
+			return false;
+		}
+
 		public void adjustPositionAndVelocity(PhysicalObject o)
 		{
 			Vector2 position = o.Position;
 			Vector2 velocity = o.Velocity;
-			foreach (Rectangle r in grounds)
-			{
-				if (Collision.rect_collision(new Rectangle(position.ToPoint(), o.Size), r) != null)
-				{
-					position.Y = r.Y - o.Size.Y;
-					velocity.Y = Math.Min(velocity.Y, 0);
-				}
-			}
-			foreach (Rectangle r in roofs)
-			{
-				if (Collision.rect_collision(new Rectangle(position.ToPoint(), o.Size), r) != null)
-				{
-					position.Y = r.Y + r.Size.Y;
-					velocity.Y = Math.Max(velocity.Y, 0);
-				}
-			}
 			foreach (Rectangle r in leftWalls)
 			{
 				if (Collision.rect_collision(new Rectangle(position.ToPoint(), o.Size), r) != null)
@@ -69,6 +66,22 @@ namespace tim_dodge
 				{
 					position.X = r.X - o.Size.X;
 					velocity.X = Math.Min(velocity.X, 0);
+				}
+			}
+			foreach (Rectangle r in grounds)
+			{
+				if (Collision.rect_collision(new Rectangle(position.ToPoint(), o.Size), r) != null)
+				{
+					position.Y = r.Y - o.Size.Y;
+					velocity.Y = Math.Min(velocity.Y, 0);
+				}
+			}
+			foreach (Rectangle r in roofs)
+			{
+				if (Collision.rect_collision(new Rectangle(position.ToPoint(), o.Size), r) != null)
+				{
+					position.Y = r.Y + r.Size.Y;
+					velocity.Y = Math.Max(velocity.Y, 0);
 				}
 			}
 			o.Position = position;
