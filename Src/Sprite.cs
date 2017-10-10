@@ -44,7 +44,7 @@ namespace tim_dodge
 			private set;
 		}
 
-		private RectAllSprite[] rect;
+		private RectSprite[][] rect;
 
 		private State nowState;
 
@@ -96,12 +96,12 @@ namespace tim_dodge
 
 		public int NumberOfSprite()
 		{
-			return rect[(int)nowState].nbSprites;
+			return rect[(int)nowState].Length;
 		}
 
 		public Rectangle RectOfSprite()
 		{
-			return (rect[(int)nowState].sprites[nowFrame]).source;
+			return (rect[(int)nowState][nowFrame]).source;
 		}
 
 		public void LoadXml()
@@ -111,30 +111,20 @@ namespace tim_dodge
 
 			string docs = stream.ReadToEnd();
 			doc.LoadXml(docs);
-			System.Xml.XmlElement all = doc.DocumentElement;
+			XmlElement all = doc.DocumentElement;
 
 			if (all != null)
 			{
-				rect = new RectAllSprite[all.ChildNodes.Count];
+				rect = new RectSprite[all.ChildNodes.Count][];
 
 				int i = 0;
-				foreach (System.Xml.XmlElement child in all)
+				foreach (XmlNode child in all.ChildNodes)
 				{
-					rect[i] = new RectAllSprite();
-
-					int nbchild = 0; // How to count element of a enumerator ?
-					foreach (System.Xml.XmlElement ligne in child) 
-					{
-						nbchild += 1;
-					}
-
-					rect[i].sprites = new RectSprite[nbchild];
-					rect[i].nbSprites = nbchild;
-
+					rect[i] = new RectSprite[child.ChildNodes.Count];
 					int j = 0;
-					foreach (System.Xml.XmlElement ligne in child)
+					foreach (XmlNode ligne in child.ChildNodes)
 					{
-						rect[i].sprites[j] = new RectSprite(ligne.Attributes);
+						rect[i][j] = new RectSprite(ligne.Attributes);
 						j += 1;
 					}
 					i += 1;

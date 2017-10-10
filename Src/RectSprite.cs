@@ -7,11 +7,11 @@ namespace tim_dodge
 {
 	public class RectSprite
 	{
-		public RectSprite()
+		public Rectangle source
 		{
+			get;
+			protected set;
 		}
-
-		public Rectangle source;
 
 		public RectSprite(System.Xml.XmlAttributeCollection ligne)
 		{
@@ -27,16 +27,5 @@ namespace tim_dodge
 			}
 			source = new Rectangle(att[1], att[2], att[0], att[3]);
 		}
-	}
-
-	public class RectAllSprite
-	{
-		public RectAllSprite()
-		{
-		}
-
-		public RectSprite[] sprites;
-		public int nbSprites;
-
 	}
 }
