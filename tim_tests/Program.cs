@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace tim_tests
@@ -30,9 +31,22 @@ namespace tim_tests
 				failed++;
 			}
 
-			// TODO: tests collisions
-			Texture2D t1 = loadTexture("Collisions.2.png");
-			tim_dodge.GameObject o1 = new tim_dodge.GameObject(new tim_dodge.Texture(t1), null);
+			// Test 2, collisions
+			int test2 = 0;
+			Texture2D t1 = loadTexture("Collisions.1.png");
+			tim_dodge.PhysicalObject o1 = new tim_dodge.PhysicalObject(new tim_dodge.Texture(t1), null);
+			Texture2D t2 = loadTexture("Collisions.2.png");
+			tim_dodge.PhysicalObject o2 = new tim_dodge.PhysicalObject(new tim_dodge.Texture(t2), null);
+			if (tim_dodge.Collision.object_collision(o1, o2) != null)
+				test2++;
+			o2.Position = new Vector2(1.0f, 0.0f);
+			if (tim_dodge.Collision.object_collision(o1, o2) == null)
+				test2++;
+			failed += test2;
+			if (test2 == 0)
+				Console.WriteLine("Test 2 passed!");
+			else
+				Console.WriteLine("Test 2 failed!");
 
 			if (failed == 0)
 				Console.WriteLine("All tests passed!");

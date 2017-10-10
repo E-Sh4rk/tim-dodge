@@ -19,7 +19,7 @@ namespace tim_dodge
 		{
 			get;
 		}
-		public Vector2 Position;
+		public Vector2 Position = new Vector2(0.0f, 0.0f);
 
 		public GameObject(Texture texture, Sprite sprite)
 		{
