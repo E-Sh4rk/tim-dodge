@@ -7,12 +7,9 @@ namespace tim_dodge
 {
 	public class ControlableObject : MovableObject
 	{
-		public ControlableObject()
-		{
-		}
 
-		public ControlableObject(Vector2 pos, Vector2 vel, Vector2 acc, Vector2 fric, Vector2 wei)
-			: base(pos, vel, acc, fric, wei)
+		public ControlableObject(Texture t, Sprite s, Vector2 pos, Vector2 vel, Vector2 acc, Vector2 fric, Vector2 wei)
+			: base(t, s, pos, vel, acc, fric, wei)
 		{
 
 		}

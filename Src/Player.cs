@@ -6,12 +6,8 @@ namespace tim_dodge
 {
 	public class Player : ControlableObject
 	{
-		public Player()
-		{
-		}
-
-		public Player(Vector2 pos, Vector2 vel, Vector2 acc, Vector2 fric, Vector2 wei)
-			: base(pos, vel, acc, fric, wei)
+		public Player(Texture t, Vector2 pos, Vector2 vel, Vector2 acc, Vector2 fric, Vector2 wei)
+			: base(t, new Sprite(), pos, vel, acc, fric, wei)
 		{
 			JumpSpeedUp = new Vector2(0, -25);
 			JumpSpeedLeft = new Vector2(-5f, -22);
@@ -21,7 +17,6 @@ namespace tim_dodge
 			DashForceRight = -DashForceLeft;
 			DashSpeedLeft = new Vector2(-0.5f, 0);
 			DashSpeedRight = -DashSpeedLeft;
-			Sprite = new Sprite();
 		}
 
 		protected Vector2 JumpSpeedUp;

@@ -9,7 +9,7 @@ namespace tim_dodge
 	**/
 	public class PhysicalObject : GameObject
 	{
-		public PhysicalObject()
+		public PhysicalObject(Texture t, Sprite s): base (t, s)
 		{
 			forces = new List<Vector2>();
 			reciprocal_forces = new SortedSet<int>();

@@ -11,14 +11,20 @@ namespace tim_dodge
 		private int id = 0;
 		public int ID { get { return id; } }
 
-		public Texture Texture;
-		public Sprite Sprite;
+		public Texture Texture
+		{
+			get;
+		}
+		public Sprite Sprite
+		{
+			get;
+		}
 		public Vector2 Position;
 
-		public GameObject()
+		public GameObject(Texture texture, Sprite sprite)
 		{
-			Texture = new Texture();
-			Sprite = null;
+			Texture = texture;
+			Sprite = sprite;
 			id = next_id;
 			next_id++;
 		}

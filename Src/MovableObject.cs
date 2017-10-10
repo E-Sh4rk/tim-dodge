@@ -12,11 +12,7 @@ namespace tim_dodge
 		protected Vector2 Friction;
 		protected Vector2 Weight;
 
-		public MovableObject()
-		{
-		}
-
-		public MovableObject(Vector2 pos, Vector2 vel, Vector2 acc, Vector2 fric, Vector2 wei)
+		public MovableObject(Texture t, Sprite s, Vector2 pos, Vector2 vel, Vector2 acc, Vector2 fric, Vector2 wei): base (t, s)
 		{
 			Position = pos;
 			Acceleration = acc;

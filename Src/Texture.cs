@@ -10,8 +10,10 @@ namespace tim_dodge
 {
 	public class Texture
 	{
-		public Texture()
+		public Texture(Texture2D texture)
 		{
+			Image = texture;
+			computeMask();
 		}
 
 		protected Texture2D image = null;
@@ -21,7 +23,7 @@ namespace tim_dodge
 			{
 				return image;
 			}
-			set
+			protected set
 			{
 				image = value;
 				mask = null;
@@ -46,8 +48,8 @@ namespace tim_dodge
 		{
 			Color[] T = new Color[image.Width * image.Height];
 			image.GetData(T);
-			Mask = new BitArray(T.Select(c => c != new Color(0,0,0,0)).ToArray());
-			// Mask = new BitArray(T.Select(c => c.A != 0).ToArray());
+			// Mask = new BitArray(T.Select(c => c != new Color(0,0,0,0)).ToArray());
+			Mask = new BitArray(T.Select(c => c.A != 0).ToArray());
 		}
 
 		/// <summary>

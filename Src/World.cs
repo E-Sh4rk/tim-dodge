@@ -5,7 +5,7 @@ namespace tim_dodge
 {
 	public class World : GameObject
 	{
-		public World()
+		public World(Texture t, Sprite s) : base(t,s)
 		{
 		}
 

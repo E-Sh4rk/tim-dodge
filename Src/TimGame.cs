@@ -15,8 +15,8 @@ namespace tim_dodge
 
 		public const int WINDOW_WIDTH = 1280;
 		public const int WINDOW_HEIGHT = 720;
-		World world;
-		Player player;
+		World world = null;
+		Player player = null;
 
 		public TimGame()
 		{
@@ -37,9 +37,6 @@ namespace tim_dodge
 		/// </summary>
 		protected override void Initialize()
 		{
-			world = new World();
-			player = new Player(new Vector2(500, 500), new Vector2(0,0), new Vector2(0,0), new Vector2(0.8f, 0.9f), new Vector2(0, 1.3f));
-
 			base.Initialize();
 		}
 
@@ -52,11 +49,12 @@ namespace tim_dodge
 			// Create a new SpriteBatch, which can be used to draw textures.
 			spriteBatch = new SpriteBatch(GraphicsDevice);
 
-			world.Texture.Image = Content.Load<Texture2D>("background/winter");
+			world = new World(new Texture(Content.Load<Texture2D>("background/winter")), null);
 			//world.colorTab = new Color[world.Texture.Width * world.Texture.Height];
 			//world.Texture.GetData<Color>(world.colorTab);
 
-			player.Texture.Image = Content.Load<Texture2D>("character/Tim");
+			player = new Player(new Texture(Content.Load<Texture2D>("character/Tim")),
+				                new Vector2(500, 500), new Vector2(0, 0), new Vector2(0, 0), new Vector2(0.8f, 0.9f), new Vector2(0, 1.3f));
 		}
 
 		/// <summary>
