@@ -26,10 +26,11 @@ namespace tim_dodge
 			set { position = value; }
 		}
 
-		public GameObject(Texture texture, Sprite sprite)
+		public GameObject(Texture texture, Sprite sprite, Vector2 pos)
 		{
 			Texture = texture;
 			Sprite = sprite;
+			Position = pos;
 			id = next_id;
 			next_id++;
 		}

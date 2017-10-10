@@ -45,13 +45,12 @@
     <Compile Include="Src\GameObject.cs" />
     <Compile Include="Src\Player.cs" />
     <Compile Include="Src\World.cs" />
-    <Compile Include="Src\MovableObject.cs" />
-    <Compile Include="Src\ControlableObject.cs" />
     <Compile Include="Src\Sprite.cs" />
     <Compile Include="Src\RectSprite.cs" />
     <Compile Include="Src\Texture.cs" />
     <Compile Include="Src\PhysicalObject.cs" />
     <Compile Include="Src\Map.cs" />
+    <Compile Include="Src\Controller.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.manifest" />

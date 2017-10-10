@@ -32,13 +32,14 @@ namespace tim_dodge
 			roofs = new Rectangle[] { };
 			leftWalls = new Rectangle[] { };
 			rightWalls = new Rectangle[] { };
-			grounds = new Rectangle[] { new Rectangle(0, 538, TimGame.WINDOW_WIDTH, 100) };
+			grounds = new Rectangle[] { new Rectangle(0, 675, TimGame.WINDOW_WIDTH, 100) };
 		}
 
+		const int ground_detection_space = 5;
 		public bool onTheGround(PhysicalObject o)
 		{
 			Point size = o.Size;
-			size.X = size.X + 1;
+			size.X = size.X + ground_detection_space;
 			Rectangle ro = new Rectangle(o.Position.ToPoint(), size);
 			foreach (Rectangle r in grounds)
 			{

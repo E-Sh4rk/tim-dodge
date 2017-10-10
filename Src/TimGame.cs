@@ -17,6 +17,7 @@ namespace tim_dodge
 		public const int WINDOW_HEIGHT = 720;
 		World world = null;
 		Player player = null;
+		Map map = null;
 
 		public TimGame()
 		{
@@ -49,12 +50,14 @@ namespace tim_dodge
 			// Create a new SpriteBatch, which can be used to draw textures.
 			spriteBatch = new SpriteBatch(GraphicsDevice);
 
-			world = new World(new Texture(Content.Load<Texture2D>("background/winter")), null);
+			map = new Map();
+
+			world = new World(new Texture(Content.Load<Texture2D>("background/winter")), null, new Vector2(0.0f, 0.0f));
 			//world.colorTab = new Color[world.Texture.Width * world.Texture.Height];
 			//world.Texture.GetData<Color>(world.colorTab);
 
-			player = new Player(new Texture(Content.Load<Texture2D>("character/Tim")),
-				                new Vector2(500, 500), new Vector2(0, 0), new Vector2(0, 0), new Vector2(0.8f, 0.9f), new Vector2(0, 1.3f));
+			player = new Player(new Texture(Content.Load<Texture2D>("character/Tim")), map,
+				                new Vector2(500, 0));
 		}
 
 		/// <summary>
@@ -77,7 +80,7 @@ namespace tim_dodge
 
 			player.Sprite.UpdateFrame(gameTime);
 			player.Move(Keyboard.GetState());
-			player.UpdateMove();
+			player.UpdatePosition(new System.Collections.Generic.List<PhysicalObject>(), map, gameTime);
 
 			base.Update(gameTime);
 		}

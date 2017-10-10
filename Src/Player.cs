@@ -1,78 +1,66 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 namespace tim_dodge
 {
-	public class Player : ControlableObject
+	public class Player : PhysicalObject
 	{
-		public Player(Texture t, Vector2 pos, Vector2 vel, Vector2 acc, Vector2 fric, Vector2 wei)
-			: base(t, new Sprite(), pos, vel, acc, fric, wei)
+		public Player(Texture t, Map map, Vector2 pos)
+			: base(t, new Sprite(), pos)
 		{
-			JumpSpeedUp = new Vector2(0, -25);
-			JumpSpeedLeft = new Vector2(-5f, -22);
-			JumpSpeedRight = JumpSpeedLeft;
-			JumpSpeedRight.X = -JumpSpeedRight.X;
-			DashForceLeft = new Vector2(-0.5f, 0);
+			JumpImpulsion = new Vector2(0f, -250f);
+			DashForceLeft = new Vector2(-1000f, 0f);
 			DashForceRight = -DashForceLeft;
-			DashSpeedLeft = new Vector2(-0.5f, 0);
-			DashSpeedRight = -DashSpeedLeft;
+			this.map = map;
+			Mass = 50;
 		}
 
-		protected Vector2 JumpSpeedUp;
-		protected Vector2 JumpSpeedLeft;
-		protected Vector2 JumpSpeedRight;
+		protected Map map;
+
+		protected Vector2 JumpImpulsion;
 		protected Vector2 DashForceLeft;
 		protected Vector2 DashForceRight;
-		protected Vector2 DashSpeedLeft;
-		protected Vector2 DashSpeedRight;
-
 	
 		public bool InJump()
 		{
-			// TODO : condition for being in jump 
-			return (position.Y < Sol);
+			return !map.onTheGround(this);
 		}
 
 		public void Move(KeyboardState state)
 		{
-			GetDirection(state); // put the direction in direction
+			List<Controller.Direction> directions = Controller.GetDirections(state);
 
-			if (direction.Exists(el => el == Direction.TOP))
+			if (directions.Exists(el => el == Controller.Direction.TOP))
 			{
 				if (!InJump())
-				{
-					if (direction.Exists(el => el == Direction.RIGHT))
-						Velocity = JumpSpeedRight;
-					else if (direction.Exists(el => el == Direction.LEFT))
-						Velocity = JumpSpeedLeft;
-					else
-						Velocity = JumpSpeedUp;
-				}
+					ApplyNewImpulsion(JumpImpulsion);
 			}
 
-			if (direction.Exists(el => el == Direction.LEFT))
+			if (directions.Exists(el => el == Controller.Direction.LEFT))
 			{
-				Acceleration = DashForceLeft;
-				Velocity += DashSpeedLeft;
+				Sprite.ChangeDirection(Controller.Direction.LEFT);
+				if (velocity.X >= -3)
+					ApplyNewForce(DashForceLeft);
 			}
 
-			if (direction.Exists(el => el == Direction.RIGHT))
+			if (directions.Exists(el => el == Controller.Direction.RIGHT))
 			{
-				Acceleration = DashForceRight;
-				Velocity += DashSpeedRight;
+				Sprite.ChangeDirection(Controller.Direction.RIGHT);
+				if (velocity.X <= 3)
+					ApplyNewForce(DashForceRight);
 			}
 
-			if (direction.Exists(el => el == Direction.BOTTOM))
+			if (directions.Exists(el => el == Controller.Direction.BOTTOM))
 			{
 				// TODO : "S'accroupir
 			}
 
-			if (Math.Abs(Velocity.X) > 0.5)
+			if (Math.Abs(Velocity.X) > 0.3)
 			{
 				Sprite.ChangeState(Sprite.State.Walk);
 			}
-
 			else
 			{
 				Sprite.ChangeState(Sprite.State.Stay);

@@ -68,18 +68,17 @@ namespace tim_dodge
 			}	
 		}
 
-		private List<ControlableObject.Direction> Direction;
+		protected Controller.Direction direction;
 
-		public void ChangeDirection(List<ControlableObject.Direction> newdirection)
+		public void ChangeDirection(Controller.Direction new_dir)
 		{
-			if (newdirection != Direction)
+			if (new_dir != direction)
 			{
-				Direction = newdirection;
-				if (Direction.Exists(el => el == ControlableObject.Direction.LEFT))
-					Effect = SpriteEffects.FlipHorizontally;
-			
-				if (Direction.Exists(el => el == ControlableObject.Direction.RIGHT))
+				direction = new_dir;
+				if (new_dir == Controller.Direction.RIGHT)
 					Effect = SpriteEffects.None;
+				if (new_dir == Controller.Direction.LEFT)
+					Effect = SpriteEffects.FlipHorizontally;
 			}
 		}
 
@@ -90,7 +89,7 @@ namespace tim_dodge
 			while (time > FrameTime)
 			{
 				NextFrame();
-				time = 0f;
+				time -= FrameTime;
 			}
 		}
 
