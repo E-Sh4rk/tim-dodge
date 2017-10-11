@@ -19,7 +19,7 @@ namespace tim_dodge
 		World world = null;
 		Player player = null;
 		Map map = null;
-		List<Enemy> enemies = new List<Enemy>();
+		Enemies enemies = null;
 
 		public TimGame()
 		{
@@ -59,8 +59,8 @@ namespace tim_dodge
 
 			player = new Player(new Texture(Content.Load<Texture2D>("character/Tim")), new Sprite("Content.character.TimXml.xml"),
 			                    map, new Vector2(500, 250));
-
-			enemies.Add(new Enemy(new Texture(Content.Load<Texture2D>("objects/bomb")), null, new Vector2(500, -100)));
+			
+			enemies = new Enemies(new Texture (Content.Load<Texture2D>("objects/bomb")));
 		}
 
 		/// <summary>
@@ -85,7 +85,7 @@ namespace tim_dodge
 			// All physical objects
 			List<PhysicalObject> phys_obj = new List<PhysicalObject>();
 			phys_obj.Add(player);
-			phys_obj.AddRange(enemies);
+			phys_obj.AddRange(enemies.ListEnemies);
 
 			foreach (PhysicalObject po in phys_obj)
 			{
@@ -113,7 +113,7 @@ namespace tim_dodge
 			spriteBatch.Begin();
 			world.Draw(spriteBatch);
 			player.Draw(spriteBatch);
-			foreach (Enemy en in enemies)
+			foreach (Enemy en in enemies.ListEnemies)
 				en.Draw(spriteBatch);
 			spriteBatch.End();
 
