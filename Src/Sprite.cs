@@ -68,7 +68,7 @@ namespace tim_dodge
 			}	
 		}
 
-		protected Controller.Direction direction;
+		protected Controller.Direction direction = Controller.Direction.TOP;
 
 		public void ChangeDirection(Controller.Direction new_dir)
 		{

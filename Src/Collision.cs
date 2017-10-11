@@ -5,6 +5,17 @@ namespace tim_dodge
 {
 	public static class Collision
 	{
+		const bool center_of_gravity_bottom = true;
+		static Point center_of_gravity(Rectangle r)
+		{
+			if (center_of_gravity_bottom)
+			{
+				Point center = r.Center;
+				center.Y = r.Y+r.Height;
+				return center;
+			}
+			return r.Center;
+		}
 		/**
 		 * If the intersection is not null, return a unit vector in the direction that the collision force would have.
 		 **/
@@ -12,19 +23,22 @@ namespace tim_dodge
 		{
 			if (r1.Intersects(r2))
 			{
-				Vector2 dir = r2.Center.ToVector2() - r1.Center.ToVector2();
-				dir.Normalize();
-				return dir;
+				Point dir = center_of_gravity(r2) - center_of_gravity(r1);
+				if (dir.X == 0 && dir.Y == 0)
+					return new Vector2(0, 0);
+				Vector2 v = dir.ToVector2();
+				v.Normalize();
+				return v;
 			}
 			return null;
 		}
 		public static bool sprite_collision(PhysicalObject o1, PhysicalObject o2)
 		{
 			// Compute intersection rectangle
-			/*Rectangle r1 = new Rectangle(o1.Position.ToPoint(), o1.Size);
+			Rectangle r1 = new Rectangle(o1.Position.ToPoint(), o1.Size);
 			Rectangle r2 = new Rectangle(o2.Position.ToPoint(), o2.Size);
 			Point intersection1 = new Point(Math.Max(r1.X, r2.X), Math.Max(r1.Y, r2.Y));
-			Point intersection2 = new Point(Math.Min(r1.X+r1.Width, r2.X+r2.Width), Math.Max(r1.Y+r1.Height, r2.Y+r2.Height));
+			Point intersection2 = new Point(Math.Min(r1.X+r1.Width, r2.X+r2.Width), Math.Min(r1.Y+r1.Height, r2.Y+r2.Height));
 			Rectangle inter = new Rectangle(intersection1, intersection2-intersection1);
 			// Compare texture masks in this rectangle
 			Point offset1 = o1.TexturePosition - o1.Position.ToPoint();
@@ -40,8 +54,7 @@ namespace tim_dodge
 					if (o1.Texture.Mask[pos1.X + pos1.Y * width1] && o2.Texture.Mask[pos2.X + pos2.Y * width2])
 						return true;
 				}
-			}*/
-			// TODO: fix
+			}
 			return false;
 		}
 		public static Vector2? object_collision(PhysicalObject o1, PhysicalObject o2)

@@ -46,7 +46,7 @@ namespace tim_dodge
 				reciprocal_collisions.Add(reciprocal_id);
 		}
 
-		const float collision_factor = 1.0f;
+		const float collision_factor = 1.5f;
 		const float gravity = 9.81f;
 		const float ground_friction = 10.0f;
 		const float air_friction = 1.0f;
@@ -81,8 +81,8 @@ namespace tim_dodge
 					continue;
 				Vector2 coll = coll_opt.Value;
 				Vector2 rel_velocity = velocity - o.velocity;
-				float prod = coll.X * rel_velocity.X + coll.Y * rel_velocity.Y;
-				// TODO: see for the sign, test and fix formulas
+				float prod = -(coll.X * rel_velocity.X + coll.Y * rel_velocity.Y);
+				// TODO: Improve formulas... (pushing objects...)
 				float min_mass = Math.Min(o.Mass, Mass);
 				float intensity = collision_factor * (min_mass * prod);
 				impulsions.Add(coll*intensity);
