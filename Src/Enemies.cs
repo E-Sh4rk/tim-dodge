@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Timers;
 
 using Microsoft.Xna.Framework;
 
@@ -8,7 +7,6 @@ namespace tim_dodge
 {
 	public class Enemies
 	{
-		private Timer timer;
 		private Random random;
 		public List<Enemy> ListEnemies
 		{
@@ -18,20 +16,26 @@ namespace tim_dodge
 
 		public Enemies(Texture texture)
 		{
+			time = 0;
 			this.texture = texture;
 			random = new Random();
-			timer = new Timer();
-			timer.Start();
-			timer.Interval = 1000;
-			timer.Elapsed += GenerateEnemy;
 			ListEnemies = new List<Enemy>();
 		}
 
-		private void GenerateEnemy(Object source, System.Timers.ElapsedEventArgs e)
+		const int interval = 1;
+
+		private float time;
+		public void UpdateEnemies(GameTime gt)
 		{
-			int X = random.Next(0, TimGame.WINDOW_WIDTH);
-			Enemy enemy = new Enemy(texture, null, new Vector2(X, 0));
-			ListEnemies.Add(enemy);
+			time += (float)gt.ElapsedGameTime.TotalSeconds;
+
+			while (time > interval)
+			{
+				int X = random.Next(0, TimGame.WINDOW_WIDTH);
+				Enemy enemy = new Enemy(texture, null, new Vector2(X, -30));
+				ListEnemies.Add(enemy);
+				time -= interval;
+			}
 		}
 	}
 }

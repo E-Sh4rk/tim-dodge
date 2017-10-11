@@ -81,6 +81,7 @@ namespace tim_dodge
 			graphics.PreferredBackBufferHeight = WINDOW_HEIGHT;
 
 			player.Move(Keyboard.GetState(), gameTime);
+			enemies.UpdateEnemies(gameTime);
 
 			// All physical objects
 			List<PhysicalObject> phys_obj = new List<PhysicalObject>();

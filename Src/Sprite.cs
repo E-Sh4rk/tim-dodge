@@ -36,7 +36,7 @@ namespace tim_dodge
 		public const float FrameTime = 0.02f;
 		public const int NbState = 2;
 
-		public float time;
+		private float time;
 
 		public State state
 		{
