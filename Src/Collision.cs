@@ -8,13 +8,10 @@ namespace tim_dodge
 		const bool center_of_gravity_bottom = true;
 		static Point center_of_gravity(Rectangle r)
 		{
+			Point center = r.Center;
 			if (center_of_gravity_bottom)
-			{
-				Point center = r.Center;
 				center.Y = r.Y+r.Height;
-				return center;
-			}
-			return r.Center;
+			return center;
 		}
 		/**
 		 * If the intersection is not null, return a unit vector in the direction that the collision force would have.

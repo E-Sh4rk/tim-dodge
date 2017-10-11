@@ -11,18 +11,21 @@ namespace tim_dodge
 	{
 		public PhysicalObject(Texture t, Sprite s, Vector2 p): base (t, s, p)
 		{
-			forces = new List<Vector2>();
-			impulsions = new List<Vector2>();
-			reciprocal_collisions = new SortedSet<int>();
+			Mass = 5;
+			forces = new Vector2(0, 0);
+			impulsions = new Vector2(0, 0);
+			precomputed_collisions = new SortedSet<int>();
+			collisions_impulsion = new Vector2(0, 0);
 		}
 
 		// Position is part of GameObject
 		protected Vector2 velocity;
 		protected Vector2 friction;
-		protected List<Vector2> forces;
-		protected List<Vector2> impulsions;
+		protected Vector2 forces;
+		protected Vector2 impulsions;
 
-		protected SortedSet<int> reciprocal_collisions; // To exclude for collisions because already computed
+		protected SortedSet<int> precomputed_collisions;
+		protected Vector2 collisions_impulsion;
 
 		public float Mass
 		{
@@ -37,13 +40,11 @@ namespace tim_dodge
 
 		public void ApplyNewForce(Vector2 force)
 		{
-			forces.Add(force);
+			forces += force;
 		}
-		public void ApplyNewImpulsion(Vector2 imp, int reciprocal_id = -1)
+		public void ApplyNewImpulsion(Vector2 imp)
 		{
-			impulsions.Add(imp);
-			if (reciprocal_id >= 0)
-				reciprocal_collisions.Add(reciprocal_id);
+			impulsions += imp;
 		}
 
 		const float collision_factor = 1.5f;
@@ -51,60 +52,60 @@ namespace tim_dodge
 		const float ground_friction = 10.0f;
 		const float air_friction = 1.0f;
 		const float pixels_per_meter = 250;
-		public void UpdatePosition(List<PhysicalObject> objects, Map map, GameTime gameTime)
-		{
-			if (Mass <= 0.000001f)
-				return;
-			double dt = gameTime.ElapsedGameTime.TotalSeconds;
-			if (dt <= 0.000001f)
-				return;
 
+		protected void AlreadyComputedCollision(Vector2 imp, int id)
+		{
+			precomputed_collisions.Add(id);
+			collisions_impulsion += imp;
+		}
+
+		public void ApplyForces(List<PhysicalObject> objects, Map map, GameTime gameTime)
+		{
+			double dt = gameTime.ElapsedGameTime.TotalSeconds;
 			// Compute gravity, friction...
-			forces.Add(new Vector2(0.0f, gravity * Mass));
+			ApplyNewForce(new Vector2(0.0f, gravity * Mass));
 			// TODO: Improve friction
 			if (map.nearTheGround(this))
-				forces.Add(velocity * (-ground_friction) * Mass);
+				ApplyNewForce(velocity * (-ground_friction) * Mass);
 			else
-				forces.Add(velocity * (-air_friction) * Mass);
+				ApplyNewForce(velocity * (-air_friction) * Mass);
 
-
+			// Compute new velocity by taking into account all the forces and impulsions
+			velocity += (impulsions + forces * (float)dt)/Mass;
+			forces = new Vector2(0, 0);
+			impulsions = new Vector2(0, 0);
+		}
+		public void ApplyCollisions(List<PhysicalObject> objects, Map map, GameTime gameTime)
+		{
+			double dt = gameTime.ElapsedGameTime.TotalSeconds;
 			// Compute collisions with other physical objects and, depending on the relative direction of the center of the sprite,
 			// compute what resulting force in this direction need to be applied (depending on the difference of velocity in this direction and
 			// the min mass of the two objects).
-			// Add this resulting force to both objects involved.
 			foreach (PhysicalObject o in objects)
 			{
-				if (o.ID == ID || reciprocal_collisions.Contains(o.ID))
+				if (o.ID == ID || precomputed_collisions.Contains(o.ID))
 					continue;
 				Vector2? coll_opt = Collision.object_collision(this, o);
 				if (coll_opt == null)
 					continue;
 				Vector2 coll = coll_opt.Value;
 				Vector2 rel_velocity = velocity - o.velocity;
-				float prod = -(coll.X * rel_velocity.X + coll.Y * rel_velocity.Y);
-				// TODO: Improve formulas... (pushing objects...)
+				float prod = coll.X * rel_velocity.X + coll.Y * rel_velocity.Y;
+				if (prod <= 0)
+					continue;
 				float min_mass = Math.Min(o.Mass, Mass);
-				float intensity = collision_factor * (min_mass * prod);
-				impulsions.Add(coll*intensity);
-				o.ApplyNewImpulsion(-coll * intensity, ID);
+				float intensity = -collision_factor * (min_mass * prod);
+				collisions_impulsion += coll * intensity;
+				o.AlreadyComputedCollision(-coll * intensity, ID);
 			}
-
-			// Compute new acceleration, velocity and position by taking into account all the forces
-			Vector2 sum = new Vector2(0.0f, 0.0f);
-			foreach (Vector2 force in forces)
-				sum += force;
-			foreach (Vector2 imp in impulsions)
-				sum += imp / (float)dt;
-			Vector2 a = sum / Mass;
-			position += (0.5f * a * (float)dt * (float)dt + velocity * (float)dt)*pixels_per_meter;
-			velocity += a * (float)dt;
-
-			// Compute collisions with the map (which has infinite mass), and adjust position
+			velocity += collisions_impulsion / Mass;
+			precomputed_collisions.Clear();
+			collisions_impulsion = new Vector2(0,0);
+		}
+		public void UpdatePosition(List<PhysicalObject> objects, Map map, GameTime gameTime)
+		{
+			position += velocity * (float)gameTime.ElapsedGameTime.TotalSeconds * pixels_per_meter;
 			map.adjustPositionAndVelocity(this);
-
-			forces.Clear();
-			impulsions.Clear();
-			reciprocal_collisions.Clear();
 		}
 	}
 }

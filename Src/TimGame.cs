@@ -47,6 +47,7 @@ namespace tim_dodge
 		/// </summary>
 		protected override void LoadContent()
 		{
+			//this.TargetElapsedTime = TimeSpan.FromSeconds(1.0f / 250.0f);
 			// Create a new SpriteBatch, which can be used to draw textures.
 			spriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -59,7 +60,7 @@ namespace tim_dodge
 			player = new Player(new Texture(Content.Load<Texture2D>("character/Tim")), new Sprite("Content.character.TimXml.xml"),
 			                    map, new Vector2(500, 250));
 
-			enemies.Add(new Enemy(new Texture(Content.Load<Texture2D>("objects/bomb")), null, new Vector2(500, 100)));
+			enemies.Add(new Enemy(new Texture(Content.Load<Texture2D>("objects/bomb")), null, new Vector2(500, -100)));
 		}
 
 		/// <summary>
@@ -90,8 +91,13 @@ namespace tim_dodge
 			{
 				if (po.Sprite != null)
 					po.Sprite.UpdateFrame(gameTime);
-				po.UpdatePosition(phys_obj, map, gameTime);
 			}
+			foreach (PhysicalObject po in phys_obj)
+				po.ApplyForces(phys_obj, map, gameTime);
+			foreach (PhysicalObject po in phys_obj)
+				po.ApplyCollisions(phys_obj, map, gameTime);
+			foreach (PhysicalObject po in phys_obj)
+				po.UpdatePosition(phys_obj, map, gameTime);
 
 			base.Update(gameTime);
 		}
