@@ -13,9 +13,9 @@ namespace tim_dodge
 	{
 		private XmlDocument doc = new XmlDocument();
 
-		public Sprite()
+		public Sprite(string xml_path)
 		{
-			LoadXml(); 
+			LoadXml(xml_path); 
 			nowState = State.Stay;
 			nowFrame = 0;
 			time = 0;
@@ -103,9 +103,9 @@ namespace tim_dodge
 			return (rect[(int)nowState][nowFrame]).source;
 		}
 
-		private void LoadXml()
+		private void LoadXml(string xml_path)
 		{
-			var res = GetType().Module.Assembly.GetManifestResourceStream("tim_dodge.Content.character.TimXml.xml");
+			var res = GetType().Module.Assembly.GetManifestResourceStream("tim_dodge."+xml_path);
 			var stream = new System.IO.StreamReader(res); 
 
 			string docs = stream.ReadToEnd();

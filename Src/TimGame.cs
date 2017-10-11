@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -18,6 +19,7 @@ namespace tim_dodge
 		World world = null;
 		Player player = null;
 		Map map = null;
+		List<Enemy> enemies = new List<Enemy>();
 
 		public TimGame()
 		{
@@ -54,8 +56,10 @@ namespace tim_dodge
 			//world.colorTab = new Color[world.Texture.Width * world.Texture.Height];
 			//world.Texture.GetData<Color>(world.colorTab);
 
-			player = new Player(new Texture(Content.Load<Texture2D>("character/Tim")), map,
-				                new Vector2(500, 0));
+			player = new Player(new Texture(Content.Load<Texture2D>("character/Tim")), new Sprite("Content.character.TimXml.xml"),
+			                    map, new Vector2(500, 250));
+
+			enemies.Add(new Enemy(new Texture(Content.Load<Texture2D>("objects/bomb")), null, new Vector2(500, 100)));
 		}
 
 		/// <summary>
@@ -74,11 +78,20 @@ namespace tim_dodge
 
 			graphics.PreferredBackBufferWidth = WINDOW_WIDTH;
 			graphics.PreferredBackBufferHeight = WINDOW_HEIGHT;
-			var sprite = new Sprite();
 
-			player.Sprite.UpdateFrame(gameTime);
 			player.Move(Keyboard.GetState());
-			player.UpdatePosition(new System.Collections.Generic.List<PhysicalObject>(), map, gameTime);
+
+			// All physical objects
+			List<PhysicalObject> phys_obj = new List<PhysicalObject>();
+			phys_obj.Add(player);
+			phys_obj.AddRange(enemies);
+
+			foreach (PhysicalObject po in phys_obj)
+			{
+				if (po.Sprite != null)
+					po.Sprite.UpdateFrame(gameTime);
+				po.UpdatePosition(phys_obj, map, gameTime);
+			}
 
 			base.Update(gameTime);
 		}
@@ -94,6 +107,8 @@ namespace tim_dodge
 			spriteBatch.Begin();
 			world.Draw(spriteBatch);
 			player.Draw(spriteBatch);
+			foreach (Enemy en in enemies)
+				en.Draw(spriteBatch);
 			spriteBatch.End();
 
 			base.Draw(gameTime);

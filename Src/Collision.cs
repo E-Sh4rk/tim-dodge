@@ -21,7 +21,7 @@ namespace tim_dodge
 		public static bool sprite_collision(PhysicalObject o1, PhysicalObject o2)
 		{
 			// Compute intersection rectangle
-			Rectangle r1 = new Rectangle(o1.Position.ToPoint(), o1.Size);
+			/*Rectangle r1 = new Rectangle(o1.Position.ToPoint(), o1.Size);
 			Rectangle r2 = new Rectangle(o2.Position.ToPoint(), o2.Size);
 			Point intersection1 = new Point(Math.Max(r1.X, r2.X), Math.Max(r1.Y, r2.Y));
 			Point intersection2 = new Point(Math.Min(r1.X+r1.Width, r2.X+r2.Width), Math.Max(r1.Y+r1.Height, r2.Y+r2.Height));
@@ -40,7 +40,8 @@ namespace tim_dodge
 					if (o1.Texture.Mask[pos1.X + pos1.Y * width1] && o2.Texture.Mask[pos2.X + pos2.Y * width2])
 						return true;
 				}
-			}
+			}*/
+			// TODO: fix
 			return false;
 		}
 		public static Vector2? object_collision(PhysicalObject o1, PhysicalObject o2)

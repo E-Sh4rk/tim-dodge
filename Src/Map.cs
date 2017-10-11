@@ -39,7 +39,7 @@ namespace tim_dodge
 		public bool onTheGround(PhysicalObject o)
 		{
 			Point size = o.Size;
-			size.X = size.X + ground_detection_space;
+			size.Y = size.Y + ground_detection_space;
 			Rectangle ro = new Rectangle(o.Position.ToPoint(), size);
 			foreach (Rectangle r in grounds)
 			{

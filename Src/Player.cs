@@ -7,8 +7,8 @@ namespace tim_dodge
 {
 	public class Player : PhysicalObject
 	{
-		public Player(Texture t, Map map, Vector2 pos)
-			: base(t, new Sprite(), pos)
+		public Player(Texture t, Sprite s, Map map, Vector2 pos)
+			: base(t, s, pos)
 		{
 			JumpImpulsion = new Vector2(0f, -250f);
 			DashForceLeft = new Vector2(-1000f, 0f);

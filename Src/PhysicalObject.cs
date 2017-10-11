@@ -48,11 +48,13 @@ namespace tim_dodge
 
 		const float collision_factor = 1.0f;
 		const float gravity = 9.81f;
-		const float ground_friction = 25.0f;
+		const float ground_friction = 10.0f;
 		const float air_friction = 1.0f;
 		const float pixels_per_meter = 250;
 		public void UpdatePosition(List<PhysicalObject> objects, Map map, GameTime gameTime)
 		{
+			if (Mass <= 0.000001f)
+				return;
 			double dt = gameTime.ElapsedGameTime.TotalSeconds;
 			if (dt <= 0.000001f)
 				return;

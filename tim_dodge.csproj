@@ -41,7 +41,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Src\TimGame.cs" />
     <Compile Include="Src\Collision.cs" />
-    <Compile Include="Src\Enemies.cs" />
+    <Compile Include="Src\Enemy.cs" />
     <Compile Include="Src\GameObject.cs" />
     <Compile Include="Src\Player.cs" />
     <Compile Include="Src\World.cs" />
@@ -60,6 +60,7 @@
     <None Include="Content\character\Mimic.png" />
     <None Include="Content\character\Monstar.png" />
     <None Include="Content\character\Prince.png" />
+    <None Include="Content\objects\bomb.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icon.ico" />
