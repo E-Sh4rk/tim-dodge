@@ -5,6 +5,17 @@ namespace tim_dodge
 {
 	public static class Collision
 	{
+		const bool center_of_gravity_bottom = true;
+		static Point center_of_gravity(Rectangle r)
+		{
+			if (center_of_gravity_bottom)
+			{
+				Point center = r.Center;
+				center.Y = r.Y+r.Height;
+				return center;
+			}
+			return r.Center;
+		}
 		/**
 		 * If the intersection is not null, return a unit vector in the direction that the collision force would have.
 		 **/
@@ -12,9 +23,12 @@ namespace tim_dodge
 		{
 			if (r1.Intersects(r2))
 			{
-				Vector2 dir = r2.Center.ToVector2() - r1.Center.ToVector2();
-				dir.Normalize();
-				return dir;
+				Point dir = center_of_gravity(r2) - center_of_gravity(r1);
+				if (dir.X == 0 && dir.Y == 0)
+					return new Vector2(0, 0);
+				Vector2 v = dir.ToVector2();
+				v.Normalize();
+				return v;
 			}
 			return null;
 		}
