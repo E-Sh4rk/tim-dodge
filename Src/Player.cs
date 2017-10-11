@@ -22,20 +22,28 @@ namespace tim_dodge
 		protected Vector2 JumpImpulsion;
 		protected Vector2 DashForceLeft;
 		protected Vector2 DashForceRight;
-	
-		public bool InJump()
+
+		protected float elapsed_since_last_jump = 0;
+		const float min_time_between_jump = 0.25f;
+		public bool CanJump()
 		{
-			return !map.onTheGround(this);
+			return map.nearTheGround(this) && elapsed_since_last_jump >= min_time_between_jump;
 		}
 
-		public void Move(KeyboardState state)
+		public void Move(KeyboardState state, GameTime gameTime)
 		{
 			List<Controller.Direction> directions = Controller.GetDirections(state);
 
+			elapsed_since_last_jump += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
 			if (directions.Exists(el => el == Controller.Direction.TOP))
 			{
-				if (!InJump())
+				if (CanJump())
+				{
+					elapsed_since_last_jump = 0;
+					map.magnetizeToGround(this);
 					ApplyNewImpulsion(JumpImpulsion);
+				}
 			}
 
 			if (directions.Exists(el => el == Controller.Direction.LEFT))
@@ -65,7 +73,7 @@ namespace tim_dodge
 			{
 				Sprite.ChangeState(Sprite.State.Stay);
 			}
-				
+
 		}
 	}
 }

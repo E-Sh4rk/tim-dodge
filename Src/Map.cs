@@ -36,11 +36,11 @@ namespace tim_dodge
 		}
 
 		const int ground_detection_space = 5;
-		public bool onTheGround(PhysicalObject o)
+		public bool nearTheGround(PhysicalObject o)
 		{
-			Point size = o.Size;
-			size.Y = size.Y + ground_detection_space;
-			Rectangle ro = new Rectangle(o.Position.ToPoint(), size);
+			Point pos = o.Position.ToPoint();
+			pos.Y = pos.Y + ground_detection_space;
+			Rectangle ro = new Rectangle(pos, o.Size);
 			foreach (Rectangle r in grounds)
 			{
 				if (Collision.rect_collision(ro, r) != null)
@@ -48,7 +48,13 @@ namespace tim_dodge
 			}
 			return false;
 		}
-
+		public void magnetizeToGround(PhysicalObject o)
+		{
+			Vector2 pos = o.Position;
+			pos.Y = pos.Y + ground_detection_space;
+			o.Position = pos;
+			adjustPositionAndVelocity(o);
+		}
 		public void adjustPositionAndVelocity(PhysicalObject o)
 		{
 			Vector2 position = o.Position;

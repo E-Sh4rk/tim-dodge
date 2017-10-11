@@ -79,7 +79,7 @@ namespace tim_dodge
 			graphics.PreferredBackBufferWidth = WINDOW_WIDTH;
 			graphics.PreferredBackBufferHeight = WINDOW_HEIGHT;
 
-			player.Move(Keyboard.GetState());
+			player.Move(Keyboard.GetState(), gameTime);
 
 			// All physical objects
 			List<PhysicalObject> phys_obj = new List<PhysicalObject>();

@@ -62,8 +62,8 @@ namespace tim_dodge
 			// Compute gravity, friction...
 			forces.Add(new Vector2(0.0f, gravity * Mass));
 			// TODO: Improve friction
-			if (map.onTheGround(this))
-				forces.Add(new Vector2(-ground_friction * Mass * velocity.X, 0.0f));
+			if (map.nearTheGround(this))
+				forces.Add(velocity * (-ground_friction) * Mass);
 			else
 				forces.Add(velocity * (-air_friction) * Mass);
 
