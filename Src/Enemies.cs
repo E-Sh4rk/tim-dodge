@@ -13,13 +13,15 @@ namespace tim_dodge
 			get;
 		}
 		private Texture texture = null;
+		private Map map;
 
-		public Enemies(Texture texture)
+		public Enemies(Texture texture, Map map)
 		{
 			time = 0;
 			this.texture = texture;
 			random = new Random();
 			ListEnemies = new List<Enemy>();
+			this.map = map;
 		}
 
 		const int interval = 1;
@@ -35,6 +37,13 @@ namespace tim_dodge
 				Enemy enemy = new Enemy(texture, null, new Vector2(X, -30));
 				ListEnemies.Add(enemy);
 				time -= interval;
+			}
+
+			for (int i = 0; i < ListEnemies.Count; i++)
+			{
+				Enemy en = ListEnemies[i];
+				if (map.nearTheGround(en))
+					ListEnemies.Remove(en);
 			}
 		}
 	}
