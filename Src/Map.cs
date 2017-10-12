@@ -30,8 +30,8 @@ namespace tim_dodge
 		{
 			// TODO: Different maps system
 			roofs = new Rectangle[] { };
-			leftWalls = new Rectangle[] { };
-			rightWalls = new Rectangle[] { };
+			leftWalls = new Rectangle[] { new Rectangle (-100, 0, 100, 625) };
+			rightWalls = new Rectangle[] { new Rectangle(TimGame.WINDOW_WIDTH, 0, 100, 625) };
 			grounds = new Rectangle[] { new Rectangle(0, 675, TimGame.WINDOW_WIDTH, 100) };
 		}
 

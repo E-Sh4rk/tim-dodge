@@ -11,13 +11,16 @@ namespace tim_dodge
 		public List<Enemy> ListEnemies
 		{
 			get;
+			protected set;
 		}
 		private Texture texture = null;
+		private Map map = null;
 
-		public Enemies(Texture texture)
+		public Enemies(Texture texture, Map map)
 		{
 			time = 0;
 			this.texture = texture;
+			this.map = map;
 			random = new Random();
 			ListEnemies = new List<Enemy>();
 		}
@@ -36,6 +39,9 @@ namespace tim_dodge
 				ListEnemies.Add(enemy);
 				time -= interval;
 			}
+
+			// Delete enemies that are out of bounds
+			ListEnemies.RemoveAll((e => e.IsOutOfBounds()));
 		}
 	}
 }
