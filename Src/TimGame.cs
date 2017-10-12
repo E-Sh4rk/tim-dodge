@@ -89,10 +89,7 @@ namespace tim_dodge
 			phys_obj.AddRange(enemies.ListEnemies);
 
 			foreach (PhysicalObject po in phys_obj)
-			{
-				if (po.Sprite != null)
-					po.Sprite.UpdateFrame(gameTime);
-			}
+				po.UpdateSprite(gameTime);
 			foreach (PhysicalObject po in phys_obj)
 				po.ApplyForces(phys_obj, map, gameTime);
 			foreach (PhysicalObject po in phys_obj)

@@ -20,6 +20,7 @@ namespace tim_dodge
 			nowFrame = 0;
 			time = 0;
 			Effect = SpriteEffects.None;
+			Direction = Controller.Direction.TOP;
 		}
 
 		public SpriteEffects Effect
@@ -54,9 +55,7 @@ namespace tim_dodge
 		{
 			nowFrame += 1;
 			if (nowFrame == NumberOfSprite())
-			{
 				nowFrame = 0;
-			}
 		}
 
 		public void ChangeState(State state)
@@ -68,13 +67,17 @@ namespace tim_dodge
 			}	
 		}
 
-		protected Controller.Direction direction = Controller.Direction.TOP;
+		public Controller.Direction Direction
+		{
+			get;
+			protected set;
+		}
 
 		public void ChangeDirection(Controller.Direction new_dir)
 		{
-			if (new_dir != direction)
+			if (new_dir != Direction)
 			{
-				direction = new_dir;
+				Direction = new_dir;
 				if (new_dir == Controller.Direction.RIGHT)
 					Effect = SpriteEffects.None;
 				if (new_dir == Controller.Direction.LEFT)

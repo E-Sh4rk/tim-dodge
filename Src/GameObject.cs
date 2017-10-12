@@ -56,6 +56,29 @@ namespace tim_dodge
 			}
 		}
 
+		public virtual void UpdateSprite(GameTime gt)
+		{
+			if (Sprite != null)
+			{
+				Point size = Size;
+				Sprite.UpdateFrame(gt);
+				Point new_size = Size;
+				if ((Sprite.Effect & SpriteEffects.FlipHorizontally) == 0 && size.X != new_size.X)	
+					position.X += size.X - new_size.X;
+			}
+		}
+		public void ChangeSpriteState(Sprite.State state)
+		{
+			if (Sprite != null)
+			{
+				Point size = Size;
+				Sprite.ChangeState(state);
+				Point new_size = Size;
+				if ((Sprite.Effect & SpriteEffects.FlipHorizontally) == 0 && size.X != new_size.X)
+					position.X += size.X - new_size.X;
+			}
+		}
+
 		public bool IsOutOfBounds()
 		{
 			if (Position.X > TimGame.WINDOW_WIDTH || Position.X < -Size.X)

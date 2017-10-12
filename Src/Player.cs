@@ -66,14 +66,9 @@ namespace tim_dodge
 			}
 
 			if (Math.Abs(Velocity.X) > 0.3)
-			{
-				Sprite.ChangeState(Sprite.State.Walk);
-			}
+				ChangeSpriteState(Sprite.State.Walk);
 			else
-			{
-				Sprite.ChangeState(Sprite.State.Stay);
-			}
-
+				ChangeSpriteState(Sprite.State.Stay);
 		}
 	}
 }
