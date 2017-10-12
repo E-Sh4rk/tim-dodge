@@ -67,7 +67,7 @@ namespace tim_dodge
 					position.X += size.X - new_size.X;
 			}
 		}
-		public void ChangeSpriteState(Sprite.State state)
+		public virtual void ChangeSpriteState(Sprite.State state)
 		{
 			if (Sprite != null)
 			{
