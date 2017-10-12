@@ -47,7 +47,7 @@ namespace tim_dodge
 			impulsions += imp;
 		}
 
-		const float collision_factor = 1.5f;
+		const float collision_factor = 1.25f;
 		const float gravity = 9.81f;
 		const float ground_friction = 10.0f;
 		const float air_friction = 1.0f;
