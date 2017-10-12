@@ -42,6 +42,9 @@ namespace tim_dodge
 
 			// Delete enemies that are out of bounds
 			ListEnemies.RemoveAll((e => e.IsOutOfBounds()));
+
+			// Delete enemies on the ground
+			ListEnemies.RemoveAll((e => map.nearTheGround(e)));
 		}
 	}
 }
