@@ -63,8 +63,11 @@ namespace tim_dodge
 				Point size = Size;
 				Sprite.UpdateFrame(gt);
 				Point new_size = Size;
+				// We align it bottom right/left (depending on the direction)
 				if ((Sprite.Effect & SpriteEffects.FlipHorizontally) == 0 && size.X != new_size.X)	
 					position.X += size.X - new_size.X;
+				if (size.Y != new_size.Y)
+					position.Y += size.Y - new_size.Y;
 			}
 		}
 		public virtual void ChangeSpriteState(Sprite.State state)
@@ -74,8 +77,11 @@ namespace tim_dodge
 				Point size = Size;
 				Sprite.ChangeState(state);
 				Point new_size = Size;
+				// We align it bottom right/left (depending on the direction)
 				if ((Sprite.Effect & SpriteEffects.FlipHorizontally) == 0 && size.X != new_size.X)
 					position.X += size.X - new_size.X;
+				if (size.Y != new_size.Y)
+					position.Y += size.Y - new_size.Y;
 			}
 		}
 

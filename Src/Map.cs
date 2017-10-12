@@ -35,7 +35,7 @@ namespace tim_dodge
 			grounds = new Rectangle[] { new Rectangle(0, 675, TimGame.WINDOW_WIDTH, 100) };
 		}
 
-		const int ground_detection_space = 5;
+		const int ground_detection_space = 3;
 		public bool nearTheGround(PhysicalObject o)
 		{
 			Point pos = o.Position.ToPoint();
