@@ -1,5 +1,7 @@
 # Tim-Dodge
 
+[![Build Status](https://travis-ci.org/E-Sh4rk/tim-dodge.svg?branch=master)](https://travis-ci.org/E-Sh4rk/tim-dodge)
+
 ## Prerequisites
 
 You have to install Mono and MonoGame 3.6 in order to compile and run this project.
