@@ -30,6 +30,7 @@ namespace tim_dodge
 		const float interval = 0.25f;
 
 		private float time;
+
 		public void UpdateEnemies(GameTime gt)
 		{
 			time += (float)gt.ElapsedGameTime.TotalSeconds;
@@ -48,8 +49,11 @@ namespace tim_dodge
 			// Delete enemies that are out of bounds
 			ListEnemies.RemoveAll((e => e.IsOutOfBounds()));
 
-			// Delete enemies on the ground
-			ListEnemies.RemoveAll((e => map.nearTheGround(e)));
+			// Autodestruct ennemies on the ground 
+			ListEnemies.FindAll(map.nearTheGround).ForEach((e => e.destructionMode(gt)));
+			           
+			// Delete enemies which are dead
+			ListEnemies.RemoveAll(e => e.Dead);
 		}
 	}
 }
