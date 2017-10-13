@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace tim_dodge
 {
 	public class Player : PhysicalObject
 	{
-		public Player(Texture t, Sprite s, Vector2 pos, GameInstance gi)
+
+		public Stat Life;
+		public Stat Score;
+
+		public Player(Texture t, Sprite s, Map map, Vector2 pos, Stat Life, Stat Score, GameInstance gi)
 			: base(t, s, pos)
 		{
 			JumpImpulsion = new Vector2(0f, -250f);
@@ -18,6 +23,9 @@ namespace tim_dodge
 			Mass = 50;
 			gameInst = gi;
 			s.ChangeDirection(Controller.Direction.RIGHT);
+
+			this.Life = Life;
+			this.Score = Score;
 		}
 
 		protected SoundEffect jump;

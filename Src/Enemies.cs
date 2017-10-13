@@ -60,7 +60,7 @@ namespace tim_dodge
 				if (e.Dead)
 				{
 					ListEnemies.Remove(e);
-					game.score.incr(10);
+					game.player.Score.incr(10);
 				}
 			}
 

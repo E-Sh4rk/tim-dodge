@@ -67,7 +67,6 @@
     <None Include="Content\character\Monstar.png" />
     <None Include="Content\character\Prince.png" />
     <None Include="Content\objects\bomb.png" />
-    <None Include="Content\SpriteFonts\Model.spritefont" />
     <None Include="Content\SpriteFonts\Score.spritefont" />
     <None Include="Content\sound\jump.wav" />
     <None Include="Content\objects\explosion.png" />

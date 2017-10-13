@@ -15,12 +15,9 @@ namespace tim_dodge
 		private Enemies enemies;
 		public Map map { get; }
 
-		public Stat score;
-		private Vector2 PositionScore;
-
-		public Stat life;
-		private Vector2 PositionLife;
-		private int InitialLife;
+		private Vector2 PositionScoreTim;
+		private Vector2 PositionLifeTime;
+		private int InitialLifeTim;
 
 		private SpriteFont fontDisplay;
 		private ContentManager Content;
@@ -39,23 +36,23 @@ namespace tim_dodge
 			sounds = new Sound(new SoundEffect[] { Content.Load<SoundEffect>("sound/jump"),
 				Content.Load<SoundEffect>("sound/explosion")},
 							   new SoundEffect[] { Content.Load<SoundEffect>("sound/cuphead")});
-			
-			player = new Player(new Texture(Content.Load<Texture2D>("character/Tim")), new Sprite("Content.character.TimXml.xml"),
-			                    new Vector2(500, 250), this);
 
 			sounds.playMusic(Sound.MusicName.cuphead);
-			
-			enemies = new Enemies(new Texture(Content.Load<Texture2D>("objects/bomb")), this);
+
 
 			fontDisplay = Content.Load<SpriteFont>("SpriteFonts/Score");
 
-			InitialLife = 100;
+			PositionScoreTim = new Vector2(30, 20);
+			PositionLifeTime = new Vector2(30, 20 + fontDisplay.MeasureString("S").Y);
 
-			PositionScore = new Vector2(30, 20);
-			PositionLife = new Vector2(30, 20 + fontDisplay.MeasureString("S").Y);
+			InitialLifeTim = 100;
 
-			score = new Stat(fontDisplay, "Score : ", PositionScore, Color.Black, 0);
-			life = new Stat(fontDisplay, "Life : ", PositionLife, Color.Red, InitialLife);
+			Stat scoreTim = new Stat(fontDisplay, "Score : ", PositionScoreTim, Color.Black, 0);
+			Stat lifeTim = new Stat(fontDisplay, "Life : ", PositionLifeTime, Color.Red, InitialLifeTim);
+			player = new Player(new Texture(Content.Load<Texture2D>("character/Tim")), new Sprite("Content.character.TimXml.xml"),
+			                    map, new Vector2(500, 250), lifeTim, scoreTim, this);
+
+			enemies = new Enemies(new Texture(Content.Load<Texture2D>("objects/bomb")), this);
 		}
 
 
@@ -85,8 +82,8 @@ namespace tim_dodge
 			player.Draw(spriteBatch);
 			foreach (Enemy en in enemies.ListEnemies)
 				en.Draw(spriteBatch);
-			score.Draw(spriteBatch);
-			life.Draw(spriteBatch);
+			player.Score.Draw(spriteBatch);
+			player.Life.Draw(spriteBatch);
 		}
 	}
 }
