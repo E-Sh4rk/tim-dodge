@@ -16,7 +16,7 @@ namespace tim_dodge
 		public Sprite(string xml_path)
 		{
 			LoadXml(xml_path); 
-			nowState = State.Stay;
+			nowState = 0;
 			nowFrame = 0;
 			time = 0;
 			Effect = SpriteEffects.None;
@@ -29,25 +29,13 @@ namespace tim_dodge
 			protected set;
 		}
 
-		public enum State {
-			Stay = 0,
-			Walk = 1
-		}
-
 		public const float FrameTime = 0.02f;
-		public const int NbState = 2;
 
 		private float time;
 
-		public State state
-		{
-			get;
-			private set;
-		}
-
 		private RectSprite[][] rect;
 
-		private State nowState;
+		private int nowState;
 
 		private int nowFrame;
 
@@ -58,9 +46,9 @@ namespace tim_dodge
 				nowFrame = 0;
 		}
 
-		public void ChangeState(State state)
+		public void ChangeState(int state)
 		{
-			if (state != nowState && (int)state < NbState)
+			if (state != nowState)
 			{
 				nowState = state;
 				nowFrame = 0;
