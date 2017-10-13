@@ -52,6 +52,8 @@
     <Compile Include="Src\Map.cs" />
     <Compile Include="Src\Controller.cs" />
     <Compile Include="Src\Enemies.cs" />
+    <Compile Include="Src\GameInstance.cs" />
+    <Compile Include="Src\GameManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.manifest" />
