@@ -15,6 +15,7 @@ namespace tim_dodge
 			DashForceRight = -DashForceLeft;
 			this.map = map;
 			Mass = 50;
+			s.ChangeDirection(Controller.Direction.RIGHT);
 		}
 
 		protected Map map;

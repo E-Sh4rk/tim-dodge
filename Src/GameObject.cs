@@ -60,6 +60,25 @@ namespace tim_dodge
 			}
 		}
 
+		private void adjustSpritePosition(Point size, Point new_size)
+		{
+			if (size.X != new_size.X)
+			{
+				if (Sprite.Direction == Controller.Direction.RIGHT)
+					position.X += size.X - new_size.X;
+				else if (Sprite.Direction == Controller.Direction.LEFT) { }
+				else
+					position.X += (size.X - new_size.X) / 2;
+			}
+
+			if (size.Y != new_size.Y)
+			{
+				if (Sprite.Direction == Controller.Direction.TOP)
+					position.Y += (size.Y - new_size.Y) / 2;
+				else
+					position.Y += size.Y - new_size.Y;
+			}
+		}
 		public virtual void UpdateSprite(GameTime gt)
 		{
 			if (Sprite != null)
@@ -67,11 +86,7 @@ namespace tim_dodge
 				Point size = Size;
 				Sprite.UpdateFrame(gt);
 				Point new_size = Size;
-				// We align it bottom right/left (depending on the direction)
-				if ((Sprite.Effect & SpriteEffects.FlipHorizontally) == 0 && size.X != new_size.X)	
-					position.X += size.X - new_size.X;
-				if (size.Y != new_size.Y)
-					position.Y += size.Y - new_size.Y;
+				adjustSpritePosition(size, new_size);
 			}
 		}
 		public virtual void ChangeSpriteState(Sprite.State state)
@@ -81,11 +96,7 @@ namespace tim_dodge
 				Point size = Size;
 				Sprite.ChangeState(state);
 				Point new_size = Size;
-				// We align it bottom right/left (depending on the direction)
-				if ((Sprite.Effect & SpriteEffects.FlipHorizontally) == 0 && size.X != new_size.X)
-					position.X += size.X - new_size.X;
-				if (size.Y != new_size.Y)
-					position.Y += size.Y - new_size.Y;
+				adjustSpritePosition(size, new_size);
 			}
 		}
 

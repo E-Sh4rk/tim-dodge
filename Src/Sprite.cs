@@ -20,7 +20,7 @@ namespace tim_dodge
 			nowFrame = 0;
 			time = 0;
 			Effect = SpriteEffects.None;
-			Direction = Controller.Direction.TOP;
+			Direction = Controller.Direction.BOTTOM;
 		}
 
 		public SpriteEffects Effect
