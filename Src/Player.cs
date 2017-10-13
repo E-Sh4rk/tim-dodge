@@ -28,6 +28,12 @@ namespace tim_dodge
 			this.Score = Score;
 		}
 
+		enum State
+		{
+			Stay = 0,
+			Walk = 1
+		}
+
 		protected SoundEffect jump;
 		protected Map map;
 
@@ -81,9 +87,9 @@ namespace tim_dodge
 			}
 
 			if (Math.Abs(Velocity.X) > 0.3)
-				ChangeSpriteState(Sprite.State.Walk);
+				ChangeSpriteState((int)State.Walk);
 			else
-				ChangeSpriteState(Sprite.State.Stay);
+				ChangeSpriteState((int)State.Stay);
 		}
 	}
 }

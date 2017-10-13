@@ -70,7 +70,6 @@
     <None Include="Content\objects\bomb.png" />
     <None Include="Content\SpriteFonts\Score.spritefont" />
     <None Include="Content\sound\jump.wav" />
-    <None Include="Content\objects\explosion.png" />
     <None Include="Content\objects\fireball.png" />
     <None Include="Content\sound\cuphead.wav" />
     <None Include="Content\sound\explosion.wav" />
@@ -80,8 +79,8 @@
     <EmbeddedResource Include="Content\character\TimXml.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Content\objects\explosion.xml" />
     <EmbeddedResource Include="Content\objects\fireball.xml" />
+    <EmbeddedResource Include="Content\objects\bomb.xml" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
