@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
 
 namespace tim_dodge
 {
@@ -17,6 +18,7 @@ namespace tim_dodge
 			Mass = 50;
 		}
 
+		protected SoundEffect jump;
 		protected Map map;
 
 		protected Vector2 JumpImpulsion;

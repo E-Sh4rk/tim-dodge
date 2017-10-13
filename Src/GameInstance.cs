@@ -31,6 +31,8 @@ namespace tim_dodge
 			player = new Player(new Texture(Content.Load<Texture2D>("character/Tim")), new Sprite("Content.character.TimXml.xml"),
 					map, new Vector2(500, 250));
 
+			//player Content.Load<SoundEffect>("sound/jump");
+
 			fontScore = Content.Load<SpriteFont>("SpriteFonts/Score");
 			score = new Score(fontScore);
 

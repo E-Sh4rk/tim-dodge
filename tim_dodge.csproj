@@ -68,6 +68,7 @@
     <None Include="Content\objects\bomb.png" />
     <None Include="Content\SpriteFonts\Model.spritefont" />
     <None Include="Content\SpriteFonts\Score.spritefont" />
+    <None Include="Content\sound\jump.wav" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icon.ico" />

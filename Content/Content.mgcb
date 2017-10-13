@@ -75,3 +75,9 @@
 /processorParam:TextureFormat=Compressed
 /build:SpriteFonts/Score.spritefont
 
+#begin sound/jump.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sound/jump.wav
+
