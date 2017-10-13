@@ -54,8 +54,8 @@
     <Compile Include="Src\Enemies.cs" />
     <Compile Include="Src\GameInstance.cs" />
     <Compile Include="Src\GameManager.cs" />
-    <Compile Include="Src\Score.cs" />
     <Compile Include="Src\Bomb.cs" />
+    <Compile Include="Src\Stat.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.manifest" />
