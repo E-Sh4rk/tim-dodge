@@ -43,6 +43,7 @@ namespace tim_dodge
 			if (!musicmute)
 			{
 				SoundEffectInstance playing = musics[(int)mus].CreateInstance();
+				playing.Volume = 0.60f;
 				playing.IsLooped = true;
 				playing.Play();
 			}
