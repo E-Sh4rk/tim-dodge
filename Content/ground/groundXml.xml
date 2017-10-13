@@ -1,0 +1,23 @@
+<!DOCTYPE SpriteDecomposer>
+<sprites image="ground.png" transparentColor="">
+ <animation title="Block" delay="150">
+  <cut w="118" x="5" y="4" h="118" row="1" col="1"/>
+  <cut w="118" x="133" y="4" h="118" row="1" col="1"/>
+  <cut w="118" x="261" y="4" h="118" row="1" col="1"/>
+  <cut w="118" x="389" y="4" h="118" row="1" col="1"/>
+  <cut w="118" x="517" y="4" h="118" row="1" col="1"/>
+  <cut w="118" x="5" y="130" h="118" row="1" col="1"/>
+  <cut w="118" x="133" y="130" h="118" row="1" col="1"/>
+  <cut w="118" x="261" y="130" h="118" row="1" col="1"/>
+  <cut w="118" x="389" y="130" h="118" row="1" col="1"/>
+  <cut w="118" x="517" y="130" h="118" row="1" col="1"/>
+  <cut w="118" x="5" y="256" h="118" row="1" col="1"/>
+  <cut w="118" x="133" y="256" h="118" row="1" col="1"/>
+  <cut w="118" x="261" y="273" h="85" row="1" col="1"/>
+  <cut w="118" x="389" y="273" h="85" row="1" col="1"/>
+  <cut w="118" x="517" y="273" h="85" row="1" col="1"/>
+  <cut w="118" x="5" y="382" h="118" row="1" col="1"/>
+  <cut w="118" x="261" y="382" h="118" row="1" col="1"/>
+  <cut w="118" x="133" y="396" h="91" row="1" col="1"/>
+ </animation>
+</sprites>

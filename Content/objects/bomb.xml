@@ -1,0 +1,33 @@
+<!DOCTYPE SpriteDecomposer>
+<sprites image="explosion.png" transparentColor="">
+ <animation title="Default" delay="150">
+  <cut w="36" x="0" y="0" h="36" row="1" col="1"/>
+ </animation>
+ <animation title="Explose" delay="150">
+  <cut w="50" x="0" y="50" h="50" row="1" col="1"/>
+  <cut w="50" x="50" y="50" h="50" row="1" col="1"/>
+  <cut w="50" x="100" y="50" h="50" row="1" col="1"/>
+  <cut w="50" x="150" y="50" h="50" row="1" col="1"/>
+  <cut w="50" x="200" y="50" h="50" row="1" col="1"/>
+  <cut w="50" x="0" y="100" h="50" row="1" col="1"/>
+  <cut w="50" x="50" y="100" h="50" row="1" col="1"/>
+  <cut w="50" x="100" y="100" h="50" row="1" col="1"/>
+  <cut w="50" x="150" y="100" h="50" row="1" col="1"/>
+  <cut w="50" x="200" y="100" h="50" row="1" col="1"/>
+  <cut w="50" x="0" y="150" h="50" row="1" col="1"/>
+  <cut w="50" x="50" y="150" h="50" row="1" col="1"/>
+  <cut w="50" x="100" y="150" h="50" row="1" col="1"/>
+  <cut w="50" x="150" y="150" h="50" row="1" col="1"/>
+  <cut w="50" x="200" y="150" h="50" row="1" col="1"/>
+  <cut w="50" x="0" y="200" h="50" row="1" col="1"/>
+  <cut w="50" x="50" y="200" h="50" row="1" col="1"/>
+  <cut w="50" x="100" y="200" h="50" row="1" col="1"/>
+  <cut w="50" x="150" y="200" h="50" row="1" col="1"/>
+  <cut w="50" x="200" y="200" h="50" row="1" col="1"/>
+  <cut w="50" x="0" y="250" h="50" row="1" col="1"/>
+  <cut w="50" x="50" y="250" h="50" row="1" col="1"/>
+  <cut w="50" x="100" y="250" h="50" row="1" col="1"/>
+  <cut w="50" x="150" y="250" h="50" row="1" col="1"/>
+  <cut w="50" x="200" y="250" h="50" row="1" col="1"/>
+ </animation>
+</sprites>
