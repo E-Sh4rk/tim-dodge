@@ -14,7 +14,7 @@ namespace tim_dodge
 		public Score(SpriteFont fontScore)
 		{
 			this.fontScore = fontScore;
-			Color = Color.Yellow;
+			Color = Color.Black;
 		}
 
 		public void incr(int i)
