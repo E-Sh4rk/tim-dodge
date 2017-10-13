@@ -13,7 +13,7 @@ namespace tim_dodge
 		public Stat Life;
 		public Stat Score;
 
-		public Player(Texture t, Sprite s, Map map, Vector2 pos, Stat Life, Stat Score, GameInstance gi)
+		public Player(Texture t, Sprite s, Vector2 pos, Stat Life, Stat Score, GameInstance gi)
 			: base(t, s, pos)
 		{
 			JumpImpulsion = new Vector2(0f, -250f);
@@ -26,6 +26,12 @@ namespace tim_dodge
 
 			this.Life = Life;
 			this.Score = Score;
+		}
+
+		enum State
+		{
+			Stay = 0,
+			Walk = 1
 		}
 
 		protected SoundEffect jump;
@@ -81,9 +87,9 @@ namespace tim_dodge
 			}
 
 			if (Math.Abs(Velocity.X) > 0.3)
-				ChangeSpriteState(Sprite.State.Walk);
+				ChangeSpriteState((int)State.Walk);
 			else
-				ChangeSpriteState(Sprite.State.Stay);
+				ChangeSpriteState((int)State.Stay);
 		}
 	}
 }
