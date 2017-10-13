@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -17,9 +18,7 @@ namespace tim_dodge
 		public const int WINDOW_WIDTH = 1280;
 		public const int WINDOW_HEIGHT = 720;
 		World world = null;
-		Player player = null;
-		Map map = null;
-		Enemies enemies = null;
+		GameManager Game;
 
 		public TimGame()
 		{
@@ -51,16 +50,11 @@ namespace tim_dodge
 			// Create a new SpriteBatch, which can be used to draw textures.
 			spriteBatch = new SpriteBatch(GraphicsDevice);
 
-			map = new Map();
-
 			world = new World(new Texture(Content.Load<Texture2D>("background/winter")), null, new Vector2(0.0f, 0.0f));
 			//world.colorTab = new Color[world.Texture.Width * world.Texture.Height];
 			//world.Texture.GetData<Color>(world.colorTab);
 
-			player = new Player(new Texture(Content.Load<Texture2D>("character/Tim")), new Sprite("Content.character.TimXml.xml"),
-			                    map, new Vector2(500, 250));
-			
-			enemies = new Enemies(new Texture (Content.Load<Texture2D>("objects/bomb")), map);
+			Game = new GameManager(Content);
 		}
 
 		/// <summary>
@@ -80,22 +74,7 @@ namespace tim_dodge
 			graphics.PreferredBackBufferWidth = WINDOW_WIDTH;
 			graphics.PreferredBackBufferHeight = WINDOW_HEIGHT;
 
-			player.Move(Keyboard.GetState(), gameTime);
-			enemies.UpdateEnemies(gameTime);
-
-			// All physical objects
-			List<PhysicalObject> phys_obj = new List<PhysicalObject>();
-			phys_obj.Add(player);
-			phys_obj.AddRange(enemies.ListEnemies);
-
-			foreach (PhysicalObject po in phys_obj)
-				po.UpdateSprite(gameTime);
-			foreach (PhysicalObject po in phys_obj)
-				po.ApplyForces(phys_obj, map, gameTime);
-			foreach (PhysicalObject po in phys_obj)
-				po.ApplyCollisions(phys_obj, map, gameTime);
-			foreach (PhysicalObject po in phys_obj)
-				po.UpdatePosition(phys_obj, map, gameTime);
+			Game.Update(gameTime);
 
 			base.Update(gameTime);
 		}
@@ -109,10 +88,10 @@ namespace tim_dodge
 			graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
 
 			spriteBatch.Begin();
+
 			world.Draw(spriteBatch);
-			player.Draw(spriteBatch);
-			foreach (Enemy en in enemies.ListEnemies)
-				en.Draw(spriteBatch);
+			Game.Draw(spriteBatch);
+
 			spriteBatch.End();
 
 			base.Draw(gameTime);
