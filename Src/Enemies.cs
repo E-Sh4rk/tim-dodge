@@ -8,19 +8,20 @@ namespace tim_dodge
 	public class Enemies
 	{
 		private Random random;
+		private GameInstance game;
+
 		public List<Enemy> ListEnemies
 		{
 			get;
 			protected set;
 		}
-		private Texture texture = null;
-		private Map map = null;
+		private Texture texture;
 
-		public Enemies(Texture texture, Map map)
+		public Enemies(Texture texture, GameInstance game)
 		{
 			time = 0;
 			this.texture = texture;
-			this.map = map;
+			this.game = game;
 			random = new Random();
 			ListEnemies = new List<Enemy>();
 		}
@@ -44,7 +45,15 @@ namespace tim_dodge
 			ListEnemies.RemoveAll((e => e.IsOutOfBounds()));
 
 			// Delete enemies on the ground
-			ListEnemies.RemoveAll((e => map.nearTheGround(e)));
+			for (int i = 0; i < ListEnemies.Count; i++)
+			{
+				Enemy en = ListEnemies[i];
+				if (game.map.nearTheGround(en))
+				{
+					ListEnemies.Remove(en);
+					game.score.incr(10);
+				}
+			}
 		}
 	}
 }

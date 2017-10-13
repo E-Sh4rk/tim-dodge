@@ -54,6 +54,7 @@
     <Compile Include="Src\Enemies.cs" />
     <Compile Include="Src\GameInstance.cs" />
     <Compile Include="Src\GameManager.cs" />
+    <Compile Include="Src\Score.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.manifest" />
@@ -64,6 +65,8 @@
     <None Include="Content\character\Monstar.png" />
     <None Include="Content\character\Prince.png" />
     <None Include="Content\objects\bomb.png" />
+    <None Include="Content\SpriteFonts\Model.spritefont" />
+    <None Include="Content\SpriteFonts\Score.spritefont" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icon.ico" />
@@ -120,6 +123,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Src\" />
+    <Folder Include="Content\SpriteFonts\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />

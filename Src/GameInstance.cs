@@ -10,26 +10,31 @@ namespace tim_dodge
 {
 	public class GameInstance
 	{
-		private Player player = null;
-		private Enemies enemies = null;
-		private Map map = null;
+		private Player player;
+		private Enemies enemies;
+		public Score score;
+		private SpriteFont fontScore;
+		public Map map { get; }
 
 		private ContentManager Content;
 
 		public GameInstance(ContentManager Content)
 		{
+			map = new Map();
 			this.Content = Content;
+
 			LoadContent();
 		}
 
 		private void LoadContent()
 		{
-			map = new Map();
-
 			player = new Player(new Texture(Content.Load<Texture2D>("character/Tim")), new Sprite("Content.character.TimXml.xml"),
 					map, new Vector2(500, 250));
 
-			enemies = new Enemies(new Texture(Content.Load<Texture2D>("objects/bomb")), map);
+			fontScore = Content.Load<SpriteFont>("SpriteFonts/Score");
+			score = new Score(fontScore);
+
+			enemies = new Enemies(new Texture(Content.Load<Texture2D>("objects/bomb")), this);
 		}
 
 		public void Update(GameTime gameTime)
@@ -57,6 +62,7 @@ namespace tim_dodge
 			player.Draw(spriteBatch);
 			foreach (Enemy en in enemies.ListEnemies)
 				en.Draw(spriteBatch);
+			score.Draw(spriteBatch);
 		}
 	}
 }
