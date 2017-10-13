@@ -16,12 +16,14 @@ namespace tim_dodge
 			protected set;
 		}
 
-		private Texture texture;
+		private Texture bomb_texture;
+		private string bomb_sprite_path;
 
-		public Enemies(Texture texture, GameInstance game)
+		public Enemies(Texture bomb_texture, string bomb_sprite, GameInstance game)
 		{
 			time = 0;
-			this.texture = texture;
+			this.bomb_sprite_path = bomb_sprite;
+			this.bomb_texture = bomb_texture;
 			this.game = game;
 
 			random = new Random();
@@ -38,8 +40,9 @@ namespace tim_dodge
 
 			while (time > interval)
 			{
-				int X = random.Next(0, TimGame.WINDOW_WIDTH-texture.Image.Width);
-				Enemy enemy = new Bomb(texture, null, new Vector2(X, -30), game);
+				Sprite s = new Sprite(bomb_sprite_path);
+				int X = random.Next(0, TimGame.WINDOW_WIDTH-s.RectOfSprite().Size.X);
+				Enemy enemy = new Bomb(bomb_texture, s, new Vector2(X, -30), game);
 				Rectangle r1 = new Rectangle(enemy.Position.ToPoint(), enemy.Size);
 				Rectangle r2 = new Rectangle(game.player.Position.ToPoint(), game.player.Size);
 				enemy.ApplyNewImpulsion(new Vector2(Collision.direction_between(r1, r2, false).X * 0.04f, 0));
