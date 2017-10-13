@@ -10,7 +10,7 @@ namespace tim_dodge
 {
 	public class GameInstance
 	{
-		private Player player;
+		public Player player;
 		private Enemies enemies;
 		public Score score;
 		private SpriteFont fontScore;
@@ -35,6 +35,7 @@ namespace tim_dodge
 			score = new Score(fontScore);
 
 			enemies = new Enemies(new Texture(Content.Load<Texture2D>("objects/bomb")), this);
+
 		}
 
 		public void Update(GameTime gameTime)

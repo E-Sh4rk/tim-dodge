@@ -8,12 +8,22 @@ namespace tim_dodge
 	public static class Collision
 	{
 		const bool center_of_gravity_bottom = true;
-		static Point center_of_gravity(Rectangle r)
+		public static Point center_of_gravity(Rectangle r)
 		{
 			Point center = r.Center;
 			if (center_of_gravity_bottom)
 				center.Y = r.Y+r.Height;
 			return center;
+		}
+		public static Vector2 direction_between(Rectangle r1, Rectangle r2, bool normalize)
+		{
+			Point dir = center_of_gravity(r2) - center_of_gravity(r1);
+			if (dir.X == 0 && dir.Y == 0)
+				return new Vector2(0, 0);
+			Vector2 v = dir.ToVector2();
+			if (normalize)
+				v.Normalize();
+			return v;
 		}
 		/**
 		 * If the intersection is not null, return a unit vector in the direction that the collision force would have.
@@ -21,14 +31,7 @@ namespace tim_dodge
 		public static Vector2? rect_collision(Rectangle r1, Rectangle r2)
 		{
 			if (r1.Intersects(r2))
-			{
-				Point dir = center_of_gravity(r2) - center_of_gravity(r1);
-				if (dir.X == 0 && dir.Y == 0)
-					return new Vector2(0, 0);
-				Vector2 v = dir.ToVector2();
-				v.Normalize();
-				return v;
-			}
+				return direction_between(r1, r2, true);
 			return null;
 		}
 		public static bool sprite_collision(PhysicalObject o1, PhysicalObject o2)

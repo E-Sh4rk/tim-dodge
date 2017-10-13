@@ -19,6 +19,9 @@ namespace tim_dodge
 		{
 			get;
 		}
+
+		protected Color color; 
+
 		protected Vector2 position = new Vector2(0.0f, 0.0f);
 		public Vector2 Position
 		{
@@ -33,6 +36,7 @@ namespace tim_dodge
 			Position = pos;
 			id = next_id;
 			next_id++;
+			color = Color.White;
 		}
 
 		public Point Size
@@ -97,9 +101,9 @@ namespace tim_dodge
 		public void Draw(SpriteBatch spriteBatch)
 		{
 			if (Sprite != null)
-				spriteBatch.Draw(Texture.Image, position, new Rectangle(TexturePosition, Size), Color.White, 0f, new Vector2(0, 0), new Vector2(1, 1), Sprite.Effect, 0f);
+				spriteBatch.Draw(Texture.Image, position, new Rectangle(TexturePosition, Size), color, 0f, new Vector2(0, 0), new Vector2(1, 1), Sprite.Effect, 0f);
 			else
-				spriteBatch.Draw(Texture.Image, position, Color.White);
+				spriteBatch.Draw(Texture.Image, position, color);
 		}
 
 	}
