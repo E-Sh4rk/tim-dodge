@@ -7,7 +7,7 @@ namespace tim_dodge
 {
 	public class Stat
 	{
-		private int value;
+		public int value { get; private set; };
 		private SpriteFont fontDisplay;
 		private Vector2 Position;
 		private Color Color;
