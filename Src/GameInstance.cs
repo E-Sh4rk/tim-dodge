@@ -13,10 +13,16 @@ namespace tim_dodge
 	{
 		public Player player;
 		private Enemies enemies;
-		public Score score;
-		private SpriteFont fontScore;
 		public Map map { get; }
 
+		public Stat score;
+		private Vector2 PositionScore;
+
+		public Stat life;
+		private Vector2 PositionLife;
+		private int InitialLife;
+
+		private SpriteFont fontDisplay;
 		private ContentManager Content;
 
 		public Sound sounds
@@ -30,11 +36,6 @@ namespace tim_dodge
 			map = new Map();
 			this.Content = Content;
 
-			LoadContent();
-		}
-
-		private void LoadContent()
-		{
 			sounds = new Sound(new SoundEffect[] { Content.Load<SoundEffect>("sound/jump"),
 				Content.Load<SoundEffect>("sound/explosion")},
 							   new SoundEffect[] { Content.Load<SoundEffect>("sound/cuphead")});
@@ -43,13 +44,21 @@ namespace tim_dodge
 			                    new Vector2(500, 250), this);
 
 			sounds.playMusic(Sound.MusicName.cuphead);
-
-			fontScore = Content.Load<SpriteFont>("SpriteFonts/Score");
-			score = new Score(fontScore);
-
+			
 			enemies = new Enemies(new Texture(Content.Load<Texture2D>("objects/bomb")), this);
 
+			fontDisplay = Content.Load<SpriteFont>("SpriteFonts/Score");
+
+			InitialLife = 100;
+
+			PositionScore = new Vector2(30, 20);
+			PositionLife = new Vector2(30, 20 + fontDisplay.MeasureString("S").Y);
+
+			score = new Stat(fontDisplay, "Score : ", PositionScore, Color.Black, 0);
+			life = new Stat(fontDisplay, "Life : ", PositionLife, Color.Red, InitialLife);
 		}
+
+
 
 		public void Update(GameTime gameTime)
 		{
@@ -77,6 +86,7 @@ namespace tim_dodge
 			foreach (Enemy en in enemies.ListEnemies)
 				en.Draw(spriteBatch);
 			score.Draw(spriteBatch);
+			life.Draw(spriteBatch);
 		}
 	}
 }

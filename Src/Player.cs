@@ -17,6 +17,7 @@ namespace tim_dodge
 			this.map = gi.map;
 			Mass = 50;
 			gameInst = gi;
+			s.ChangeDirection(Controller.Direction.RIGHT);
 		}
 
 		protected SoundEffect jump;
