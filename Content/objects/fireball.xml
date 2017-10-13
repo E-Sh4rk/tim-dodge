@@ -1,0 +1,27 @@
+<!DOCTYPE SpriteDecomposer>
+<sprites image="fireball.png" transparentColor="">
+ <animation title="Burn1" delay="150">
+  <cut w="50" x="0" y="0" h="50" row="1" col="1"/>
+  <cut w="50" x="0" y="50" h="50" row="1" col="1"/>
+  <cut w="50" x="0" y="100" h="50" row="1" col="1"/>
+  <cut w="50" x="0" y="150" h="50" row="1" col="1"/>
+ </animation>
+ <animation title="Burn2" delay="150">
+  <cut w="50" x="50" y="0" h="50" row="1" col="1"/>
+  <cut w="50" x="50" y="50" h="50" row="1" col="1"/>
+  <cut w="50" x="50" y="100" h="50" row="1" col="1"/>
+  <cut w="50" x="50" y="150" h="50" row="1" col="1"/>
+ </animation>
+ <animation title="Burn3" delay="150">
+  <cut w="50" x="100" y="0" h="50" row="1" col="1"/>
+  <cut w="50" x="100" y="50" h="50" row="1" col="1"/>
+  <cut w="50" x="100" y="100" h="50" row="1" col="1"/>
+  <cut w="50" x="100" y="150" h="50" row="1" col="1"/>
+ </animation>
+ <animation title="Burn4" delay="150">
+  <cut w="50" x="150" y="0" h="50" row="1" col="1"/>
+  <cut w="50" x="150" y="50" h="50" row="1" col="1"/>
+  <cut w="50" x="150" y="100" h="50" row="1" col="1"/>
+  <cut w="50" x="150" y="150" h="50" row="1" col="1"/>
+ </animation>
+</sprites>
