@@ -10,11 +10,15 @@ namespace tim_dodge
 		private int value;
 		private SpriteFont fontScore;
 		private Color Color;
+		private Vector2 Position;
+		private String Text;
 
 		public Score(SpriteFont fontScore)
 		{
 			this.fontScore = fontScore;
+			Text = "Score : ";
 			Color = Color.Yellow;
+			Position = new Vector2(TimGame.WINDOW_WIDTH - 20, 50);
 		}
 
 		public void incr(int i)
@@ -29,12 +33,7 @@ namespace tim_dodge
 
 		public void Draw(SpriteBatch spriteBatch)
 		{
-			string text = "Score : " + value;
-
-			spriteBatch.DrawString(
-				fontScore, text,
-				new Vector2(TimGame.WINDOW_WIDTH - 20, 50) - fontScore.MeasureString(text),
-				Color);
+			spriteBatch.DrawString(fontScore, Text + value, Position - fontScore.MeasureString(Text + value), Color);
 		}
 	}
 }
