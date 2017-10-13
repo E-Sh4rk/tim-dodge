@@ -55,6 +55,7 @@
     <Compile Include="Src\GameInstance.cs" />
     <Compile Include="Src\GameManager.cs" />
     <Compile Include="Src\Bomb.cs" />
+    <Compile Include="Src\Sound.cs" />
     <Compile Include="Src\Stat.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -68,12 +69,18 @@
     <None Include="Content\objects\bomb.png" />
     <None Include="Content\SpriteFonts\Score.spritefont" />
     <None Include="Content\sound\jump.wav" />
+    <None Include="Content\objects\explosion.png" />
+    <None Include="Content\objects\fireball.png" />
+    <None Include="Content\sound\cuphead.wav" />
+    <None Include="Content\sound\explosion.wav" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icon.ico" />
     <EmbeddedResource Include="Content\character\TimXml.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Content\objects\explosion.xml" />
+    <EmbeddedResource Include="Content\objects\fireball.xml" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
