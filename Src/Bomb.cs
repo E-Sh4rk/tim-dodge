@@ -24,7 +24,6 @@ namespace tim_dodge
 		public void autoDestruct(GameTime gameTime)
 		{
 			time += (float)gameTime.ElapsedGameTime.TotalSeconds;
-			color = Color.Red;
 			if (time > timeBeforeBoom)
 			{
 				gameInst.sounds.playSound(Sound.SoundName.explosion);
@@ -34,6 +33,7 @@ namespace tim_dodge
 
 		public override void destructionMode(GameTime gt)
 		{
+			ChangeSpriteState(1);
 			autoDestruct(gt);
 		}
 

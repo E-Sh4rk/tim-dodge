@@ -52,7 +52,7 @@ namespace tim_dodge
 			player = new Player(new Texture(Content.Load<Texture2D>("character/Tim")), new Sprite("Content.character.TimXml.xml"),
 			                    new Vector2(500, 250), lifeTim, scoreTim, this);
 
-			enemies = new Enemies(new Texture(Content.Load<Texture2D>("objects/bomb")), this);
+			enemies = new Enemies(new Texture(Content.Load<Texture2D>("objects/bomb")), "Content.objects.bomb.xml", this);
 		}
 
 
