@@ -13,7 +13,7 @@ namespace tim_dodge
 		public Stat Life;
 		public Stat Score;
 
-		public Player(Texture t, Sprite s, Map map, Vector2 pos, Stat Life, Stat Score, GameInstance gi)
+		public Player(Texture t, Sprite s, Vector2 pos, Stat Life, Stat Score, GameInstance gi)
 			: base(t, s, pos)
 		{
 			JumpImpulsion = new Vector2(0f, -250f);

@@ -57,6 +57,7 @@
     <Compile Include="Src\Bomb.cs" />
     <Compile Include="Src\Sound.cs" />
     <Compile Include="Src\Stat.cs" />
+    <Compile Include="Src\Menu.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.manifest" />
