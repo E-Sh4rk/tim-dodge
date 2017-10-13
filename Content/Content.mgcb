@@ -81,3 +81,15 @@
 /processorParam:Quality=Best
 /build:sound/jump.wav
 
+#begin sound/explosion.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sound/explosion.wav
+
+#begin sound/cuphead.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sound/cuphead.wav
+

@@ -5,7 +5,7 @@ namespace tim_dodge
 {
 	public class Bomb : Enemy
 	{
-		public Bomb(Texture t, Sprite s, Vector2 p): base(t,s,p)
+		public Bomb(Texture t, Sprite s, Vector2 p, GameInstance gi): base(t,s,p,gi)
 		{
 			Mass = 5;
 			time = 0f;
@@ -24,8 +24,12 @@ namespace tim_dodge
 		public void autoDestruct(GameTime gameTime)
 		{
 			time += (float)gameTime.ElapsedGameTime.TotalSeconds;
-			color = Color.Red; 
-			Dead |= time > timeBeforeBoom;
+			color = Color.Red;
+			if (time > timeBeforeBoom)
+			{
+				gameInst.sounds.playSound(Sound.SoundName.explosion);
+				Dead = true;
+			}
 		}
 
 		public override void destructionMode(GameTime gt)

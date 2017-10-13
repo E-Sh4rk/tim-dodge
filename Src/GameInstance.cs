@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
 
 namespace tim_dodge
 {
@@ -18,6 +19,12 @@ namespace tim_dodge
 
 		private ContentManager Content;
 
+		public Sound sounds
+		{
+			get;
+			private set;
+		}
+
 		public GameInstance(ContentManager Content)
 		{
 			map = new Map();
@@ -28,10 +35,14 @@ namespace tim_dodge
 
 		private void LoadContent()
 		{
+			sounds = new Sound(new SoundEffect[] { Content.Load<SoundEffect>("sound/jump"),
+				Content.Load<SoundEffect>("sound/explosion")},
+							   new SoundEffect[] { Content.Load<SoundEffect>("sound/cuphead")});
+			
 			player = new Player(new Texture(Content.Load<Texture2D>("character/Tim")), new Sprite("Content.character.TimXml.xml"),
-					map, new Vector2(500, 250));
+			                    new Vector2(500, 250), this);
 
-			//player Content.Load<SoundEffect>("sound/jump");
+			sounds.playMusic(Sound.MusicName.cuphead);
 
 			fontScore = Content.Load<SpriteFont>("SpriteFonts/Score");
 			score = new Score(fontScore);

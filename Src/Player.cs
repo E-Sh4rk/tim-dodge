@@ -8,14 +8,15 @@ namespace tim_dodge
 {
 	public class Player : PhysicalObject
 	{
-		public Player(Texture t, Sprite s, Map map, Vector2 pos)
+		public Player(Texture t, Sprite s, Vector2 pos, GameInstance gi)
 			: base(t, s, pos)
 		{
 			JumpImpulsion = new Vector2(0f, -250f);
 			DashForceLeft = new Vector2(-1000f, 0f);
 			DashForceRight = -DashForceLeft;
-			this.map = map;
+			this.map = gi.map;
 			Mass = 50;
+			gameInst = gi;
 		}
 
 		protected SoundEffect jump;
@@ -24,6 +25,8 @@ namespace tim_dodge
 		protected Vector2 JumpImpulsion;
 		protected Vector2 DashForceLeft;
 		protected Vector2 DashForceRight;
+
+		protected GameInstance gameInst;
 
 		protected float elapsed_since_last_jump = 0;
 		const float min_time_between_jump = 0.25f;
@@ -42,6 +45,7 @@ namespace tim_dodge
 			{
 				if (CanJump())
 				{
+					gameInst.sounds.playSound(Sound.SoundName.jump);
 					elapsed_since_last_jump = 0;
 					map.magnetizeToGround(this);
 					ApplyNewImpulsion(JumpImpulsion);
