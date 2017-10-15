@@ -56,11 +56,11 @@
     <Compile Include="Src\Bomb.cs" />
     <Compile Include="Src\Sound.cs" />
     <Compile Include="Src\Stat.cs" />
-    <Compile Include="Src\Menu.cs" />
     <Compile Include="Src\Item.cs" />
-    <Compile Include="Src\MenuItem.cs" />
-    <Compile Include="Src\InitialMenu.cs" />
-    <Compile Include="Src\PauseMenu.cs" />
+    <Compile Include="Src\Menu\InitialMenu.cs" />
+    <Compile Include="Src\Menu\Menu.cs" />
+    <Compile Include="Src\Menu\MenuItem.cs" />
+    <Compile Include="Src\Menu\PauseMenu.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.manifest" />
@@ -137,6 +137,7 @@
   <ItemGroup>
     <Folder Include="Src\" />
     <Folder Include="Content\SpriteFonts\" />
+    <Folder Include="Src\Menu\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
