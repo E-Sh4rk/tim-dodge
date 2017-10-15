@@ -46,12 +46,10 @@ namespace tim_dodge
 
 			InitialLifeTim = 100;
 
-			Stat scoreTim = new Stat(fontDisplay, "Score : ", 0);
+			Stat scoreTim = new Stat(fontDisplay, Color.Black, "Score : ", 0);
 			scoreTim.Position = PositionScoreTim;
-			scoreTim.Color = Color.Black;
-			Stat lifeTim = new Stat(fontDisplay, "Life : ", InitialLifeTim);
+			Stat lifeTim = new Stat(fontDisplay, Color.Red, "Life : ", InitialLifeTim);
 			lifeTim.Position = PositionLifeTim;
-			lifeTim.Color = Color.Red;
 			player = new Player(new Texture(Content.Load<Texture2D>("character/Tim")), new Sprite("Content.character.TimXml.xml"),
 			                    new Vector2(500, 250), lifeTim, scoreTim, this);
 

@@ -20,7 +20,7 @@ namespace tim_dodge
 			value -= i;
 		}
 
-		public Stat(SpriteFont fontStat, String Title, int value) : base(Title + value, fontStat)
+		public Stat(SpriteFont fontStat, Color Color, String Title, int value) : base(Title + value, fontStat, Color)
 		{
 			this.Title = Title;
 			this.value = value;

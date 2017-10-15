@@ -44,7 +44,6 @@
     <Compile Include="Src\Enemy.cs" />
     <Compile Include="Src\GameObject.cs" />
     <Compile Include="Src\Player.cs" />
-    <Compile Include="Src\World.cs" />
     <Compile Include="Src\Sprite.cs" />
     <Compile Include="Src\RectSprite.cs" />
     <Compile Include="Src\Texture.cs" />
@@ -59,6 +58,7 @@
     <Compile Include="Src\Stat.cs" />
     <Compile Include="Src\Menu.cs" />
     <Compile Include="Src\Item.cs" />
+    <Compile Include="Src\MenuItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.manifest" />
@@ -75,6 +75,7 @@
     <None Include="Content\sound\cuphead.wav" />
     <None Include="Content\sound\explosion.wav" />
     <None Include="Content\SpriteFonts\Menu.spritefont" />
+    <None Include="Content\background\Menu.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icon.ico" />

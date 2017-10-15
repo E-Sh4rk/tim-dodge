@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <XnaContent xmlns:Graphics="Microsoft.Xna.Framework.Content.Pipeline.Graphics">
   <Asset Type="Graphics:FontDescription">
-    <FontName>Bubblegum</FontName>
+    <FontName>cafeandbrewery</FontName>
     <Size>25</Size>
     <Spacing>5</Spacing>
     <Style>Bold</Style>
