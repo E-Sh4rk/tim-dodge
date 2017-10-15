@@ -98,3 +98,10 @@
 /processorParam:TextureFormat=Color
 /build:objects/fireball.png
 
+#begin SpriteFonts/Menu.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:SpriteFonts/Menu.spritefont
+

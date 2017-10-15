@@ -5,23 +5,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace tim_dodge
 {
-	public class Stat
+	public class Stat : Item
 	{
 		public int value { get; private set; }
-		private SpriteFont fontDisplay;
-		private Vector2 Position;
-		private Color Color;
-		private String Text;
-
-		public Stat(SpriteFont fontDisplay, String Text, Vector2 Position, Color Color, int value)
-		{
-			this.fontDisplay = fontDisplay;
-
-			this.Text = Text;
-			this.Position = Position;
-			this.Color = Color;
-			this.value = value;
-		}
+		private String Title;
 
 		public void incr(int i)
 		{
@@ -33,9 +20,16 @@ namespace tim_dodge
 			value -= i;
 		}
 
-		public void Draw(SpriteBatch spriteBatch)
+		public Stat(SpriteFont fontStat, String Title, int value) : base(Title + value, fontStat)
 		{
-			spriteBatch.DrawString(fontDisplay, Text + value, Position, Color);
+			this.Title = Title;
+			this.value = value;
 		}
+
+		public void Update()
+		{
+			Text = Title + value;
+		}
+
 	}
 }

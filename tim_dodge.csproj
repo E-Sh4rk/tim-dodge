@@ -58,6 +58,7 @@
     <Compile Include="Src\Sound.cs" />
     <Compile Include="Src\Stat.cs" />
     <Compile Include="Src\Menu.cs" />
+    <Compile Include="Src\Item.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.manifest" />
@@ -73,6 +74,7 @@
     <None Include="Content\objects\fireball.png" />
     <None Include="Content\sound\cuphead.wav" />
     <None Include="Content\sound\explosion.wav" />
+    <None Include="Content\SpriteFonts\Menu.spritefont" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icon.ico" />
