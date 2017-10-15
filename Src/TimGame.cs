@@ -40,6 +40,11 @@ namespace tim_dodge
 			base.Initialize();
 		}
 
+		public void Quit()
+		{
+			this.Exit();
+		}
+
 		/// <summary>
 		/// LoadContent will be called once per game and is the place to load
 		/// all of your content.
@@ -49,7 +54,7 @@ namespace tim_dodge
 			//this.TargetElapsedTime = TimeSpan.FromSeconds(1.0f / 250.0f);
 			// Create a new SpriteBatch, which can be used to draw textures.
 			spriteBatch = new SpriteBatch(GraphicsDevice);
-			Game = new GameManager(Content);
+			Game = new GameManager(Content, this);
 		}
 
 		/// <summary>

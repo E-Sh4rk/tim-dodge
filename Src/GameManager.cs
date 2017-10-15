@@ -16,16 +16,18 @@ namespace tim_dodge
 		private Menu InitialMenu;
 		private bool MenuEnabled;
 		private GameInstance game;
+		private TimGame Application;
 
-		public GameManager(ContentManager Content)
+		public GameManager(ContentManager Content, TimGame Application)
 		{
 			this.Content = Content;
+			this.Application = Application;
 			Background = Content.Load<Texture2D>("background/winter");
-			FillInitialMenu(Content);
+			FillInitialMenu();
 			MenuEnabled = true;
 		}
 
-		private void FillInitialMenu(ContentManager Content)
+		private void FillInitialMenu()
 		{
 			SpriteFont FontMenu = Content.Load<SpriteFont>("SpriteFonts/Menu");
 			Color ColorTextMenu = Color.White;
@@ -66,6 +68,7 @@ namespace tim_dodge
 
 		public void Quit()
 		{
+			Application.Quit();	
 		}
 
 		public void Update(GameTime gameTime)
