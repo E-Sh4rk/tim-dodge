@@ -12,50 +12,42 @@ namespace tim_dodge
 	// To link menus and game instances
 	{
 		private ContentManager Content;
-		private Texture2D Background;
-		private Menu InitialMenu;
-		private bool MenuEnabled;
-		private GameInstance game;
 		private TimGame Application;
+		private GameInstance game;
+		private Texture2D Background;
+
+		private InitialMenu InitialMenu;
+		private PauseMenu PauseMenu;
+		private bool GameRunning { get { return game != null; } }
+		private bool PauseMode;
 
 		public GameManager(ContentManager Content, TimGame Application)
 		{
 			this.Content = Content;
 			this.Application = Application;
 			Background = Content.Load<Texture2D>("background/winter");
-			FillInitialMenu();
-			MenuEnabled = true;
-		}
+			PauseMode = false;
 
-		private void FillInitialMenu()
-		{
+			Texture2D BackgrouneMenu = Content.Load<Texture2D>("background/Menu");
 			SpriteFont FontMenu = Content.Load<SpriteFont>("SpriteFonts/Menu");
 			Color ColorTextMenu = Color.White;
 			Color ColorHighlightSelection = Color.Yellow;
-			List<MenuItem> ListItems = new List<MenuItem>();
 
-			MenuItem newGame = new MenuItem("New Game", FontMenu, ColorTextMenu);
-			MenuItem parameters = new MenuItem("Parameters", FontMenu, ColorTextMenu);
-			MenuItem bestScores = new MenuItem("Best Scores", FontMenu, ColorTextMenu);
-			MenuItem quit = new MenuItem("Quit", FontMenu, ColorTextMenu);
-
-			newGame.LaunchSelection += NewGame;
-			parameters.LaunchSelection += Parameters;
-			bestScores.LaunchSelection += BestScores;
-			quit.LaunchSelection += Quit;
-
-			ListItems.Add(newGame);
-			ListItems.Add(parameters);
-			ListItems.Add(bestScores);
-			ListItems.Add(quit);
-
-			InitialMenu = new Menu(Content.Load<Texture2D>("background/Menu"), ListItems, ColorHighlightSelection);
+			InitialMenu = new InitialMenu(BackgrouneMenu, this, FontMenu, ColorTextMenu, ColorHighlightSelection);
+			PauseMenu = new PauseMenu(BackgrouneMenu, this, FontMenu, ColorTextMenu, ColorHighlightSelection);
 		}
 
 		public void NewGame()
 		{
+			if (game != null)
+				game.sounds.playing.Stop();
 			game = new GameInstance(Content);
-			MenuEnabled = false;
+			PauseMode = false;
+		}
+
+		public void Resume()
+		{
+			PauseMode = false;
 		}
 
 		public void Parameters()
@@ -71,23 +63,38 @@ namespace tim_dodge
 			Application.Quit();	
 		}
 
+		private void LauchPause()
+		{
+			PauseMode = true;
+		}
+
 		public void Update(GameTime gameTime)
 		{
-			if (MenuEnabled)
-				InitialMenu.Update(Keyboard.GetState());
-			else
+			if (GameRunning && !PauseMode &&
+				(Controller.KeyPressed(Keys.Space) || Controller.KeyPressed(Keys.P)))
+				LauchPause();
+
+			if (GameRunning && !PauseMode)
 				game.Update(gameTime);
+			else if (PauseMode)
+				PauseMenu.Update();
+			else
+				InitialMenu.Update();
 		}
 
 		public void Draw(SpriteBatch spriteBatch)
 		{
 			spriteBatch.Draw(Background, Vector2.Zero, Color.White);
 
-			if (MenuEnabled)
-				InitialMenu.Draw(spriteBatch);
-
-			else
+			if (GameRunning)
+			{
 				game.Draw(spriteBatch);
+				if (PauseMode)
+					PauseMenu.Draw(spriteBatch);
+			}
+			else
+				InitialMenu.Draw(spriteBatch);		
+
 		}
 	}
 }

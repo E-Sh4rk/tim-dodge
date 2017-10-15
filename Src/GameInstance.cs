@@ -56,11 +56,11 @@ namespace tim_dodge
 			enemies = new Enemies(new Texture(Content.Load<Texture2D>("objects/bomb")), "Content.objects.bomb.xml", this);
 		}
 
-
-
 		public void Update(GameTime gameTime)
 		{
-			player.Move(Keyboard.GetState(), gameTime);
+			KeyboardState state = Keyboard.GetState();
+
+			player.Move(state, gameTime);
 			enemies.UpdateEnemies(gameTime);
 
 			// All physical objects

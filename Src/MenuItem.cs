@@ -14,7 +14,7 @@ namespace tim_dodge
 		{
 		}
 
-		public void LaunchSelecion()
+		public void LaunchSelectEvent()
 		{
 			LaunchSelection();
 		}

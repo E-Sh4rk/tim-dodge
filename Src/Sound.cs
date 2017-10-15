@@ -6,6 +6,7 @@ namespace tim_dodge
 {
 	public class Sound
 	{
+		public SoundEffectInstance playing;
 
 		public SoundEffect[] sounds;
 		public SoundEffect[] musics;
@@ -42,7 +43,7 @@ namespace tim_dodge
 		{
 			if (!musicmute)
 			{
-				SoundEffectInstance playing = musics[(int)mus].CreateInstance();
+				playing = musics[(int)mus].CreateInstance();
 				playing.IsLooped = true;
 				playing.Play();
 			}

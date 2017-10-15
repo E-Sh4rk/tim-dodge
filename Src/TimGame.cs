@@ -62,6 +62,10 @@ namespace tim_dodge
 		/// checking for collisions, gathering input, and playing audio.
 		/// </summary>
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
+
+		public static KeyboardState previousKeyState;
+		public static KeyboardState currentKeyState;
+
 		protected override void Update(GameTime gameTime)
 		{
 			// For Mobile devices, this logic will close the Game when the Back button is pressed
@@ -73,6 +77,10 @@ namespace tim_dodge
 
 			graphics.PreferredBackBufferWidth = WINDOW_WIDTH;
 			graphics.PreferredBackBufferHeight = WINDOW_HEIGHT;
+
+			// cf function KeyPressed in the class Controller
+			previousKeyState = currentKeyState;
+			currentKeyState = Keyboard.GetState();
 
 			Game.Update(gameTime);
 

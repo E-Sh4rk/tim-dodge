@@ -14,17 +14,20 @@ namespace tim_dodge
 		private int itemNumber;
 		private Color ColorHighlightSelection; // color of the selection
 
-		public Menu(Texture2D BackgroundPicture, List<MenuItem> ListItems, Color ColorHighlightSelection)
+		public Menu(Texture2D BackgroundPicture, Color ColorHighlightSelection)
 		{
-			this.ListItems = ListItems;
+			ListItems = new List<MenuItem>();
 			Background = new Item(BackgroundPicture);
 			itemNumber = 0;
 			this.ColorHighlightSelection = ColorHighlightSelection;
+		}
 
+		protected void ConstructMenu()
+		{           
 			// Proportionnality constant (proportional to the size of the item)
 			float BackgroundBordureX = 1f / 4f;
 			float BackgroundBordureY = 1f / 2f;
-			float SpacingBetweenItems = 1f / 4f; 
+			float SpacingBetweenItems = 1f / 4f;
 
 			SetBackground(BackgroundBordureX, BackgroundBordureY, SpacingBetweenItems);
 			AlignItems(BackgroundBordureY, SpacingBetweenItems);
@@ -75,22 +78,15 @@ namespace tim_dodge
 			ListItems[itemNumber].Color = ColorHighlightSelection;
 		}
 
-
-		private KeyboardState prevKeyState;
-		private KeyboardState currentKeyState;
-
-		public void Update(KeyboardState state)
+		public void Update()
 		{
-			prevKeyState = currentKeyState;
-			currentKeyState = state;
+			if (Controller.KeyPressed(Keys.Enter))
+				ListItems[itemNumber].LaunchSelectEvent();
 
-			if (prevKeyState.IsKeyUp(Keys.Enter) && currentKeyState.IsKeyDown(Keys.Enter))
-				ListItems[itemNumber].LaunchSelecion();
-
-			if (prevKeyState.IsKeyUp(Keys.Down) && currentKeyState.IsKeyDown(Keys.Down))
+			if (Controller.KeyPressed(Keys.Down))
 				itemNumber++;
 
-			if (prevKeyState.IsKeyUp(Keys.Up) && currentKeyState.IsKeyDown(Keys.Up))
+			if (Controller.KeyPressed(Keys.Up))
 				itemNumber--;
 
 			if (itemNumber < 0)
