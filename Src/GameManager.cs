@@ -51,11 +51,6 @@ namespace tim_dodge
 		{
 			if (game == null)
 				sounds.playMusic(Sound.MusicName.cuphead);
-			else
-			{
-				sounds.music.Stop();
-				sounds.playMusic(Sound.MusicName.cuphead);
-			}
 			
 			game = new GameInstance(Content);
 			PauseMode = false;
