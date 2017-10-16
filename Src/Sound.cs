@@ -12,6 +12,7 @@ namespace tim_dodge
 		public SoundEffect[] musics;
 
 		public bool sfxmute = false;
+		public bool musicmute = false;
 
 		public Sound(SoundEffect[] sfx, SoundEffect[] musc)
 		{
@@ -42,7 +43,8 @@ namespace tim_dodge
 		{
 			music = musics[(int)mus].CreateInstance();
 			music.IsLooped = true;
-			music.Play();
+			if (!musicmute)
+				music.Play();
 		}
 	}
 }
