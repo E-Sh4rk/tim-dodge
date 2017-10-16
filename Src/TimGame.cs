@@ -18,7 +18,6 @@ namespace tim_dodge
 		public const int WINDOW_WIDTH = 1280;
 		public const int WINDOW_HEIGHT = 720;
 
-		World world = null;
 		GameManager Game;
 
 		public TimGame()
@@ -41,6 +40,11 @@ namespace tim_dodge
 			base.Initialize();
 		}
 
+		public void Quit()
+		{
+			this.Exit();
+		}
+
 		/// <summary>
 		/// LoadContent will be called once per game and is the place to load
 		/// all of your content.
@@ -50,12 +54,7 @@ namespace tim_dodge
 			//this.TargetElapsedTime = TimeSpan.FromSeconds(1.0f / 250.0f);
 			// Create a new SpriteBatch, which can be used to draw textures.
 			spriteBatch = new SpriteBatch(GraphicsDevice);
-
-			world = new World(new Texture(Content.Load<Texture2D>("background/winter")), null, new Vector2(0.0f, 0.0f));
-			//world.colorTab = new Color[world.Texture.Width * world.Texture.Height];
-			//world.Texture.GetData<Color>(world.colorTab);
-
-			Game = new GameManager(Content);
+			Game = new GameManager(Content, this);
 		}
 
 		/// <summary>
@@ -63,6 +62,10 @@ namespace tim_dodge
 		/// checking for collisions, gathering input, and playing audio.
 		/// </summary>
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
+
+		public static KeyboardState previousKeyState;
+		public static KeyboardState currentKeyState;
+
 		protected override void Update(GameTime gameTime)
 		{
 			// For Mobile devices, this logic will close the Game when the Back button is pressed
@@ -74,6 +77,10 @@ namespace tim_dodge
 
 			graphics.PreferredBackBufferWidth = WINDOW_WIDTH;
 			graphics.PreferredBackBufferHeight = WINDOW_HEIGHT;
+
+			// cf function KeyPressed in the class Controller
+			previousKeyState = currentKeyState;
+			currentKeyState = Keyboard.GetState();
 
 			Game.Update(gameTime);
 
@@ -89,10 +96,7 @@ namespace tim_dodge
 			graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
 
 			spriteBatch.Begin();
-
-			world.Draw(spriteBatch);
 			Game.Draw(spriteBatch);
-
 			spriteBatch.End();
 
 			base.Draw(gameTime);

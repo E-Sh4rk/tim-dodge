@@ -60,7 +60,7 @@ namespace tim_dodge
 			{
 				if (CanJump())
 				{
-					gameInst.sounds.playSound(Sound.SoundName.jump);
+					GameManager.sounds.playSound(Sound.SoundName.jump);
 					elapsed_since_last_jump = 0;
 					map.magnetizeToGround(this);
 					ApplyNewImpulsion(JumpImpulsion);
