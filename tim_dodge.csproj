@@ -61,6 +61,7 @@
     <Compile Include="Src\Menu\Menu.cs" />
     <Compile Include="Src\Menu\MenuItem.cs" />
     <Compile Include="Src\Menu\PauseMenu.cs" />
+    <Compile Include="Src\Menu\Parameters.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.manifest" />

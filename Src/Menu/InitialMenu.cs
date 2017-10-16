@@ -8,10 +8,10 @@ namespace tim_dodge
 {
 	public class InitialMenu : Menu
 	{
-		public MenuItem newGame;
-		public MenuItem parameters;
-		public MenuItem bestScores;
-		public MenuItem quit;
+		private MenuItem newGame;
+		private MenuItem parameters;
+		private MenuItem bestScores;
+		private MenuItem quit;
 
 		public InitialMenu(Texture2D BackgroundPicture, GameManager GameManager,
 		                   SpriteFont FontMenu, Color ColorTextMenu, Color ColorHighlightSelection)

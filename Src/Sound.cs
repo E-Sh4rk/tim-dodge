@@ -6,13 +6,12 @@ namespace tim_dodge
 {
 	public class Sound
 	{
-		public SoundEffectInstance playing;
+		public SoundEffectInstance music; // Music played
 
 		public SoundEffect[] sounds;
 		public SoundEffect[] musics;
 
 		public bool sfxmute = false;
-		public bool musicmute = false;
 
 		public Sound(SoundEffect[] sfx, SoundEffect[] musc)
 		{
@@ -41,13 +40,9 @@ namespace tim_dodge
 
 		public void playMusic(MusicName mus)
 		{
-			if (!musicmute)
-			{
-				playing = musics[(int)mus].CreateInstance();
-				playing.IsLooped = true;
-				playing.Play();
-			}
-
+			music = musics[(int)mus].CreateInstance();
+			music.IsLooped = true;
+			music.Play();
 		}
 	}
 }

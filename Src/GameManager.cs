@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
 
 namespace tim_dodge
 {
@@ -18,15 +18,20 @@ namespace tim_dodge
 
 		private InitialMenu InitialMenu;
 		private PauseMenu PauseMenu;
+		private Parameters ParamMenu;
+
 		private bool GameRunning { get { return game != null; } }
 		private bool PauseMode;
+		private bool SetParam;
+
+		public static Sound sounds { get; private set; }
 
 		public GameManager(ContentManager Content, TimGame Application)
 		{
 			this.Content = Content;
 			this.Application = Application;
 			Background = Content.Load<Texture2D>("background/winter");
-			PauseMode = false;
+			PauseMode = SetParam = false;
 
 			Texture2D BackgrouneMenu = Content.Load<Texture2D>("background/Menu");
 			SpriteFont FontMenu = Content.Load<SpriteFont>("SpriteFonts/Menu");
@@ -35,12 +40,23 @@ namespace tim_dodge
 
 			InitialMenu = new InitialMenu(BackgrouneMenu, this, FontMenu, ColorTextMenu, ColorHighlightSelection);
 			PauseMenu = new PauseMenu(BackgrouneMenu, this, FontMenu, ColorTextMenu, ColorHighlightSelection);
+			ParamMenu = new Parameters(BackgrouneMenu, this, FontMenu, ColorTextMenu, ColorHighlightSelection);
+
+			sounds = new Sound(new SoundEffect[] { Content.Load<SoundEffect>("sound/jump"),
+				Content.Load<SoundEffect>("sound/explosion")},
+				   new SoundEffect[] { Content.Load<SoundEffect>("sound/cuphead") });
 		}
 
 		public void NewGame()
 		{
-			if (game != null)
-				game.sounds.playing.Stop();
+			if (game == null)
+				sounds.playMusic(Sound.MusicName.cuphead);
+			else
+			{
+				sounds.music.Stop();
+				sounds.playMusic(Sound.MusicName.cuphead);
+			}
+			
 			game = new GameInstance(Content);
 			PauseMode = false;
 		}
@@ -52,6 +68,12 @@ namespace tim_dodge
 
 		public void Parameters()
 		{
+			SetParam = true;
+		}
+
+		public void BackMenu()
+		{
+			SetParam = false;
 		}
 
 		public void BestScores()
@@ -76,6 +98,8 @@ namespace tim_dodge
 
 			if (GameRunning && !PauseMode)
 				game.Update(gameTime);
+			else if (SetParam)
+				ParamMenu.Update();
 			else if (PauseMode)
 				PauseMenu.Update();
 			else
@@ -89,9 +113,13 @@ namespace tim_dodge
 			if (GameRunning)
 			{
 				game.Draw(spriteBatch);
-				if (PauseMode)
+				if (SetParam)
+					ParamMenu.Draw(spriteBatch);
+				else if (PauseMode)
 					PauseMenu.Draw(spriteBatch);
 			}
+			else if (SetParam)
+				ParamMenu.Draw(spriteBatch);
 			else
 				InitialMenu.Draw(spriteBatch);		
 

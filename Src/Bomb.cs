@@ -26,7 +26,7 @@ namespace tim_dodge
 			time += (float)gameTime.ElapsedGameTime.TotalSeconds;
 			if (time > timeBeforeBoom)
 			{
-				gameInst.sounds.playSound(Sound.SoundName.explosion);
+				GameManager.sounds.playSound(Sound.SoundName.explosion);
 				Dead = true;
 			}
 		}

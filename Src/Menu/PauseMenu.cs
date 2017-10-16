@@ -8,7 +8,7 @@ namespace tim_dodge
 {
 	public class PauseMenu : InitialMenu
 	{
-		public MenuItem resume;
+		private MenuItem resume;
 
 		public PauseMenu(Texture2D BackgroundPicture, GameManager GameManager,
 		                 SpriteFont FontMenu, Color ColorTextMenu, Color ColorHighlightSelection)

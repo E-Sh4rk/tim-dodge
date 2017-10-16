@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Audio;
 
 namespace tim_dodge
 {
@@ -22,22 +21,10 @@ namespace tim_dodge
 		private SpriteFont fontDisplay;
 		private ContentManager Content;
 
-		public Sound sounds
-		{
-			get;
-			private set;
-		}
-
 		public GameInstance(ContentManager Content)
 		{
 			map = new Map();
 			this.Content = Content;
-
-			sounds = new Sound(new SoundEffect[] { Content.Load<SoundEffect>("sound/jump"),
-				Content.Load<SoundEffect>("sound/explosion")},
-							   new SoundEffect[] { Content.Load<SoundEffect>("sound/cuphead")});
-
-			sounds.playMusic(Sound.MusicName.cuphead);
 
 			fontDisplay = Content.Load<SpriteFont>("SpriteFonts/Score");
 
