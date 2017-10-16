@@ -34,7 +34,7 @@ namespace tim_dodge
 
 		public void playSound(SoundName son)
 		{
-			if(!sfxmute)
+			if (!sfxmute && false)
 				sounds[(int)son].Play();
 		}
 
