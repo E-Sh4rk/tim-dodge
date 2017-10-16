@@ -8,14 +8,10 @@ namespace tim_dodge
 {
 	public class PauseMenu : InitialMenu
 	{
-		private MenuItem resume;
-
-		public PauseMenu(Texture2D BackgroundPicture, GameManager GameManager,
-		                 SpriteFont FontMenu, Color ColorTextMenu, Color ColorHighlightSelection)
-			: base(BackgroundPicture, GameManager, FontMenu, ColorTextMenu, ColorHighlightSelection)
+		public PauseMenu(GameManager GameManager)
+			: base(GameManager)
 		{
-			resume = new MenuItem("Resume", FontMenu, ColorTextMenu);
-			resume.LaunchSelection += GameManager.Resume;
+			MenuItem resume = new MenuItem("Resume", this, GameManager.Resume);
 
 			List<MenuItem> PauseItems = new List<MenuItem>();
 			PauseItems.Add(resume);

@@ -14,12 +14,18 @@ namespace tim_dodge
 		private int itemNumber;
 		private Color ColorHighlightSelection; // color of the selection
 
-		public Menu(Texture2D BackgroundPicture, Color ColorHighlightSelection)
+		public SpriteFont FontMenu { get; }
+		public Color ColorTextMenu { get; }
+
+		public Menu(GameManager GameManager)
 		{
 			ListItems = new List<MenuItem>();
-			Background = new Item(BackgroundPicture);
+			Background = new Item(GameManager.BackgroundMenu);
 			itemNumber = 0;
-			this.ColorHighlightSelection = ColorHighlightSelection;
+
+			FontMenu = GameManager.FontMenu;
+			ColorTextMenu = GameManager.ColorTextMenu;
+			ColorHighlightSelection = GameManager.ColorHighlightSelection;
 		}
 
 		protected void ConstructMenu()
@@ -81,7 +87,7 @@ namespace tim_dodge
 		public void Update()
 		{
 			if (Controller.KeyPressed(Keys.Enter))
-				ListItems[itemNumber].LaunchSelectEvent();
+				ListItems[itemNumber].LaunchSelection();
 
 			if (Controller.KeyPressed(Keys.Down))
 				itemNumber++;

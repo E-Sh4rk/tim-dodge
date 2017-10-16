@@ -8,17 +8,11 @@ namespace tim_dodge
 	public class MenuItem : Item
 	{
 		public delegate void ItemSelected();
-		public event ItemSelected LaunchSelection;
+		public ItemSelected LaunchSelection;
 
-		public MenuItem(String Text, SpriteFont fontItem, Color Color) : base(Text, fontItem, Color)
+		public MenuItem(String Text, Menu Menu, ItemSelected function) : base(Text, Menu.FontMenu, Menu.ColorTextMenu)
 		{
+			LaunchSelection = function;
 		}
-
-		public void LaunchSelectEvent()
-		{
-			LaunchSelection();
-		}
-
-
 	}
 }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -16,89 +18,80 @@ namespace tim_dodge
 		private GameInstance game;
 		private Texture2D Background;
 
+		public Texture2D BackgroundMenu { get; }
+		public SpriteFont FontMenu { get; }
+		public Color ColorTextMenu { get; }
+		public Color ColorHighlightSelection { get; }
+
+		private List<Menu> CurrentMenu;
 		private InitialMenu InitialMenu;
 		private PauseMenu PauseMenu;
 		private Parameters ParamMenu;
 
-		private bool GameRunning { get { return game != null; } }
-		private bool PauseMode;
-		private bool SetParam;
+		public bool GameRunning { get { return game != null; } }
+		private bool MenuRunning { get { return CurrentMenu.Count != 0; } }
 
 		public static Sound sounds { get; private set; }
 
 		public GameManager(ContentManager Content, TimGame Application)
 		{
+			sounds = new Sound(new SoundEffect[] { Content.Load<SoundEffect>("sound/jump"),
+				Content.Load<SoundEffect>("sound/explosion")},
+			                   new SoundEffect[] { Content.Load<SoundEffect>("sound/cuphead") });
+
+			sounds.sfxmute = true; // Mute sound effects by default
+			sounds.musicmute = true; // Mute music by default
+
 			this.Content = Content;
 			this.Application = Application;
 			Background = Content.Load<Texture2D>("background/winter");
-			PauseMode = SetParam = false;
+			//PauseMode = SetParam = false;
 
-			Texture2D BackgrouneMenu = Content.Load<Texture2D>("background/Menu");
-			SpriteFont FontMenu = Content.Load<SpriteFont>("SpriteFonts/Menu");
-			Color ColorTextMenu = Color.White;
-			Color ColorHighlightSelection = Color.Yellow;
+			BackgroundMenu = Content.Load<Texture2D>("background/Menu");
+			FontMenu = Content.Load<SpriteFont>("SpriteFonts/Menu");
+			ColorTextMenu = Color.White;
+			ColorHighlightSelection = Color.Yellow;
 
-			InitialMenu = new InitialMenu(BackgrouneMenu, this, FontMenu, ColorTextMenu, ColorHighlightSelection);
-			PauseMenu = new PauseMenu(BackgrouneMenu, this, FontMenu, ColorTextMenu, ColorHighlightSelection);
-			ParamMenu = new Parameters(BackgrouneMenu, this, FontMenu, ColorTextMenu, ColorHighlightSelection);
-
-			sounds = new Sound(new SoundEffect[] { Content.Load<SoundEffect>("sound/jump"),
-				Content.Load<SoundEffect>("sound/explosion")},
-				   new SoundEffect[] { Content.Load<SoundEffect>("sound/cuphead") });
+			InitialMenu = new InitialMenu(this);
+			PauseMenu = new PauseMenu(this);
+			ParamMenu = new Parameters(this);
+			CurrentMenu = new List<Menu>();
+			CurrentMenu.Add(InitialMenu);
 		}
 
 		public void NewGame()
 		{
 			if (game == null)
 				sounds.playMusic(Sound.MusicName.cuphead);
-			
+
 			game = new GameInstance(Content);
-			PauseMode = false;
+			CurrentMenu = new List<Menu>();
 		}
 
-		public void Resume()
-		{
-			PauseMode = false;
-		}
+		private void LauchPause() { CurrentMenu.Add(PauseMenu); }
 
-		public void Parameters()
-		{
-			SetParam = true;
-		}
+		public void Resume() { CurrentMenu = new List<Menu>(); }
 
-		public void BackMenu()
-		{
-			SetParam = false;
-		}
+		public void Parameters() { CurrentMenu.Add(ParamMenu); }
+
+		public void BackMenu() { CurrentMenu.Remove(CurrentMenu.Last()); }
 
 		public void BestScores()
 		{
 		}
 
-		public void Quit()
-		{
-			Application.Quit();	
-		}
-
-		private void LauchPause()
-		{
-			PauseMode = true;
-		}
+		public void Quit() { Application.Quit(); }
 
 		public void Update(GameTime gameTime)
 		{
-			if (GameRunning && !PauseMode &&
+			if (GameRunning && !MenuRunning &&
 				(Controller.KeyPressed(Keys.Space) || Controller.KeyPressed(Keys.P)))
 				LauchPause();
 
-			if (GameRunning && !PauseMode)
-				game.Update(gameTime);
-			else if (SetParam)
-				ParamMenu.Update();
-			else if (PauseMode)
-				PauseMenu.Update();
+			if (MenuRunning)
+				CurrentMenu.Last().Update();
 			else
-				InitialMenu.Update();
+				game.Update(gameTime);
 		}
 
 		public void Draw(SpriteBatch spriteBatch)
@@ -106,18 +99,10 @@ namespace tim_dodge
 			spriteBatch.Draw(Background, Vector2.Zero, Color.White);
 
 			if (GameRunning)
-			{
 				game.Draw(spriteBatch);
-				if (SetParam)
-					ParamMenu.Draw(spriteBatch);
-				else if (PauseMode)
-					PauseMenu.Draw(spriteBatch);
-			}
-			else if (SetParam)
-				ParamMenu.Draw(spriteBatch);
-			else
-				InitialMenu.Draw(spriteBatch);		
 
+			if (MenuRunning)
+				CurrentMenu.Last().Draw(spriteBatch);
 		}
 	}
 }

@@ -11,27 +11,31 @@ namespace tim_dodge
 		private MenuItem deactivateSoundEffect;
 		private MenuItem activateMusic;
 		private MenuItem deactivateMusic;
-		private MenuItem backToMenu;
 
+		private GameManager GameManager;
 
-		public Parameters(Texture2D BackgroundPicture, GameManager GameManager,
-						   SpriteFont FontMenu, Color ColorTextMenu, Color ColorHighlightSelection)
-			: base(BackgroundPicture, ColorHighlightSelection)
+		public Parameters(GameManager GameManager)
+			: base(GameManager)
 		{
-			activateSoundEffect = new MenuItem("   Activate Sound Effects   ", FontMenu, ColorTextMenu);
-			deactivateSoundEffect = new MenuItem("Deactivate Sound Effects", FontMenu, ColorTextMenu);
-			activateMusic = new MenuItem("Activate Music", FontMenu, ColorTextMenu);
-			deactivateMusic = new MenuItem("Deactivate Music", FontMenu, ColorTextMenu);
-			backToMenu = new MenuItem("Back to Menu", FontMenu, ColorTextMenu);
+			this.GameManager = GameManager;
 
-			activateSoundEffect.LaunchSelection += activSoundEffect;
-			deactivateSoundEffect.LaunchSelection += deactivSoundEffect;
-			activateMusic.LaunchSelection += activMusic;
-			deactivateMusic.LaunchSelection += deactivMusic;
-			backToMenu.LaunchSelection += GameManager.BackMenu;
+			activateMusic = new MenuItem("Activate Music", this, activMusic);
+			deactivateMusic = new MenuItem("Deactivate Music", this, deactivMusic);
+			activateSoundEffect = new MenuItem("   Activate Sound Effects   ", this, activSoundEffect);
+			deactivateSoundEffect = new MenuItem("Deactivate Sound Effects", this, deactivSoundEffect);
 
-			ListItems.Add(deactivateMusic);
-			ListItems.Add(deactivateSoundEffect);
+			MenuItem backToMenu = new MenuItem("Back to Menu", this, GameManager.BackMenu);
+
+			if (GameManager.sounds.musicmute)
+				ListItems.Add(activateMusic);
+			else
+				ListItems.Add(deactivateMusic);
+			
+			if (GameManager.sounds.sfxmute)
+				ListItems.Add(activateSoundEffect);
+			else
+				ListItems.Add(deactivateSoundEffect);
+			
 			ListItems.Add(backToMenu);
 
 			ConstructMenu();
@@ -39,20 +43,22 @@ namespace tim_dodge
 
 		private void activMusic()
 		{
-			if (GameManager.sounds.music == null)
-				GameManager.sounds.musicmute = false;
-			else
+			if (GameManager.GameRunning)
 				GameManager.sounds.music.Play();
+			else
+				GameManager.sounds.musicmute = false;
+			
 			ListItems[ListItems.IndexOf(activateMusic)] = deactivateMusic;
 			ConstructMenu();
 		}
 
 		private void deactivMusic()
 		{	
-			if (GameManager.sounds.music == null)
-				GameManager.sounds.musicmute = true;
-			else
+			if (GameManager.GameRunning)
 				GameManager.sounds.music.Stop();
+			else
+				GameManager.sounds.musicmute = true;
+			
 			ListItems[ListItems.IndexOf(deactivateMusic)] = activateMusic;
 			ConstructMenu();
 		}

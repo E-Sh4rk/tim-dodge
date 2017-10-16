@@ -11,8 +11,8 @@ namespace tim_dodge
 		public SoundEffect[] sounds;
 		public SoundEffect[] musics;
 
-		public bool sfxmute = false;
-		public bool musicmute = false;
+		public bool sfxmute;
+		public bool musicmute;
 
 		public Sound(SoundEffect[] sfx, SoundEffect[] musc)
 		{
