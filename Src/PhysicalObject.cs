@@ -16,6 +16,7 @@ namespace tim_dodge
 			impulsions = new Vector2(0, 0);
 			precomputed_collisions = new SortedSet<int>();
 			collisions_impulsion = new Vector2(0, 0);
+			Ghost = false;
 		}
 
 		// Position is part of GameObject
@@ -36,6 +37,11 @@ namespace tim_dodge
 		{
 			get { return velocity; }
 			set { velocity = value; }
+		}
+		public bool Ghost
+		{
+			get;
+			set;
 		}
 
 		public void ApplyNewForce(Vector2 force)
@@ -62,13 +68,16 @@ namespace tim_dodge
 		public void ApplyForces(List<PhysicalObject> objects, Map map, GameTime gameTime)
 		{
 			double dt = gameTime.ElapsedGameTime.TotalSeconds;
-			// Compute gravity, friction...
-			ApplyNewForce(new Vector2(0.0f, gravity * Mass));
-			// TODO: Improve friction
-			if (map.nearTheGround(this))
-				ApplyNewForce(velocity * (-ground_friction) * Mass);
-			else
-				ApplyNewForce(velocity * (-air_friction) * Mass);
+			if (!Ghost)
+			{
+				// Compute gravity, friction...
+				ApplyNewForce(new Vector2(0.0f, gravity * Mass));
+				// TODO: Improve friction
+				if (map.nearTheGround(this))
+					ApplyNewForce(velocity * (-ground_friction) * Mass);
+				else
+					ApplyNewForce(velocity * (-air_friction) * Mass);
+			}
 
 			// Compute new velocity by taking into account all the forces and impulsions
 			velocity += (impulsions + forces * (float)dt)/Mass;
@@ -78,26 +87,31 @@ namespace tim_dodge
 		public void ApplyCollisions(List<PhysicalObject> objects, Map map, GameTime gameTime)
 		{
 			double dt = gameTime.ElapsedGameTime.TotalSeconds;
-			// Compute collisions with other physical objects and, depending on the relative direction of the center of the sprite,
-			// compute what resulting force in this direction need to be applied (depending on the difference of velocity in this direction and
-			// the min mass of the two objects).
-			foreach (PhysicalObject o in objects)
+			if (!Ghost)
 			{
-				if (o.ID == ID || precomputed_collisions.Contains(o.ID))
-					continue;
-				Vector2? coll_opt = Collision.object_collision(this, o);
-				if (coll_opt == null)
-					continue;
-				Vector2 coll = coll_opt.Value;
-				Vector2 rel_velocity = velocity - o.velocity;
-				float prod = coll.X * rel_velocity.X + coll.Y * rel_velocity.Y;
-				if (prod <= 0)
-					continue;
-				float min_mass = Math.Min(o.Mass, Mass);
-				float intensity = -collision_factor * (min_mass * prod);
-				collisions_impulsion += coll * intensity;
-				o.AlreadyComputedCollision(-coll * intensity, ID);
+				// Compute collisions with other physical objects and, depending on the relative direction of the center of the sprite,
+				// compute what resulting force in this direction need to be applied (depending on the difference of velocity in this direction and
+				// the min mass of the two objects).
+				foreach (PhysicalObject o in objects)
+				{
+					if (o.ID == ID || o.Ghost || precomputed_collisions.Contains(o.ID))
+						continue;
+					Vector2? coll_opt = Collision.object_collision(this, o);
+					if (coll_opt == null)
+						continue;
+					Vector2 coll = coll_opt.Value;
+					Vector2 rel_velocity = velocity - o.velocity;
+					float prod = coll.X * rel_velocity.X + coll.Y * rel_velocity.Y;
+					if (prod <= 0)
+						continue;
+					float min_mass = Math.Min(o.Mass, Mass);
+					float intensity = -collision_factor * (min_mass * prod);
+					collisions_impulsion += coll * intensity;
+					o.AlreadyComputedCollision(-coll * intensity, ID);
+				}
 			}
+
+			// Compute new velocity
 			velocity += collisions_impulsion / Mass;
 			precomputed_collisions.Clear();
 			collisions_impulsion = new Vector2(0,0);

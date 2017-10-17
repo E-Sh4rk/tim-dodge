@@ -25,15 +25,15 @@ namespace tim_dodge
 		{
 			time += (float)gameTime.ElapsedGameTime.TotalSeconds;
 			if (time > timeBeforeBoom)
-			{
-				GameManager.sounds.playSound(Sound.SoundName.explosion);
 				Dead = true;
-			}
 		}
 
 		public override void destructionMode(GameTime gt)
 		{
+			GameManager.sounds.playSound(Sound.SoundName.explosion);
 			ChangeSpriteState(1);
+			Ghost = true;
+			Velocity = new Vector2(0, 0);
 			autoDestruct(gt);
 		}
 
