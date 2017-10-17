@@ -34,7 +34,8 @@ namespace tim_dodge
 			Stay = 0,
 			Walk = 1,
 			Jump = 2,
- 			Squat = 3
+ 			Squat = 3,
+			JumpH = 4
 		}
 
 		protected SoundEffect jump;
@@ -110,7 +111,14 @@ namespace tim_dodge
 			if (!squatMode)
 			{
 				if (!map.nearTheGround(this))
-					ChangeSpriteState((int)State.Jump);
+				{
+					if (Math.Abs(Velocity.X) > 2)
+						ChangeSpriteState((int)State.Jump);
+					else
+						ChangeSpriteState((int)State.JumpH);
+					
+				}
+					
 				else
 				{
 					if (Math.Abs(Velocity.X) > 0.7)

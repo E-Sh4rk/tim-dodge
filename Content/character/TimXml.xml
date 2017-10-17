@@ -80,14 +80,7 @@
     <cut w="100" x="1222" y="373" h="125" row="1" col="1"/>
     <cut w="100" x="1222" y="373" h="125" row="1" col="1"/>
   </animation>
-  <animation title="Squatbat" delay="100">
-    <cut w="100" x="1222" y="373" h="125" row="1" col="1"/>
-    <cut w="97" x="1335" y="371" h="130" row="1" col="1"/>
-    <cut w="95" x="1448" y="370" h="136" row="1" col="1"/>
-    <cut w="91" x="1561" y="368" h="141" row="1" col="1"/>
-    <cut w="93" x="1685" y="367" h="141" row="1" col="1"/>
-  </animation>
-  <animation title="Jump_right_begin" delay="20">
+  <animation title="JumpVert" delay="200">
     <cut w="94" x="1923" y="367" h="139" row="1" col="1"/>
     <cut w="97" x="2031" y="367" h="138" row="1" col="1"/>
     <cut w="101" x="2140" y="367" h="138" row="1" col="1"/>

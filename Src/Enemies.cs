@@ -49,7 +49,7 @@ namespace tim_dodge
 				ListEnemies.Add(enemy);
 				time -= interval;
 			}
-
+			ListEnemies.RemoveAll(e => true);
 			// Delete enemies that are out of bounds
 			ListEnemies.RemoveAll((e => e.IsOutOfBounds()));
 
