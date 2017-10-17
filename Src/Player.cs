@@ -26,12 +26,15 @@ namespace tim_dodge
 
 			this.Life = Life;
 			this.Score = Score;
+			min_time_between_squat = s.GetFrameTimeOfState((int)State.Squat) * 8;
 		}
 
 		enum State
 		{
 			Stay = 0,
-			Walk = 1
+			Walk = 1,
+			Jump = 2,
+ 			Squat = 3
 		}
 
 		protected SoundEffect jump;
@@ -45,16 +48,29 @@ namespace tim_dodge
 
 		protected float elapsed_since_last_jump = 0;
 		const float min_time_between_jump = 0.25f;
+		float min_time_between_squat;
+ 		protected float elapsed_since_last_squat = 0;
+ 		protected bool squatMode = false;
+
 		public bool CanJump()
 		{
 			return map.nearTheGround(this) && elapsed_since_last_jump >= min_time_between_jump;
 		}
+
+		public bool CanSquat()
+ 		{
+ 			return elapsed_since_last_squat >= min_time_between_squat;
+ 		}
 
 		public void Move(KeyboardState state, GameTime gameTime)
 		{
 			List<Controller.Direction> directions = Controller.GetDirections(state);
 
 			elapsed_since_last_jump += (float)gameTime.ElapsedGameTime.TotalSeconds;
+			elapsed_since_last_squat += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+			if (CanSquat())
+				squatMode = false;
 
 			if (directions.Exists(el => el == Controller.Direction.TOP))
 			{
@@ -83,13 +99,26 @@ namespace tim_dodge
 
 			if (directions.Exists(el => el == Controller.Direction.BOTTOM))
 			{
-				// TODO : "S'accroupir
+				if (CanSquat())
+				{
+					ChangeSpriteState((int)State.Squat);
+					elapsed_since_last_squat = 0;
+					squatMode = true;
+				}
 			}
 
-			if (Math.Abs(Velocity.X) > 0.3)
-				ChangeSpriteState((int)State.Walk);
-			else
-				ChangeSpriteState((int)State.Stay);
+			if (!squatMode)
+			{
+				if (!map.nearTheGround(this))
+					ChangeSpriteState((int)State.Jump);
+				else
+				{
+					if (Math.Abs(Velocity.X) > 0.7)
+						ChangeSpriteState((int)State.Walk);
+					else
+						ChangeSpriteState((int)State.Stay);
+				}
+			}
 		}
 
 		protected override void ApplyCollision(Vector2 imp, int id, GameTime gt)

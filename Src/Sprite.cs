@@ -29,11 +29,12 @@ namespace tim_dodge
 			protected set;
 		}
 
-		public const float FrameTime = 0.02f;
+		//public const float FrameTim = 0.025f;//0.07f;//0.2f;//0.02f;
 
 		private float time;
 
 		private RectSprite[][] rect;
+		private float[] FrameTime;
 
 		private int nowState;
 
@@ -61,6 +62,16 @@ namespace tim_dodge
 			protected set;
 		}
 
+		public float GetFrameTime()
+ 		{
+ 			return FrameTime[nowState];
+ 		}
+ 
+ 		public float GetFrameTimeOfState(int state)
+ 		{
+ 			return FrameTime[state];
+ 		}
+
 		public void ChangeDirection(Controller.Direction new_dir)
 		{
 			if (new_dir != Direction)
@@ -77,10 +88,10 @@ namespace tim_dodge
 		{
 			time += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-			while (time > FrameTime)
+			while (time > GetFrameTime())
 			{
 				NextFrame();
-				time -= FrameTime;
+				time -= GetFrameTime();
 			}
 		}
 
@@ -108,10 +119,18 @@ namespace tim_dodge
 			if (all != null)
 			{
 				rect = new RectSprite[all.ChildNodes.Count][];
+				FrameTime = new float[all.ChildNodes.Count];
 
 				int i = 0;
 				foreach (XmlNode child in all.ChildNodes)
 				{
+					FrameTime[i] = 0f;
+					foreach (XmlAttribute val in child.Attributes)
+					{
+						if (val.Name == "delay")
+							FrameTime[i] = Convert.ToInt32(val.Value) / 1000f;
+					}
+
 					rect[i] = new RectSprite[child.ChildNodes.Count];
 					int j = 0;
 					foreach (XmlNode ligne in child.ChildNodes)
