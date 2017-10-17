@@ -96,9 +96,9 @@ namespace tim_dodge
 				itemNumber--;
 
 			if (itemNumber < 0)
-				itemNumber = 0;
-			if (itemNumber >= ListItems.Count)
 				itemNumber = ListItems.Count - 1;
+			if (itemNumber >= ListItems.Count)
+				itemNumber = 0;
 
 			HighlightsCurrentItem();
 		}
