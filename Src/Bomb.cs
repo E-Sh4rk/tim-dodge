@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 namespace tim_dodge
@@ -9,7 +10,7 @@ namespace tim_dodge
 		{
 			Mass = 5;
 			time = 0f;
-			timeBeforeBoom = 0.8f;
+			timeBeforeBoom = 0.4f;
 		}
 
 		public Rectangle[] rightWalls
@@ -23,18 +24,36 @@ namespace tim_dodge
 
 		public void autoDestruct(GameTime gameTime)
 		{
-			time += (float)gameTime.ElapsedGameTime.TotalSeconds;
-			if (time > timeBeforeBoom)
+			if (Ghost)
 			{
-				GameManager.sounds.playSound(Sound.SoundName.explosion);
-				Dead = true;
+				time += (float)gameTime.ElapsedGameTime.TotalSeconds;
+				if (time > timeBeforeBoom)
+					Dead = true;
 			}
+		}
+
+		protected bool damaged = false;
+		protected override void ApplyCollision(Vector2 imp, int id, GameTime gt)
+		{
+			base.ApplyCollision(imp, id, gt);
+			// Destroy the bomb if collision with something else
+			damaged = true;
+		}
+
+		public override void UpdatePosition(List<PhysicalObject> objects, Map map, GameTime gameTime)
+		{
+			if (damaged && !Ghost)
+				destructionMode(gameTime);
+			base.UpdatePosition(objects, map, gameTime);
+			autoDestruct(gameTime);
 		}
 
 		public override void destructionMode(GameTime gt)
 		{
+			GameManager.sounds.playSound(Sound.SoundName.explosion);
 			ChangeSpriteState(1);
-			autoDestruct(gt);
+			Ghost = true;
+			Velocity = new Vector2(0, 0);
 		}
 
 	}
