@@ -68,7 +68,7 @@ namespace tim_dodge
 			CurrentMenu = new List<Menu>();
 		}
 
-		private void LauchPause() { CurrentMenu.Add(PauseMenu); }
+		private void LauchPause() { PauseMenu.GotoMenu() ; CurrentMenu.Add(PauseMenu); }
 
 		public void Resume() { CurrentMenu = new List<Menu>(); }
 
@@ -85,7 +85,7 @@ namespace tim_dodge
 		public void Update(GameTime gameTime)
 		{
 			if (GameRunning && !MenuRunning &&
-				(Controller.KeyPressed(Keys.Space) || Controller.KeyPressed(Keys.P)))
+			    (Controller.KeyPressed(Keys.Space) || Controller.KeyPressed(Keys.P) || Controller.KeyPressed(Keys.Escape)))
 				LauchPause();
 
 			if (MenuRunning)
