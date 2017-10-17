@@ -101,9 +101,6 @@ namespace tim_dodge
 			if (Controller.KeyPressed(Keys.Up))
 				itemNumber--;
 
-			if (Controller.KeyPressed(Keys.Escape) && !freshnew)
-				gm.Quit();
-
 			if (itemNumber < 0)
 				itemNumber = ListItems.Count - 1;
 			if (itemNumber >= ListItems.Count)
@@ -120,10 +117,5 @@ namespace tim_dodge
 				item.Draw(spriteBatch);
 		}
 
-		public void GotoMenu()
-		{
-			freshnew = true;
-
-		}
 	}
 }
