@@ -45,8 +45,8 @@ namespace tim_dodge
 			this.Content = Content;
 			this.Application = Application;
 			Background = Content.Load<Texture2D>("background/winter");
-			//PauseMode = SetParam = false;
 
+			// Default parameters for menus
 			BackgroundMenu = Content.Load<Texture2D>("background/Menu");
 			FontMenu = Content.Load<SpriteFont>("SpriteFonts/Menu");
 			ColorTextMenu = Color.White;
@@ -55,6 +55,7 @@ namespace tim_dodge
 			InitialMenu = new InitialMenu(this);
 			PauseMenu = new PauseMenu(this);
 			ParamMenu = new Parameters(this);
+
 			CurrentMenu = new List<Menu>();
 			CurrentMenu.Add(InitialMenu);
 		}
