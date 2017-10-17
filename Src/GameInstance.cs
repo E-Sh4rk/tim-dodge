@@ -11,7 +11,7 @@ namespace tim_dodge
 	public class GameInstance
 	{
 		public Player player;
-		private Enemies enemies;
+		public Enemies enemies;
 		public Map map { get; }
 
 		private Vector2 PositionScoreTim;
