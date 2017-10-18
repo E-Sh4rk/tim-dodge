@@ -17,7 +17,7 @@ namespace tim_dodge
 			: base(gi.LoadTexture("character/Tim"), new Sprite("Content.character.TimXml.xml"), pos)
 		{
 			JumpImpulsion = new Vector2(0f, -250f);
-			DashForceLeft = new Vector2(-1000f, 0f);
+			DashForceLeft = new Vector2(-1500f, 0f);
 			DashForceRight = -DashForceLeft;
 			this.map = gi.map;
 			Mass = 50;
@@ -135,7 +135,10 @@ namespace tim_dodge
 			// Apply damage if necessary
 			Enemy e = gameInst.enemies.ListEnemies.Find(en => en.ID == id);
 			if (e != null)
+			{
 				Life.decr(e.Damage);
+				GameManager.sounds.playSound(Sound.SoundName.dammage);
+			}
 		}
 	}
 }

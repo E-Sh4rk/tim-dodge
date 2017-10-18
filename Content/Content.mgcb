@@ -117,3 +117,9 @@
 /processorParam:TextureFormat=Color
 /build:background/Menu.png
 
+#begin sound/damage.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sound/damage.wav
+

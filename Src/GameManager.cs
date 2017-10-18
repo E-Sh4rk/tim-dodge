@@ -37,11 +37,9 @@ namespace tim_dodge
 		public GameManager(ContentManager Content, TimGame Application)
 		{
 			sounds = new Sound(new SoundEffect[] { Content.Load<SoundEffect>("sound/jump"),
-				Content.Load<SoundEffect>("sound/explosion")},
+				Content.Load<SoundEffect>("sound/explosion"),
+				Content.Load<SoundEffect>("sound/damage")},
 			                   new SoundEffect[] { Content.Load<SoundEffect>("sound/cuphead") });
-
-			sounds.sfxmute = true; // Mute sound effects by default
-			sounds.musicmute = true; // Mute music by default
 
 			this.Content = Content;
 			this.Application = Application;
@@ -114,13 +112,8 @@ namespace tim_dodge
 				}
 				else
 					game.Update(gameTime);
-					
-					
+
 			}
-
-
-
-
 		}
 
 		public void Draw(SpriteBatch spriteBatch)

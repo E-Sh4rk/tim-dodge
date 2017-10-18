@@ -38,7 +38,7 @@ namespace tim_dodge
 
 		public override void destructionMode(GameTime gt)
 		{
-			GameManager.sounds.playSound(Sound.SoundName.explosion);
+			//GameManager.sounds.playSound(Sound.SoundName.explosion);
 			ChangeSpriteState(1);
 			Ghost = true;
 			Velocity = new Vector2(0, 0);
