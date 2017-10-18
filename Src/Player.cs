@@ -13,8 +13,8 @@ namespace tim_dodge
 		public Stat Life;
 		public Stat Score;
 
-		public Player(Texture t, Sprite s, Vector2 pos, Stat Life, Stat Score, GameInstance gi)
-			: base(t, s, pos)
+		public Player(Vector2 pos, Stat Life, Stat Score, GameInstance gi)
+			: base(gi.LoadTexture("character/Tim"), new Sprite("Content.character.TimXml.xml"), pos)
 		{
 			JumpImpulsion = new Vector2(0f, -250f);
 			DashForceLeft = new Vector2(-1000f, 0f);
@@ -22,11 +22,11 @@ namespace tim_dodge
 			this.map = gi.map;
 			Mass = 50;
 			gameInst = gi;
-			s.ChangeDirection(Controller.Direction.RIGHT);
+			Sprite.ChangeDirection(Controller.Direction.RIGHT);
 
 			this.Life = Life;
 			this.Score = Score;
-			min_time_between_squat = s.GetFrameTimeOfState((int)State.Squat) * 8;
+			min_time_between_squat = Sprite.GetFrameTimeOfState((int)State.Squat) * 8;
 		}
 
 		enum State
