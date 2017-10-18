@@ -43,8 +43,8 @@ namespace tim_dodge
 
 		private void activMusic()
 		{
-			if (GameManager.GameRunning)
-				GameManager.sounds.resumeMusic();
+			//if (GameManager.GameRunning)
+			GameManager.sounds.resumeMusic();
 			
 			ListItems[ListItems.IndexOf(activateMusic)] = deactivateMusic;
 			ConstructMenu();
@@ -52,8 +52,8 @@ namespace tim_dodge
 
 		private void deactivMusic()
 		{
-			if (GameManager.GameRunning)
-				GameManager.sounds.pauseMusic();
+			//if (GameManager.GameRunning)
+			GameManager.sounds.pauseMusic();
 			
 			ListItems[ListItems.IndexOf(deactivateMusic)] = activateMusic;
 			ConstructMenu();

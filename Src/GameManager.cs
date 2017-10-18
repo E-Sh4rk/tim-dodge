@@ -62,8 +62,8 @@ namespace tim_dodge
 
 		public void NewGame()
 		{
-			if (game == null)
-				sounds.playMusic(Sound.MusicName.cuphead);
+			//if (game == null)
+			//	sounds.playMusic(Sound.MusicName.cuphead);
 
 			game = new GameInstance(Content);
 			CurrentMenu = new List<Menu>();
