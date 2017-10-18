@@ -35,7 +35,7 @@ namespace tim_dodge
 
 		public void playSound(SoundName son)
 		{
-			if(!sfxmute)
+			if (!sfxmute && false)
 				sounds[(int)son].Play();
 		}
 
@@ -44,7 +44,12 @@ namespace tim_dodge
 			music = musics[(int)mus].CreateInstance();
 			music.IsLooped = true;
 			if (!musicmute)
-				music.Play();
+			{
+				SoundEffectInstance playing = musics[(int)mus].CreateInstance();
+				playing.Volume = 0.60f;
+				playing.IsLooped = true;
+				playing.Play();
+			}
 		}
 	}
 }

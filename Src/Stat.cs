@@ -24,6 +24,8 @@ namespace tim_dodge
 		public void decr(int i)
 		{
 			value -= i;
+			if (value < 0)
+				value = 0;
 		}
 
 		public void Update()

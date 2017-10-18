@@ -27,6 +27,7 @@ namespace tim_dodge
 		private InitialMenu InitialMenu;
 		private PauseMenu PauseMenu;
 		private Parameters ParamMenu;
+		private QuitMenu QuitMenu;
 
 		public bool GameRunning { get { return game != null; } }
 		private bool MenuRunning { get { return CurrentMenu.Count != 0; } }
@@ -55,6 +56,7 @@ namespace tim_dodge
 			InitialMenu = new InitialMenu(this);
 			PauseMenu = new PauseMenu(this);
 			ParamMenu = new Parameters(this);
+			QuitMenu = new QuitMenu(this);
 
 			CurrentMenu = new List<Menu>();
 			CurrentMenu.Add(InitialMenu);
@@ -75,7 +77,14 @@ namespace tim_dodge
 
 		public void Parameters() { CurrentMenu.Add(ParamMenu); }
 
-		public void BackMenu() { CurrentMenu.Remove(CurrentMenu.Last()); }
+		public void BackMenu() 
+		{
+			if (CurrentMenu.Count > 1)
+				CurrentMenu.Remove(CurrentMenu.Last());
+			else
+				CurrentMenu.Add(QuitMenu);
+		}
+		 
 
 		public void BestScores()
 		{
@@ -85,14 +94,33 @@ namespace tim_dodge
 
 		public void Update(GameTime gameTime)
 		{
-			if (GameRunning && !MenuRunning &&
-				(Controller.KeyPressed(Keys.Space) || Controller.KeyPressed(Keys.P)))
-				LauchPause();
-
 			if (MenuRunning)
+			{
+				if (Controller.KeyPressed(Keys.Escape))
+				{
+					BackMenu();
+				}
+
 				CurrentMenu.Last().Update();
+			}
 			else
-				game.Update(gameTime);
+			{
+				if (GameRunning && !MenuRunning &&
+					(Controller.KeyPressed(Keys.Space) || Controller.KeyPressed(Keys.P) || Controller.KeyPressed(Keys.Escape)))
+					LauchPause();
+				if (MenuRunning)
+				{
+					CurrentMenu.Last().Update();
+				}
+				else
+					game.Update(gameTime);
+					
+					
+			}
+
+
+
+
 		}
 
 		public void Draw(SpriteBatch spriteBatch)

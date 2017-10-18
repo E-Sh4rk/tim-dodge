@@ -17,6 +17,10 @@ namespace tim_dodge
 		public SpriteFont FontMenu { get; }
 		public Color ColorTextMenu { get; }
 
+		private GameManager gm;
+
+		private bool freshnew;
+
 		public Menu(GameManager GameManager)
 		{
 			ListItems = new List<MenuItem>();
@@ -26,6 +30,8 @@ namespace tim_dodge
 			FontMenu = GameManager.FontMenu;
 			ColorTextMenu = GameManager.ColorTextMenu;
 			ColorHighlightSelection = GameManager.ColorHighlightSelection;
+			gm = GameManager;
+			freshnew = true;
 		}
 
 		protected void ConstructMenu()
@@ -96,11 +102,12 @@ namespace tim_dodge
 				itemNumber--;
 
 			if (itemNumber < 0)
-				itemNumber = 0;
-			if (itemNumber >= ListItems.Count)
 				itemNumber = ListItems.Count - 1;
+			if (itemNumber >= ListItems.Count)
+				itemNumber = 0;
 
 			HighlightsCurrentItem();
+			freshnew = false;
 		}
 
 		public void Draw(SpriteBatch spriteBatch)
@@ -109,5 +116,6 @@ namespace tim_dodge
 			foreach (MenuItem item in ListItems)
 				item.Draw(spriteBatch);
 		}
+
 	}
 }
