@@ -11,12 +11,6 @@ namespace tim_dodge
 			Mass = 5;
 		}
 
-		public Rectangle[] rightWalls
-		{
-			get;
-			protected set;
-		}
-
 		public void autoDestruct(GameTime gameTime)
 		{
 			if (Ghost)
