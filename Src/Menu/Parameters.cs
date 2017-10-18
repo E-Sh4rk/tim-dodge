@@ -43,21 +43,17 @@ namespace tim_dodge
 
 		private void activMusic()
 		{
-			if (GameManager.GameRunning)
-				GameManager.sounds.music.Play();
-			else
-				GameManager.sounds.musicmute = false;
+			//if (GameManager.GameRunning)
+			GameManager.sounds.resumeMusic();
 			
 			ListItems[ListItems.IndexOf(activateMusic)] = deactivateMusic;
 			ConstructMenu();
 		}
 
 		private void deactivMusic()
-		{	
-			if (GameManager.GameRunning)
-				GameManager.sounds.music.Stop();
-			else
-				GameManager.sounds.musicmute = true;
+		{
+			//if (GameManager.GameRunning)
+			GameManager.sounds.pauseMusic();
 			
 			ListItems[ListItems.IndexOf(deactivateMusic)] = activateMusic;
 			ConstructMenu();

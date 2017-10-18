@@ -19,8 +19,6 @@ namespace tim_dodge
 
 		private GameManager gm;
 
-		private bool freshnew;
-
 		public Menu(GameManager GameManager)
 		{
 			ListItems = new List<MenuItem>();
@@ -31,7 +29,6 @@ namespace tim_dodge
 			ColorTextMenu = GameManager.ColorTextMenu;
 			ColorHighlightSelection = GameManager.ColorHighlightSelection;
 			gm = GameManager;
-			freshnew = true;
 		}
 
 		protected void ConstructMenu()
@@ -107,7 +104,6 @@ namespace tim_dodge
 				itemNumber = 0;
 
 			HighlightsCurrentItem();
-			freshnew = false;
 		}
 
 		public void Draw(SpriteBatch spriteBatch)

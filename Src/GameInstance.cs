@@ -37,10 +37,14 @@ namespace tim_dodge
 			scoreTim.Position = PositionScoreTim;
 			Stat lifeTim = new Stat(fontDisplay, Color.Red, "Life : ", InitialLifeTim);
 			lifeTim.Position = PositionLifeTim;
-			player = new Player(new Texture(Content.Load<Texture2D>("character/Tim")), new Sprite("Content.character.TimXml.xml"),
-			                    new Vector2(500, 250), lifeTim, scoreTim, this);
+			player = new Player(new Vector2(500, 250), lifeTim, scoreTim, this);
 
-			enemies = new Enemies(new Texture(Content.Load<Texture2D>("objects/bomb")), "Content.objects.bomb.xml", this);
+			enemies = new Enemies(this);
+		}
+
+		public Texture LoadTexture(string path)
+		{
+			return new Texture(Content.Load<Texture2D>(path));
 		}
 
 		public void Update(GameTime gameTime)

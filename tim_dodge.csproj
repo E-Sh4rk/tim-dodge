@@ -63,6 +63,7 @@
     <Compile Include="Src\Menu\PauseMenu.cs" />
     <Compile Include="Src\Menu\Parameters.cs" />
     <Compile Include="Src\Menu\QuitMenu.cs" />
+    <Compile Include="Src\Fireball.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.manifest" />
@@ -80,6 +81,7 @@
     <None Include="Content\sound\explosion.wav" />
     <None Include="Content\SpriteFonts\Menu.spritefont" />
     <None Include="Content\background\Menu.png" />
+    <None Include="Content\sound\damage.wav" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icon.ico" />

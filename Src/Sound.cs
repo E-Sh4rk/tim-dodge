@@ -12,18 +12,33 @@ namespace tim_dodge
 		public SoundEffect[] musics;
 
 		public bool sfxmute;
-		public bool musicmute;
+
+		public bool musicmute
+		{
+			get;
+			private set;
+		}
+
+		private SoundEffectInstance musicNow;
 
 		public Sound(SoundEffect[] sfx, SoundEffect[] musc)
 		{
 			sounds = sfx;
 			musics = musc;
+
+			sfxmute = true; // Mute sound effects by default
+			musicmute = true; // Mute music by default
+
+			musicNow = musics[(int)MusicName.cuphead].CreateInstance();
+			musicNow.Volume = 0.60f;
+			musicNow.IsLooped = true;
 		}
 
 		public enum SoundName
 		{
 			jump = 0,
-			explosion = 1
+			explosion = 1,
+			dammage = 2
 		}
 
 
@@ -35,21 +50,42 @@ namespace tim_dodge
 
 		public void playSound(SoundName son)
 		{
-			if (!sfxmute && false)
+			if (!sfxmute)
 				sounds[(int)son].Play();
 		}
 
 		public void playMusic(MusicName mus)
 		{
-			music = musics[(int)mus].CreateInstance();
-			music.IsLooped = true;
+			musicNow.Stop();
+			musicNow = musics[(int)mus].CreateInstance();
+			musicNow.Volume = 0.60f;
+			musicNow.IsLooped = true;
+
 			if (!musicmute)
 			{
-				SoundEffectInstance playing = musics[(int)mus].CreateInstance();
-				playing.Volume = 0.60f;
-				playing.IsLooped = true;
-				playing.Play();
+				musicNow.Play();
 			}
 		}
+
+		public void pauseMusic()
+		{
+			if (!musicmute)
+			{
+				musicNow.Pause();
+				musicmute = true;
+			}
+
+		}
+
+		public void resumeMusic()
+		{
+			if (musicmute)
+			{
+				musicNow.Resume();
+				musicmute = false;
+			}
+		}
+
+
 	}
 }
