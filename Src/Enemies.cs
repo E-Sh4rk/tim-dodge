@@ -53,7 +53,7 @@ namespace tim_dodge
 				{
 					Sprite s = new Sprite("Content.objects.fireball.xml");
 					int X = random.Next(0, TimGame.WINDOW_WIDTH - s.RectOfSprite().Size.X);
-					Enemy enemy = new Bomb(fireball_texture, s, new Vector2(X, -30), game);
+					Enemy enemy = new Fireball(fireball_texture, s, new Vector2(X, -30), game);
 					ListEnemies.Add(enemy);
 				}
 				time -= interval;
