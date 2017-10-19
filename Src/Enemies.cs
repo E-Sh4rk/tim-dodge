@@ -66,7 +66,8 @@ namespace tim_dodge
 			ListEnemies.FindAll(game.map.nearTheGround).ForEach((e => e.destructionMode(gt)));
 
 			// Delete enemies on the ground
-			for (int i = 0; i < ListEnemies.Count; i++)
+			int i = 0;
+			while (i < ListEnemies.Count)
 			{
 				Enemy e = ListEnemies[i];
 				if (e.Dead)
@@ -74,6 +75,8 @@ namespace tim_dodge
 					ListEnemies.Remove(e);
 					game.player.Score.incr(10);
 				}
+				else
+					i++;
 			}
 
 		}
