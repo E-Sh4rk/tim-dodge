@@ -25,7 +25,11 @@ namespace tim_dodge
 			gameInst = gi;
 			Sprite.ChangeDirection(Controller.Direction.RIGHT);
 
+			int InitialLife = 10;
+
 			this.Life = Life;
+			Life.incr(InitialLife);
+
 			this.Score = Score;
 			min_time_between_squat = Sprite.GetFrameTimeOfState((int)State.Squat) * 8;
 		}
