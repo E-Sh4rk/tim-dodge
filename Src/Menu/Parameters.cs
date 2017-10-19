@@ -24,7 +24,7 @@ namespace tim_dodge
 			activateSoundEffect = new MenuItem("   Activate Sound Effects   ", this, activSoundEffect);
 			deactivateSoundEffect = new MenuItem("Deactivate Sound Effects", this, deactivSoundEffect);
 
-			MenuItem backToMenu = new MenuItem("Back to Menu", this, GameManager.BackMenu);
+			MenuItem backToMenu = new MenuItem("Back to Menu", this, GameManager.Previous);
 
 			if (GameManager.sounds.musicmute)
 				ListItems.Add(activateMusic);

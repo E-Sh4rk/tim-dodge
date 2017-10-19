@@ -29,6 +29,7 @@ namespace tim_dodge
 		private InitialMenu InitialMenu;
 		private PauseMenu PauseMenu;
 		private Parameters ParamMenu;
+		private GameOver Gameover;
 		private QuitMenu QuitMenu;
 
 		public bool GameRunning { get { return game != null; } }
@@ -58,6 +59,7 @@ namespace tim_dodge
 			InitialMenu = new InitialMenu(this);
 			PauseMenu = new PauseMenu(this);
 			ParamMenu = new Parameters(this);
+			Gameover = new GameOver(this);
 			QuitMenu = new QuitMenu(this);
 
 			CurrentMenu = new List<Menu>();
@@ -66,9 +68,6 @@ namespace tim_dodge
 
 		public void NewGame()
 		{
-			//if (game == null)
-			//	sounds.playMusic(Sound.MusicName.cuphead);
-
 			game = new GameInstance(Content);
 			CurrentMenu = new List<Menu>();
 		}
@@ -79,7 +78,14 @@ namespace tim_dodge
 
 		public void Parameters() { CurrentMenu.Add(ParamMenu); }
 
-		public void BackMenu() 
+		public void LaunchGameOver() {
+			if (CurrentMenu.Count == 0)
+				CurrentMenu.Add(Gameover); 
+		}
+
+		public void BackInitialMenu() { CurrentMenu = new List<Menu> { InitialMenu }; }
+
+		public void Previous() 
 		{
 			if (CurrentMenu.Count > 1)
 				CurrentMenu.Remove(CurrentMenu.Last());
@@ -93,22 +99,21 @@ namespace tim_dodge
 
 		public void Quit() { Application.Quit(); }
 
-		public void GameOver()
-		{
-		}
-
 		public void Update(GameTime gameTime)
 		{
+			if (GameRunning && game.player.IsDead)
+				LaunchGameOver();
+
 			if (MenuRunning)
 			{
 				if (Controller.KeyPressed(Keys.Escape))
-					BackMenu();
+					Previous();
 				CurrentMenu.Last().Update();
 			}
-			else
+
+			else if (GameRunning)
 			{
-				if (GameRunning && !MenuRunning &&
-					(Controller.KeyPressed(Keys.Space) || Controller.KeyPressed(Keys.P) || Controller.KeyPressed(Keys.Escape)))
+				if (Controller.KeyPressed(Keys.Space) || Controller.KeyPressed(Keys.P) || Controller.KeyPressed(Keys.Escape))
 					LauchPause();
 				game.Update(gameTime);
 			}

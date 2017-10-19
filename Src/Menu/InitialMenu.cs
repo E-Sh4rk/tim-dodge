@@ -18,10 +18,7 @@ namespace tim_dodge
 			MenuItem bestScores = new MenuItem("Best Scores", this, GameManager.BestScores);
 			MenuItem quit = new MenuItem("Quit", this, GameManager.Quit);
 
-			ListItems.Add(newGame);
-			ListItems.Add(parameters);
-			ListItems.Add(bestScores);
-			ListItems.Add(quit);
+			ListItems = new List<MenuItem> { newGame, parameters, bestScores, quit };
 
 			ConstructMenu();
 		}

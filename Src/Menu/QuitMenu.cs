@@ -14,11 +14,10 @@ namespace tim_dodge
 		{
 			Title = "Quit the game ?";
 
-			MenuItem backToMenu = new MenuItem("No, I want to play more!", this, GameManager.BackMenu);
+			MenuItem backToMenu = new MenuItem("No, I want to play more!", this, GameManager.Previous); 
 			MenuItem quit = new MenuItem("Yes, leave me alone", this, GameManager.Quit);
 
-			ListItems.Add(backToMenu);
-			ListItems.Add(quit);
+			ListItems = new List<MenuItem> { backToMenu, quit };
 
 			ConstructMenu();
 		}
