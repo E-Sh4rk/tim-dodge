@@ -11,7 +11,7 @@ namespace tim_dodge
 			Mass = 5;
 		}
 
-		public void autoDestruct(GameTime gameTime)
+		protected void autoDestruct(GameTime gameTime)
 		{
 			if (Ghost)
 			{
@@ -30,7 +30,7 @@ namespace tim_dodge
 
 		public override void UpdatePosition(List<PhysicalObject> objects, Map map, GameTime gameTime)
 		{
-			if (damaged && !Ghost)
+			if (damaged)
 				destructionMode(gameTime);
 			base.UpdatePosition(objects, map, gameTime);
 			autoDestruct(gameTime);
@@ -38,10 +38,13 @@ namespace tim_dodge
 
 		public override void destructionMode(GameTime gt)
 		{
-			//GameManager.sounds.playSound(Sound.SoundName.explosion);
-			ChangeSpriteState(1);
-			Ghost = true;
-			Velocity = new Vector2(0, 0);
+			if (!Ghost)
+			{
+				GameManager.sounds.playSound(Sound.SoundName.explosion);
+				ChangeSpriteState(1);
+				Ghost = true;
+				Velocity = new Vector2(0, 0);
+			}
 		}
 
 	}
