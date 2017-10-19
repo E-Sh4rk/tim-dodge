@@ -31,7 +31,7 @@ namespace tim_dodge
 			PositionScoreTim = new Vector2(30, 20);
 			PositionLifeTim = new Vector2(30, 20 + fontDisplay.MeasureString("S").Y);
 
-			InitialLifeTim = 100;
+			InitialLifeTim = 10;
 
 			Stat scoreTim = new Stat(fontDisplay, Color.Black, "Score : ", 0);
 			scoreTim.Position = PositionScoreTim;

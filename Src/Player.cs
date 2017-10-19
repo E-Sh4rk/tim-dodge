@@ -12,6 +12,7 @@ namespace tim_dodge
 
 		public Stat Life;
 		public Stat Score;
+		public bool IsDead { get { return Life.value == 0; } }
 
 		public Player(Vector2 pos, Stat Life, Stat Score, GameInstance gi)
 			: base(gi.LoadTexture("character/Tim"), new Sprite("Content.character.TimXml.xml"), pos)

@@ -22,6 +22,8 @@ namespace tim_dodge
 		public SpriteFont FontMenu { get; }
 		public Color ColorTextMenu { get; }
 		public Color ColorHighlightSelection { get; }
+		public SpriteFont FontTitleMenu { get; }
+		public Color ColorTitleMenu { get; }
 
 		private List<Menu> CurrentMenu;
 		private InitialMenu InitialMenu;
@@ -50,6 +52,8 @@ namespace tim_dodge
 			FontMenu = Content.Load<SpriteFont>("SpriteFonts/Menu");
 			ColorTextMenu = Color.White;
 			ColorHighlightSelection = Color.Yellow;
+			FontTitleMenu = Content.Load<SpriteFont>("SpriteFonts/TitleMenu");
+			ColorTitleMenu = Color.DarkBlue;
 
 			InitialMenu = new InitialMenu(this);
 			PauseMenu = new PauseMenu(this);
@@ -83,22 +87,22 @@ namespace tim_dodge
 				CurrentMenu.Add(QuitMenu);
 		}
 		 
-
 		public void BestScores()
 		{
 		}
 
 		public void Quit() { Application.Quit(); }
 
+		public void GameOver()
+		{
+		}
+
 		public void Update(GameTime gameTime)
 		{
 			if (MenuRunning)
 			{
 				if (Controller.KeyPressed(Keys.Escape))
-				{
 					BackMenu();
-				}
-
 				CurrentMenu.Last().Update();
 			}
 			else
@@ -106,13 +110,7 @@ namespace tim_dodge
 				if (GameRunning && !MenuRunning &&
 					(Controller.KeyPressed(Keys.Space) || Controller.KeyPressed(Keys.P) || Controller.KeyPressed(Keys.Escape)))
 					LauchPause();
-				if (MenuRunning)
-				{
-					CurrentMenu.Last().Update();
-				}
-				else
-					game.Update(gameTime);
-
+				game.Update(gameTime);
 			}
 		}
 

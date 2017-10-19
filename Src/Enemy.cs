@@ -8,7 +8,7 @@ namespace tim_dodge
 		public Enemy(Texture t, Sprite s, Vector2 p, GameInstance gi): base(t,s,p)
 		{
 			Mass = 5;
-			Damage = 10;
+			Damage = 1;
 			Dead = false;
 			gameInst = gi;
 		}

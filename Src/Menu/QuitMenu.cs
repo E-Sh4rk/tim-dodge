@@ -12,6 +12,8 @@ namespace tim_dodge
 		public QuitMenu(GameManager GameManager)
 			: base(GameManager)
 		{
+			Title = "Quit the game ?";
+
 			MenuItem backToMenu = new MenuItem("No, I want to play more!", this, GameManager.BackMenu);
 			MenuItem quit = new MenuItem("Yes, leave me alone", this, GameManager.Quit);
 
