@@ -82,7 +82,7 @@ namespace tim_dodge
 			else
 				CurrentMenu.Add(QuitMenu);
 		}
-		 
+
 
 		public void BestScores()
 		{
