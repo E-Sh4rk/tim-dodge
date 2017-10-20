@@ -12,17 +12,9 @@ namespace tim_dodge
 	{
 		public String Title;
 		private bool ThereIsTitle { get { return Title != null; } }
-		private int firstItem
-		{
-			get
-			{
-				if (ThereIsTitle)
-					return 1;
-				else
-					return 0;
-			}
-		}
+
 		public List<MenuItem> ListItems;
+		public List<MenuItem> ListSelectableItems;
 		private int itemNumber;
 		private Color ColorHighlightSelection; // color of the selection
 
@@ -39,7 +31,6 @@ namespace tim_dodge
 		public MenuWindow(MenuManager MenuManager) : base(MenuManager.BackgroundMenu)
 		{
 			ListItems = new List<MenuItem>();
-			//Background = new Item(GameManager.BackgroundMenu);
 
 			FontMenu = MenuManager.FontMenu;
 			ColorTextMenu = MenuManager.ColorTextMenu;
@@ -51,8 +42,6 @@ namespace tim_dodge
 
 		public void ConstructMenu()
 		{
-			itemNumber = firstItem;
-
 			if (ThereIsTitle)
 			{
 				// Put the title on the top of the list
@@ -63,6 +52,8 @@ namespace tim_dodge
 
 			SetBackground(BackgroundBordureX, BackgroundBordureY, SpacingBetweenItems);
 			AlignItems(BackgroundBordureY, SpacingBetweenItems);
+
+			ListSelectableItems = ListItems.FindAll(item => item.Selectable);
 		}
 
 		public void SetBackground(float BackgroundBordureX, float BackgroundBordureY, float SpacingBetweenItems)
@@ -111,7 +102,7 @@ namespace tim_dodge
 		{
 			foreach (MenuItem item in ListItems)
 				item.unsetColor();
-			ListItems[itemNumber].Color = ColorHighlightSelection;
+			ListSelectableItems[itemNumber].Color = ColorHighlightSelection;
 		}
 
 		public void Update()
@@ -119,7 +110,7 @@ namespace tim_dodge
 			if (Controller.KeyPressed(Keys.Enter))
 			{
 				GameManager.sounds.playSound(Sound.SoundName.toogle);
-				ListItems[itemNumber].LaunchSelection();
+				ListSelectableItems[itemNumber].LaunchSelection();
 			}
 
 			if (Controller.KeyPressed(Keys.Down))
@@ -133,10 +124,10 @@ namespace tim_dodge
 				GameManager.sounds.playSound(Sound.SoundName.menu);
 				itemNumber--;
 			}
-			if (itemNumber < firstItem)
-				itemNumber = ListItems.Count - 1;
-			if (itemNumber >= ListItems.Count)
-				itemNumber = firstItem;
+			if (itemNumber < 0)
+				itemNumber = ListSelectableItems.Count - 1;
+			if (itemNumber >= ListSelectableItems.Count)
+				itemNumber = 0;
 
 			HighlightsCurrentItem();
 		}

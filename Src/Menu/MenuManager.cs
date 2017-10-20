@@ -91,8 +91,6 @@ namespace tim_dodge
 				new MenuItem("Quit the game", this, Quit) }
 					  );
 
-
-
 			// First Menu appearing
 			CurrentMenu = new List<MenuWindow>();
 			CurrentMenu.Add(InitialMenu);
