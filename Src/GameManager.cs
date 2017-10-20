@@ -41,7 +41,8 @@ namespace tim_dodge
 		{
 			sounds = new Sound(new SoundEffect[] { Content.Load<SoundEffect>("sound/jump"),
 				Content.Load<SoundEffect>("sound/explosion"),
-				Content.Load<SoundEffect>("sound/damage")},
+				Content.Load<SoundEffect>("sound/damage"),
+				Content.Load<SoundEffect>("sound/fire")},
 			                   new SoundEffect[] { Content.Load<SoundEffect>("sound/cuphead") });
 
 			this.Content = Content;
@@ -101,7 +102,7 @@ namespace tim_dodge
 
 		public void Update(GameTime gameTime)
 		{
-			if (GameRunning && game.player.IsDead)
+			if (GameRunning && game.player.IsDead())
 				LaunchGameOver();
 
 			if (MenuRunning)

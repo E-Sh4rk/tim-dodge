@@ -26,10 +26,11 @@ namespace tim_dodge
 			sounds = sfx;
 			musics = musc;
 
-			sfxmute = true; // Mute sound effects by default
-			musicmute = true; // Mute music by default
+			sfxmute = false; // Mute sound effects by default
+			musicmute = false; // Mute music by default
 
 			musicNow = musics[(int)MusicName.cuphead].CreateInstance();
+			musicNow.Play();
 			musicNow.Volume = 0.60f;
 			musicNow.IsLooped = true;
 		}
@@ -38,7 +39,8 @@ namespace tim_dodge
 		{
 			jump = 0,
 			explosion = 1,
-			dammage = 2
+			dammage = 2,
+			fire = 3
 		}
 
 

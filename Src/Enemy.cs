@@ -32,5 +32,9 @@ namespace tim_dodge
 			protected set;
 		}
 
+		public virtual void TouchPlayer()
+		{
+			GameManager.sounds.playSound(Sound.SoundName.explosion);
+		}
 	}
 }

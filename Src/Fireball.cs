@@ -9,6 +9,7 @@ namespace tim_dodge
 		public Fireball(Texture t, Sprite s, Vector2 p, GameInstance gi): base(t,s,p,gi)
 		{
 			Mass = 5;
+			Damage = 1;
 		}
 
 		protected void autoDestruct(GameTime gameTime)
@@ -40,11 +41,16 @@ namespace tim_dodge
 		{
 			if (!Ghost)
 			{
-				GameManager.sounds.playSound(Sound.SoundName.explosion);
+				//GameManager.sounds.playSound(Sound.SoundName.explosion);
 				ChangeSpriteState(3);
 				Ghost = true;
 				Velocity = new Vector2(0, 0);
 			}
+		}
+
+		public override void TouchPlayer()
+		{
+			GameManager.sounds.playSound(Sound.SoundName.fire);
 		}
 	}
 }

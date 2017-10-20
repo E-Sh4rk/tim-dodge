@@ -65,6 +65,7 @@
     <Compile Include="Src\Menu\QuitMenu.cs" />
     <Compile Include="Src\Fireball.cs" />
     <Compile Include="Src\Menu\GameOver.cs" />
+    <Compile Include="Src\Heart.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.manifest" />
@@ -139,6 +140,9 @@
     <Content Include="Content\background\winter.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\life\empty_heart.png" />
+    <Content Include="Content\life\full_heart.png" />
+    <Content Include="Content\life\semi_heart.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Src\" />

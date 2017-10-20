@@ -20,6 +20,7 @@ namespace tim_dodge
 		private SpriteFont fontDisplay;
 		private ContentManager Content;
 
+		private Heart heart;
 		public GameInstance(ContentManager Content)
 		{
 			map = new Map();
@@ -32,9 +33,14 @@ namespace tim_dodge
 
 			Stat scoreTim = new Stat(fontDisplay, Color.Black, "Score : ", 0);
 			scoreTim.Position = PositionScoreTim;
-			Stat lifeTim = new Stat(fontDisplay, Color.Red, "Life : ", 0);
-			lifeTim.Position = PositionLifeTim;
-			player = new Player(new Vector2(500, 250), lifeTim, scoreTim, this);
+			//Heart lifeTim = new Heart(, Color.Red, "Life : ", 0);
+			//lifeTim.Position = PositionLifeTim;
+
+			heart = new Heart(Content.Load<Texture2D>("life/full_heart"),
+									Content.Load<Texture2D>("life/semi_heart"),
+									   Content.Load<Texture2D>("life/empty_heart"));
+			
+			player = new Player(new Vector2(500, 250), heart, scoreTim, this);
 
 			enemies = new Enemies(this);
 		}
@@ -76,6 +82,8 @@ namespace tim_dodge
 				en.Draw(spriteBatch);
 			player.Score.Draw(spriteBatch);
 			player.Life.Draw(spriteBatch);
+
+			heart.Draw(spriteBatch);
 		}
 	}
 }
