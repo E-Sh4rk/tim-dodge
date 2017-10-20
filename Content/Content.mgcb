@@ -172,3 +172,15 @@
 /processorParam:Quality=Best
 /build:sound/fire.wav
 
+#begin sound/menu.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sound/menu.wav
+
+#begin sound/toogle.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sound/toogle.wav
+

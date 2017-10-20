@@ -118,14 +118,22 @@ namespace tim_dodge
 		public void Update()
 		{
 			if (Controller.KeyPressed(Keys.Enter))
+			{
+				GameManager.sounds.playSound(Sound.SoundName.toogle);
 				ListItems[itemNumber].LaunchSelection();
+			}
 
 			if (Controller.KeyPressed(Keys.Down))
+			{
+				GameManager.sounds.playSound(Sound.SoundName.menu);
 				itemNumber++;
+			}
 
 			if (Controller.KeyPressed(Keys.Up))
+			{
+				GameManager.sounds.playSound(Sound.SoundName.menu);
 				itemNumber--;
-
+			}
 			if (itemNumber < firstItem)
 				itemNumber = ListItems.Count - 1;
 			if (itemNumber >= ListItems.Count)

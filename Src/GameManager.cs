@@ -42,7 +42,9 @@ namespace tim_dodge
 			sounds = new Sound(new SoundEffect[] { Content.Load<SoundEffect>("sound/jump"),
 				Content.Load<SoundEffect>("sound/explosion"),
 				Content.Load<SoundEffect>("sound/damage"),
-				Content.Load<SoundEffect>("sound/fire")},
+				Content.Load<SoundEffect>("sound/fire"),
+				Content.Load<SoundEffect>("sound/menu"),
+				Content.Load<SoundEffect>("sound/toogle")},
 			                   new SoundEffect[] { Content.Load<SoundEffect>("sound/cuphead") });
 
 			this.Content = Content;

@@ -40,7 +40,9 @@ namespace tim_dodge
 			jump = 0,
 			explosion = 1,
 			dammage = 2,
-			fire = 3
+			fire = 3,
+			menu = 4,
+			toogle = 5
 		}
 
 
