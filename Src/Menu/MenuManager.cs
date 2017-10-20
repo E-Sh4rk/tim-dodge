@@ -110,7 +110,11 @@ namespace tim_dodge
 			if (MenuRunning)
 			{
 				if (Controller.KeyPressed(Keys.Escape))
+				{
+					GameManager.sounds.playSound(Sound.SoundName.toogle);
 					Previous();
+				}
+
 				CurrentMenu.Last().Update();
 			}
 		}
@@ -130,7 +134,11 @@ namespace tim_dodge
 			CurrentMenu = new List<MenuWindow>();
 		}
 
-		public void LaunchPause() { CurrentMenu.Add(PauseMenu); }
+		public void LaunchPause() 
+		{
+			GameManager.sounds.playSound(Sound.SoundName.toogle);
+			CurrentMenu.Add(PauseMenu);
+		}
 
 		private void Resume() { CurrentMenu = new List<MenuWindow>(); }
 
@@ -139,14 +147,14 @@ namespace tim_dodge
 		public void LaunchGameOver()
 		{
 			if (CurrentMenu.Count == 0)
+			{
+				GameManager.sounds.playSound(Sound.SoundName.applause);
 				CurrentMenu.Add(Gameover);
+			}
 		}
 
-		private void BackInitialMenu()
-		{
-			GameManager.game = null;
-			CurrentMenu = new List<MenuWindow> { InitialMenu };
-		}
+
+		private void BackInitialMenu() { CurrentMenu = new List<MenuWindow> { InitialMenu }; }
 
 		private void Previous()
 		{
