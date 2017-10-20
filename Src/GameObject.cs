@@ -20,7 +20,7 @@ namespace tim_dodge
 			get;
 		}
 
-		protected Color color; 
+		protected Color color = Color.White; 
 
 		protected Vector2 position = new Vector2(0.0f, 0.0f);
 		public Vector2 Position
@@ -36,7 +36,6 @@ namespace tim_dodge
 			Position = pos;
 			id = next_id;
 			next_id++;
-			color = Color.White;
 		}
 
 		public Point Size

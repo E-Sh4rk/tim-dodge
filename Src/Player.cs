@@ -134,16 +134,29 @@ namespace tim_dodge
 			}
 		}
 
+		const double time_invicibility = 0.5f;
+		protected double last_damage_time = 0f;
 		protected override void ApplyCollision(Vector2 imp, int id, GameTime gt)
 		{
 			base.ApplyCollision(imp, id, gt);
 			// Apply damage if necessary
 			Enemy e = gameInst.enemies.ListEnemies.Find(en => en.ID == id);
-			if (e != null)
+			if (e != null && gt.TotalGameTime.TotalSeconds - last_damage_time >= time_invicibility)
 			{
 				Life.decr(e.Damage);
-				GameManager.sounds.playSound(Sound.SoundName.dammage);
+				if (e.Damage > 0)
+				{
+					GameManager.sounds.playSound(Sound.SoundName.dammage);
+					color = Color.Red;
+					last_damage_time = gt.TotalGameTime.TotalSeconds;
+				}
 			}
+		}
+		public override void UpdatePosition(List<PhysicalObject> objects, Map map, GameTime gameTime)
+		{
+			base.UpdatePosition(objects, map, gameTime);
+			if (gameTime.TotalGameTime.TotalSeconds - last_damage_time >= time_invicibility)
+				color = Color.White;
 		}
 	}
 }
