@@ -10,11 +10,15 @@ namespace tim_dodge
 	public class Player : PhysicalObject
 	{
 
-		public Stat Life;
+		public Heart Life;
 		public Stat Score;
-		public bool IsDead { get { return Life.value == 0; } }
 
-		public Player(Vector2 pos, Stat Life, Stat Score, GameInstance gi)
+		public bool IsDead()
+		{
+			return (Life.value == 0);
+		}
+
+		public Player(Vector2 pos, Heart Life, Stat Score, GameInstance gi)
 			: base(gi.LoadTexture("character/Tim"), new Sprite("Content.character.TimXml.xml"), pos)
 		{
 			JumpImpulsion = new Vector2(0f, -250f);
@@ -25,10 +29,9 @@ namespace tim_dodge
 			gameInst = gi;
 			Sprite.ChangeDirection(Controller.Direction.RIGHT);
 
-			int InitialLife = 10;
+			//int InitialLife = 10;
 
 			this.Life = Life;
-			Life.incr(InitialLife);
 
 			this.Score = Score;
 			min_time_between_squat = Sprite.GetFrameTimeOfState((int)State.Squat) * 8;
@@ -140,17 +143,20 @@ namespace tim_dodge
 		{
 			base.ApplyCollision(imp, id, gt);
 			// Apply damage if necessary
-			Enemy e = gameInst.enemies.ListEnemies.Find(en => en.ID == id);
-			if (e != null && gt.TotalGameTime.TotalSeconds - last_damage_time >= time_invicibility)
+
+			List<Enemy> es = gameInst.enemies.ListEnemies.FindAll(en => en.ID == id);
+
+			if (es.Count > 0 && gt.TotalGameTime.TotalSeconds - last_damage_time >= time_invicibility)
 			{
-				Life.decr(e.Damage);
-				if (e.Damage > 0)
+				foreach (Enemy e in es)
 				{
-					GameManager.sounds.playSound(Sound.SoundName.dammage);
-					color = Color.Red;
-					last_damage_time = gt.TotalGameTime.TotalSeconds;
+					Life.decr(e.Damage);
+					e.TouchPlayer();
 				}
+				color = Color.Red;
+				last_damage_time = gt.TotalGameTime.TotalSeconds;
 			}
+
 		}
 		public override void UpdatePosition(List<PhysicalObject> objects, Map map, GameTime gameTime)
 		{

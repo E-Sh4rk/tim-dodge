@@ -9,6 +9,7 @@ namespace tim_dodge
 		public Bomb(Texture t, Sprite s, Vector2 p, GameInstance gi): base(t,s,p,gi)
 		{
 			Mass = 5;
+			Damage = 2;
 		}
 
 		protected void autoDestruct(GameTime gameTime)
@@ -45,6 +46,11 @@ namespace tim_dodge
 				Ghost = true;
 				Velocity = new Vector2(0, 0);
 			}
+		}
+
+		public override void TouchPlayer()
+		{
+			//GameManager.sounds.playSound(Sound.SoundName.explosion);
 		}
 
 	}
