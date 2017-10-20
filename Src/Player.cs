@@ -12,6 +12,7 @@ namespace tim_dodge
 
 		public Stat Life;
 		public Stat Score;
+		public bool IsDead { get { return Life.value == 0; } }
 
 		public Player(Vector2 pos, Stat Life, Stat Score, GameInstance gi)
 			: base(gi.LoadTexture("character/Tim"), new Sprite("Content.character.TimXml.xml"), pos)
@@ -24,7 +25,11 @@ namespace tim_dodge
 			gameInst = gi;
 			Sprite.ChangeDirection(Controller.Direction.RIGHT);
 
+			int InitialLife = 10;
+
 			this.Life = Life;
+			Life.incr(InitialLife);
+
 			this.Score = Score;
 			min_time_between_squat = Sprite.GetFrameTimeOfState((int)State.Squat) * 8;
 		}

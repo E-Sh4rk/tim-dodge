@@ -14,5 +14,10 @@ namespace tim_dodge
 		{
 			LaunchSelection = function;
 		}
+
+		// Item non selectionable, like Title
+		public MenuItem(String Text, Menu Menu) : base(Text, Menu.FontTitle, Menu.ColorTitle)
+		{
+		}
 	}
 }

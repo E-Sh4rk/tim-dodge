@@ -11,13 +11,13 @@ namespace tim_dodge
 		public PauseMenu(GameManager GameManager)
 			: base(GameManager)
 		{
+			Title = "Pause";
+
 			MenuItem resume = new MenuItem("Resume", this, GameManager.Resume);
 
-			List<MenuItem> PauseItems = new List<MenuItem>();
-			PauseItems.Add(resume);
-			PauseItems.AddRange(ListItems);
-
-			ListItems = PauseItems;
+			// ListItems[0] contains the title of Initial Menu : to remove
+			// Add at the head of the list the button "Resume"
+			ListItems[0] = resume;
 
 			ConstructMenu();
 		}

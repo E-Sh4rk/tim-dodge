@@ -16,7 +16,6 @@ namespace tim_dodge
 
 		private Vector2 PositionScoreTim;
 		private Vector2 PositionLifeTim;
-		private int InitialLifeTim;
 
 		private SpriteFont fontDisplay;
 		private ContentManager Content;
@@ -31,11 +30,9 @@ namespace tim_dodge
 			PositionScoreTim = new Vector2(30, 20);
 			PositionLifeTim = new Vector2(30, 20 + fontDisplay.MeasureString("S").Y);
 
-			InitialLifeTim = 100;
-
 			Stat scoreTim = new Stat(fontDisplay, Color.Black, "Score : ", 0);
 			scoreTim.Position = PositionScoreTim;
-			Stat lifeTim = new Stat(fontDisplay, Color.Red, "Life : ", InitialLifeTim);
+			Stat lifeTim = new Stat(fontDisplay, Color.Red, "Life : ", 0);
 			lifeTim.Position = PositionLifeTim;
 			player = new Player(new Vector2(500, 250), lifeTim, scoreTim, this);
 

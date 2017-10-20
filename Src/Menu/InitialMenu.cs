@@ -11,15 +11,14 @@ namespace tim_dodge
 		public InitialMenu(GameManager GameManager)
 			: base(GameManager)
 		{
+			Title = "Menu";
+
 			MenuItem newGame = new MenuItem("New Game", this, GameManager.NewGame);
 			MenuItem parameters = new MenuItem("Parameters", this, GameManager.Parameters);
 			MenuItem bestScores = new MenuItem("Best Scores", this, GameManager.BestScores);
 			MenuItem quit = new MenuItem("Quit", this, GameManager.Quit);
 
-			ListItems.Add(newGame);
-			ListItems.Add(parameters);
-			ListItems.Add(bestScores);
-			ListItems.Add(quit);
+			ListItems = new List<MenuItem> { newGame, parameters, bestScores, quit };
 
 			ConstructMenu();
 		}

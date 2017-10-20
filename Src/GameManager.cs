@@ -22,11 +22,14 @@ namespace tim_dodge
 		public SpriteFont FontMenu { get; }
 		public Color ColorTextMenu { get; }
 		public Color ColorHighlightSelection { get; }
+		public SpriteFont FontTitleMenu { get; }
+		public Color ColorTitleMenu { get; }
 
 		private List<Menu> CurrentMenu;
 		private InitialMenu InitialMenu;
 		private PauseMenu PauseMenu;
 		private Parameters ParamMenu;
+		private GameOver Gameover;
 		private QuitMenu QuitMenu;
 
 		public bool GameRunning { get { return game != null; } }
@@ -44,16 +47,19 @@ namespace tim_dodge
 			this.Content = Content;
 			this.Application = Application;
 			Background = Content.Load<Texture2D>("background/winter");
-			//PauseMode = SetParam = false;
 
+			// Default parameters for menus
 			BackgroundMenu = Content.Load<Texture2D>("background/Menu");
 			FontMenu = Content.Load<SpriteFont>("SpriteFonts/Menu");
 			ColorTextMenu = Color.White;
 			ColorHighlightSelection = Color.Yellow;
+			FontTitleMenu = Content.Load<SpriteFont>("SpriteFonts/TitleMenu");
+			ColorTitleMenu = Color.DarkBlue;
 
 			InitialMenu = new InitialMenu(this);
 			PauseMenu = new PauseMenu(this);
 			ParamMenu = new Parameters(this);
+			Gameover = new GameOver(this);
 			QuitMenu = new QuitMenu(this);
 
 			CurrentMenu = new List<Menu>();
@@ -62,9 +68,6 @@ namespace tim_dodge
 
 		public void NewGame()
 		{
-			//if (game == null)
-			//	sounds.playMusic(Sound.MusicName.cuphead);
-
 			game = new GameInstance(Content);
 			CurrentMenu = new List<Menu>();
 		}
@@ -75,14 +78,20 @@ namespace tim_dodge
 
 		public void Parameters() { CurrentMenu.Add(ParamMenu); }
 
-		public void BackMenu() 
+		public void LaunchGameOver() {
+			if (CurrentMenu.Count == 0)
+				CurrentMenu.Add(Gameover); 
+		}
+
+		public void BackInitialMenu() { CurrentMenu = new List<Menu> { InitialMenu }; }
+
+		public void Previous() 
 		{
 			if (CurrentMenu.Count > 1)
 				CurrentMenu.Remove(CurrentMenu.Last());
 			else
 				CurrentMenu.Add(QuitMenu);
 		}
-
 
 		public void BestScores()
 		{
@@ -92,27 +101,21 @@ namespace tim_dodge
 
 		public void Update(GameTime gameTime)
 		{
+			if (GameRunning && game.player.IsDead)
+				LaunchGameOver();
+
 			if (MenuRunning)
 			{
 				if (Controller.KeyPressed(Keys.Escape))
-				{
-					BackMenu();
-				}
-
+					Previous();
 				CurrentMenu.Last().Update();
 			}
-			else
-			{
-				if (GameRunning && !MenuRunning &&
-					(Controller.KeyPressed(Keys.Space) || Controller.KeyPressed(Keys.P) || Controller.KeyPressed(Keys.Escape)))
-					LauchPause();
-				if (MenuRunning)
-				{
-					CurrentMenu.Last().Update();
-				}
-				else
-					game.Update(gameTime);
 
+			else if (GameRunning)
+			{
+				if (Controller.KeyPressed(Keys.Space) || Controller.KeyPressed(Keys.P) || Controller.KeyPressed(Keys.Escape))
+					LauchPause();
+				game.Update(gameTime);
 			}
 		}
 

@@ -10,6 +10,12 @@ namespace tim_dodge
 		public int value { get; private set; }
 		private String Title;
 
+		public Stat(SpriteFont fontStat, Color Color, String Title, int value) : base(Title + value, fontStat, Color)
+		{
+			this.Title = Title;
+			this.value = value;
+		}
+
 		public void incr(int i)
 		{
 			value += i;
@@ -20,12 +26,6 @@ namespace tim_dodge
 			value -= i;
 			if (value < 0)
 				value = 0;
-		}
-
-		public Stat(SpriteFont fontStat, Color Color, String Title, int value) : base(Title + value, fontStat, Color)
-		{
-			this.Title = Title;
-			this.value = value;
 		}
 
 		public void Update()
