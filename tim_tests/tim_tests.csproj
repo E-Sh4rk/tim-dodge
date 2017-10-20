@@ -33,11 +33,15 @@
     <Reference Include="MonoGame.Framework">
       <HintPath>..\..\..\..\..\..\usr\lib\mono\xbuild\MonoGame\v3.0\Assemblies\DesktopGL\MonoGame.Framework.dll</HintPath>
     </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SimulatedGame.cs" />
+    <Compile Include="Tests.cs" />
+    <Compile Include="GD.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\tim_dodge.csproj">
