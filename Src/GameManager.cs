@@ -44,7 +44,8 @@ namespace tim_dodge
 				Content.Load<SoundEffect>("sound/damage"),
 				Content.Load<SoundEffect>("sound/fire"),
 				Content.Load<SoundEffect>("sound/menu"),
-				Content.Load<SoundEffect>("sound/toogle")},
+				Content.Load<SoundEffect>("sound/toogle"),
+				Content.Load<SoundEffect>("sound/applause")},
 			                   new SoundEffect[] { Content.Load<SoundEffect>("sound/cuphead") });
 
 			this.Content = Content;
@@ -75,7 +76,11 @@ namespace tim_dodge
 			CurrentMenu = new List<Menu>();
 		}
 
-		private void LauchPause() { CurrentMenu.Add(PauseMenu); }
+		private void LaunchPause() 
+		{
+			GameManager.sounds.playSound(Sound.SoundName.toogle);
+			CurrentMenu.Add(PauseMenu); 
+		}
 
 		public void Resume() { CurrentMenu = new List<Menu>(); }
 
@@ -83,7 +88,10 @@ namespace tim_dodge
 
 		public void LaunchGameOver() {
 			if (CurrentMenu.Count == 0)
-				CurrentMenu.Add(Gameover); 
+			{
+				GameManager.sounds.playSound(Sound.SoundName.applause);
+				CurrentMenu.Add(Gameover);
+			}
 		}
 
 		public void BackInitialMenu() { CurrentMenu = new List<Menu> { InitialMenu }; }
@@ -110,14 +118,17 @@ namespace tim_dodge
 			if (MenuRunning)
 			{
 				if (Controller.KeyPressed(Keys.Escape))
+				{
+					GameManager.sounds.playSound(Sound.SoundName.toogle);
 					Previous();
+				}
 				CurrentMenu.Last().Update();
 			}
 
 			else if (GameRunning)
 			{
 				if (Controller.KeyPressed(Keys.Space) || Controller.KeyPressed(Keys.P) || Controller.KeyPressed(Keys.Escape))
-					LauchPause();
+					LaunchPause();
 				game.Update(gameTime);
 			}
 		}

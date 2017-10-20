@@ -42,7 +42,8 @@ namespace tim_dodge
 			dammage = 2,
 			fire = 3,
 			menu = 4,
-			toogle = 5
+			toogle = 5,
+			applause = 6
 		}
 
 

@@ -184,3 +184,9 @@
 /processorParam:Quality=Best
 /build:sound/toogle.wav
 
+#begin sound/applause.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sound/applause.wav
+
