@@ -57,14 +57,10 @@
     <Compile Include="Src\Sound.cs" />
     <Compile Include="Src\Stat.cs" />
     <Compile Include="Src\Item.cs" />
-    <Compile Include="Src\Menu\InitialMenu.cs" />
-    <Compile Include="Src\Menu\Menu.cs" />
+    <Compile Include="Src\Menu\MenuWindow.cs" />
     <Compile Include="Src\Menu\MenuItem.cs" />
-    <Compile Include="Src\Menu\PauseMenu.cs" />
-    <Compile Include="Src\Menu\Parameters.cs" />
-    <Compile Include="Src\Menu\QuitMenu.cs" />
     <Compile Include="Src\Fireball.cs" />
-    <Compile Include="Src\Menu\GameOver.cs" />
+    <Compile Include="Src\Menu\MenuManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.manifest" />

@@ -13,108 +13,51 @@ namespace tim_dodge
 	public class GameManager
 	// To link menus and game instances
 	{
-		private ContentManager Content;
-		private TimGame Application;
-		private GameInstance game;
+		public ContentManager Content { get; }
+		public TimGame Application { get; }
+		public GameInstance game;
 		private Texture2D Background;
+		private MenuManager Menu;
 
-		public Texture2D BackgroundMenu { get; }
-		public SpriteFont FontMenu { get; }
-		public Color ColorTextMenu { get; }
-		public Color ColorHighlightSelection { get; }
-		public SpriteFont FontTitleMenu { get; }
-		public Color ColorTitleMenu { get; }
-
-		private List<Menu> CurrentMenu;
-		private InitialMenu InitialMenu;
-		private PauseMenu PauseMenu;
-		private Parameters ParamMenu;
-		private GameOver Gameover;
-		private QuitMenu QuitMenu;
+		public Texture2D BackgroundMenu { get; private set; }
+		public SpriteFont FontMenu { get; private set; }
+		public SpriteFont FontTitleMenu { get; private set; }
 
 		public bool GameRunning { get { return game != null; } }
-		private bool MenuRunning { get { return CurrentMenu.Count != 0; } }
 
 		public static Sound sounds { get; private set; }
 
 		public GameManager(ContentManager Content, TimGame Application)
 		{
+			this.Content = Content;
+			this.Application = Application;
+
 			sounds = new Sound(new SoundEffect[] { Content.Load<SoundEffect>("sound/jump"),
 				Content.Load<SoundEffect>("sound/explosion"),
 				Content.Load<SoundEffect>("sound/damage")},
-			                   new SoundEffect[] { Content.Load<SoundEffect>("sound/cuphead") });
+				   new SoundEffect[] { Content.Load<SoundEffect>("sound/cuphead") });
 
-			this.Content = Content;
-			this.Application = Application;
 			Background = Content.Load<Texture2D>("background/winter");
 
-			// Default parameters for menus
 			BackgroundMenu = Content.Load<Texture2D>("background/Menu");
 			FontMenu = Content.Load<SpriteFont>("SpriteFonts/Menu");
-			ColorTextMenu = Color.White;
-			ColorHighlightSelection = Color.Yellow;
 			FontTitleMenu = Content.Load<SpriteFont>("SpriteFonts/TitleMenu");
-			ColorTitleMenu = Color.DarkBlue;
 
-			InitialMenu = new InitialMenu(this);
-			PauseMenu = new PauseMenu(this);
-			ParamMenu = new Parameters(this);
-			Gameover = new GameOver(this);
-			QuitMenu = new QuitMenu(this);
-
-			CurrentMenu = new List<Menu>();
-			CurrentMenu.Add(InitialMenu);
+			Menu = new MenuManager(this);
 		}
-
-		public void NewGame()
-		{
-			game = new GameInstance(Content);
-			CurrentMenu = new List<Menu>();
-		}
-
-		private void LauchPause() { CurrentMenu.Add(PauseMenu); }
-
-		public void Resume() { CurrentMenu = new List<Menu>(); }
-
-		public void Parameters() { CurrentMenu.Add(ParamMenu); }
-
-		public void LaunchGameOver() {
-			if (CurrentMenu.Count == 0)
-				CurrentMenu.Add(Gameover); 
-		}
-
-		public void BackInitialMenu() { CurrentMenu = new List<Menu> { InitialMenu }; }
-
-		public void Previous() 
-		{
-			if (CurrentMenu.Count > 1)
-				CurrentMenu.Remove(CurrentMenu.Last());
-			else
-				CurrentMenu.Add(QuitMenu);
-		}
-		 
-		public void BestScores()
-		{
-		}
-
-		public void Quit() { Application.Quit(); }
 
 		public void Update(GameTime gameTime)
 		{
 			if (GameRunning && game.player.IsDead)
-				LaunchGameOver();
+				Menu.LaunchGameOver();
 
-			if (MenuRunning)
-			{
-				if (Controller.KeyPressed(Keys.Escape))
-					Previous();
-				CurrentMenu.Last().Update();
-			}
+			if (Menu.MenuRunning)
+				Menu.Update();
 
 			else if (GameRunning)
 			{
 				if (Controller.KeyPressed(Keys.Space) || Controller.KeyPressed(Keys.P) || Controller.KeyPressed(Keys.Escape))
-					LauchPause();
+					Menu.LaunchPause();
 				game.Update(gameTime);
 			}
 		}
@@ -126,8 +69,8 @@ namespace tim_dodge
 			if (GameRunning)
 				game.Draw(spriteBatch);
 
-			if (MenuRunning)
-				CurrentMenu.Last().Draw(spriteBatch);
+			if (Menu.MenuRunning)
+				Menu.Draw(spriteBatch);
 		}
 	}
 }
