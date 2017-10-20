@@ -137,21 +137,32 @@ namespace tim_dodge
 			}
 		}
 
+		const double time_invicibility = 0.5f;
+		protected double last_damage_time = 0f;
 		protected override void ApplyCollision(Vector2 imp, int id, GameTime gt)
 		{
 			base.ApplyCollision(imp, id, gt);
 			// Apply damage if necessary
+
 			List<Enemy> es = gameInst.enemies.ListEnemies.FindAll(en => en.ID == id);
 
-			if (es.Count>0)
+			if (es.Count > 0 && gt.TotalGameTime.TotalSeconds - last_damage_time >= time_invicibility)
 			{
 				foreach (Enemy e in es)
 				{
 					Life.decr(e.Damage);
 					e.TouchPlayer();
 				}
-
+				color = Color.Red;
+				last_damage_time = gt.TotalGameTime.TotalSeconds;
 			}
+
+		}
+		public override void UpdatePosition(List<PhysicalObject> objects, Map map, GameTime gameTime)
+		{
+			base.UpdatePosition(objects, map, gameTime);
+			if (gameTime.TotalGameTime.TotalSeconds - last_damage_time >= time_invicibility)
+				color = Color.White;
 		}
 	}
 }
