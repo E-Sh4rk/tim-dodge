@@ -56,9 +56,9 @@ namespace tim_dodge
 			BackgroundMenu = Content.Load<Texture2D>("background/Menu");
 			FontMenu = Content.Load<SpriteFont>("SpriteFonts/Menu");
 			ColorTextMenu = Color.White;
-			ColorHighlightSelection = Color.Yellow;
+			ColorHighlightSelection = Color.DarkBlue;
 			FontTitleMenu = Content.Load<SpriteFont>("SpriteFonts/TitleMenu");
-			ColorTitleMenu = Color.DarkBlue;
+			ColorTitleMenu = Color.LightBlue;
 
 			InitialMenu = new InitialMenu(this);
 			PauseMenu = new PauseMenu(this);

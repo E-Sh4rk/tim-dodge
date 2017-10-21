@@ -86,7 +86,7 @@ namespace tim_dodge
 
 			Background.Size = new Vector2(Width, Height);
 			Background.Position = new Vector2(X, Y); // menu at the center of the window
-			Background.Opacity = 0.5f;
+			Background.Opacity = 0.7f;
 		}
 
 		private void AlignItems(float BackgroundBordureY, float SpacingBetweenItems)
