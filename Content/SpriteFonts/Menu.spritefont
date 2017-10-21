@@ -3,7 +3,7 @@
   <Asset Type="Graphics:FontDescription">
     <FontName>cafeandbrewery</FontName>
     <Size>25</Size>
-    <Spacing>5</Spacing>
+    <Spacing>7</Spacing>
     <Style>Bold</Style>
     <CharacterRegions>
       <CharacterRegion>

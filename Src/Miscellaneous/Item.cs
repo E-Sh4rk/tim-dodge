@@ -26,7 +26,7 @@ namespace tim_dodge
 			{
 				position = value;
 				source.X = (int)(position.X + origin.X);
-				source.Y = (int)(position.Y + origin.X);
+				source.Y = (int)(position.Y + origin.Y);
 			}
 		}
 
@@ -37,7 +37,7 @@ namespace tim_dodge
 			{
 				origin = value;
 				source.X = (int)(position.X + origin.X);
-				source.Y = (int)(position.Y + origin.X);
+				source.Y = (int)(position.Y + origin.Y);
 			}
 		}
 
@@ -75,9 +75,14 @@ namespace tim_dodge
 			position = Vector2.Zero;
 			origin = Vector2.Zero;
 			source = new Rectangle((int)(position.X + origin.X),
-			                       (int)(position.Y + origin.X),
+			                       (int)(position.Y + origin.Y),
 			                       (int)(size.X),
 			                       (int)(size.Y));
+		}
+
+		public void setText(String Text)
+		{
+			this.Text = Text;
 		}
 
 		public void unsetColor()
