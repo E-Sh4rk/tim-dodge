@@ -38,7 +38,8 @@ namespace tim_dodge
 				Content.Load<SoundEffect>("sound/fire"),
 				Content.Load<SoundEffect>("sound/menu"),
 				Content.Load<SoundEffect>("sound/toogle"),
-				Content.Load<SoundEffect>("sound/applause")},
+				Content.Load<SoundEffect>("sound/applause"),
+			    Content.Load<SoundEffect>("sound/ah")},
 			                   new SoundEffect[] { Content.Load<SoundEffect>("sound/cuphead") });
 
 			Background = Content.Load<Texture2D>("background/winter");

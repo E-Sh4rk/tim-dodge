@@ -43,7 +43,8 @@ namespace tim_dodge
 			fire = 3,
 			menu = 4,
 			toogle = 5,
-			applause = 6
+			applause = 6,
+			ah = 7
 		}
 
 
