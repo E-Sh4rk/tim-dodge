@@ -24,6 +24,7 @@ namespace tim_dodge
 		private MenuItem choiceMusicItem;
 		private MenuItem choiceSoundItem;
 		private MenuWindow Gameover;
+		private MenuWindow Congrats;
 		private MenuWindow QuitMenu;
 	
 		public bool MenuRunning { get { return CurrentMenu.Count != 0; } }
@@ -47,6 +48,7 @@ namespace tim_dodge
 			PauseMenu = new MenuWindow(this);
 			ParamMenu = new MenuWindow(this);
 			Gameover = new MenuWindow(this);
+			Congrats = new MenuWindow(this);
 			QuitMenu = new MenuWindow(this);
 
 
@@ -91,6 +93,16 @@ namespace tim_dodge
 				new MenuItem("Quit the game", this, Quit) }
 					  );
 
+			Congrats.ColorTitle = Color.Green;
+			Initialize(Congrats, "Congrats !", new List<MenuItem> {
+				new MenuItem("You beat an highscore", FontMenu, ColorTextMenu),
+				new MenuItem("Enter your name", FontMenu, ColorTextMenu),
+				new MenuItem("<Validate>", this, Previous) }
+					  );
+			Congrats.Opacity = 0.9f;
+			Congrats.Position = new Vector2(Congrats.Position.X, Gameover.ListItems[1].source.Y);
+			Congrats.AlignItems();
+
 			// First Menu appearing
 			CurrentMenu = new List<MenuWindow>();
 			CurrentMenu.Add(InitialMenu);
@@ -105,20 +117,19 @@ namespace tim_dodge
 
 		public void Update()
 		{
-			if (MenuRunning)
+			if (Controller.KeyPressed(Keys.Escape))
 			{
-				if (Controller.KeyPressed(Keys.Escape))
-				{
-					GameManager.sounds.playSound(Sound.SoundName.toogle);
-					Previous();
-				}
-
-				CurrentMenu.Last().Update();
+				GameManager.sounds.playSound(Sound.SoundName.toogle);
+				Previous();
 			}
+
+			CurrentMenu.Last().Update();
 		}
 
 		public void Draw(SpriteBatch spriteBatch)
 		{
+			if (CurrentMenu.Last() == Congrats)
+				Gameover.Draw(spriteBatch);
 			CurrentMenu.Last().Draw(spriteBatch);
 		}
 
@@ -146,11 +157,11 @@ namespace tim_dodge
 		{
 			if (CurrentMenu.Count == 0)
 			{
-				GameManager.sounds.playSound(Sound.SoundName.applause);
+				//GameManager.sounds.playSound(Sound.SoundName.applause);
 				CurrentMenu.Add(Gameover);
+				//CurrentMenu.Add(Congrats);
 			}
 		}
-
 
 		private void BackInitialMenu() { CurrentMenu = new List<MenuWindow> { InitialMenu }; }
 

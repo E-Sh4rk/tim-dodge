@@ -21,7 +21,7 @@ namespace tim_dodge
 		private SpriteFont FontMenu { get; }
 		private Color ColorTextMenu { get; }
 		private SpriteFont FontTitle { get; }
-		private Color ColorTitle { get; }
+		public Color ColorTitle;
 
 		// Proportionnality constant (proportional to the size of the item)
 		public const float BackgroundBordureX = 1f / 4f;
@@ -50,13 +50,13 @@ namespace tim_dodge
 				ListItems = TitleItem;
 			}
 
-			SetBackground(BackgroundBordureX, BackgroundBordureY, SpacingBetweenItems);
-			AlignItems(BackgroundBordureY, SpacingBetweenItems);
+			SetBackground();
+			AlignItems();
 
 			ListSelectableItems = ListItems.FindAll(item => item.Selectable);
 		}
 
-		public void SetBackground(float BackgroundBordureX, float BackgroundBordureY, float SpacingBetweenItems)
+		public void SetBackground()
 		{	// Calculates and set the dimensions of the menu's background
 			float MaxLengthItem = 0;
 			foreach (MenuItem item in ListItems)
@@ -78,7 +78,7 @@ namespace tim_dodge
 			Opacity = 0.5f;
 		}
 
-		public void AlignItems(float BackgroundBordureY, float SpacingBetweenItems)
+		public void AlignItems()
 		{   
 			// Calculates and positions the items of the menu
 			float currentY = BackgroundBordureY * ListItems[0].Size.Y;

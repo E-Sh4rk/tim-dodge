@@ -81,6 +81,7 @@
     <None Include="Content\background\Menu.png" />
     <None Include="Content\sound\damage.wav" />
     <None Include="Content\SpriteFonts\TitleMenu.spritefont" />
+    <None Include="Content\objects\piece.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icon.ico" />
