@@ -17,4 +17,3 @@ clean:
 
 test:
 	cd tim_tests/bin/Release && mono tim_tests.exe
-	#cd tim_tests/bin/Release && mono ../../NUnit/nunit3-console.exe tim_tests.exe

@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Reflection;
+using System.Xml;
+using NUnit.Framework;
+using NUnitLite;
 
 namespace tim_tests
 {
@@ -6,22 +10,7 @@ namespace tim_tests
 	{
 		public static int Main(string[] args)
 		{
-			// NOTE: Pas reussi à faire fonctionner NUnit...
-			// TODO
-			Console.WriteLine("Running default tests...");
-			Tests t = new Tests();
-			try
-			{
-				t.Collisions();
-				Console.WriteLine("Passed.");
-				return 0;
-			}
-			catch
-			{
-				Console.WriteLine("Failed.");
-			}
-			finally { t.Dispose(); }
-			return -1;
+			return new AutoRun().Execute(args);
 		}
 	}
 }
