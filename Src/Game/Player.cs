@@ -22,7 +22,7 @@ namespace tim_dodge
 			: base(gi.LoadTexture("character/Tim"), new Sprite("Content.character.TimXml.xml"), pos)
 		{
 			JumpImpulsion = new Vector2(0f, -180f);//-250f);//-180f);
-			JumpMore = new Vector2(0, -0.1f);
+			JumpMore = new Vector2(0, -300);
 			DashForceLeft = new Vector2(-1500f, 0f);
 			DashForceRight = -DashForceLeft;
 			this.map = gi.map;
@@ -96,7 +96,7 @@ namespace tim_dodge
 				else
 				{
 					if (Velocity.Y < 0) // if we are in the first state of jumping 
-						Velocity += JumpMore;
+						ApplyNewForce(JumpMore);
 				}
 
 			}
