@@ -47,9 +47,9 @@ namespace tim_dodge
 			BackgroundMenu = GameManager.BackgroundMenu;
 			FontMenu = GameManager.FontMenu;
 			ColorTextMenu = Color.White;
-			ColorHighlightSelection = Color.Yellow;
+			ColorHighlightSelection = Color.GreenYellow;
 			FontTitleMenu = GameManager.FontTitleMenu;
-			ColorTitleMenu = Color.DarkBlue;
+			ColorTitleMenu = Color.LightBlue;
 
 			// Initialization of windows
 			InitialMenu = new MenuWindow(this);

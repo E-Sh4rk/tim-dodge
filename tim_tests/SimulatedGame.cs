@@ -15,7 +15,7 @@ namespace tim_tests
 
 		public Texture2D textureFromStream(Stream stream)
 		{
-			return Texture2D.FromStream(GraphicsDevice, stream);
+			return Texture2D.FromStream(gdm.GraphicsDevice, stream);
 		}
 	}
 }

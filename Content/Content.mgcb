@@ -190,3 +190,9 @@
 /processorParam:Quality=Best
 /build:sound/applause.wav
 
+#begin sound/ah.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sound/ah.wav
+

@@ -21,7 +21,8 @@ namespace tim_dodge
 		public Player(Vector2 pos, Heart Life, Stat Score, GameInstance gi)
 			: base(gi.LoadTexture("character/Tim"), new Sprite("Content.character.TimXml.xml"), pos)
 		{
-			JumpImpulsion = new Vector2(0f, -250f);
+			JumpImpulsion = new Vector2(0f, -180f);//-250f);//-180f);
+			JumpMore = new Vector2(0, -300);
 			DashForceLeft = new Vector2(-1500f, 0f);
 			DashForceRight = -DashForceLeft;
 			this.map = gi.map;
@@ -48,6 +49,8 @@ namespace tim_dodge
 		protected Map map;
 
 		protected Vector2 JumpImpulsion;
+		protected Vector2 JumpMore;
+
 		protected Vector2 DashForceLeft;
 		protected Vector2 DashForceRight;
 
@@ -88,6 +91,12 @@ namespace tim_dodge
 					map.magnetizeToGround(this);
 					ApplyNewImpulsion(JumpImpulsion);
 				}
+				else
+				{
+					if (Velocity.Y < 0) // if we are in the first state of jumping 
+						ApplyNewForce(JumpMore);
+				}
+
 			}
 
 			if (directions.Exists(el => el == Controller.Direction.LEFT))

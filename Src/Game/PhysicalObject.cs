@@ -54,7 +54,7 @@ namespace tim_dodge
 		}
 
 		const float collision_factor = 1.25f;
-		const float gravity = 9.81f;
+		const float gravity = 9.81f;//24.79f;//1.622f;//9.81f;
 		const float ground_friction = 10.0f;
 		const float air_friction = 1.0f;
 		const float pixels_per_meter = 250;

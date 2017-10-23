@@ -38,14 +38,15 @@ namespace tim_dodge
 				Content.Load<SoundEffect>("sound/fire"),
 				Content.Load<SoundEffect>("sound/menu"),
 				Content.Load<SoundEffect>("sound/toogle"),
-				Content.Load<SoundEffect>("sound/applause")},
+				Content.Load<SoundEffect>("sound/applause"),
+			    Content.Load<SoundEffect>("sound/ah")},
 			                   new SoundEffect[] { Content.Load<SoundEffect>("sound/cuphead") });
 
 			Background = Content.Load<Texture2D>("background/winter");
 
 			BackgroundMenu = Content.Load<Texture2D>("background/Menu");
 			FontMenu = Content.Load<SpriteFont>("SpriteFonts/Menu");
-			FontTitleMenu = Content.Load<SpriteFont>("SpriteFonts/TitleMenu");
+			FontTitleMenu = Content.Load<SpriteFont>("SpriteFonts/TitleMenu");                       
 
 			Menu = new MenuManager(this);
 		}

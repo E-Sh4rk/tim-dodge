@@ -12,10 +12,12 @@ before_install:
   #- echo -e "Package:libfreeimage-dev\nPin:release n=xenial\nPin-Priority:900\n" | sudo tee -a /etc/apt/preferences
   #- echo -e "Package:*\nPin:release n=trusty\nPin-Priority:500\n" | sudo tee -a /etc/apt/preferences
 install:
-  - sudo apt-get install -qq monodevelop libopenal-dev referenceassemblies-pcl ttf-mscorefonts-installer gtk-sharp3; # install needed packages for the monogame sdk
+  - sudo apt-get update -q
+  - sudo apt-get install -q libopenal-dev referenceassemblies-pcl ttf-mscorefonts-installer gtk-sharp3
+# install needed packages for the monogame sdk
   - (cd FreeImage && make && sudo make install)
   - yes Y|sudo ./monogame-sdk.run; # install monogame sdk
-  - sudo apt-get install -qq xvfb mesa-utils libgl1-mesa-glx
+  - sudo apt-get install -q xvfb mesa-utils libgl1-mesa-glx
   #- sudo apt-get -qq update
   #- sudo apt-get -qq upgrade
   #- sudo apt-get install -qq libfreeimage-dev

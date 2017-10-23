@@ -50,7 +50,7 @@ namespace tim_dodge
 
 		public override void TouchPlayer()
 		{
-			//GameManager.sounds.playSound(Sound.SoundName.explosion);
+			GameManager.sounds.playSound(Sound.SoundName.ah);
 		}
 
 	}
