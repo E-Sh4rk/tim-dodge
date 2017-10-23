@@ -101,7 +101,6 @@ namespace tim_dodge
 				new MenuItem("Quit the game", this, Quit) }
 					  );
 
-			Congrats.ColorTitle = Color.Green;
 			YourName = new KeyboardReader("You beat an highscore".Length);
 			EnterYourName = new MenuItem(messageYourName, FontMenu, ColorTextMenu); // Text updated by the update function
 			Initialize(Congrats, "Congrats !", new List<MenuItem> {
