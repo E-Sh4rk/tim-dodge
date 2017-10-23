@@ -16,7 +16,7 @@ namespace tim_dodge
 		public Color ColorHighlightSelection { get; }
 		public SpriteFont FontTitleMenu { get; }
 		public Color ColorTitleMenu { get; }
-	
+
 		private List<MenuWindow> CurrentMenu;
 		private MenuWindow InitialMenu;
 		private MenuWindow PauseMenu;
@@ -66,7 +66,7 @@ namespace tim_dodge
 				new MenuItem("Parameters", this, Parameters),
 				new MenuItem("Best Scores", this, BestScores),
 				new MenuItem("Quit", this, Quit) }
-			          );
+					  );
 
 			Initialize(PauseMenu, "Pause", new List<MenuItem> {
 				new MenuItem("Resume", this, Resume),
@@ -168,7 +168,7 @@ namespace tim_dodge
 			CurrentMenu = new List<MenuWindow>();
 		}
 
-		public void LaunchPause() 
+		public void LaunchPause()
 		{
 			GameManager.sounds.playSound(Sound.SoundName.toogle);
 			CurrentMenu.Add(PauseMenu);
@@ -243,6 +243,14 @@ namespace tim_dodge
 			}
 		}
 
+		private void ResetScores()
+		{
+			List<BestScore> emptyScores = new List<BestScore>();
+			Serializer<List<BestScore>>.Save(pathHighScores, emptyScores);
+			Previous();
+			BestScores();
+		}
+
 		private void BestScores()
 		{
 			List<BestScore> highscores;
@@ -264,42 +272,47 @@ namespace tim_dodge
 				else
 				{
 					String name = highscores[i].name;
-					int score = highscores[i].score;
+					String score = highscores[i].score.ToString();
 					ScoreItems.Add(new MenuItem((i + 1).ToString() + ". " + name + " : " + score, FontMenu, ColorTextMenu));
 				}
 			}
 
 			ScoreItems.Add(new MenuItem("Back Menu", this, Previous));
+			ScoreItems.Add(new MenuItem("Reset", this, ResetScores));
 
 			Initialize(Highscores, "Best Scores", ScoreItems);
+
 			CurrentMenu.Add(Highscores);
 		}
 
 		private void RecordHighscore()
 		{
-			List<BestScore> highscores;
-
-			try
+			if (YourName.Text != String.Empty)
 			{
-				highscores = Serializer<List<BestScore>>.Load(pathHighScores);
+				List<BestScore> highscores;
+
+				try
+				{
+					highscores = Serializer<List<BestScore>>.Load(pathHighScores);
+				}
+				catch
+				{
+					highscores = new List<BestScore>();
+				}
+
+				BestScore newScore = new BestScore();
+				newScore.score = gameScore;
+				newScore.name = YourName.Text;
+				highscores.Add(newScore);
+				highscores.Sort((b1, b2) => BestScore.Compare(b1, b2));
+
+				while (highscores.Count > SizeHighscores)
+					highscores.Remove(highscores.Last());
+
+				Serializer<List<BestScore>>.Save(pathHighScores, highscores);
+
+				CurrentMenu.Remove(CurrentMenu.Last());
 			}
-			catch
-			{
-				highscores = new List<BestScore>();
-			}
-
-			BestScore newScore = new BestScore();
-			newScore.score = gameScore;
-			newScore.name = YourName.Text;
-			highscores.Add(newScore);
-			highscores.Sort((b1, b2) => BestScore.Compare(b1, b2));
-
-			while (highscores.Count > SizeHighscores)
-				highscores.Remove(highscores.Last());
-
-			Serializer<List<BestScore>>.Save(pathHighScores, highscores);
-
-			CurrentMenu.Remove(CurrentMenu.Last());
 		}
 
 		private void Quit() { GameManager.Application.Quit(); }

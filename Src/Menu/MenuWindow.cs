@@ -15,7 +15,7 @@ namespace tim_dodge
 
 		public List<MenuItem> ListItems;
 		public List<MenuItem> ListSelectableItems;
-		private int itemNumber;
+		public int itemNumber;
 		private Color ColorHighlightSelection; // color of the selection
 
 		private SpriteFont FontMenu { get; }
