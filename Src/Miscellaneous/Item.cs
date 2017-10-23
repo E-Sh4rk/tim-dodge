@@ -11,13 +11,23 @@ namespace tim_dodge
 		public Color Color;
 		public float Opacity; // between 0.0f and 1.0f : indice of transparence
 
-		protected String Text;
+		private String text;
 		private SpriteFont fontItem;
 		private Color DefaultColor;
 		private Texture2D Image;
 		private Vector2 position;
 		private Vector2 origin;
 		private Vector2 size;
+
+		public String Text
+		{
+			get { return text; }
+			set 
+			{
+				text = value;
+				Size = fontItem.MeasureString(Text);
+			}
+		}
 
 		public Vector2 Position 
 		{
@@ -54,17 +64,17 @@ namespace tim_dodge
 
 		public Item(String Text, SpriteFont fontItem, Color Color)
 		{
-			this.Text = Text;
+			this.text = Text;
 			this.fontItem = fontItem;
 			this.Color = DefaultColor = Color;
-			size = fontItem.MeasureString(Text);
+			Size = fontItem.MeasureString(Text);
 			DefaultConstruct();
 		}
 
 		public Item(Texture2D Image)
 		{
 			this.Image = Image;
-			size = new Vector2(TimGame.WINDOW_WIDTH, TimGame.WINDOW_HEIGHT); // Default value
+			Size = new Vector2(TimGame.WINDOW_WIDTH, TimGame.WINDOW_HEIGHT); // Default value
 			Color = Color.White;
 			DefaultConstruct();
 		}
@@ -82,7 +92,7 @@ namespace tim_dodge
 
 		public void setText(String Text)
 		{
-			this.Text = Text;
+			this.text = Text;
 		}
 
 		public void unsetColor()
@@ -92,8 +102,8 @@ namespace tim_dodge
 
 		public void Draw(SpriteBatch spriteBatch)
 		{
-			if (Text != null && fontItem != null)
-				spriteBatch.DrawString(fontItem, Text, Position + Origin, Color * Opacity);
+			if (text != null && fontItem != null)
+				spriteBatch.DrawString(fontItem, text, Position + Origin, Color * Opacity);
 
 			else if (Image != null)
 				spriteBatch.Draw(Image, source, Color * Opacity);

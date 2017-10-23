@@ -62,6 +62,9 @@
     <Compile Include="Src\Game\Map.cs" />
     <Compile Include="Src\Game\PhysicalObject.cs" />
     <Compile Include="Src\Game\Player.cs" />
+    <Compile Include="Src\Menu\KeyboardReader.cs" />
+    <Compile Include="Src\Menu\Serializer.cs" />
+    <Compile Include="Src\Menu\BestScore.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.manifest" />
@@ -81,7 +84,6 @@
     <None Include="Content\background\Menu.png" />
     <None Include="Content\sound\damage.wav" />
     <None Include="Content\SpriteFonts\TitleMenu.spritefont" />
-    <None Include="Content\objects\piece.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icon.ico" />

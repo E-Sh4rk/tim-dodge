@@ -29,8 +29,6 @@ namespace tim_dodge
 			gameInst = gi;
 			Sprite.ChangeDirection(Controller.Direction.RIGHT);
 
-			//int InitialLife = 10;
-
 			this.Life = Life;
 
 			this.Score = Score;
