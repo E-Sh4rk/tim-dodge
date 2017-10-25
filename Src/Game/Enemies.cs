@@ -18,6 +18,7 @@ namespace tim_dodge
 
 		Texture bomb_texture;
 		Texture fireball_texture;
+
 		public Enemies(GameInstance game)
 		{
 			time = 0;
@@ -29,7 +30,7 @@ namespace tim_dodge
 			ListEnemies = new List<Enemy>();
 		}
 
-		const float interval = 0.25f;
+		const float interval = 0.10f;//0.25f;
 
 		private float time;
 

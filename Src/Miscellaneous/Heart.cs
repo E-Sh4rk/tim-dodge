@@ -12,7 +12,7 @@ namespace tim_dodge
 		public const int slotNumber = 3;
 
 		private static Vector2 spacement = new Vector2(50,0);
-		private Vector2 position0 = new Vector2(TimGame.WINDOW_WIDTH - ((slotNumber-1)*(spacement.X+40) - 10), 20);
+		private Vector2 position0 = new Vector2(TimGame.WINDOW_WIDTH - ((slotNumber)*(spacement.X) ), 20);
 
 		public int value { get; private set; }
 
