@@ -10,7 +10,7 @@ namespace tim_dodge
 		private Random random;
 		private GameInstance game;
 
-		public List<NonPlayerObjects> Falling
+		public List<NonPlayerObject> Falling
 		{
 			get;
 			protected set;
@@ -24,7 +24,7 @@ namespace tim_dodge
 			this.game = game;
 
 			random = new Random();
-			Falling = new List<NonPlayerObjects>();
+			Falling = new List<NonPlayerObject>();
 		}
 
 		const float interval = 0.10f;//0.25f;
@@ -41,7 +41,7 @@ namespace tim_dodge
 				{
 					Sprite s = new Sprite("Content.objects.bomb.xml");
 					int X = random.Next(0, TimGame.WINDOW_WIDTH - s.RectOfSprite().Size.X);
-					NonPlayerObjects bomb = new Bomb(Load.BombTexture, s, new Vector2(X, -30));
+					NonPlayerObject bomb = new Bomb(Load.BombTexture, s, new Vector2(X, -30));
 					Rectangle r1 = new Rectangle(bomb.Position.ToPoint(), bomb.Size);
 					Rectangle r2 = new Rectangle(game.player.Position.ToPoint(), game.player.Size);
 					bomb.ApplyNewImpulsion(new Vector2(Collision.direction_between(r1, r2, false).X * 0.04f, 0));
@@ -51,7 +51,7 @@ namespace tim_dodge
 				{
 					Sprite s = new Sprite("Content.objects.fireball.xml");
 					int X = random.Next(0, TimGame.WINDOW_WIDTH - s.RectOfSprite().Size.X);
-					NonPlayerObjects enemy = new Fireball(Load.FireballTexture, s, new Vector2(X, -30));
+					NonPlayerObject enemy = new Fireball(Load.FireballTexture, s, new Vector2(X, -30));
 					Falling.Add(enemy);
 				}
 				time -= interval;
@@ -67,7 +67,7 @@ namespace tim_dodge
 			int i = 0;
 			while (i < Falling.Count)
 			{
-				NonPlayerObjects e = Falling[i];
+				NonPlayerObject e = Falling[i];
 				if (e.Dead)
 				{
 					Falling.Remove(e);

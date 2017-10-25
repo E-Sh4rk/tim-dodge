@@ -60,7 +60,7 @@ namespace tim_dodge
 		public void Draw(SpriteBatch spriteBatch)
 		{
 			player.Draw(spriteBatch);
-			foreach (NonPlayerObjects en in Level.falling.Falling)
+			foreach (NonPlayerObject en in Level.falling.Falling)
 				en.Draw(spriteBatch);
 			player.Score.Draw(spriteBatch);
 			player.Life.Draw(spriteBatch);
