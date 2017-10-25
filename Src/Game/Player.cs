@@ -19,13 +19,13 @@ namespace tim_dodge
 		}
 
 		public Player(Vector2 pos, Heart Life, Stat Score, GameInstance gi)
-			: base(gi.LoadTexture("character/Tim"), new Sprite("Content.character.TimXml.xml"), pos)
+			: base(Load.TimTexture, new Sprite("Content.character.TimXml.xml"), pos)
 		{
 			JumpImpulsion = new Vector2(0f, -180f);//-250f);//-180f);
 			JumpMore = new Vector2(0, -300);
 			DashForceLeft = new Vector2(-1500f, 0f);
 			DashForceRight = -DashForceLeft;
-			this.map = gi.map;
+			this.map = gi.Level.map;
 			Mass = 50;
 			gameInst = gi;
 			Sprite.ChangeDirection(Controller.Direction.RIGHT);
@@ -86,7 +86,7 @@ namespace tim_dodge
 			{
 				if (CanJump())
 				{
-					GameManager.sounds.playSound(Sound.SoundName.jump);
+					Load.sounds.playSound(Sound.SoundName.jump);
 					elapsed_since_last_jump = 0;
 					map.magnetizeToGround(this);
 					ApplyNewImpulsion(JumpImpulsion);
@@ -96,7 +96,6 @@ namespace tim_dodge
 					if (Velocity.Y < 0) // if we are in the first state of jumping 
 						ApplyNewForce(JumpMore);
 				}
-
 			}
 
 			if (directions.Exists(el => el == Controller.Direction.LEFT))
@@ -151,11 +150,11 @@ namespace tim_dodge
 			base.ApplyCollision(imp, id, gt);
 			// Apply damage if necessary
 
-			List<Enemy> es = gameInst.enemies.ListEnemies.FindAll(en => en.ID == id);
+			List<NonPlayerObjects> es = gameInst.Level.falling.Falling.FindAll(en => en.ID == id);
 
 			if (es.Count > 0 && gt.TotalGameTime.TotalSeconds - last_damage_time >= time_invicibility)
 			{
-				foreach (Enemy e in es)
+				foreach (NonPlayerObjects e in es)
 				{
 					Life.decr(e.Damage);
 					e.TouchPlayer();

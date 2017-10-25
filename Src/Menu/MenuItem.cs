@@ -11,7 +11,7 @@ namespace tim_dodge
 		public ItemSelected LaunchSelection { get; }
 		public bool Selectable { get { return LaunchSelection != null; } }
 
-		public MenuItem(String Text, MenuManager Menu, ItemSelected function) : base(Text, Menu.FontMenu, Menu.ColorTextMenu)
+		public MenuItem(String Text, ItemSelected function) : base(Text, Load.FontMenu, Load.ColorTextMenu)
 		{
 			LaunchSelection = function;
 		}

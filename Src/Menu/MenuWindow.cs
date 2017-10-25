@@ -16,28 +16,15 @@ namespace tim_dodge
 		public List<MenuItem> ListItems;
 		public List<MenuItem> ListSelectableItems;
 		public int itemNumber;
-		private Color ColorHighlightSelection; // color of the selection
-
-		private SpriteFont FontMenu { get; }
-		private Color ColorTextMenu { get; }
-		private SpriteFont FontTitle { get; }
-		public Color ColorTitle;
 
 		// Proportionnality constant (proportional to the size of the item)
 		public const float BackgroundBordureX = 1f / 4f;
 		public const float BackgroundBordureY = 1f / 2f;
 		public const float SpacingBetweenItems = 1f / 4f;
 
-		public MenuWindow(MenuManager MenuManager) : base(MenuManager.BackgroundMenu)
+		public MenuWindow() : base(Load.BackgroundMenu)
 		{
 			ListItems = new List<MenuItem>();
-
-			FontMenu = MenuManager.FontMenu;
-			ColorTextMenu = MenuManager.ColorTextMenu;
-			ColorHighlightSelection = MenuManager.ColorHighlightSelection;
-
-			FontTitle = MenuManager.FontTitleMenu;
-			ColorTitle = MenuManager.ColorTitleMenu;
 		}
 
 		public void ConstructMenu()
@@ -45,7 +32,7 @@ namespace tim_dodge
 			if (ThereIsTitle)
 			{
 				// Put the title on the top of the list
-				List<MenuItem> TitleItem = new List<MenuItem> { new MenuItem(Title, FontTitle, ColorTitle) };
+				List<MenuItem> TitleItem = new List<MenuItem> { new MenuItem(Title, Load.FontTitleMenu, Load.ColorTitleMenu) };
 				TitleItem.AddRange(ListItems);
 				ListItems = TitleItem;
 			}
@@ -102,26 +89,26 @@ namespace tim_dodge
 		{
 			foreach (MenuItem item in ListItems)
 				item.unsetColor();
-			ListSelectableItems[itemNumber].Color = ColorHighlightSelection;
+			ListSelectableItems[itemNumber].Color = Load.ColorHighlightSelection;
 		}
 
 		public void Update()
 		{
 			if (Controller.KeyPressed(Keys.Enter))
 			{
-				GameManager.sounds.playSound(Sound.SoundName.toogle);
+				Load.sounds.playSound(Sound.SoundName.toogle);
 				ListSelectableItems[itemNumber].LaunchSelection();
 			}
 
 			if (Controller.KeyPressed(Keys.Down))
 			{
-				GameManager.sounds.playSound(Sound.SoundName.menu);
+				Load.sounds.playSound(Sound.SoundName.menu);
 				itemNumber++;
 			}
 
 			if (Controller.KeyPressed(Keys.Up))
 			{
-				GameManager.sounds.playSound(Sound.SoundName.menu);
+				Load.sounds.playSound(Sound.SoundName.menu);
 				itemNumber--;
 			}
 			if (itemNumber < 0)

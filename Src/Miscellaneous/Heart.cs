@@ -72,7 +72,6 @@ namespace tim_dodge
 				spriteBatch.Draw(heartTexture[(int)Container[i]], position, Color.White);
 				position += spacement;
 			}
-
 		}
 
 		public void incr(int i)

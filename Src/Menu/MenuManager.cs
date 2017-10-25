@@ -10,13 +10,6 @@ namespace tim_dodge
 {
 	public class MenuManager
 	{
-		public Texture2D BackgroundMenu { get; }
-		public SpriteFont FontMenu { get; }
-		public Color ColorTextMenu { get; }
-		public Color ColorHighlightSelection { get; }
-		public SpriteFont FontTitleMenu { get; }
-		public Color ColorTitleMenu { get; }
-
 		private List<MenuWindow> CurrentMenu;
 		private MenuWindow InitialMenu;
 		private MenuWindow PauseMenu;
@@ -31,7 +24,6 @@ namespace tim_dodge
 		private MenuItem EnterYourName;
 		private const String messageYourName = "Enter your name";
 		private KeyboardReader YourName;
-		private const String pathHighScores = "scores.xml";
 		private int gameScore;
 		private const int SizeHighscores = 5;
 
@@ -43,70 +35,62 @@ namespace tim_dodge
 		{
 			this.GameManager = GameManager;
 
-			// Default parameters for menus
-			BackgroundMenu = GameManager.BackgroundMenu;
-			FontMenu = GameManager.FontMenu;
-			ColorTextMenu = Color.White;
-			ColorHighlightSelection = Color.GreenYellow;
-			FontTitleMenu = GameManager.FontTitleMenu;
-			ColorTitleMenu = Color.LightBlue;
-
 			// Initialization of windows
-			InitialMenu = new MenuWindow(this);
-			PauseMenu = new MenuWindow(this);
-			ParamMenu = new MenuWindow(this);
-			Gameover = new MenuWindow(this);
-			Congrats = new MenuWindow(this);
-			QuitMenu = new MenuWindow(this);
-			Highscores = new MenuWindow(this);
+			InitialMenu = new MenuWindow();
+			PauseMenu = new MenuWindow();
+			ParamMenu = new MenuWindow();
+			Gameover = new MenuWindow();
+			Congrats = new MenuWindow();
+			QuitMenu = new MenuWindow();
+			Highscores = new MenuWindow();
 
 			// Constructrion of menus
 			Initialize(InitialMenu, "Menu", new List<MenuItem> {
-				new MenuItem("New Game", this, NewGame),
-				new MenuItem("Parameters", this, Parameters),
-				new MenuItem("Best Scores", this, BestScores),
-				new MenuItem("Quit", this, Quit) }
+				new MenuItem("New Game", NewGame),
+				new MenuItem("Parameters", Parameters),
+				new MenuItem("Best Scores", BestScores),
+				new MenuItem("Quit", Quit) }
 					  );
 
 			Initialize(PauseMenu, "Pause", new List<MenuItem> {
-				new MenuItem("Resume", this, Resume),
-				new MenuItem("New Game", this, NewGame),
-				new MenuItem("Parameters", this, Parameters),
-				new MenuItem("Best Scores", this, BestScores),
-				new MenuItem("Quit", this, Quit) }
+				new MenuItem("Resume", Resume),
+				new MenuItem("New Game", NewGame),
+				new MenuItem("Parameters", Parameters),
+				new MenuItem("Best Scores", BestScores),
+				new MenuItem("Quit", Quit) }
 					  );
 
-			if (GameManager.sounds.musicmute)
-				choiceMusicItem = new MenuItem("Activate Music", this, ChoiceMusic);
+			if (Load.sounds.musicmute)
+				choiceMusicItem = new MenuItem("Activate Music", ChoiceMusic);
 			else
-				choiceMusicItem = new MenuItem("Deactivate Music", this, ChoiceMusic);
-			if (GameManager.sounds.sfxmute)
-				choiceSoundItem = new MenuItem("   Activate Sound Effects   ", this, ChoiceSound);
+				choiceMusicItem = new MenuItem("Deactivate Music", ChoiceMusic);
+			if (Load.sounds.sfxmute)
+				choiceSoundItem = new MenuItem("   Activate Sound Effects   ", ChoiceSound);
 			else
-				choiceSoundItem = new MenuItem("Deactivate Sound Effects", this, ChoiceSound);
+				choiceSoundItem = new MenuItem("Deactivate Sound Effects", ChoiceSound);
 			Initialize(ParamMenu, "Parameters", new List<MenuItem> {
 				choiceMusicItem,
 				choiceSoundItem,
-				new MenuItem("Back to Menu", this, Previous) }
+				new MenuItem("Back to Menu", Previous) }
 					  );
 
 			Initialize(QuitMenu, "Quit the game ?", new List<MenuItem> {
-				new MenuItem("No, I want to play more!", this, Previous),
-				new MenuItem("Yes, leave me alone", this, Quit) }
+				new MenuItem("No, I want to play more!", Previous),
+				new MenuItem("Yes, leave me alone", Quit) }
 					  );
 
 			Initialize(Gameover, "Game Over", new List<MenuItem> {
-				new MenuItem("Play Again", this, NewGame),
-				new MenuItem("Back Menu", this, BackInitialMenu),
-				new MenuItem("Quit the game", this, Quit) }
+				new MenuItem("Play Again", NewGame),
+				new MenuItem("Back Menu", BackInitialMenu),
+				new MenuItem("Quit the game", Quit) }
 					  );
 
 			YourName = new KeyboardReader("You beat an highscore".Length);
-			EnterYourName = new MenuItem(messageYourName, FontMenu, ColorTextMenu); // Text updated by the update function
+			EnterYourName = new MenuItem(messageYourName, Load.FontMenu, Load.ColorTextMenu); // Text updated by the update function
 			Initialize(Congrats, "Congrats !", new List<MenuItem> {
-				new MenuItem("You beat an highscore", FontMenu, ColorTextMenu),
+				new MenuItem("You beat an highscore", Load.FontMenu, Load.ColorTextMenu),
 				EnterYourName,
-				new MenuItem("<Validate>", this, RecordHighscore) }
+				new MenuItem("<Validate>", RecordHighscore) }
 					  );
 			Congrats.Opacity = 0.9f;
 			Congrats.Position = new Vector2(Congrats.Position.X, Gameover.ListItems[1].source.Y);
@@ -128,7 +112,7 @@ namespace tim_dodge
 		{
 			if (Controller.KeyPressed(Keys.Escape))
 			{
-				GameManager.sounds.playSound(Sound.SoundName.toogle);
+				Load.sounds.playSound(Sound.SoundName.toogle);
 				Previous();
 			}
 
@@ -163,13 +147,13 @@ namespace tim_dodge
 
 		private void NewGame()
 		{
-			GameManager.game = new GameInstance(GameManager.Content);
+			GameManager.game = new GameInstance();
 			CurrentMenu = new List<MenuWindow>();
 		}
 
 		public void LaunchPause()
 		{
-			GameManager.sounds.playSound(Sound.SoundName.toogle);
+			Load.sounds.playSound(Sound.SoundName.toogle);
 			CurrentMenu.Add(PauseMenu);
 		}
 
@@ -184,20 +168,12 @@ namespace tim_dodge
 				CurrentMenu.Add(Gameover);
 				gameScore = GameManager.game.player.Score.value;
 
-				List<BestScore> highscores;
-				try
-				{
-					highscores = Serializer<List<BestScore>>.Load(pathHighScores);
-				}
-				catch
-				{
-					highscores = new List<BestScore>();
-				}
+				List<BestScore> highscores = Load.LoadHighScores();
 
 				if (highscores.Count < SizeHighscores || gameScore > highscores.Last().score)
 				{
 					// an highscore is beaten
-					GameManager.sounds.playSound(Sound.SoundName.applause);
+					Load.sounds.playSound(Sound.SoundName.applause);
 					CurrentMenu.Add(Congrats);
 					YourName.Text = String.Empty;
 				}
@@ -216,28 +192,28 @@ namespace tim_dodge
 
 		private void ChoiceMusic()
 		{
-			if (GameManager.sounds.musicmute)
+			if (Load.sounds.musicmute)
 			{
-				GameManager.sounds.resumeMusic();
+				Load.sounds.resumeMusic();
 				choiceMusicItem.setText("Deactivate Music");
 			}
 			else
 			{
-				GameManager.sounds.pauseMusic();
+				Load.sounds.pauseMusic();
 				choiceMusicItem.setText("Activate Music");
 			}
 		}
 
 		private void ChoiceSound()
 		{
-			if (GameManager.sounds.sfxmute)
+			if (Load.sounds.sfxmute)
 			{
-				GameManager.sounds.sfxmute = false;
+				Load.sounds.sfxmute = false;
 				choiceSoundItem.setText("Deactivate Sound Effects");
 			}
 			else
 			{
-				GameManager.sounds.sfxmute = true;
+				Load.sounds.sfxmute = true;
 				choiceSoundItem.setText("   Activate Sound Effects   ");
 			}
 		}
@@ -245,39 +221,30 @@ namespace tim_dodge
 		private void ResetScores()
 		{
 			List<BestScore> emptyScores = new List<BestScore>();
-			Serializer<List<BestScore>>.Save(pathHighScores, emptyScores);
+			Serializer<List<BestScore>>.Save(Load.PathHighScores, emptyScores);
 			Previous();
 			BestScores();
 		}
 
 		private void BestScores()
 		{
-			List<BestScore> highscores;
-
-			try
-			{
-				highscores = Serializer<List<BestScore>>.Load(pathHighScores);
-			}
-			catch
-			{
-				highscores = new List<BestScore>();
-			}
+			List<BestScore> highscores = Load.LoadHighScores();
 
 			List<MenuItem> ScoreItems = new List<MenuItem>();
 			for (int i = 0; i < SizeHighscores; i++)
 			{
 				if (i >= highscores.Count)
-					ScoreItems.Add(new MenuItem((i + 1).ToString() + ". ", FontMenu, ColorTextMenu));
+					ScoreItems.Add(new MenuItem((i + 1).ToString() + ". ", Load.FontMenu, Load.ColorTextMenu));
 				else
 				{
 					String name = highscores[i].name;
 					String score = highscores[i].score.ToString();
-					ScoreItems.Add(new MenuItem((i + 1).ToString() + ". " + name + " : " + score, FontMenu, ColorTextMenu));
+					ScoreItems.Add(new MenuItem((i + 1).ToString() + ". " + name + " : " + score, Load.FontMenu, Load.ColorTextMenu));
 				}
 			}
 
-			ScoreItems.Add(new MenuItem("Back Menu", this, Previous));
-			ScoreItems.Add(new MenuItem("Reset", this, ResetScores));
+			ScoreItems.Add(new MenuItem("Back Menu", Previous));
+			ScoreItems.Add(new MenuItem("Reset", ResetScores));
 
 			Initialize(Highscores, "Best Scores", ScoreItems);
 
@@ -288,16 +255,7 @@ namespace tim_dodge
 		{
 			if (YourName.Text != String.Empty)
 			{
-				List<BestScore> highscores;
-
-				try
-				{
-					highscores = Serializer<List<BestScore>>.Load(pathHighScores);
-				}
-				catch
-				{
-					highscores = new List<BestScore>();
-				}
+				List<BestScore> highscores = Load.LoadHighScores();
 
 				BestScore newScore = new BestScore();
 				newScore.score = gameScore;
@@ -308,7 +266,7 @@ namespace tim_dodge
 				while (highscores.Count > SizeHighscores)
 					highscores.Remove(highscores.Last());
 
-				Serializer<List<BestScore>>.Save(pathHighScores, highscores);
+				Serializer<List<BestScore>>.Save(Load.PathHighScores, highscores);
 
 				CurrentMenu.Remove(CurrentMenu.Last());
 			}
