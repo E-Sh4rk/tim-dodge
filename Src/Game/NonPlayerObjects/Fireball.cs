@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 
 namespace tim_dodge
 {
-	public class Fireball : NonPlayerObjects
+	public class Fireball : NonPlayerObject
 	{
 		public Fireball(Texture t, Sprite s, Vector2 p): base(t,s,p)
 		{

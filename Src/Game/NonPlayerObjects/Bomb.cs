@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 
 namespace tim_dodge
 {
-	public class Bomb : NonPlayerObjects
+	public class Bomb : NonPlayerObject
 	{
 		public Bomb(Texture t, Sprite s, Vector2 p): base(t,s,p)
 		{

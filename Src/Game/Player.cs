@@ -150,11 +150,11 @@ namespace tim_dodge
 			base.ApplyCollision(imp, id, gt);
 			// Apply damage if necessary
 
-			List<NonPlayerObjects> es = gameInst.Level.falling.Falling.FindAll(en => en.ID == id);
+			List<NonPlayerObject> es = gameInst.Level.falling.Falling.FindAll(en => en.ID == id);
 
 			if (es.Count > 0 && gt.TotalGameTime.TotalSeconds - last_damage_time >= time_invicibility)
 			{
-				foreach (NonPlayerObjects e in es)
+				foreach (NonPlayerObject e in es)
 				{
 					Life.decr(e.Damage);
 					e.TouchPlayer();
