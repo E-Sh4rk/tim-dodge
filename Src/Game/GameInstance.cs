@@ -54,6 +54,7 @@ namespace tim_dodge
 
 			player.Score.Update();
 			player.Life.Update();
+
 		}
 
 		public void Draw(SpriteBatch spriteBatch)
@@ -66,5 +67,6 @@ namespace tim_dodge
 
 			heart.Draw(spriteBatch);
 		}
+
 	}
 }

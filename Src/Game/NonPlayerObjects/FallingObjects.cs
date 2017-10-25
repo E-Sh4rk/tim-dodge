@@ -16,7 +16,9 @@ namespace tim_dodge
 			protected set;
 		}
 
+
 		public FallingObjects(GameInstance game)
+
 		{
 			time = 0;
 			this.game = game;
@@ -25,7 +27,7 @@ namespace tim_dodge
 			Falling = new List<NonPlayerObjects>();
 		}
 
-		const float interval = 0.25f;
+		const float interval = 0.10f;//0.25f;
 
 		private float time;
 
