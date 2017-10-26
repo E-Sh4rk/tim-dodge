@@ -16,17 +16,36 @@ namespace tim_dodge
 			falling = new FallingObjects(game);
 			nowTest = Ground.MiddleGround;
 			tileMap = new List<Block>();
-			for (int i = numberTileX; i < numberTileX + 1; i++)//numberTileX; i++)
+			for (int i = 3; i < numberTileX - 4; i++)//numberTileX; i++)
 			{
 				tileMap.Add(new Block(Sprite.RectOfSprite().Height, Sprite.RectOfSprite().Width, i, numberTileY - 1, Ground.MiddleGround));
 			}
+			tileMap.Add(new Block(Sprite.RectOfSprite().Height, Sprite.RectOfSprite().Width, 2, numberTileY - 1, Ground.LeftEGround));
+			tileMap.Add(new Block(Sprite.RectOfSprite().Height, Sprite.RectOfSprite().Width, 1, numberTileY - 1, Ground.BottomLeftDurt));
+			tileMap.Add(new Block(Sprite.RectOfSprite().Height, Sprite.RectOfSprite().Width, 0, numberTileY - 1, Ground.MiddleDurt));
+			tileMap.Add(new Block(Sprite.RectOfSprite().Height, Sprite.RectOfSprite().Width, 1, numberTileY - 2, Ground.RightGround));
+			tileMap.Add(new Block(Sprite.RectOfSprite().Height, Sprite.RectOfSprite().Width, 0, numberTileY - 2, Ground.MiddleGround));
+
+			tileMap.Add(new Block(Sprite.RectOfSprite().Height, Sprite.RectOfSprite().Width, numberTileX - 4, numberTileY - 1, Ground.RightEGround));
+			tileMap.Add(new Block(Sprite.RectOfSprite().Height, Sprite.RectOfSprite().Width, numberTileX - 3, numberTileY - 1, Ground.BottomRightDurt));
+			tileMap.Add(new Block(Sprite.RectOfSprite().Height, Sprite.RectOfSprite().Width, numberTileX - 2, numberTileY - 1, Ground.MiddleDurt));
+			tileMap.Add(new Block(Sprite.RectOfSprite().Height, Sprite.RectOfSprite().Width, numberTileX - 1, numberTileY - 1, Ground.MiddleDurt));
+
+			tileMap.Add(new Block(Sprite.RectOfSprite().Height, Sprite.RectOfSprite().Width, numberTileX - 3, numberTileY - 2, Ground.LeftDurt));
+			tileMap.Add(new Block(Sprite.RectOfSprite().Height, Sprite.RectOfSprite().Width, numberTileX - 2, numberTileY - 2, Ground.MiddleDurt));
+			tileMap.Add(new Block(Sprite.RectOfSprite().Height, Sprite.RectOfSprite().Width, numberTileX - 1, numberTileY - 2, Ground.MiddleDurt));
+			tileMap.Add(new Block(Sprite.RectOfSprite().Height, Sprite.RectOfSprite().Width, numberTileX - 3, numberTileY - 3, Ground.LeftGround));
+			tileMap.Add(new Block(Sprite.RectOfSprite().Height, Sprite.RectOfSprite().Width, numberTileX - 2, numberTileY - 3, Ground.MiddleGround));
+			tileMap.Add(new Block(Sprite.RectOfSprite().Height, Sprite.RectOfSprite().Width, numberTileX - 1, numberTileY - 3, Ground.MiddleGround));
+			//tileMap.Add()
+			//tileMap.Add(new Block(Sprite.RectOfSprite().Height, Sprite.RectOfSprite().Width, 0, numberTileY - 2, Ground.Bo));
 			//tileMap = new List<Block> { new Block(Sprite.RectOfSprite().Height , Sprite.RectOfSprite().Width, 0, numberTileY-1, Ground.LeftEGround),
 		}
 
 		private Ground nowTest;
 
 		public const int numberTileY = 12;
-		public const int numberTileX = 21;
+		public const int numberTileX = 22;
 
 		public enum Ground
 		{
