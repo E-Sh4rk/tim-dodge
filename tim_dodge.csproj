@@ -88,6 +88,7 @@
     <None Include="Content\sound\damage.wav" />
     <None Include="Content\SpriteFonts\TitleMenu.spritefont" />
     <None Include="Content\ground\ground.png" />
+    <None Include="Content\SpriteFonts\Level.spritefont" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icon.ico" />

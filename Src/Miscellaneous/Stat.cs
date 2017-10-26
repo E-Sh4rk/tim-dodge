@@ -28,9 +28,10 @@ namespace tim_dodge
 				value = 0;
 		}
 
-		public void Update()
+		public new void Draw(SpriteBatch spriteBatch)
 		{
 			Text = Title + value;
+			base.Draw(spriteBatch);
 		}
 
 	}

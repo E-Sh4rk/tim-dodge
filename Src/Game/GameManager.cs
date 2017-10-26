@@ -45,7 +45,8 @@ namespace tim_dodge
 
 		public void Draw(SpriteBatch spriteBatch)
 		{
-			spriteBatch.Draw(Load.BackgroundWinter, Vector2.Zero, Color.White);
+			// menu 
+			//spriteBatch.Draw(Load.BackgroundWinter, Vector2.Zero, Color.White);
 
 			if (GameRunning)
 				game.Draw(spriteBatch);

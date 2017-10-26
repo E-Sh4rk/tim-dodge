@@ -196,6 +196,7 @@
 /processorParam:Quality=Best
 /build:sound/ah.wav
 
+
 #begin ground/ground.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -207,4 +208,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:ground/ground.png
+
+#begin SpriteFonts/Level.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:SpriteFonts/Level.spritefont
+
 

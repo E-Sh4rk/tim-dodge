@@ -40,5 +40,6 @@ namespace tim_dodge
 		{
 			Load.sounds.playSound(Sound.SoundName.explosion);
 		}
+
 	}
 }

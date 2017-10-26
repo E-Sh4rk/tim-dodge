@@ -12,47 +12,47 @@ namespace tim_dodge
 	{
 		public Player player;
 
-		private Vector2 PositionScoreTim;
+		//public Vector2 PositionScoreTim { get; }
+		public Stat scoreTim { get; }
 
 		private Heart heart;
-		public Level Level { get; }
+		public LevelManager Level { get; }
 
 		public GameInstance()
 		{
-			Level = new Level(this);
+			Vector2 PositionScoreTim = new Vector2(30, 20);
 
-			PositionScoreTim = new Vector2(30, 20);
-
-			Stat scoreTim = new Stat(Load.FontScore, Color.Black, "Score : ", 0);
+			scoreTim = new Stat(Load.FontScore, Color.Black, "Score : ", 0);
 			scoreTim.Position = PositionScoreTim;
 
 			heart = new Heart(Load.HeartFull, Load.HeartSemi, Load.HeartEmpty);
-			
-			player = new Player(new Vector2(500, 250), heart, scoreTim, this);
+
+			Level = new LevelManager(this);
+			player = new Player(new Vector2(500, 250), heart, this);
 		}
 
 		public void Update(GameTime gameTime)
 		{
 			KeyboardState state = Keyboard.GetState();
 
+			Level.Update(gameTime);
 			player.Move(state, gameTime);
-			Level.falling.UpdateEnemies(gameTime);
+			Level.Current.falling.Update(gameTime);
 
 			// All physical objects
 			List<PhysicalObject> phys_obj = new List<PhysicalObject>();
 			phys_obj.Add(player);
-			phys_obj.AddRange(Level.falling.Falling);
+			phys_obj.AddRange(Level.Current.falling.FallingList);
 
 			foreach (PhysicalObject po in phys_obj)
 				po.UpdateSprite(gameTime);
 			foreach (PhysicalObject po in phys_obj)
-				po.ApplyForces(phys_obj, Level.map, gameTime);
+				po.ApplyForces(phys_obj, Level.Current.map, gameTime);
 			foreach (PhysicalObject po in phys_obj)
-				po.ApplyCollisions(phys_obj, Level.map, gameTime);
+				po.ApplyCollisions(phys_obj, Level.Current.map, gameTime);
 			foreach (PhysicalObject po in phys_obj)
-				po.UpdatePosition(phys_obj, Level.map, gameTime);
+				po.UpdatePosition(phys_obj, Level.Current.map, gameTime);
 
-			player.Score.Update();
 			player.Life.Update();
 
 		}
@@ -62,9 +62,9 @@ namespace tim_dodge
 			Level.Draw(spriteBatch);
 
 			player.Draw(spriteBatch);
-			foreach (NonPlayerObject en in Level.falling.Falling)
+			foreach (NonPlayerObject en in Level.Current.falling.FallingList)
 				en.Draw(spriteBatch);
-			player.Score.Draw(spriteBatch);
+			scoreTim.Draw(spriteBatch);
 			player.Life.Draw(spriteBatch);
 
 			heart.Draw(spriteBatch);

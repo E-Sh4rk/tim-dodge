@@ -90,11 +90,6 @@ namespace tim_dodge
 			                       (int)(size.Y));
 		}
 
-		public void setText(String Text)
-		{
-			this.text = Text;
-		}
-
 		public void unsetColor()
 		{
 			Color = DefaultColor;
