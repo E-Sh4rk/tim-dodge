@@ -29,8 +29,6 @@ namespace tim_dodge
 			protected set;
 		}
 
-		//public const float FrameTim = 0.025f;//0.07f;//0.2f;//0.02f;
-
 		private float time;
 
 		private RectSprite[][] rect;

@@ -1,23 +1,57 @@
 <!DOCTYPE SpriteDecomposer>
 <sprites image="ground.png" transparentColor="">
- <animation title="Block" delay="150">
-  <cut w="118" x="5" y="4" h="118" row="1" col="1"/>
-  <cut w="118" x="133" y="4" h="118" row="1" col="1"/>
-  <cut w="118" x="261" y="4" h="118" row="1" col="1"/>
-  <cut w="118" x="389" y="4" h="118" row="1" col="1"/>
-  <cut w="118" x="517" y="4" h="118" row="1" col="1"/>
-  <cut w="118" x="5" y="130" h="118" row="1" col="1"/>
-  <cut w="118" x="133" y="130" h="118" row="1" col="1"/>
-  <cut w="118" x="261" y="130" h="118" row="1" col="1"/>
-  <cut w="118" x="389" y="130" h="118" row="1" col="1"/>
-  <cut w="118" x="517" y="130" h="118" row="1" col="1"/>
-  <cut w="118" x="5" y="256" h="118" row="1" col="1"/>
-  <cut w="118" x="133" y="256" h="118" row="1" col="1"/>
-  <cut w="118" x="261" y="273" h="85" row="1" col="1"/>
-  <cut w="118" x="389" y="273" h="85" row="1" col="1"/>
-  <cut w="118" x="517" y="273" h="85" row="1" col="1"/>
-  <cut w="118" x="5" y="382" h="118" row="1" col="1"/>
-  <cut w="118" x="261" y="382" h="118" row="1" col="1"/>
-  <cut w="118" x="133" y="396" h="91" row="1" col="1"/>
- </animation>
+  <animation title="Animation par défaut" delay="150">
+    <cut w="60" x="2" y="2" h="59" row="1" col="1"/>
+  </animation>
+  <animation title="Animation par défaut" delay="150">
+    <cut w="60" x="66" y="2" h="59" row="1" col="1"/>
+  </animation>
+  <animation title="Animation par défaut" delay="150">
+    <cut w="60" x="130" y="2" h="59" row="1" col="1"/>
+  </animation>
+  <animation title="Animation par défaut" delay="150">
+    <cut w="60" x="194" y="2" h="59" row="1" col="1"/>
+  </animation>
+  <animation title="Animation par défaut" delay="150">
+    <cut w="60" x="258" y="2" h="59" row="1" col="1"/>
+  </animation>
+  <animation title="Animation par défaut" delay="150">
+    <cut w="60" x="2" y="65" h="59" row="1" col="1"/>
+  </animation>
+  <animation title="Animation par défaut" delay="150">
+    <cut w="60" x="66" y="65" h="59" row="1" col="1"/>
+  </animation>
+  <animation title="Animation par défaut" delay="150">
+    <cut w="60" x="130" y="65" h="59" row="1" col="1"/>
+  </animation>
+  <animation title="Animation par défaut" delay="150">
+    <cut w="60" x="194" y="65" h="60" row="1" col="1"/>
+  </animation>
+  <animation title="Animation par défaut" delay="150">
+    <cut w="60" x="258" y="65" h="59" row="1" col="1"/>
+  </animation>
+  <animation title="Animation par défaut" delay="150">
+    <cut w="60" x="2" y="128" h="59" row="1" col="1"/>
+  </animation>
+  <animation title="Animation par défaut" delay="150">
+    <cut w="60" x="66" y="128" h="60" row="1" col="1"/>
+  </animation>
+  <animation title="Animation par défaut" delay="150">
+    <cut w="60" x="130" y="136" h="44" row="1" col="1"/>
+  </animation>
+  <animation title="Animation par défaut" delay="150">
+    <cut w="60" x="194" y="136" h="43" row="1" col="1"/>
+  </animation>
+  <animation title="Animation par défaut" delay="150">
+    <cut w="60" x="258" y="136" h="44" row="1" col="1"/>
+  </animation>
+  <animation title="Animation par défaut" delay="150">
+    <cut w="60" x="2" y="191" h="60" row="1" col="1"/>
+  </animation>
+  <animation title="Animation par défaut" delay="150">
+    <cut w="60" x="130" y="191" h="59" row="1" col="1"/>
+  </animation>
+  <animation title="Animation par défaut" delay="150">
+    <cut w="60" x="66" y="197" h="47" row="1" col="1"/>
+  </animation>
 </sprites>

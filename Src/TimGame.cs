@@ -16,6 +16,7 @@ namespace tim_dodge
 		SpriteBatch spriteBatch;
 
 		public const int WINDOW_WIDTH = 1280;
+
 		public const int WINDOW_HEIGHT = 720;
 
 		GameManager Game;

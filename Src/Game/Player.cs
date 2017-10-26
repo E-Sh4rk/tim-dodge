@@ -13,6 +13,7 @@ namespace tim_dodge
 		public Heart Life;
 		public Stat Score;
 
+
 		public bool IsDead()
 		{
 			return (Life.value == 0);

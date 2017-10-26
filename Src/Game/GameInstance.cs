@@ -59,6 +59,8 @@ namespace tim_dodge
 
 		public void Draw(SpriteBatch spriteBatch)
 		{
+			Level.Draw(spriteBatch);
+
 			player.Draw(spriteBatch);
 			foreach (NonPlayerObject en in Level.falling.Falling)
 				en.Draw(spriteBatch);
@@ -66,6 +68,7 @@ namespace tim_dodge
 			player.Life.Draw(spriteBatch);
 
 			heart.Draw(spriteBatch);
+
 		}
 
 	}

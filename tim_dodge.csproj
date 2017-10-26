@@ -87,6 +87,7 @@
     <None Include="Content\background\Menu.png" />
     <None Include="Content\sound\damage.wav" />
     <None Include="Content\SpriteFonts\TitleMenu.spritefont" />
+    <None Include="Content\ground\ground.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icon.ico" />
@@ -95,6 +96,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Content\objects\fireball.xml" />
     <EmbeddedResource Include="Content\objects\bomb.xml" />
+    <EmbeddedResource Include="Content\ground\groundXml.xml" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />

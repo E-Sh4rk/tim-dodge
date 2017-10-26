@@ -15,6 +15,7 @@ namespace tim_dodge
 		{
 			get;
 		}
+
 		public Sprite Sprite
 		{
 			get;
