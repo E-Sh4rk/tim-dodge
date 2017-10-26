@@ -196,3 +196,10 @@
 /processorParam:Quality=Best
 /build:sound/ah.wav
 
+#begin SpriteFonts/Level.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:SpriteFonts/Level.spritefont
+

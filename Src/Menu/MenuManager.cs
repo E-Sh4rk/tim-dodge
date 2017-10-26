@@ -166,7 +166,7 @@ namespace tim_dodge
 			if (CurrentMenu.Count == 0)
 			{
 				CurrentMenu.Add(Gameover);
-				gameScore = GameManager.game.player.Score.value;
+				gameScore = GameManager.game.scoreTim.value;
 
 				List<BestScore> highscores = Load.LoadHighScores();
 
@@ -195,12 +195,12 @@ namespace tim_dodge
 			if (Load.sounds.musicmute)
 			{
 				Load.sounds.resumeMusic();
-				choiceMusicItem.setText("Deactivate Music");
+				choiceMusicItem.Text = "Deactivate Music";
 			}
 			else
 			{
 				Load.sounds.pauseMusic();
-				choiceMusicItem.setText("Activate Music");
+				choiceMusicItem.Text = "Activate Music";
 			}
 		}
 
@@ -209,12 +209,12 @@ namespace tim_dodge
 			if (Load.sounds.sfxmute)
 			{
 				Load.sounds.sfxmute = false;
-				choiceSoundItem.setText("Deactivate Sound Effects");
+				choiceSoundItem.Text = "Deactivate Sound Effects";
 			}
 			else
 			{
 				Load.sounds.sfxmute = true;
-				choiceSoundItem.setText("   Activate Sound Effects   ");
+				choiceSoundItem.Text = "   Activate Sound Effects   ";
 			}
 		}
 

@@ -11,28 +11,28 @@ namespace tim_dodge
 	{
 
 		public Heart Life;
-		public Stat Score;
+		//public Stat Score;
 
 		public bool IsDead()
 		{
 			return (Life.value == 0);
 		}
 
-		public Player(Vector2 pos, Heart Life, Stat Score, GameInstance gi)
+		public Player(Vector2 pos, Heart Life, GameInstance gi)
 			: base(Load.TimTexture, new Sprite("Content.character.TimXml.xml"), pos)
 		{
 			JumpImpulsion = new Vector2(0f, -180f);//-250f);//-180f);
 			JumpMore = new Vector2(0, -300);
 			DashForceLeft = new Vector2(-1500f, 0f);
 			DashForceRight = -DashForceLeft;
-			this.map = gi.Level.map;
+			this.map = gi.Level.Current.map;
 			Mass = 50;
 			gameInst = gi;
 			Sprite.ChangeDirection(Controller.Direction.RIGHT);
 
 			this.Life = Life;
 
-			this.Score = Score;
+			//this.Score = Score;
 			min_time_between_squat = Sprite.GetFrameTimeOfState((int)State.Squat) * 8;
 		}
 
@@ -150,7 +150,7 @@ namespace tim_dodge
 			base.ApplyCollision(imp, id, gt);
 			// Apply damage if necessary
 
-			List<NonPlayerObject> es = gameInst.Level.falling.Falling.FindAll(en => en.ID == id);
+			List<NonPlayerObject> es = gameInst.Level.Current.falling.FallingList.FindAll(en => en.ID == id);
 
 			if (es.Count > 0 && gt.TotalGameTime.TotalSeconds - last_damage_time >= time_invicibility)
 			{
