@@ -57,7 +57,7 @@ namespace tim_dodge
 
 		}
 
-		const int ground_detection_space = 3;
+		const int ground_detection_space = 1;
 		public bool nearTheGround(PhysicalObject o)
 		{
 			Point pos = o.Position.ToPoint();
