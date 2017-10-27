@@ -25,6 +25,7 @@ namespace tim_dodge
 		public static Texture BombTexture;
 		public static Texture FireballTexture;
 		public static Texture MapTexture;
+		public static Texture MonstarTexture;
 
 		// SpriteFont
 		public static SpriteFont FontMenu { get; private set; }
@@ -62,6 +63,7 @@ namespace tim_dodge
 
 			// Texture (sprites)
 			TimTexture = new Texture(Content.Load<Texture2D>("character/Tim"));
+			MonstarTexture = new Texture(Content.Load<Texture2D>("character/Monstar"));
 			BombTexture = new Texture(Content.Load<Texture2D>("objects/bomb"));
 			FireballTexture = new Texture(Content.Load<Texture2D>("objects/fireball"));
 			MapTexture = new Texture(Content.Load<Texture2D>("ground/ground"));

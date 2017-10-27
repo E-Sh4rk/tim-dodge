@@ -77,7 +77,7 @@ namespace tim_dodge
 			if (FallingList.Count != 0)
 				FallingList.FindAll(map.nearTheGround).ForEach((e => e.destructionMode(gt)));
 
-			// Delete enemies on the ground
+			// Delete enemies that are dead
 			int i = 0;
 			while (i < FallingList.Count)
 			{

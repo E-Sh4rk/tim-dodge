@@ -152,6 +152,7 @@ namespace tim_dodge
 			// Apply damage if necessary
 
 			List<NonPlayerObject> es = gameInst.Level.Current.falling.FallingList.FindAll(en => en.ID == id);
+			es.AddRange(gameInst.Level.Current.walking.EnemiesList.FindAll(en => en.ID == id));
 
 			if (es.Count > 0 && gt.TotalGameTime.TotalSeconds - last_damage_time >= time_invicibility)
 			{

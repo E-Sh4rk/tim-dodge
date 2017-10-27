@@ -1,29 +1,27 @@
 <!DOCTYPE SpriteDecomposer>
 <sprites image="Monstar.png" transparentColor="">
  <animation title="Walk" delay="25">
-  <cut w="111" x="32" y="37" h="106" row="1" col="1"/>
-  <cut w="111" x="158" y="36" h="108" row="1" col="1"/>
-  <cut w="113" x="286" y="35" h="108" row="1" col="1"/>
-  <cut w="112" x="418" y="36" h="108" row="1" col="1"/>
-  <cut w="111" x="548" y="34" h="109" row="1" col="1"/>
-  <cut w="111" x="677" y="35" h="109" row="1" col="1"/>
-  <cut w="111" x="809" y="35" h="107" row="1" col="1"/>
-  <cut w="112" x="934" y="36" h="108" row="1" col="1"/>
-  
-  <cut w="111" x="32" y="172" h="109" row="1" col="1"/>
-  <cut w="112" x="157" y="172" h="111" row="1" col="1"/>
-  <cut w="113" x="286" y="172" h="109" row="1" col="1"/>
-  <cut w="111" x="416" y="173" h="109" row="1" col="1"/>
-  <cut w="111" x="539" y="173" h="108" row="1" col="1"/>
-  <cut w="110" x="666" y="175" h="108" row="1" col="1"/>
-  <cut w="111" x="798" y="175" h="105" row="1" col="1"/>
-  <cut w="110" x="921" y="175" h="107" row="1" col="1"/>
+  <cut w="56" x="16" y="17" h="55" row="1" col="1"/>
+  <cut w="56" x="79" y="18" h="54" row="1" col="1"/>
+  <cut w="57" x="143" y="18" h="54" row="1" col="1"/>
+  <cut w="56" x="209" y="18" h="54" row="1" col="1"/>
+  <cut w="55" x="274" y="17" h="55" row="1" col="1"/>
+  <cut w="56" x="338" y="18" h="54" row="1" col="1"/>
+  <cut w="56" x="404" y="17" h="54" row="1" col="1"/>
+  <cut w="56" x="467" y="18" h="54" row="1" col="1"/>
+  <cut w="55" x="16" y="86" h="55" row="1" col="1"/>
+  <cut w="55" x="79" y="86" h="55" row="1" col="1"/>
+  <cut w="57" x="143" y="86" h="55" row="1" col="1"/>
+  <cut w="55" x="208" y="86" h="55" row="1" col="1"/>
+  <cut w="56" x="269" y="86" h="55" row="1" col="1"/>
+  <cut w="56" x="399" y="86" h="54" row="1" col="1"/>
+  <cut w="55" x="333" y="87" h="55" row="1" col="1"/>
+  <cut w="54" x="461" y="87" h="54" row="1" col="1"/>
  </animation>
- 
-  <animation title="Die" delay="50">
-  <cut w="112" x="833" y="324" h="111" row="1" col="1"/>
-  <cut w="112" x="962" y="324" h="112" row="1" col="1"/>
-  <cut w="113" x="1085" y="324" h="113" row="1" col="1"/>
-  <cut w="114" x="1211" y="324" h="114" row="1" col="1"/>
+ <animation title="Die" delay="50">
+  <cut w="56" x="417" y="160" h="58" row="1" col="1"/>
+  <cut w="56" x="481" y="160" h="58" row="1" col="1"/>
+  <cut w="56" x="543" y="160" h="58" row="1" col="1"/>
+  <cut w="57" x="606" y="160" h="59" row="1" col="1"/>
  </animation>
 </sprites>

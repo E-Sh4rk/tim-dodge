@@ -196,7 +196,6 @@
 /processorParam:Quality=Best
 /build:sound/ah.wav
 
-
 #begin ground/ground.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -216,4 +215,15 @@
 /processorParam:TextureFormat=Compressed
 /build:SpriteFonts/Level.spritefont
 
+#begin character/Monstar.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:character/Monstar.png
 

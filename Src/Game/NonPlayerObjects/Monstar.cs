@@ -21,6 +21,22 @@ namespace tim_dodge
 			}
 		}
 
+		public void Move(Controller.Direction direction, GameTime gameTime)
+		{
+			if (direction == Controller.Direction.LEFT)
+			{
+				Sprite.ChangeDirection(Controller.Direction.LEFT);
+				if (velocity.X >= -1)
+					ApplyNewForce(new Vector2(-500f, 0f));
+			}
+			if (direction == Controller.Direction.RIGHT)
+			{
+				Sprite.ChangeDirection(Controller.Direction.RIGHT);
+				if (velocity.X <= 1)
+					ApplyNewForce(new Vector2(500f, 0f));
+			}
+		}
+
 		protected bool damaged = false;
 		protected override void ApplyCollision(Vector2 imp, int id, GameTime gt)
 		{
