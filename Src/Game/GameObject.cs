@@ -14,6 +14,7 @@ namespace tim_dodge
 		public Texture Texture
 		{
 			get;
+			protected set;
 		}
 
 		public Sprite Sprite

@@ -6,21 +6,17 @@ namespace tim_dodge
 {
 	public class Map
 	{
-		public Map(Texture2D Background)
+		public Map(Texture2D Background, Texture MapTexture)
 		{
-			this.Background = Background;
-			gMap = new GraphicalMap();
+			gMap = new GraphicalMap(Background, MapTexture);
 			pMap = new PhysicalMap(gMap.tileMap);
 		}
 
 		public GraphicalMap gMap;
 		public PhysicalMap pMap;
 
-		public Texture2D Background;
-
 		public void Draw(SpriteBatch spriteBatch)
 		{
-			spriteBatch.Draw(Background, Vector2.Zero, Color.White);
 			gMap.Draw(spriteBatch);
 		}
 

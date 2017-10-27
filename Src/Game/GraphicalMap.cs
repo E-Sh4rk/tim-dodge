@@ -7,14 +7,21 @@ namespace tim_dodge
 {
 	public class GraphicalMap : GameObject
 	{
-		public GraphicalMap()
-			: base(Load.MapTexture, new Sprite("Content.ground.groundXml.xml"), new Vector2(0, 0))
+		public GraphicalMap(Texture2D Background, Texture MapTexture)
+			: base(MapTexture, new Sprite("Content.ground.natureXml.xml"), new Vector2(0, 0))
 		{
 			tileMap = new List<Map.Block>();
+
+			this.Background = Background;
 
 			for (int i = 3; i < numberTileX - 4; i++)//numberTileX; i++)
 			{
 				tileMap.Add(new Map.Block(Sprite.RectOfSprite().Height, Sprite.RectOfSprite().Width, i, numberTileY - 1, Map.Ground.MiddleGround));
+			}
+
+			for (int i = 0; i < numberTileX ; i++)//numberTileX; i++)
+			{
+				tileMap.Add(new Map.Block(Sprite.RectOfSprite().Height, Sprite.RectOfSprite().Width, i, numberTileY , Map.Ground.MiddleDurt));
 			}
 
 			tileMap.Add(new Map.Block(Sprite.RectOfSprite().Height, Sprite.RectOfSprite().Width, 2, numberTileY - 1, Map.Ground.LeftEGround));
@@ -40,12 +47,24 @@ namespace tim_dodge
 
 		}
 
+		public Texture2D Background;
 
 		public List<Map.Block> tileMap;
+
+		public void changeTexture(Texture NewMapTexture)
+		{
+			Texture = NewMapTexture;
+		}
+
+		public void changeBackground(Texture2D NewBackground)
+		{
+			Background = NewBackground;
+		}
 
 
 		public new void Draw(SpriteBatch spriteBatch)
 		{
+			spriteBatch.Draw(Background, Vector2.Zero, Color.White);
 			tileMap.ForEach((Map.Block obj) => DrawBlock(spriteBatch, obj));
 		}
 
@@ -56,8 +75,8 @@ namespace tim_dodge
 			spriteBatch.Draw(Texture.Image, bl.position, new Rectangle(TexturePosition, Size), color, 0f, new Vector2(0, 0), new Vector2(1, 1), Sprite.Effect, 0f);
 		}
 
-		public const int numberTileY = 12;
-		public const int numberTileX = 22;
+		public const int numberTileY = 11;
+		public const int numberTileX = 20;
 
 	}
 }

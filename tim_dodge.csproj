@@ -103,6 +103,7 @@
     <EmbeddedResource Include="Content\objects\bomb.xml" />
     <EmbeddedResource Include="Content\ground\groundXml.xml" />
     <EmbeddedResource Include="Content\character\MonstarXml.xml" />
+    <EmbeddedResource Include="Content\ground\natureXml.xml" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />

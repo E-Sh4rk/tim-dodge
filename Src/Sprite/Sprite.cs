@@ -108,6 +108,7 @@ namespace tim_dodge
 		private void LoadXml(string xml_path)
 		{
 			var res = GetType().Module.Assembly.GetManifestResourceStream("tim_dodge."+xml_path);
+
 			var stream = new System.IO.StreamReader(res); 
 
 			string docs = stream.ReadToEnd();

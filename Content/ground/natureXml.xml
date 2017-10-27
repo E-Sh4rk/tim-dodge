@@ -1,0 +1,57 @@
+<!DOCTYPE SpriteDecomposer>
+<sprites image="nature.png" transparentColor="">
+  <animation title="Wall" delay="150">
+    <cut w="64" x="32" y="31" h="64" row="1" col="1"/>
+  </animation>
+  <animation title="Wall" delay="150">
+    <cut w="64" x="160" y="31" h="64" row="1" col="1"/>
+  </animation>
+  <animation title="Wall" delay="150">
+    <cut w="64" x="288" y="31" h="64" row="1" col="1"/>
+  </animation>
+  <animation title="Wall" delay="150">
+    <cut w="64" x="416" y="31" h="64" row="1" col="1"/>
+  </animation>
+  <animation title="Wall" delay="150">
+    <cut w="64" x="544" y="31" h="64" row="1" col="1"/>
+  </animation>
+  <animation title="Wall" delay="150">
+    <cut w="64" x="32" y="157" h="64" row="1" col="1"/>
+  </animation>
+  <animation title="Wall" delay="150">
+    <cut w="64" x="160" y="157" h="64" row="1" col="1"/>
+  </animation>
+  <animation title="Wall" delay="150">
+    <cut w="64" x="288" y="157" h="64" row="1" col="1"/>
+  </animation>
+  <animation title="Wall" delay="150">
+    <cut w="64" x="416" y="157" h="64" row="1" col="1"/>
+  </animation>
+  <animation title="Wall" delay="150">
+    <cut w="64" x="544" y="157" h="64" row="1" col="1"/>
+  </animation>
+  <animation title="Wall" delay="150">
+    <cut w="64" x="32" y="283" h="64" row="1" col="1"/>
+  </animation>
+  <animation title="Wall" delay="150">
+    <cut w="64" x="160" y="283" h="64" row="1" col="1"/>
+  </animation>
+  <animation title="Wall" delay="150">
+    <cut w="64" x="288" y="292" h="47" row="1" col="1"/>
+  </animation>
+  <animation title="Wall" delay="150">
+    <cut w="64" x="416" y="292" h="47" row="1" col="1"/>
+  </animation>
+  <animation title="Wall" delay="150">
+    <cut w="64" x="544" y="292" h="47" row="1" col="1"/>
+  </animation>
+  <animation title="Wall" delay="150">
+    <cut w="64" x="32" y="409" h="64" row="1" col="1"/>
+  </animation>
+  <animation title="Wall" delay="150">
+    <cut w="64" x="288" y="409" h="64" row="1" col="1"/>
+  </animation>
+  <animation title="Wall" delay="150">
+    <cut w="64" x="160" y="416" h="50" row="1" col="1"/>
+  </animation>
+</sprites>
