@@ -142,6 +142,7 @@ namespace tim_dodge
 			List<Map.Ground> roofsG = new List<Map.Ground> { Map.Ground.BottomDurt, Map.Ground.BottomLeft2Durt, Map.Ground.BottomRight2Durt};
 
 			const int pixelOffset = 10;
+			const int magicBorder = 10;
 
 			if (leftsG.Exists(e => e == ground))
 				walls[(int)Wall.left].Add(new Rectangle((int)(bl.position.X + 3*bl.w/4), (int)bl.position.Y + pixelOffset, (int)(bl.w/4), (int)(bl.h - pixelOffset*2)));
@@ -150,10 +151,10 @@ namespace tim_dodge
 				walls[(int)Wall.right].Add(new Rectangle((int)bl.position.X, (int)bl.position.Y + pixelOffset, (int)(bl.w / 4), (int)(bl.h - pixelOffset*2)));
 
 			if (roofsG.Exists(e => e == ground))
-				walls[(int)Wall.roof].Add(new Rectangle((int)bl.position.X, (int)(bl.position.Y + (bl.h / 2)), (int)bl.w, (int)bl.h / 2));
+				walls[(int)Wall.roof].Add(new Rectangle((int)bl.position.X + magicBorder, (int)(bl.position.Y + (bl.h / 2)), (int)(bl.w - 2*magicBorder) , (int)bl.h / 2));
 
 			if (bottomsG.Exists(e => e == ground))
-				walls[(int)Wall.bottom].Add(new Rectangle((int)bl.position.X, (int)(bl.position.Y), (int)bl.w, (int)bl.h / 2));
+				walls[(int)Wall.bottom].Add(new Rectangle((int)bl.position.X + magicBorder, (int)(bl.position.Y), (int)(bl.w - 2*magicBorder), (int)bl.h / 2));
 
 				
 			return walls;
