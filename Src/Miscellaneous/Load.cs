@@ -16,6 +16,7 @@ namespace tim_dodge
 		// Texture2D
 		public static Texture2D BackgroundMenu { get; private set; }
 		public static Texture2D BackgroundWinter { get; private set; }
+		public static Texture2D BackgroundSun { get; private set; }
 		public static Texture2D HeartFull { get; private set; }
 		public static Texture2D HeartSemi { get; private set; }
 		public static Texture2D HeartEmpty { get; private set; }
@@ -56,6 +57,7 @@ namespace tim_dodge
 			// Texture2D
 			BackgroundMenu = Content.Load<Texture2D>("background/Menu");
 			BackgroundWinter = Content.Load<Texture2D>("background/winter");
+			BackgroundSun = Content.Load<Texture2D>("background/sun");
 			HeartFull = Content.Load<Texture2D>("life/full_heart");
 			HeartSemi = Content.Load<Texture2D>("life/semi_heart");
 			HeartEmpty = Content.Load<Texture2D>("life/empty_heart");

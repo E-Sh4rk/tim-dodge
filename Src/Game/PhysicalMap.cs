@@ -27,13 +27,34 @@ namespace tim_dodge
 			protected set;
 		}
 
-		public PhysicalMap()
+
+		public PhysicalMap(List<Map.Block> tileMap)
 		{
-			// TODO: Different maps system
-			roofs = new Rectangle[] { };
-			leftWalls = new Rectangle[] { new Rectangle(-100, 0, 100, 625) };
-			rightWalls = new Rectangle[] { new Rectangle(TimGame.WINDOW_WIDTH, 0, 100, 625) };
-			grounds = new Rectangle[] { new Rectangle(0, 675, TimGame.WINDOW_WIDTH, 100) };
+			List<Rectangle>[] walls = new List<Rectangle>[4];
+
+			for (int i = 0; i < 4; i++)
+			{
+				walls[i] = new List<Rectangle>();
+			}
+
+			tileMap.ForEach((Map.Block bl) =>
+			{
+				List<Rectangle>[] result = walls_of_ground(bl);
+				for (int i = 0; i < 4; i++)
+				{
+					walls[i].AddRange(result[i]);
+				}
+			});
+
+			walls[(int)Wall.left].Add(new Rectangle(-100, 0, 100, 625));
+			walls[(int)Wall.right].Add(new Rectangle(TimGame.WINDOW_WIDTH, 0, 100, 625));
+			//walls[(int)Wall.bottom].Add(new Rectangle(0, 675, TimGame.WINDOW_WIDTH, 100));
+
+			roofs = walls[(int)Wall.roof].ToArray();
+			leftWalls = walls[(int)Wall.left].ToArray();
+			rightWalls = walls[(int)Wall.right].ToArray();
+			grounds = walls[(int)Wall.bottom].ToArray();
+
 		}
 
 		const int ground_detection_space = 3;
@@ -99,31 +120,47 @@ namespace tim_dodge
 		public enum Wall
 		{
 			roof = 0,
-			ground = 1,
+			bottom = 1,
 			left = 2,
 			right = 3
 		}
 
-		public List<Wall> walls_of_ground(Map.Ground ground)
+		public List<Rectangle>[] walls_of_ground(Map.Block bl)
 		{
-			List<Wall> walls = new List<Wall>();
-			List<Map.Ground> leftsG = new List<Map.Ground> { Map.Ground.LeftGround, Map.Ground.LeftDurt, Map.Ground.BottomLeft2Durt, Map.Ground.LeftPlatform };
-			List<Map.Ground> rightsG = new List<Map.Ground> { Map.Ground.RightGround, Map.Ground.RightDurt, Map.Ground.BottomRight2Durt, Map.Ground.RightPlatform };
-			List<Map.Ground> roofsG = new List<Map.Ground> { Map.Ground.LeftGround, Map.Ground.MiddleGround, Map.Ground.RightGround, Map.Ground.RightEGround, Map.Ground.LeftEGround, Map.Ground.LeftPlatform, Map.Ground.RightPlatform, Map.Ground.MiddlePlatform};
-			List<Map.Ground> bottomsG = new List<Map.Ground> { Map.Ground.BottomDurt, Map.Ground.BottomLeft2Durt, Map.Ground.BottomRight2Durt};
+			Map.Ground ground = bl.state;
+
+			List<Rectangle>[] walls = new List<Rectangle>[4];
+
+			for (int i = 0; i < 4; i++)
+			{
+				walls[i] = new List<Rectangle>();
+			}
+
+			List<Map.Ground> rightsG = new List<Map.Ground> { Map.Ground.LeftGround, Map.Ground.LeftDurt, Map.Ground.BottomLeft2Durt, Map.Ground.LeftPlatform };
+			List<Map.Ground> leftsG = new List<Map.Ground> { Map.Ground.RightGround, Map.Ground.RightDurt, Map.Ground.BottomRight2Durt, Map.Ground.RightPlatform };
+			List<Map.Ground> bottomsG = new List<Map.Ground> { Map.Ground.LeftGround, Map.Ground.MiddleGround, Map.Ground.RightGround, Map.Ground.RightEGround, Map.Ground.LeftEGround, Map.Ground.LeftPlatform, Map.Ground.RightPlatform, Map.Ground.MiddlePlatform};
+			List<Map.Ground> roofsG = new List<Map.Ground> { Map.Ground.BottomDurt, Map.Ground.BottomLeft2Durt, Map.Ground.BottomRight2Durt};
+
+			const int pixelOffset = 10;
 
 			if (leftsG.Exists(e => e == ground))
-				walls.Add(Wall.left);
-			if (rightsG.Exists(e => e == ground))
-				walls.Add(Wall.right);
-			if (roofsG.Exists(e => e == ground))
-				walls.Add(Wall.roof);
-			if (bottomsG.Exists(e => e == ground))
-				walls.Add(Wall.ground);
+				walls[(int)Wall.left].Add(new Rectangle((int)(bl.position.X + 3*bl.w/4), (int)bl.position.Y + pixelOffset, (int)(bl.w/4), (int)(bl.h - pixelOffset*2)));
 
+			if (rightsG.Exists(e => e == ground))
+				walls[(int)Wall.right].Add(new Rectangle((int)bl.position.X, (int)bl.position.Y + pixelOffset, (int)(bl.w / 4), (int)(bl.h - pixelOffset*2)));
+
+			if (roofsG.Exists(e => e == ground))
+				walls[(int)Wall.roof].Add(new Rectangle((int)bl.position.X, (int)(bl.position.Y + (bl.h / 2)), (int)bl.w, (int)bl.h / 2));
+
+			if (bottomsG.Exists(e => e == ground))
+				walls[(int)Wall.bottom].Add(new Rectangle((int)bl.position.X, (int)(bl.position.Y), (int)bl.w, (int)bl.h / 2));
+
+				
 			return walls;
 		}
 
+		
 
 	}
 }
+

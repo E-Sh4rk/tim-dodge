@@ -31,13 +31,13 @@ namespace tim_dodge
 
 			Map map = new Map(Load.BackgroundWinter);
 
-			Level1 = new Level(game, map, Load.BackgroundWinter, 100, 0.4f);
+			Level1 = new Level(game, map, Load.BackgroundSun, 100, 0.4f);
 			Level1.FireballActiv = true;
 
-			Level2 = new Level(game, map, Load.BackgroundWinter, 100, 0.2f);
+			Level2 = new Level(game, map, Load.BackgroundSun, 100, 0.2f);
 			Level2.FireballActiv = true;
 
-			Level3 = new Level(game, map, Load.BackgroundWinter, 600, 0.1f);
+			Level3 = new Level(game, map, Load.BackgroundSun, 600, 0.1f);
 			Level3.FireballActiv = true;
 
 			Level4 = new Level(game, map, Load.BackgroundWinter, 800, 0.2f);

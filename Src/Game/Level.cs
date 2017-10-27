@@ -41,10 +41,13 @@ namespace tim_dodge
 
 			nowTest = Ground.MiddleGround;
 			tileMap = new List<Block>();
+
 			for (int i = 3; i < numberTileX - 4; i++)//numberTileX; i++)
 			{
 				tileMap.Add(new Block(Sprite.RectOfSprite().Height, Sprite.RectOfSprite().Width, i, numberTileY - 1, Ground.MiddleGround));
 			}
+
+
 			tileMap.Add(new Block(Sprite.RectOfSprite().Height, Sprite.RectOfSprite().Width, 2, numberTileY - 1, Ground.LeftEGround));
 			tileMap.Add(new Block(Sprite.RectOfSprite().Height, Sprite.RectOfSprite().Width, 1, numberTileY - 1, Ground.BottomLeftDurt));
 			tileMap.Add(new Block(Sprite.RectOfSprite().Height, Sprite.RectOfSprite().Width, 0, numberTileY - 1, Ground.MiddleDurt));

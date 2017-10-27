@@ -10,7 +10,7 @@ namespace tim_dodge
 		{
 			this.Background = Background;
 			gMap = new GraphicalMap();
-			pMap = new PhysicalMap();
+			pMap = new PhysicalMap(gMap.tileMap);
 		}
 
 		public GraphicalMap gMap;
@@ -42,6 +42,45 @@ namespace tim_dodge
 			MiddlePlatform = 13,
 			RightPlatform = 14,
 			BottomRight2Durt = 15
+		}
+
+		public class Block
+		{
+			private int _x;
+			private int _y;
+
+			public int x
+			{
+				get { return _x; }
+				set { _x = value; _position.X = value * h; }
+			}
+
+			public int y
+			{
+				get { return _y; }
+				set { _y = value; _position.Y = value * w; }
+			}
+
+			private Vector2 _position;
+
+			public Vector2 position
+			{
+				get { return _position; }
+			}
+
+			public Map.Ground state;
+
+			public float h;
+			public float w;
+
+			public Block(float h, float w, int x, int y, Map.Ground state)
+			{
+				this.h = h;
+				this.w = w;
+				this.x = x;
+				this.y = y;
+				this.state = state;
+			}
 		}
 
 	}
