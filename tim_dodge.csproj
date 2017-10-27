@@ -69,6 +69,7 @@
     <Compile Include="Src\Game\NonPlayerObjects\NonPlayerObject.cs" />
     <Compile Include="Src\Miscellaneous\Load.cs" />
     <Compile Include="Src\Game\NonPlayerObjects\Monstar.cs" />
+    <Compile Include="Src\Game\NonPlayerObjects\WalkingObjects.cs" />
     <Compile Include="Src\Game\PhysicalMap.cs" />
     <Compile Include="Src\Game\GraphicalMap.cs" />
   </ItemGroup>

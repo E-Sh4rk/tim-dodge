@@ -58,15 +58,14 @@ namespace tim_dodge
 			Game = new GameManager(Content, this);
 		}
 
+		public static KeyboardState previousKeyState;
+		public static KeyboardState currentKeyState;
+
 		/// <summary>
 		/// Allows the game to run logic such as updating the world,
 		/// checking for collisions, gathering input, and playing audio.
 		/// </summary>
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
-
-		public static KeyboardState previousKeyState;
-		public static KeyboardState currentKeyState;
-
 		protected override void Update(GameTime gameTime)
 		{
 			// For Mobile devices, this logic will close the Game when the Back button is pressed

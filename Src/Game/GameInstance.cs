@@ -38,11 +38,13 @@ namespace tim_dodge
 			Level.Update(gameTime);
 			player.Move(state, gameTime);
 			Level.Current.falling.Update(gameTime);
+			Level.Current.walking.Update(gameTime);
 
 			// All physical objects
 			List<PhysicalObject> phys_obj = new List<PhysicalObject>();
 			phys_obj.Add(player);
 			phys_obj.AddRange(Level.Current.falling.FallingList);
+			phys_obj.AddRange(Level.Current.walking.EnemiesList);
 
 			foreach (PhysicalObject po in phys_obj)
 				po.UpdateSprite(gameTime);
@@ -63,6 +65,8 @@ namespace tim_dodge
 
 			player.Draw(spriteBatch);
 			foreach (NonPlayerObject en in Level.Current.falling.FallingList)
+				en.Draw(spriteBatch);
+			foreach (NonPlayerObject en in Level.Current.walking.EnemiesList)
 				en.Draw(spriteBatch);
 			scoreTim.Draw(spriteBatch);
 			player.Life.Draw(spriteBatch);

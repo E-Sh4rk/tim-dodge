@@ -8,6 +8,7 @@ namespace tim_dodge
 	public class Level : GameObject
 	{
 		public FallingObjects falling;
+		public WalkingObjects walking;
 		public Map map;
 		public Texture2D Background;
 		private GameInstance game;
@@ -38,6 +39,8 @@ namespace tim_dodge
 			this.XPToEnd = XPToEnd;
 
 			falling = new FallingObjects(game, this);
+			walking = new WalkingObjects(game, this);
+			map = new Map();
 
 			nowTest = Ground.MiddleGround;
 			tileMap = new List<Block>();
