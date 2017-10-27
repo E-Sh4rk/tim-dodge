@@ -65,7 +65,7 @@ namespace tim_dodge
 
 		public bool CanJump()
 		{
-			return map.nearTheGround(this) && elapsed_since_last_jump >= min_time_between_jump;
+			return map.pMap.nearTheGround(this) && elapsed_since_last_jump >= min_time_between_jump;
 		}
 
 		public bool CanSquat()
@@ -89,7 +89,7 @@ namespace tim_dodge
 				{
 					Load.sounds.playSound(Sound.SoundName.jump);
 					elapsed_since_last_jump = 0;
-					map.magnetizeToGround(this);
+					map.pMap.magnetizeToGround(this);
 					ApplyNewImpulsion(JumpImpulsion);
 				}
 				else
@@ -125,7 +125,7 @@ namespace tim_dodge
 
 			if (!squatMode)
 			{
-				if (!map.nearTheGround(this))
+				if (!map.pMap.nearTheGround(this))
 				{
 					if (Math.Abs(Velocity.X) > 2)
 						ChangeSpriteState((int)State.Jump);

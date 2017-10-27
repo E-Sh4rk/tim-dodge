@@ -29,7 +29,7 @@ namespace tim_dodge
 			Title.Position = new Vector2((TimGame.WINDOW_WIDTH - Title.Size.X) / 2,
 										 (TimGame.WINDOW_HEIGHT - Title.Size.Y) / 2);
 
-			Map map = new Map();
+			Map map = new Map(Load.BackgroundWinter);
 
 			Level1 = new Level(game, map, Load.BackgroundWinter, 100, 0.4f);
 			Level1.FireballActiv = true;
