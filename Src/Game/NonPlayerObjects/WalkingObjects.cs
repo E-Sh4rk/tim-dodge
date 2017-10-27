@@ -23,7 +23,7 @@ namespace tim_dodge
 			EnemiesList = new List<Monstar>();
 
 			Sprite s = new Sprite("Content.character.MonstarXml.xml");
-			Monstar m = new Monstar(Load.MonstarTexture, s, new Vector2(0f, 0f));
+			Monstar m = new Monstar(Load.MonstarTexture, s, new Vector2(0f, 0f), map.pMap);
 
 			EnemiesList.Add(m);
 		}
@@ -36,7 +36,7 @@ namespace tim_dodge
 			// Moving
 			foreach (Monstar m in EnemiesList)
 			{
-				m.Move(Controller.Direction.RIGHT, gt);
+				m.Move(gt);
 			}
 
 			// Delete enemies that are dead

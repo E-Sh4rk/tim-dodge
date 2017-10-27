@@ -6,10 +6,13 @@ namespace tim_dodge
 {
 	public class Monstar : NonPlayerObject
 	{
-		public Monstar(Texture t, Sprite s, Vector2 p): base(t,s,p)
+		PhysicalMap m;
+
+		public Monstar(Texture t, Sprite s, Vector2 p, PhysicalMap m): base(t,s,p)
 		{
 			Mass = 25;
 			Damage = 1;
+			this.m = m;
 		}
 
 		protected void autoDestruct(GameTime gameTime)
@@ -21,17 +24,19 @@ namespace tim_dodge
 			}
 		}
 
-		public void Move(Controller.Direction direction, GameTime gameTime)
+		public void Move(GameTime gameTime)
 		{
-			if (direction == Controller.Direction.LEFT)
-			{
+			if (m.nearLeftWall(this))
+				Sprite.ChangeDirection(Controller.Direction.RIGHT);
+			if (m.nearRightWall(this))
 				Sprite.ChangeDirection(Controller.Direction.LEFT);
+			if (Sprite.Direction == Controller.Direction.LEFT)
+			{
 				if (velocity.X >= -1)
 					ApplyNewForce(new Vector2(-500f, 0f));
 			}
-			if (direction == Controller.Direction.RIGHT)
+			if (Sprite.Direction == Controller.Direction.RIGHT)
 			{
-				Sprite.ChangeDirection(Controller.Direction.RIGHT);
 				if (velocity.X <= 1)
 					ApplyNewForce(new Vector2(500f, 0f));
 			}
