@@ -41,7 +41,9 @@ namespace tim_dodge
 			LeftPlatform = 12,
 			MiddlePlatform = 13,
 			RightPlatform = 14,
-			BottomRight2Durt = 15
+			BottomRight2Durt = 15,
+			UpWater = 16,
+			MiddleWater = 17,
 		}
 
 		public class Block
