@@ -68,6 +68,7 @@
     <Compile Include="Src\Game\NonPlayerObjects\Fireball.cs" />
     <Compile Include="Src\Game\NonPlayerObjects\NonPlayerObject.cs" />
     <Compile Include="Src\Miscellaneous\Load.cs" />
+    <Compile Include="Src\Game\NonPlayerObjects\Monstar.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.manifest" />
@@ -98,6 +99,7 @@
     <EmbeddedResource Include="Content\objects\fireball.xml" />
     <EmbeddedResource Include="Content\objects\bomb.xml" />
     <EmbeddedResource Include="Content\ground\groundXml.xml" />
+    <EmbeddedResource Include="Content\character\MonstarXml.xml" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
