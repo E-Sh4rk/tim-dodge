@@ -40,7 +40,6 @@ namespace tim_dodge
 
 			falling = new FallingObjects(game, this);
 			walking = new WalkingObjects(game, this);
-			map = new Map();
 
 			nowTest = Ground.MiddleGround;
 			tileMap = new List<Block>();
