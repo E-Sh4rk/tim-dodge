@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 namespace tim_dodge
@@ -94,5 +95,35 @@ namespace tim_dodge
 			o.Position = position;
 			o.Velocity = velocity;
 		}
+
+		public enum Wall
+		{
+			roof = 0,
+			ground = 1,
+			left = 2,
+			right = 3
+		}
+
+		public List<Wall> walls_of_ground(Map.Ground ground)
+		{
+			List<Wall> walls = new List<Wall>();
+			List<Map.Ground> leftsG = new List<Map.Ground> { Map.Ground.LeftGround, Map.Ground.LeftDurt, Map.Ground.BottomLeft2Durt, Map.Ground.LeftPlatform };
+			List<Map.Ground> rightsG = new List<Map.Ground> { Map.Ground.RightGround, Map.Ground.RightDurt, Map.Ground.BottomRight2Durt, Map.Ground.RightPlatform };
+			List<Map.Ground> roofsG = new List<Map.Ground> { Map.Ground.LeftGround, Map.Ground.MiddleGround, Map.Ground.RightGround, Map.Ground.RightEGround, Map.Ground.LeftEGround, Map.Ground.LeftPlatform, Map.Ground.RightPlatform, Map.Ground.MiddlePlatform};
+			List<Map.Ground> bottomsG = new List<Map.Ground> { Map.Ground.BottomDurt, Map.Ground.BottomLeft2Durt, Map.Ground.BottomRight2Durt};
+
+			if (leftsG.Exists(e => e == ground))
+				walls.Add(Wall.left);
+			if (rightsG.Exists(e => e == ground))
+				walls.Add(Wall.right);
+			if (roofsG.Exists(e => e == ground))
+				walls.Add(Wall.roof);
+			if (bottomsG.Exists(e => e == ground))
+				walls.Add(Wall.ground);
+
+			return walls;
+		}
+
+
 	}
 }

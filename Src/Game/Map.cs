@@ -44,6 +44,5 @@ namespace tim_dodge
 			BottomRight2Durt = 15
 		}
 
-
 	}
 }
