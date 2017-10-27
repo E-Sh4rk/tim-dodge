@@ -1,98 +1,49 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace tim_dodge
 {
 	public class Map
 	{
-		public Rectangle[] roofs
+		public Map(Texture2D Background)
 		{
-			get;
-			protected set;
-		}
-		public Rectangle[] grounds
-		{
-			get;
-			protected set;
-		}
-		public Rectangle[] leftWalls
-		{
-			get;
-			protected set;
-		}
-		public Rectangle[] rightWalls
-		{
-			get;
-			protected set;
+			this.Background = Background;
+			gMap = new GraphicalMap();
+			pMap = new PhysicalMap();
 		}
 
-		public Map()
+		public GraphicalMap gMap;
+		public PhysicalMap pMap;
+
+		public Texture2D Background;
+
+		public void Draw(SpriteBatch spriteBatch)
 		{
-			// TODO: Different maps system
-			roofs = new Rectangle[] { };
-			leftWalls = new Rectangle[] { new Rectangle (-100, 0, 100, 625) };
-			rightWalls = new Rectangle[] { new Rectangle(TimGame.WINDOW_WIDTH, 0, 100, 625) };
-			grounds = new Rectangle[] { new Rectangle(0, 675, TimGame.WINDOW_WIDTH, 100) };
+			spriteBatch.Draw(Background, Vector2.Zero, Color.White);
+			gMap.Draw(spriteBatch);
 		}
 
-		const int ground_detection_space = 3;
-		public bool nearTheGround(PhysicalObject o)
+		public enum Ground
 		{
-			Point pos = o.Position.ToPoint();
-			pos.Y = pos.Y + ground_detection_space;
-			Rectangle ro = new Rectangle(pos, o.Size);
-			foreach (Rectangle r in grounds)
-			{
-				if (Collision.rect_collision(ro, r) != null)
-					return true;
-			}
-			return false;
+			LeftGround = 0,
+			MiddleGround = 1,
+			RightGround = 2,
+			LeftDurt = 3,
+			MiddleDurt = 4,
+			RightDurt = 5,
+			RightEGround = 6,
+			BottomRightDurt = 7,
+			BottomDurt = 8,
+			BottomLeftDurt = 9,
+			LeftEGround = 10,
+			BottomLeft2Durt = 11,
+			LeftPlatform = 12,
+			MiddlePlatform = 13,
+			RightPlatform = 14,
+			BottomRight2Durt = 15
 		}
-		public void magnetizeToGround(PhysicalObject o)
-		{
-			Vector2 pos = o.Position;
-			pos.Y = pos.Y + ground_detection_space;
-			o.Position = pos;
-			adjustPositionAndVelocity(o);
-		}
-		public void adjustPositionAndVelocity(PhysicalObject o)
-		{
-			Vector2 position = o.Position;
-			Vector2 velocity = o.Velocity;
-			foreach (Rectangle r in leftWalls)
-			{
-				if (Collision.rect_collision(new Rectangle(position.ToPoint(), o.Size), r) != null)
-				{
-					position.X = r.X + r.Size.X;
-					velocity.X = Math.Max(velocity.X, 0);
-				}
-			}
-			foreach (Rectangle r in rightWalls)
-			{
-				if (Collision.rect_collision(new Rectangle(position.ToPoint(), o.Size), r) != null)
-				{
-					position.X = r.X - o.Size.X;
-					velocity.X = Math.Min(velocity.X, 0);
-				}
-			}
-			foreach (Rectangle r in grounds)
-			{
-				if (Collision.rect_collision(new Rectangle(position.ToPoint(), o.Size), r) != null)
-				{
-					position.Y = r.Y - o.Size.Y;
-					velocity.Y = Math.Min(velocity.Y, 0);
-				}
-			}
-			foreach (Rectangle r in roofs)
-			{
-				if (Collision.rect_collision(new Rectangle(position.ToPoint(), o.Size), r) != null)
-				{
-					position.Y = r.Y + r.Size.Y;
-					velocity.Y = Math.Max(velocity.Y, 0);
-				}
-			}
-			o.Position = position;
-			o.Velocity = velocity;
-		}
+
+
 	}
 }

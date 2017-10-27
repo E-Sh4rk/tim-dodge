@@ -73,7 +73,7 @@ namespace tim_dodge
 				// Compute gravity, friction...
 				ApplyNewForce(new Vector2(0.0f, gravity * Mass));
 				// TODO: Improve friction
-				if (map.nearTheGround(this))
+				if (map.pMap.nearTheGround(this))
 					ApplyNewForce(velocity * (-ground_friction) * Mass);
 				else
 					ApplyNewForce(velocity * (-air_friction) * Mass);
@@ -120,7 +120,7 @@ namespace tim_dodge
 		public virtual void UpdatePosition(List<PhysicalObject> objects, Map map, GameTime gameTime)
 		{
 			position += velocity * (float)gameTime.ElapsedGameTime.TotalSeconds * pixels_per_meter;
-			map.adjustPositionAndVelocity(this);
+			map.pMap.adjustPositionAndVelocity(this);
 		}
 	}
 }

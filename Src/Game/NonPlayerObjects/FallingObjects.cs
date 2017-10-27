@@ -75,7 +75,7 @@ namespace tim_dodge
 
 			// Autodestruct ennemies on the ground 
 			if (FallingList.Count != 0)
-				FallingList.FindAll(map.nearTheGround).ForEach((e => e.destructionMode(gt)));
+				FallingList.FindAll(map.pMap.nearTheGround).ForEach((e => e.destructionMode(gt)));
 
 			// Delete enemies on the ground
 			int i = 0;

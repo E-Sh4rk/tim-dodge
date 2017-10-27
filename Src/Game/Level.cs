@@ -38,7 +38,6 @@ namespace tim_dodge
 			this.XPToEnd = XPToEnd;
 
 			falling = new FallingObjects(game, this);
-			map = new Map();
 
 			nowTest = Ground.MiddleGround;
 			tileMap = new List<Block>();
