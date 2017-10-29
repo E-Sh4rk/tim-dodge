@@ -9,7 +9,7 @@ namespace tim_dodge
 	{
 		private Texture2D[] heartTexture;
 
-		public const int slotNumber = 3;
+		public const int slotNumber = 4;
 
 		private static Vector2 spacement = new Vector2(50,0);
 		private Vector2 position0 = new Vector2(TimGame.WINDOW_WIDTH - ((slotNumber)*(spacement.X) ), 20);
