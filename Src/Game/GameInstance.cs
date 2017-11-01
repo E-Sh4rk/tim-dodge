@@ -12,11 +12,10 @@ namespace tim_dodge
 	{
 		public Player player;
 
-		//public Vector2 PositionScoreTim { get; }
-		public Stat scoreTim { get; }
+		public Stat scoreTim { get; protected set; }
 
-		private Heart heart;
-		public LevelManager Level { get; }
+		public Heart heart { get; protected set; }
+		public LevelManager Level { get; protected set; }
 
 		public GameInstance()
 		{
