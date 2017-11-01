@@ -29,10 +29,14 @@ namespace tim_dodge
 			sfxmute = false; // Mute sound effects by default
 			musicmute = false; // Mute music by default
 
-			musicNow = musics[(int)MusicName.cuphead].CreateInstance();
-			musicNow.Play();
-			musicNow.Volume = 0.60f;
-			musicNow.IsLooped = true;
+			try // Catch exceptions in case the computer can't play songs (example: Travis)
+			{
+				musicNow = musics[(int)MusicName.cuphead].CreateInstance();
+				musicNow.Play();
+				musicNow.Volume = 0.60f;
+				musicNow.IsLooped = true;
+			}
+			catch { }
 		}
 
 		public enum SoundName
@@ -56,40 +60,55 @@ namespace tim_dodge
 
 		public void playSound(SoundName son)
 		{
-			if (!sfxmute)
-				sounds[(int)son].Play();
+			try // Catch exceptions in case the computer can't play songs (example: Travis)
+			{
+				if (!sfxmute)
+					sounds[(int)son].Play();
+			}
+			catch { }
 		}
 
 		public void playMusic(MusicName mus)
 		{
-			musicNow.Stop();
-			musicNow = musics[(int)mus].CreateInstance();
-			musicNow.Volume = 0.60f;
-			musicNow.IsLooped = true;
-
-			if (!musicmute)
+			try // Catch exceptions in case the computer can't play songs (example: Travis)
 			{
-				musicNow.Play();
+				musicNow.Stop();
+				musicNow = musics[(int)mus].CreateInstance();
+				musicNow.Volume = 0.60f;
+				musicNow.IsLooped = true;
+
+				if (!musicmute)
+				{
+					musicNow.Play();
+				}
 			}
+			catch { }
 		}
 
 		public void pauseMusic()
 		{
-			if (!musicmute)
+			try // Catch exceptions in case the computer can't play songs (example: Travis)
 			{
-				musicNow.Pause();
-				musicmute = true;
+				if (!musicmute)
+				{
+					musicNow.Pause();
+					musicmute = true;
+				}
 			}
-
+			catch { }
 		}
 
 		public void resumeMusic()
 		{
-			if (musicmute)
+			try // Catch exceptions in case the computer can't play songs (example: Travis)
 			{
-				musicNow.Resume();
-				musicmute = false;
+				if (musicmute)
+				{
+					musicNow.Resume();
+					musicmute = false;
+				}
 			}
+			catch { }
 		}
 
 
