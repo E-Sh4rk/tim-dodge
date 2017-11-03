@@ -165,12 +165,15 @@ namespace tim_dodge
 				if (es.Exists(e => e.Damage > 0))
 				{
 					color = Color.IndianRed;
+					last_damage_time = gt.TotalGameTime.TotalSeconds;
 				}
-				else if (es.Exists(e => e.Bonus > 0))
+				// bonus and no damage
+				else if (es.Exists(e => e.Bonus > 0)) 
 				{
-					color = Color.Yellow;
+					//color = Color.Yellow;
+					// no invinsibility
 				}
-				last_damage_time = gt.TotalGameTime.TotalSeconds;
+
 			}
 
 		}
