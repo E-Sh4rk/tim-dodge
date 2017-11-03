@@ -25,7 +25,7 @@ namespace tim_dodge
 
 		public bool Beginning { get; private set; }
 		private float time;
-		private const float timeOfBeg = 1.350f;
+		private const float timeOfBeg = 0.8f;
 		public bool EndOfLevel { get { return XP > XPToEnd && falling.FallingList.Count == 0; } }
 
 		public Level(GameInstance game, Map map, Texture2D Background, Texture MapTexture, int XPToEnd, float interval)

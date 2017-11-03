@@ -86,7 +86,7 @@
     <cut w="101" x="2140" y="367" h="138" row="1" col="1"/>
     <cut w="104" x="2247" y="367" h="136" row="1" col="1"/>
   </animation>
-  <animation title="Tie" delay="150">
+  <animation title="Tie" delay="100">
     <cut w="81" x="629" y="1211" h="137" row="1" col="1"/>
     <cut w="81" x="722" y="1211" h="137" row="1" col="1"/>
     <cut w="81" x="819" y="1209" h="139" row="1" col="1"/>

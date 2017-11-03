@@ -27,7 +27,7 @@ namespace tim_dodge
 			heart = new Heart(Load.HeartFull, Load.HeartSemi, Load.HeartEmpty);
 
 			Level = new LevelManager(this);
-			player = new Player(new Vector2(500, 250), heart, this);
+			player = new Player(new Vector2(500, 450), heart, this);
 		}
 
 		public void Update(GameTime gameTime)
