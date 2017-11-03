@@ -156,7 +156,11 @@ namespace tim_dodge
 		}
 
 		const double time_invicibility = 0.5f;
+		const double time_bonus = 0.5f;
+
 		protected double last_damage_time = 0f;
+		protected double last_bonus_time = 0f;
+
 		protected override void ApplyCollision(Vector2 imp, int id, GameTime gt)
 		{
 			base.ApplyCollision(imp, id, gt);
@@ -165,25 +169,34 @@ namespace tim_dodge
 			List<NonPlayerObject> es = gameInst.Level.Current.falling.FallingList.FindAll(en => en.ID == id);
 			es.AddRange(gameInst.Level.Current.walking.EnemiesList.FindAll(en => en.ID == id));
 
-			if (es.Count > 0 && gt.TotalGameTime.TotalSeconds - last_damage_time >= time_invicibility)
+			if (es.Count > 0)
 			{
-				foreach (NonPlayerObject e in es)
+				foreach (NonPlayerObject e in es.FindAll((NonPlayerObject obj) => obj.Damage == 0))
 				{
-					Life.decr(e.Damage);
 					Life.incr(e.Life);
-					gameInst.scoreTim.incr(e.Bonus);
 					e.TouchPlayer();
 				}
-				if (es.Exists(e => e.Damage > 0))
+
+				if (es.Exists(e => e.Bonus > 0 || e.Life > 0))
 				{
-					color = Color.IndianRed;
-					last_damage_time = gt.TotalGameTime.TotalSeconds;
+					color = Color.LightBlue;
+					last_bonus_time = gt.TotalGameTime.TotalSeconds;
 				}
-				// bonus and no damage
-				else if (es.Exists(e => e.Bonus > 0)) 
+
+				if (gt.TotalGameTime.TotalSeconds - last_damage_time >= time_invicibility)
 				{
-					//color = Color.Yellow;
-					// no invinsibility
+					// take all the player wich give damage
+					foreach (NonPlayerObject e in es.FindAll((NonPlayerObject obj) => obj.Damage>0))
+					{
+						Life.decr(e.Damage);
+						gameInst.scoreTim.incr(e.Bonus);
+						e.TouchPlayer();
+					}
+					if (es.Exists(e => e.Damage > 0))
+					{
+						color = Color.IndianRed;
+						last_damage_time = gt.TotalGameTime.TotalSeconds;
+					}
 				}
 
 			}
@@ -192,7 +205,8 @@ namespace tim_dodge
 		public override void UpdatePosition(List<PhysicalObject> objects, Map map, GameTime gameTime)
 		{
 			base.UpdatePosition(objects, map, gameTime);
-			if (gameTime.TotalGameTime.TotalSeconds - last_damage_time >= time_invicibility)
+			if (gameTime.TotalGameTime.TotalSeconds - last_damage_time >= time_invicibility && 
+			    gameTime.TotalGameTime.TotalSeconds - last_bonus_time >= time_bonus)
 				color = Color.White;
 		}
 	}
