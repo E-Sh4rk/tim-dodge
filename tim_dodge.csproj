@@ -54,14 +54,11 @@
     <Compile Include="Src\Game\GameObject.cs" />
     <Compile Include="Src\Game\Collision.cs" />
     <Compile Include="Src\Game\Controller.cs" />
-    <Compile Include="Src\Game\Map.cs" />
     <Compile Include="Src\Game\PhysicalObject.cs" />
     <Compile Include="Src\Game\Player.cs" />
     <Compile Include="Src\Menu\KeyboardReader.cs" />
     <Compile Include="Src\Menu\Serializer.cs" />
     <Compile Include="Src\Menu\BestScore.cs" />
-    <Compile Include="Src\Game\Level.cs" />
-    <Compile Include="Src\Game\LevelManager.cs" />
     <Compile Include="Src\Game\NonPlayerObjects\Bomb.cs" />
     <Compile Include="Src\Game\NonPlayerObjects\Fireball.cs" />
     <Compile Include="Src\Game\NonPlayerObjects\NonPlayerObject.cs" />
@@ -69,10 +66,13 @@
     <Compile Include="Src\Miscellaneous\Load.cs" />
     <Compile Include="Src\Game\NonPlayerObjects\Monstar.cs" />
     <Compile Include="Src\Game\NonPlayerObjects\WalkingObjects.cs" />
-    <Compile Include="Src\Game\PhysicalMap.cs" />
-    <Compile Include="Src\Game\GraphicalMap.cs" />
     <Compile Include="Src\Game\NonPlayerObjects\Coin.cs" />
     <Compile Include="Src\Game\NonPlayerObjects\Food.cs" />
+    <Compile Include="Src\Game\LevelAndMap\Map.cs" />
+    <Compile Include="Src\Game\LevelAndMap\Level.cs" />
+    <Compile Include="Src\Game\LevelAndMap\LevelManager.cs" />
+    <Compile Include="Src\Game\LevelAndMap\PhysicalMap.cs" />
+    <Compile Include="Src\Game\LevelAndMap\GraphicalMap.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.manifest" />
@@ -168,6 +168,7 @@
     <Folder Include="Src\Miscellaneous\" />
     <Folder Include="Src\Game\" />
     <Folder Include="Src\Game\NonPlayerObjects\" />
+    <Folder Include="Src\Game\LevelAndMap\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />

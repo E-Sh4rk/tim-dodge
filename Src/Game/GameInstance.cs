@@ -27,7 +27,7 @@ namespace tim_dodge
 			heart = new Heart(Load.HeartFull, Load.HeartSemi, Load.HeartEmpty);
 
 			Level = new LevelManager(this);
-			player = new Player(new Vector2(500, 450), heart, this);
+			player = new Player(new Vector2(700, 450), heart, this);
 		}
 
 		public void Update(GameTime gameTime)
@@ -55,7 +55,11 @@ namespace tim_dodge
 				po.UpdatePosition(phys_obj, Level.Current.map, gameTime);
 
 			player.Life.Update();
+			if (player.IsOutOfBounds())
+				player.Life.decr(player.Life.value);
 
+			if(player.IsDead())
+				player.ChangeSpriteState((int)Player.State.Dead);
 		}
 
 		public void Draw(SpriteBatch spriteBatch)

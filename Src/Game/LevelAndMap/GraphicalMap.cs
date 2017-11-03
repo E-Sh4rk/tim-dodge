@@ -14,14 +14,33 @@ namespace tim_dodge
 
 			this.Background = Background;
 
+			/*
+			for (int i = 3; i < numberTileX - 4; i++)//numberTileX; i++)
+			{
+				if (i != 7 && i != 8 && i != 6 && i !=9)
+					tileMap.Add(new Map.Block(Sprite.RectOfSprite().Height, Sprite.RectOfSprite().Width, i, numberTileY - 1, Map.Ground.MiddleGround));
+			}
+
+			for (int i = 0; i < numberTileX ; i++)//numberTileX; i++)
+			{
+				if(i != 7 && i != 8 && i != 6 && i != 9)
+					tileMap.Add(new Map.Block(Sprite.RectOfSprite().Height, Sprite.RectOfSprite().Width, i, numberTileY , Map.Ground.MiddleDurt));
+			}
+
+			tileMap.Add(new Map.Block(Sprite.RectOfSprite().Height, Sprite.RectOfSprite().Width, 6, numberTileY, Map.Ground.RightDurt));
+			tileMap.Add(new Map.Block(Sprite.RectOfSprite().Height, Sprite.RectOfSprite().Width, 9, numberTileY, Map.Ground.LeftDurt));
+			tileMap.Add(new Map.Block(Sprite.RectOfSprite().Height, Sprite.RectOfSprite().Width, 6, numberTileY-1, Map.Ground.RightGround));
+			tileMap.Add(new Map.Block(Sprite.RectOfSprite().Height, Sprite.RectOfSprite().Width, 9, numberTileY - 1, Map.Ground.LeftGround));
+			*/
+
 			for (int i = 3; i < numberTileX - 4; i++)//numberTileX; i++)
 			{
 				tileMap.Add(new Map.Block(Sprite.RectOfSprite().Height, Sprite.RectOfSprite().Width, i, numberTileY - 1, Map.Ground.MiddleGround));
 			}
 
-			for (int i = 0; i < numberTileX ; i++)//numberTileX; i++)
+			for (int i = 0; i < numberTileX; i++)//numberTileX; i++)
 			{
-				tileMap.Add(new Map.Block(Sprite.RectOfSprite().Height, Sprite.RectOfSprite().Width, i, numberTileY , Map.Ground.MiddleDurt));
+				tileMap.Add(new Map.Block(Sprite.RectOfSprite().Height, Sprite.RectOfSprite().Width, i, numberTileY, Map.Ground.MiddleDurt));
 			}
 
 			tileMap.Add(new Map.Block(Sprite.RectOfSprite().Height, Sprite.RectOfSprite().Width, 2, numberTileY - 1, Map.Ground.LeftEGround));

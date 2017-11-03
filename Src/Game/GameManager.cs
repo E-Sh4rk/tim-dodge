@@ -31,7 +31,6 @@ namespace tim_dodge
 		{
 			if (GameRunning && game.player.IsDead())
 			{
-				game.player.ChangeSpriteState((int)Player.State.Dead);
 				Menu.LaunchGameOver();
 			}
 
