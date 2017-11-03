@@ -59,27 +59,29 @@ namespace tim_dodge
 						bomb.ApplyNewImpulsion(new Vector2(Collision.direction_between(r1, r2, false).X * 0.04f, 0));
 						FallingList.Add(bomb);
 					}
-					else if (FireballActiv)
+					else if (FireballActiv && random.Next(0, 5) != 0)
 					{
 						Sprite s = new Sprite("Content.objects.fireball.xml");
 						int X = random.Next(0, TimGame.WINDOW_WIDTH - s.RectOfSprite().Size.X);
 						NonPlayerObject fireball = new Fireball(Load.FireballTexture, s, new Vector2(X, -30));
 						FallingList.Add(fireball);
-
+					}
+					else if (FireballActiv)
+					{
 						// a chance to have a cake
-						if (random.Next(0, 10) == 0)
+						if (random.Next(0, 3) == 0)
 						{
-							s = new Sprite("Content.objects.food.xml");
+							Sprite s = new Sprite("Content.objects.food.xml");
 							s.ChangeState(14);//(22);
-							X = random.Next(0, TimGame.WINDOW_WIDTH - s.RectOfSprite().Size.X);
+							int X = random.Next(0, TimGame.WINDOW_WIDTH - s.RectOfSprite().Size.X);
 							NonPlayerObject food = new Food(Load.FoodTexture, s, new Vector2(X, -30));
 							FallingList.Add(food);
 						}
 
-						if (random.Next(0, 5) == 0)
+						else
 						{
-							s = new Sprite("Content.objects.coin.xml");
-							X = random.Next(0, TimGame.WINDOW_WIDTH - s.RectOfSprite().Size.X);
+							Sprite s = new Sprite("Content.objects.coin.xml");
+							int X = random.Next(0, TimGame.WINDOW_WIDTH - s.RectOfSprite().Size.X);
 							NonPlayerObject coin = new Coin(Load.CoinTexture, s, new Vector2(X, -30));
 							FallingList.Add(coin);
 						}
