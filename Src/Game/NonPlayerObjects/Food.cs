@@ -10,7 +10,7 @@ namespace tim_dodge
 		{
 			Mass = 5;
 			Bonus = 10;
-			Damage = -1;
+			Life = 1;
 		}
 
 		protected void autoDestruct(GameTime gameTime)

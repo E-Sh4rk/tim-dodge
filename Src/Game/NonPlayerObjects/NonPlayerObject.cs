@@ -8,12 +8,19 @@ namespace tim_dodge
 		public NonPlayerObject(Texture t, Sprite s, Vector2 p): base(t,s,p)
 		{
 			Mass = 5;
-			Damage = 1;
+			Damage = 0;
 			Bonus = 0;
+			Life = 0;
 			Dead = false;
 		}
 
 		public int Damage
+		{
+			get;
+			protected set;
+		}
+
+		public int Life
 		{
 			get;
 			protected set;

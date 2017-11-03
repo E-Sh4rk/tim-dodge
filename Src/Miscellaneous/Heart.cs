@@ -77,6 +77,8 @@ namespace tim_dodge
 		public void incr(int i)
 		{
 			value += i;
+			if (value > slotNumber * 2)
+				value = slotNumber * 2;
 		}
 
 		public void decr(int i)

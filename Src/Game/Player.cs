@@ -159,6 +159,7 @@ namespace tim_dodge
 				foreach (NonPlayerObject e in es)
 				{
 					Life.decr(e.Damage);
+					Life.incr(e.Life);
 					gameInst.scoreTim.incr(e.Bonus);
 					e.TouchPlayer();
 				}
