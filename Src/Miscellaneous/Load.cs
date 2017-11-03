@@ -30,6 +30,7 @@ namespace tim_dodge
 		public static Texture BombTexture;
 		public static Texture FireballTexture;
 		public static Texture CoinTexture;
+		public static Texture FoodTexture;
 		public static Texture MapTextureNature;
 		public static Texture MapTextureGraveyard;
 		public static Texture MapTextureDesert;
@@ -61,7 +62,8 @@ namespace tim_dodge
 				Content.Load<SoundEffect>("sound/toogle"),
 				Content.Load<SoundEffect>("sound/applause"),
 				Content.Load<SoundEffect>("sound/ah"),
-				Content.Load<SoundEffect>("sound/coin")
+				Content.Load<SoundEffect>("sound/coin"),
+				Content.Load<SoundEffect>("sound/food")
 			},
 				   new SoundEffect[] { Content.Load<SoundEffect>("sound/cuphead") });
 
@@ -84,6 +86,7 @@ namespace tim_dodge
 			BombTexture = new Texture(Content.Load<Texture2D>("objects/bomb"));
 			FireballTexture = new Texture(Content.Load<Texture2D>("objects/fireball"));
 			CoinTexture = new Texture(Content.Load<Texture2D>("objects/coin"));
+			FoodTexture = new Texture(Content.Load<Texture2D>("objects/food"));
 			MapTextureNature = new Texture(Content.Load<Texture2D>("ground/nature"));
 			MapTextureGraveyard = new Texture(Content.Load<Texture2D>("ground/graveyard"));
 			MapTextureDesert = new Texture(Content.Load<Texture2D>("ground/desert"));

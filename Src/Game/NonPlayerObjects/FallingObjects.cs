@@ -66,6 +66,16 @@ namespace tim_dodge
 						NonPlayerObject fireball = new Fireball(Load.FireballTexture, s, new Vector2(X, -30));
 						FallingList.Add(fireball);
 
+						// a chance to have a cake
+						if (random.Next(0, 10) == 0)
+						{
+							s = new Sprite("Content.objects.food.xml");
+							s.ChangeState(14);
+							X = random.Next(0, TimGame.WINDOW_WIDTH - s.RectOfSprite().Size.X);
+							NonPlayerObject food = new Food(Load.FoodTexture, s, new Vector2(X, -30));
+							FallingList.Add(food);
+						}
+
 						if (random.Next(0, 5) == 0)
 						{
 							s = new Sprite("Content.objects.coin.xml");

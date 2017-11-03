@@ -1,0 +1,87 @@
+<!DOCTYPE SpriteDecomposer>
+<sprites image="food.png" transparentColor="0">
+ <animation title="food" delay="150">
+   <cut w="63" x="658" y="5" h="42" row="1" col="1"/>
+ </animation>
+ <animation title="food" delay="150">
+   <cut w="50" x="7" y="17" h="58" row="1" col="1"/>
+   </animation>
+ <animation title="food" delay="150">
+   <cut w="55" x="63" y="20" h="56" row="1" col="1"/>
+   </animation>
+ <animation title="food" delay="150">
+   <cut w="55" x="126" y="21" h="56" row="1" col="1"/>
+   </animation>
+ <animation title="food" delay="150">
+   <cut w="60" x="254" y="22" h="62" row="1" col="1"/>
+   </animation>
+ <animation title="food" delay="150">
+   <cut w="60" x="190" y="23" h="59" row="1" col="1"/>
+   </animation>
+ <animation title="food" delay="150">
+   <cut w="63" x="495" y="29" h="62" row="1" col="1"/>
+   </animation>
+ <animation title="food" delay="150">
+   <cut w="61" x="316" y="30" h="58" row="1" col="1"/>
+   </animation>
+ <animation title="food" delay="150">
+   <cut w="19" x="566" y="31" h="18" row="1" col="1"/>
+   </animation>
+ <animation title="food" delay="150">
+   <cut w="60" x="560" y="31" h="60" row="1" col="1"/>
+   </animation>
+ <animation title="food" delay="150">
+   <cut w="50" x="443" y="32" h="52" row="1" col="1"/>
+   </animation>
+ <animation title="food" delay="150">
+   <cut w="38" x="622" y="37" h="64" row="1" col="1"/>
+   </animation>
+ <animation title="food" delay="150">
+   <cut w="60" x="725" y="46" h="61" row="1" col="1"/>
+   </animation>
+ <animation title="food" delay="150">
+   <cut w="56" x="665" y="52" h="49" row="1" col="1"/>
+   </animation>
+ <animation title="food" delay="150">
+   <cut w="63" x="2" y="80" h="59" row="1" col="1"/>
+   </animation>
+ <animation title="food" delay="150">
+   <cut w="44" x="147" y="82" h="61" row="1" col="1"/>
+   </animation>
+ <animation title="food" delay="150">
+   <cut w="63" x="71" y="84" h="52" row="1" col="1"/>
+   </animation>
+ <animation title="food" delay="150">
+   <cut w="27" x="197" y="84" h="64" row="1" col="1"/>
+   </animation>
+ <animation title="food" delay="150">
+   <cut w="31" x="228" y="87" h="63" row="1" col="1"/>
+   </animation>
+ <animation title="food" delay="150">
+   <cut w="52" x="326" y="95" h="46" row="1" col="1"/>
+   </animation>
+ <animation title="food" delay="150">
+   <cut w="62" x="452" y="96" h="59" row="1" col="1"/>
+   </animation>
+ <animation title="food" delay="150">
+   <cut w="58" x="265" y="100" h="51" row="1" col="1"/>
+   </animation>
+ <animation title="food" delay="150">
+   <cut w="59" x="519" y="101" h="55" row="1" col="1"/>
+   </animation>
+ <animation title="food" delay="150">
+   <cut w="60" x="584" y="103" h="61" row="1" col="1"/>
+   </animation>
+ <animation title="food" delay="150">
+   <cut w="62" x="648" y="110" h="55" row="1" col="1"/>
+   </animation>
+ <animation title="food" delay="150">
+   <cut w="64" x="718" y="114" h="52" row="1" col="1"/>
+   </animation>
+ <animation title="food" delay="150">
+   <cut w="62" x="2" y="142" h="53" row="1" col="1"/>
+   </animation>
+ <animation title="food" delay="150">
+  <cut w="51" x="76" y="144" h="52" row="1" col="1"/>
+ </animation>
+</sprites>

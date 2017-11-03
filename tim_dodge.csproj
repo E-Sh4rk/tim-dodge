@@ -72,6 +72,7 @@
     <Compile Include="Src\Game\PhysicalMap.cs" />
     <Compile Include="Src\Game\GraphicalMap.cs" />
     <Compile Include="Src\Game\NonPlayerObjects\Coin.cs" />
+    <Compile Include="Src\Game\NonPlayerObjects\Food.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.manifest" />
@@ -94,6 +95,7 @@
     <None Include="Content\ground\ground.png" />
     <None Include="Content\SpriteFonts\Level.spritefont" />
     <None Include="Content\objects\coin.png" />
+    <None Include="Content\objects\food.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icon.ico" />
@@ -106,6 +108,7 @@
     <EmbeddedResource Include="Content\character\MonstarXml.xml" />
     <EmbeddedResource Include="Content\ground\natureXml.xml" />
     <EmbeddedResource Include="Content\objects\coin.xml" />
+    <EmbeddedResource Include="Content\objects\food.xml" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />

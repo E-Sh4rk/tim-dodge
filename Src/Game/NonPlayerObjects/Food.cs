@@ -4,20 +4,19 @@ using Microsoft.Xna.Framework;
 
 namespace tim_dodge
 {
-	public class Coin : NonPlayerObject
+	public class Food : NonPlayerObject
 	{
-		public Coin(Texture t, Sprite s, Vector2 p) : base(t, s, p)
+		public Food(Texture t, Sprite s, Vector2 p) : base(t, s, p)
 		{
-			Mass = 7;
-			Bonus = 100;
-			Damage = 0;
+			Mass = 5;
+			Bonus = 10;
+			Damage = -1;
 		}
 
 		protected void autoDestruct(GameTime gameTime)
 		{
 			if (Ghost)
 			{
-				Dead = true;
 				if (Sprite.NowFrame() >= Sprite.NumberOfFrames() - 1)
 					Dead = true;
 			}
@@ -51,7 +50,7 @@ namespace tim_dodge
 
 		public override void TouchPlayer()
 		{
-			Load.sounds.playSound(Sound.SoundName.coin);
+			Load.sounds.playSound(Sound.SoundName.food);
 		}
 	}
 }
