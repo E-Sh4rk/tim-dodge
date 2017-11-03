@@ -50,7 +50,7 @@ namespace tim_tests
 		/* TESTS */
 
 		[Test]
-		public void Collisions()
+		public void Collisions() // Test collisions (sprite mask)
 		{
 			Texture2D t1 = loadTexture("Collisions.1.png");
 			tim_dodge.PhysicalObject o1 = new tim_dodge.PhysicalObject(new tim_dodge.Texture(t1), null, new Vector2(0f, 0f));
@@ -61,6 +61,41 @@ namespace tim_tests
 			o2.Position = new Vector2(1.0f, 0.0f);
 			//Debug.Assert(tim_dodge.Collision.object_collision(o1, o2) != null);
 			Assert.IsFalse(tim_dodge.Collision.object_collision(o1, o2) == null);
+		}
+
+		[Test]
+		public void EnvironmentAndDeath() // Simulate some games and check that the player expected lifetime match
+		{
+			// Should be dead at the end
+			g.initializeHardLevel();
+			int remainingFrames = 250;
+			bool ok1 = false;
+			while (remainingFrames > 0)
+			{
+				g.RunOneFrame();
+				remainingFrames--;
+				if (g.isGameTerminated())
+				{
+					ok1 = true;
+					break;
+				}
+			}
+			// Should be alive at the end
+			g.initializeEasyLevel();
+			remainingFrames = 250;
+			bool ok2 = true;
+			while (remainingFrames > 0)
+			{
+				g.RunOneFrame();
+				remainingFrames--;
+				if (g.isGameTerminated())
+				{
+					ok2 = false;
+					break;
+				}
+			}
+
+			Assert.IsTrue(ok1 && ok2);
 		}
 	}
 }
