@@ -99,6 +99,7 @@ namespace tim_dodge
 		}
 
 		public int NowFrame() { return nowFrame; }
+		public int NowState() { return nowState; }
 
 		public Rectangle RectOfSprite()
 		{

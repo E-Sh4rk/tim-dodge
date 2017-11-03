@@ -86,6 +86,17 @@
     <cut w="101" x="2140" y="367" h="138" row="1" col="1"/>
     <cut w="104" x="2247" y="367" h="136" row="1" col="1"/>
   </animation>
+  <animation title="Tie" delay="150">
+    <cut w="81" x="629" y="1211" h="137" row="1" col="1"/>
+    <cut w="81" x="722" y="1211" h="137" row="1" col="1"/>
+    <cut w="81" x="819" y="1209" h="139" row="1" col="1"/>
+    <cut w="84" x="912" y="1209" h="139" row="1" col="1"/>
+    <cut w="88" x="1019" y="1209" h="139" row="1" col="1"/>
+    <cut w="87" x="1122" y="1211" h="137" row="1" col="1"/>
+    <cut w="85" x="1218" y="1209" h="139" row="1" col="1"/>
+    <cut w="81" x="1320" y="1209" h="139" row="1" col="1"/>
+    <cut w="81" x="1415" y="1211" h="137" row="1" col="1"/>
+  </animation>
   <animation title="Jump_right_begin_run" delay="200">
     <cut w="107" x="1212" y="547" h="131" row="1" col="1"/>
     <cut w="120" x="1337" y="549" h="129" row="1" col="1"/>

@@ -68,6 +68,9 @@ namespace tim_dodge
 			}
 		}
 
-		public override void TouchPlayer() { }
+		public override void TouchPlayer()
+		{
+			Load.sounds.playSound(Sound.SoundName.ah);
+		}
 	}
 }
