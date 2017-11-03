@@ -8,11 +8,12 @@ namespace tim_dodge
 	{
 		PhysicalMap m;
 
-		public Monstar(Texture t, Sprite s, Vector2 p, PhysicalMap m): base(t,s,p)
+		public Monstar(Texture t, Sprite s, Vector2 p, PhysicalMap m, Controller.Direction dir): base(t,s,p)
 		{
 			Mass = 25;
 			Damage = 1;
 			this.m = m;
+			Sprite.ChangeDirection(dir);
 		}
 
 		protected void autoDestruct(GameTime gameTime)

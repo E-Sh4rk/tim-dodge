@@ -23,7 +23,7 @@ namespace tim_dodge
 			: base(Load.TimTexture, new Sprite("Content.character.TimXml.xml"), pos)
 		{
 			JumpImpulsion = new Vector2(0f, -180f);//-250f);//-180f);
-			JumpMore = new Vector2(0, -300);
+			JumpMore = new Vector2(0, -150);
 			DashForceLeft = new Vector2(-1500f, 0f);
 			DashForceRight = -DashForceLeft;
 			this.map = gi.Level.Current.map;

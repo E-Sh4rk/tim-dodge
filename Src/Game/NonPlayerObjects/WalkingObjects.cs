@@ -6,7 +6,7 @@ namespace tim_dodge
 {
 	public class WalkingObjects
 	{
-
+		private Random random;
 		private GameInstance game;
 		private Map map;
 
@@ -21,17 +21,37 @@ namespace tim_dodge
 			this.game = game;
 			map = Level.map;
 			EnemiesList = new List<Monstar>();
-
-			Sprite s = new Sprite("Content.character.MonstarXml.xml");
-			Monstar m = new Monstar(Load.MonstarTexture, s, new Vector2(0f, 0f), map.pMap);
-
-			EnemiesList.Add(m);
+			random = new Random();
+			interval = 2;
 		}
 
-		//private float time;
+		private float time;
+		private float interval;
 
 		public void Update(GameTime gt)
 		{
+			time += (float)gt.ElapsedGameTime.TotalSeconds;
+
+			while (time > interval)
+			{
+				Sprite s = new Sprite("Content.character.MonstarXml.xml");
+				Controller.Direction dir;
+				Vector2 vec = new Vector2(0f, 0f);
+				if (random.Next(0, 2) == 0) // p = 1/2 to be on the right or on the left
+				{
+					dir = Controller.Direction.LEFT;
+					vec.X = TimGame.WINDOW_WIDTH;
+				}
+				else 
+				{
+					dir = Controller.Direction.RIGHT;
+					vec.X = 0f;
+				}
+				Monstar m = new Monstar(Load.MonstarTexture, s, vec, map.pMap, dir);
+				EnemiesList.Add(m);
+				time -= interval;
+			}
+
 			// Delete enemies that are out of bounds
 			EnemiesList.RemoveAll((e => e.IsOutOfBounds()));
 
