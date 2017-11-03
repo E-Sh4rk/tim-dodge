@@ -28,6 +28,8 @@ namespace tim_dodge
 			EnemiesList.Add(m);
 		}
 
+		//private float time;
+
 		public void Update(GameTime gt)
 		{
 			// Delete enemies that are out of bounds

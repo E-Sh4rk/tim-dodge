@@ -159,9 +159,17 @@ namespace tim_dodge
 				foreach (NonPlayerObject e in es)
 				{
 					Life.decr(e.Damage);
+					gameInst.scoreTim.incr(e.Bonus);
 					e.TouchPlayer();
 				}
-				color = Color.Red;
+				if (es.Exists(e => e.Damage > 0))
+				{
+					color = Color.IndianRed;
+				}
+				else if (es.Exists(e => e.Bonus > 0))
+				{
+					color = Color.Yellow;
+				}
 				last_damage_time = gt.TotalGameTime.TotalSeconds;
 			}
 

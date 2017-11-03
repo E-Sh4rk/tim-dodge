@@ -44,7 +44,8 @@ namespace tim_dodge
 			menu = 4,
 			toogle = 5,
 			applause = 6,
-			ah = 7
+			ah = 7,
+			coin = 8
 		}
 
 

@@ -65,6 +65,15 @@ namespace tim_dodge
 						int X = random.Next(0, TimGame.WINDOW_WIDTH - s.RectOfSprite().Size.X);
 						NonPlayerObject fireball = new Fireball(Load.FireballTexture, s, new Vector2(X, -30));
 						FallingList.Add(fireball);
+
+						if (random.Next(0, 5) == 0)
+						{
+							s = new Sprite("Content.objects.coin.xml");
+							X = random.Next(0, TimGame.WINDOW_WIDTH - s.RectOfSprite().Size.X);
+							NonPlayerObject coin = new Coin(Load.CoinTexture, s, new Vector2(X, -30));
+							FallingList.Add(coin);
+						}
+
 					}
 					time -= interval;
 				}

@@ -53,8 +53,7 @@ namespace tim_dodge
 			ScoreBeginning = game.scoreTim.value;
 			time = 0.0f;
 			map.gMap.changeTexture(MapTexture);
-			map.gMap.changeBackground(Background
-			                         );
+			map.gMap.changeBackground(Background);
 		}
 
 		private void InitiateLevel()

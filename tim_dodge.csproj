@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -63,15 +62,16 @@
     <Compile Include="Src\Menu\BestScore.cs" />
     <Compile Include="Src\Game\Level.cs" />
     <Compile Include="Src\Game\LevelManager.cs" />
-    <Compile Include="Src\Game\NonPlayerObjects\FallingObjects.cs" />
     <Compile Include="Src\Game\NonPlayerObjects\Bomb.cs" />
     <Compile Include="Src\Game\NonPlayerObjects\Fireball.cs" />
     <Compile Include="Src\Game\NonPlayerObjects\NonPlayerObject.cs" />
+    <Compile Include="Src\Game\NonPlayerObjects\FallingObjects.cs" />
     <Compile Include="Src\Miscellaneous\Load.cs" />
     <Compile Include="Src\Game\NonPlayerObjects\Monstar.cs" />
     <Compile Include="Src\Game\NonPlayerObjects\WalkingObjects.cs" />
     <Compile Include="Src\Game\PhysicalMap.cs" />
     <Compile Include="Src\Game\GraphicalMap.cs" />
+    <Compile Include="Src\Game\NonPlayerObjects\Coin.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.manifest" />
@@ -93,6 +93,7 @@
     <None Include="Content\SpriteFonts\TitleMenu.spritefont" />
     <None Include="Content\ground\ground.png" />
     <None Include="Content\SpriteFonts\Level.spritefont" />
+    <None Include="Content\objects\coin.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icon.ico" />
@@ -104,6 +105,7 @@
     <EmbeddedResource Include="Content\ground\groundXml.xml" />
     <EmbeddedResource Include="Content\character\MonstarXml.xml" />
     <EmbeddedResource Include="Content\ground\natureXml.xml" />
+    <EmbeddedResource Include="Content\objects\coin.xml" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
