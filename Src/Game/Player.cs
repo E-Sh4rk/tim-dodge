@@ -174,6 +174,7 @@ namespace tim_dodge
 				foreach (NonPlayerObject e in es.FindAll((NonPlayerObject obj) => obj.Damage == 0))
 				{
 					Life.incr(e.Life);
+					gameInst.scoreTim.incr(e.Bonus);
 					e.TouchPlayer();
 				}
 
@@ -189,7 +190,6 @@ namespace tim_dodge
 					foreach (NonPlayerObject e in es.FindAll((NonPlayerObject obj) => obj.Damage>0))
 					{
 						Life.decr(e.Damage);
-						gameInst.scoreTim.incr(e.Bonus);
 						e.TouchPlayer();
 					}
 					if (es.Exists(e => e.Damage > 0))

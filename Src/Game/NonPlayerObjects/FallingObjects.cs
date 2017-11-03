@@ -70,7 +70,7 @@ namespace tim_dodge
 						if (random.Next(0, 10) == 0)
 						{
 							s = new Sprite("Content.objects.food.xml");
-							s.ChangeState(14);
+							s.ChangeState(14);//(22);
 							X = random.Next(0, TimGame.WINDOW_WIDTH - s.RectOfSprite().Size.X);
 							NonPlayerObject food = new Food(Load.FoodTexture, s, new Vector2(X, -30));
 							FallingList.Add(food);
