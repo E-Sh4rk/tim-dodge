@@ -4,6 +4,9 @@ using Microsoft.Xna.Framework;
 
 namespace tim_dodge
 {
+	/// <summary>
+	/// Manager for all walking objects (typically, enemies).
+	/// </summary>
 	public class WalkingObjects
 	{
 		private Random random;

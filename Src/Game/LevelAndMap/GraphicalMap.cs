@@ -5,6 +5,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace tim_dodge
 {
+	/// <summary>
+	/// Represents the graphical aspect of a map. Used to display the map.
+	/// </summary>
 	public class GraphicalMap : GameObject
 	{
 		public GraphicalMap(Texture2D Background, Texture MapTexture)

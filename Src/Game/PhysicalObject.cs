@@ -4,9 +4,9 @@ using Microsoft.Xna.Framework;
 
 namespace tim_dodge
 {
-	/**
-	 * An object that is subject to collisions and gravity.
-	**/
+	/// <summary>
+	/// Represents an object that is subject to the physical laws (forces, impulsions, collisions...).
+	/// </summary>
 	public class PhysicalObject : GameObject
 	{
 		public PhysicalObject(Texture t, Sprite s, Vector2 p): base (t, s, p)

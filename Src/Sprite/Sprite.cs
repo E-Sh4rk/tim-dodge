@@ -9,6 +9,10 @@ using System.Collections.Generic;
 
 namespace tim_dodge
 {
+	/// <summary>
+	/// Contains information to determine the area of a texture that must be shown at a given moment.
+	/// Every texture areas are described in XML files.
+	/// </summary>
 	public class Sprite
 	{
 		private XmlDocument doc = new XmlDocument();

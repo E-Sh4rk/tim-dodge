@@ -4,6 +4,9 @@ using Microsoft.Xna.Framework;
 
 namespace tim_dodge
 {
+	/// <summary>
+	/// Represents the physical aspect of a map. Used to compute the collisions with the map.
+	/// </summary>
 	public class PhysicalMap
 	{
 		public Rectangle[] roofs

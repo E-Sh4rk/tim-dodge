@@ -4,6 +4,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace tim_dodge
 {
+	/// <summary>
+	/// Represents a basic game object, that is characterized by a texture/sprite and a position.
+	/// </summary>
 	public class GameObject
 	{
 		private static int next_id = 1;

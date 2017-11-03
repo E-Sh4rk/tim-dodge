@@ -8,6 +8,9 @@ using System.Linq;
 
 namespace tim_dodge
 {
+	/// <summary>
+	/// Represents a texture (an image loaded into memory). For each texture, a collision mask is computed.
+	/// </summary>
 	public class Texture
 	{
 		public Texture(Texture2D texture)

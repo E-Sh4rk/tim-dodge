@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Input;
 namespace tim_dodge
 {
 	/// <summary>
-	/// This is the main type for your game.
+	/// This is just a MonoGame requirement. See GameManager and GameInstance for more interesting stuff.
 	/// </summary>
 	public class TimGame : Game
 	{

@@ -3,6 +3,9 @@ using Microsoft.Xna.Framework;
 
 namespace tim_dodge
 {
+	/// <summary>
+	/// Base class for every non playable object (typically, enemies and bonuses).
+	/// </summary>
 	public class NonPlayerObject: PhysicalObject
 	{
 		public NonPlayerObject(Texture t, Sprite s, Vector2 p): base(t,s,p)

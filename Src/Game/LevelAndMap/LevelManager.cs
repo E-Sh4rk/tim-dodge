@@ -6,6 +6,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace tim_dodge
 {
+	/// <summary>
+	/// Load the right level at the right moment.
+	/// </summary>
 	public class LevelManager
 	{
 		public Level Current { get { return Levels[LevelNumber.value - 1]; } }

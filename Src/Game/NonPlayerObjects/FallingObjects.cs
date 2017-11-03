@@ -5,6 +5,9 @@ using Microsoft.Xna.Framework;
 
 namespace tim_dodge
 {
+	/// <summary>
+	/// Manager for all falling objects (typically, enemies).
+	/// </summary>
 	public class FallingObjects
 	{
 		private Random random;
