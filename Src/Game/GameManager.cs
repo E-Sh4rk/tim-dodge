@@ -30,7 +30,10 @@ namespace tim_dodge
 		public void Update(GameTime gameTime)
 		{
 			if (GameRunning && game.player.IsDead())
+			{
+				game.player.ChangeSpriteState((int)Player.State.Dead);
 				Menu.LaunchGameOver();
+			}
 
 			if (Menu.MenuRunning)
 				Menu.Update();

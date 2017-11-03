@@ -42,9 +42,10 @@ namespace tim_dodge
 			Stay = 0,
 			Walk = 1,
 			Jump = 2,
- 			Squat = 3,
+			Squat = 3,
 			JumpH = 4,
-			Tie = 5
+			Tie = 5,
+			Dead = 6
 		}
 
 		protected SoundEffect jump;

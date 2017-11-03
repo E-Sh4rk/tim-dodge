@@ -97,6 +97,17 @@
     <cut w="81" x="1320" y="1209" h="139" row="1" col="1"/>
     <cut w="81" x="1415" y="1211" h="137" row="1" col="1"/>
   </animation>
+  <animation title="Dead" delay="150">
+    <cut w="100" x="1215" y="205" h="132" row="1" col="1"/>
+    <cut w="95" x="1333" y="208" h="122" row="1" col="1"/>
+    <cut w="94" x="1447" y="210" h="120" row="1" col="1"/>
+    <cut w="97" x="1559" y="210" h="116" row="1" col="1"/>
+    <cut w="99" x="1684" y="212" h="117" row="1" col="1"/>
+    <cut w="114" x="1796" y="218" h="115" row="1" col="1"/>
+    <cut w="124" x="2060" y="227" h="97" row="1" col="1"/>
+    <cut w="124" x="2212" y="226" h="98" row="1" col="1"/>
+    <cut w="125" x="2359" y="230" h="94" row="1" col="1"/>
+  </animation>
   <animation title="Jump_right_begin_run" delay="200">
     <cut w="107" x="1212" y="547" h="131" row="1" col="1"/>
     <cut w="120" x="1337" y="549" h="129" row="1" col="1"/>
