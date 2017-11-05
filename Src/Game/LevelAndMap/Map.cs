@@ -4,6 +4,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace tim_dodge
 {
+	/// <summary>
+	/// Represents a map, that is characterized by a background, some obstacles (ground, walls...) and the corresponding textures.
+	/// </summary>
 	public class Map
 	{
 		public Map(Texture2D Background, Texture MapTexture)

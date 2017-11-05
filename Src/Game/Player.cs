@@ -7,6 +7,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace tim_dodge
 {
+	/// <summary>
+	/// Represents Tim, the character controlled by the user.
+	/// </summary>
 	public class Player : PhysicalObject
 	{
 

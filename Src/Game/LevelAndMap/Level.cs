@@ -5,6 +5,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace tim_dodge
 {
+	/// <summary>
+	/// Represents a level, characterized by a map, some parameters to generate enemies, some success conditions...
+	/// </summary>
 	public class Level
 	{
 		public FallingObjects falling;

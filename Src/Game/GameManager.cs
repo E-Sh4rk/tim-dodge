@@ -10,6 +10,9 @@ using Microsoft.Xna.Framework.Audio;
 
 namespace tim_dodge
 {
+	/// <summary>
+	/// Manager the game interface: for example, switch between a game instance and a menu when needed. 
+	/// </summary>
 	public class GameManager
 	// To link menus and game instances
 	{
@@ -47,7 +50,7 @@ namespace tim_dodge
 
 		public void Draw(SpriteBatch spriteBatch)
 		{
-			// menu 
+			// Menu 
 			spriteBatch.Draw(Load.BackgroundSun, Vector2.Zero, Color.White);
 
 			if (GameRunning)

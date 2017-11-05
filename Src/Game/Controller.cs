@@ -4,6 +4,9 @@ using Microsoft.Xna.Framework.Input;
 
 namespace tim_dodge
 {
+	/// <summary>
+	/// Some utility functions to handle user's inputs.
+	/// </summary>
 	public static class Controller
 	{
 		public enum Direction

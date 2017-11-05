@@ -5,6 +5,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace tim_dodge
 {
+	/// <summary>
+	/// Some utility functions to compute collisions.
+	/// </summary>
 	public static class Collision
 	{
 		const bool center_of_gravity_bottom = true;
