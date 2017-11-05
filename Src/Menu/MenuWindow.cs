@@ -8,6 +8,9 @@ using Microsoft.Xna.Framework.Input;
 
 namespace tim_dodge
 {
+	/// <summary>
+	/// Represents a menu window.
+	/// </summary>
 	public class MenuWindow : Item
 	{
 		public String Title;

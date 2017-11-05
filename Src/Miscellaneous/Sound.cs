@@ -4,6 +4,9 @@ using Microsoft.Xna.Framework.Audio;
 
 namespace tim_dodge
 {
+	/// <summary>
+	/// Some utility functions to play sound.
+	/// </summary>
 	public class Sound
 	{
 		public SoundEffectInstance music; // Music played

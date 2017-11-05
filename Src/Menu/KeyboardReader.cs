@@ -4,9 +4,11 @@ using Microsoft.Xna.Framework.Input;
 
 namespace tim_dodge
 {
+	/// <summary>
+	/// Some utility functions to read input from keyboard.
+	/// </summary>
 	public class KeyboardReader
 	{
-
 		public string Text { get; set; }
 		private int SizeMax;
 

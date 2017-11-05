@@ -8,6 +8,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace tim_dodge
 {
+	/// <summary>
+	/// Load all textures, sounds and scores.
+	/// </summary>
 	public static class Load
 	{
 		// Sound

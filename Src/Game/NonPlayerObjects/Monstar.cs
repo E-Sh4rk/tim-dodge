@@ -4,6 +4,9 @@ using Microsoft.Xna.Framework;
 
 namespace tim_dodge
 {
+	/// <summary>
+	/// Ennemie which walk in the ground and hurt the player.
+	/// </summary>
 	public class Monstar : NonPlayerObject
 	{
 		PhysicalMap m;

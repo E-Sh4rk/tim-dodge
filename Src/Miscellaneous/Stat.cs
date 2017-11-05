@@ -5,6 +5,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace tim_dodge
 {
+	/// <summary>
+	/// Manager texts like score of level.
+	/// </summary>
 	public class Stat : Item
 	{
 		public int value { get; private set; }

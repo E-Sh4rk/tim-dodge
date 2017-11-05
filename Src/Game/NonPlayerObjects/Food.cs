@@ -4,6 +4,9 @@ using Microsoft.Xna.Framework;
 
 namespace tim_dodge
 {
+	/// <summary>
+	/// Bonus which fall from the sky and add one half-heart to the player.
+	/// </summary>
 	public class Food : NonPlayerObject
 	{
 		public Food(Texture t, Sprite s, Vector2 p) : base(t, s, p)

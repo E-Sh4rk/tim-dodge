@@ -8,6 +8,9 @@ using Microsoft.Xna.Framework.Input;
 
 namespace tim_dodge
 {
+	/// <summary>
+	/// Manager the menu interface.
+	/// </summary>
 	public class MenuManager
 	{
 		private List<MenuWindow> CurrentMenu;

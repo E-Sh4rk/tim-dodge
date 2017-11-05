@@ -4,6 +4,9 @@ using Microsoft.Xna.Framework;
 
 namespace tim_dodge
 {
+	/// <summary>
+	/// Bonus which fall from the sky and add bonus score to the player.
+	/// </summary>
 	public class Coin : NonPlayerObject
 	{
 		public Coin(Texture t, Sprite s, Vector2 p) : base(t, s, p)

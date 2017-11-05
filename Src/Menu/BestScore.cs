@@ -1,6 +1,9 @@
 ﻿using System;
 namespace tim_dodge
 {
+	/// <summary>
+	/// Some utilities to compare scores.
+	/// </summary>
 	public class BestScore
 	{
 		public String name;

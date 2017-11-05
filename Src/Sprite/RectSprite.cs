@@ -5,6 +5,9 @@ using System.Collections;
 
 namespace tim_dodge
 {
+	/// <summary>
+	/// Rectangle which correspond to one single sprite (one frame)
+	/// </summary>
 	public class RectSprite
 	{
 		public Rectangle source

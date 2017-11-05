@@ -5,6 +5,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace tim_dodge
 {
+	/// <summary>
+	/// ...
+	/// </summary>
 	public class Item
 	{
 		public Rectangle source;

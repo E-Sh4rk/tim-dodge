@@ -74,6 +74,10 @@ namespace tim_dodge
  			return FrameTime[state];
  		}
 
+		/// <summary>
+		/// Change the direction of the sprite (flip horizontally)
+		/// </summary>
+		/// <param name="new_dir">New direction</param>
 		public void ChangeDirection(Controller.Direction new_dir)
 		{
 			if (new_dir != Direction)
@@ -110,6 +114,10 @@ namespace tim_dodge
 			return (rect[(int)nowState][nowFrame]).source;
 		}
 
+		/// <summary>
+		/// Load sprites relative to the xml file
+		/// </summary>
+		/// <param name="xml_path">Path to the xml file, replace / by . in the string exemple : Content.character.TimXml.xml</param>
 		private void LoadXml(string xml_path)
 		{
 			var res = GetType().Module.Assembly.GetManifestResourceStream("tim_dodge."+xml_path);

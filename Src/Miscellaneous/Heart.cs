@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 namespace tim_dodge
 {
+	/// <summary>
+	/// Manager the heart containers.
+	/// </summary>
 	public class Heart
 	{
 		private Texture2D[] heartTexture;

@@ -5,6 +5,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace tim_dodge
 {
+	/// <summary>
+	/// Represents a item in a menu.
+	/// </summary>
 	public class MenuItem : Item
 	{
 		public delegate void ItemSelected();

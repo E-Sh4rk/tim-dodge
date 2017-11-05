@@ -172,8 +172,10 @@ namespace tim_dodge
 			List<NonPlayerObject> es = gameInst.Level.Current.falling.FallingList.FindAll(en => en.ID == id);
 			es.AddRange(gameInst.Level.Current.walking.EnemiesList.FindAll(en => en.ID == id));
 
+			// if there exist at least one object in interaction with Tim
 			if (es.Count > 0)
 			{
+				// Bonus 
 				foreach (NonPlayerObject e in es.FindAll((NonPlayerObject obj) => obj.Damage == 0))
 				{
 					Life.incr(e.Life);
@@ -181,12 +183,14 @@ namespace tim_dodge
 					e.TouchPlayer();
 				}
 
+				// color Tim
 				if (es.Exists(e => e.Bonus > 0 || e.Life > 0))
 				{
 					color = Color.LightBlue;
 					last_bonus_time = gt.TotalGameTime.TotalSeconds;
 				}
 
+				// if we are not invinvible ..
 				if (gt.TotalGameTime.TotalSeconds - last_damage_time >= time_invicibility)
 				{
 					// take all the player wich give damage

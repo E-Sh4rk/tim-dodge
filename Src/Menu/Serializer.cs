@@ -4,9 +4,11 @@ using System.IO;
 
 namespace tim_dodge
 {
+	/// <summary>
+	/// Some utility functions to play load and save xml (for exemple : scores).
+	/// </summary>
 	public static class Serializer<T>
 	{
-		
 		public static T Load(string path)
 		{
 			using (TextReader reader = new StreamReader(path))

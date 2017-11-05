@@ -4,6 +4,9 @@ using Microsoft.Xna.Framework;
 
 namespace tim_dodge
 {
+	/// <summary>
+	/// Ennemie which fall from the sky and burn the player.
+	/// </summary>
 	public class Fireball : NonPlayerObject
 	{
 		public Fireball(Texture t, Sprite s, Vector2 p): base(t,s,p)
