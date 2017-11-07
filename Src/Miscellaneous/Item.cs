@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 namespace tim_dodge
 {
 	/// <summary>
-	/// ...
+	/// Manager items : text, texture, position
 	/// </summary>
 	public class Item
 	{
