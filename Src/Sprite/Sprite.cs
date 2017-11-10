@@ -90,9 +90,9 @@ namespace tim_dodge
 			}
 		}
 
-		public void UpdateFrame(GameTime gameTime)
+		public void UpdateFrame(double elapsed)
 		{
-			time += (float)gameTime.ElapsedGameTime.TotalSeconds;
+			time += (float)elapsed;
 
 			while (time > GetFrameTime())
 			{

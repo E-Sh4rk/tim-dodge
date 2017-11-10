@@ -68,6 +68,9 @@ namespace tim_dodge
 		public void ApplyForces(List<PhysicalObject> objects, Map map, GameTime gameTime)
 		{
 			double dt = gameTime.ElapsedGameTime.TotalSeconds;
+			if (!insensible_to_time_modif)
+				dt *= time_multiplicator;
+			
 			if (!Ghost)
 			{
 				// Compute gravity, friction...
@@ -87,6 +90,9 @@ namespace tim_dodge
 		public void ApplyCollisions(List<PhysicalObject> objects, Map map, GameTime gameTime)
 		{
 			double dt = gameTime.ElapsedGameTime.TotalSeconds;
+			if (!insensible_to_time_modif)
+				dt *= time_multiplicator;
+			
 			if (!Ghost)
 			{
 				// Compute collisions with other physical objects and, depending on the relative direction of the center of the sprite,
@@ -119,7 +125,11 @@ namespace tim_dodge
 		}
 		public virtual void UpdatePosition(List<PhysicalObject> objects, Map map, GameTime gameTime)
 		{
-			position += velocity * (float)gameTime.ElapsedGameTime.TotalSeconds * pixels_per_meter;
+			double dt = gameTime.ElapsedGameTime.TotalSeconds;
+			if (!insensible_to_time_modif)
+				dt *= time_multiplicator;
+			
+			position += velocity * (float)dt * pixels_per_meter;
 			map.pMap.adjustPositionAndVelocity(this);
 		}
 	}

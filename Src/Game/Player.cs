@@ -38,6 +38,8 @@ namespace tim_dodge
 
 			//this.Score = Score;
 			min_time_between_squat = Sprite.GetFrameTimeOfState((int)State.Squat) * 8;
+
+			insensible_to_time_modif = true;
 		}
 
 		public enum State

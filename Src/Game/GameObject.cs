@@ -14,6 +14,9 @@ namespace tim_dodge
 		private int id = 0;
 		public int ID { get { return id; } }
 
+		public static float time_multiplicator = 1.0f;
+		protected bool insensible_to_time_modif = false;
+
 		public Texture Texture
 		{
 			get;
@@ -87,8 +90,11 @@ namespace tim_dodge
 		{
 			if (Sprite != null)
 			{
+				double dt = gt.ElapsedGameTime.TotalSeconds;
+				if (!insensible_to_time_modif)
+					dt *= time_multiplicator;
 				Point size = Size;
-				Sprite.UpdateFrame(gt);
+				Sprite.UpdateFrame(dt);
 				Point new_size = Size;
 				adjustSpritePosition(size, new_size);
 			}
