@@ -34,20 +34,20 @@ namespace tim_dodge
 
 			Map map = new Map(Load.BackgroundSun, Load.MapTextureNature);
 
-			Level1 = new Level(game, map, Load.BackgroundSun, Load.MapTextureNature, 200, 0.4f);
+			Level1 = new Level(game, map, Load.BackgroundSun, Load.MapTextureNature, 10, 0.4f);
 			Level1.FireballActiv = true;
 
-			Level2 = new Level(game, map, Load.BackgroundGreen, Load.MapTextureDesert, 400, 0.2f);
+			Level2 = new Level(game, map, Load.BackgroundGreen, Load.MapTextureDesert, 15, 0.3f);
 			Level2.FireballActiv = true;
 
-			Level3 = new Level(game, map, Load.BackgroundDark, Load.MapTextureGraveyard,800, 0.1f);
+			Level3 = new Level(game, map, Load.BackgroundDark, Load.MapTextureGraveyard,20, 0.25f);
 			Level3.FireballActiv = true;
 
-			Level4 = new Level(game, map, Load.BackgroundWinter, Load.MapTextureWinter, 600, 0.2f);
+			Level4 = new Level(game, map, Load.BackgroundWinter, Load.MapTextureWinter, 25, 0.25f);
 			Level4.FireballActiv = true;
 			Level4.BombActiv = true;
 
-			Level5 = new Level(game, map, Load.BackgroundSun, Load.MapTextureNature,10000, 0.1f);
+			Level5 = new Level(game, map, Load.BackgroundSun, Load.MapTextureNature, 50, 0.2f);
 			Level5.FireballActiv = true;
 			Level5.BombActiv = true;
 

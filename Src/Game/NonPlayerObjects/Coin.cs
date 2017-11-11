@@ -12,15 +12,15 @@ namespace tim_dodge
 		public Coin(Texture t, Sprite s, Vector2 p) : base(t, s, p)
 		{
 			Mass = 7;
-			Bonus = 100;
+			Bonus = 250;
 		}
 
 		protected void autoDestruct(GameTime gameTime)
 		{
-			if (Ghost)
+			if (Damaged)
 			{
-				Dead = true;
-				if (Sprite.NowFrame() >= Sprite.NumberOfFrames() - 1)
+				wait_before_die -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+				if (wait_before_die <= 0f)
 					Dead = true;
 			}
 		}
@@ -29,26 +29,15 @@ namespace tim_dodge
 		{
 			base.ApplyCollision(imp, obj, gt);
 			Damaged = true;
+			wait_before_die = 0f;
 		}
 
 		public override void UpdatePosition(List<PhysicalObject> objects, Map map, GameTime gameTime)
 		{
-			if (Damaged)
-				destructionMode(gameTime);
 			base.UpdatePosition(objects, map, gameTime);
 			autoDestruct(gameTime);
 		}
-
-		protected void destructionMode(GameTime gt)
-		{
-			if (!Ghost)
-			{
-				//GameManager.sounds.playSound(Sound.SoundName.explosion);
-				//ChangeSpriteState(3);
-				Ghost = true;
-				Velocity = new Vector2(0, 0);
-			}
-		}
+		float wait_before_die = 1.0f;
 
 		public override void TouchPlayer()
 		{
