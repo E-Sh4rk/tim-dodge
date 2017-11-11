@@ -13,10 +13,12 @@ namespace tim_dodge
 		public override void RestoreModelState()
 		{
 			base.RestoreModelState();
+			((PhysicalObject)model_ptr).Velocity = velocity;
 		}
 		public override void CaptureModelState()
 		{
 			base.CaptureModelState();
+			velocity = ((PhysicalObject)model_ptr).Velocity;
 		}
 	}
 }

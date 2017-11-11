@@ -1,9 +1,9 @@
 ﻿using System;
 namespace tim_dodge
 {
-	public class PlayerObjectSnapshot : PhysicalObjectSnapshot
+	public class NonPlayerObjectSnapshot : PhysicalObjectSnapshot
 	{
-		public PlayerObjectSnapshot(GameObject model) : base(model)
+		public NonPlayerObjectSnapshot(GameObject model) : base(model)
 		{
 		}
 
@@ -15,10 +15,13 @@ namespace tim_dodge
 		public override void RestoreModelState()
 		{
 			base.RestoreModelState();
+			((NonPlayerObject)model_ptr).SetState(damaged, dead);
 		}
 		public override void CaptureModelState()
 		{
 			base.CaptureModelState();
+			damaged = ((NonPlayerObject)model_ptr).Damaged;
+			dead = ((NonPlayerObject)model_ptr).Dead;
 		}
 	}
 }

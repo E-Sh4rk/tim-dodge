@@ -47,6 +47,12 @@ namespace tim_dodge
 			protected set;
 		}
 
+		public virtual void SetState(bool damaged, bool dead)
+		{
+			Damaged = damaged;
+			Dead = dead;
+		}
+
 		public virtual void SufferDamage()
 		{
 			Damaged = true;
