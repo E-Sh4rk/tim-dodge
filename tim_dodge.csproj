@@ -73,6 +73,13 @@
     <Compile Include="Src\Game\LevelAndMap\LevelManager.cs" />
     <Compile Include="Src\Game\LevelAndMap\PhysicalMap.cs" />
     <Compile Include="Src\Game\LevelAndMap\GraphicalMap.cs" />
+    <Compile Include="Src\Snapshot\Snapshot.cs" />
+    <Compile Include="Src\Snapshot\ObjectSnapshot.cs" />
+    <Compile Include="Src\Snapshot\PhysicalObjectSnapshot.cs" />
+    <Compile Include="Src\Snapshot\Replay.cs" />
+    <Compile Include="Src\Snapshot\NonPlayerObjectSnapshot.cs" />
+    <Compile Include="Src\Snapshot\PlayerObjectSnapshot.cs" />
+    <Compile Include="Src\Renderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.manifest" />
@@ -169,6 +176,7 @@
     <Folder Include="Src\Game\" />
     <Folder Include="Src\Game\NonPlayerObjects\" />
     <Folder Include="Src\Game\LevelAndMap\" />
+    <Folder Include="Src\Snapshot\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />

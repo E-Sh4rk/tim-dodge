@@ -16,40 +16,30 @@ namespace tim_dodge
 			Life = 1;
 		}
 
-		protected void autoDestruct(GameTime gameTime)
+		protected void autoDestruct(float elapsed)
 		{
-			if (Ghost)
+			if (Damaged)
 			{
-				if (Sprite.NowFrame() >= Sprite.NumberOfFrames() - 1)
+				wait_before_die -= elapsed;
+				if (wait_before_die <= 0f)
 					Dead = true;
 			}
 		}
 
-		protected bool damaged = false;
-		protected override void ApplyCollision(Vector2 imp, int id, GameTime gt)
+		protected override void ApplyCollision(Vector2 imp, PhysicalObject obj, float elapsed)
 		{
-			base.ApplyCollision(imp, id, gt);
-			damaged = true;
+			base.ApplyCollision(imp, obj, elapsed);
+			Damaged = true;
+			wait_before_die = 0f;
 		}
 
-		public override void UpdatePosition(List<PhysicalObject> objects, Map map, GameTime gameTime)
+		public override void UpdatePosition(List<PhysicalObject> objects, Map map, float elapsed)
 		{
-			if (damaged)
-				destructionMode(gameTime);
-			base.UpdatePosition(objects, map, gameTime);
-			autoDestruct(gameTime);
+			base.UpdatePosition(objects, map, elapsed);
+			autoDestruct(elapsed);
 		}
 
-		public override void destructionMode(GameTime gt)
-		{
-			if (!Ghost)
-			{
-				//GameManager.sounds.playSound(Sound.SoundName.explosion);
-				//ChangeSpriteState(3);
-				Ghost = true;
-				Velocity = new Vector2(0, 0);
-			}
-		}
+		float wait_before_die = 1.0f;
 
 		public override void TouchPlayer()
 		{

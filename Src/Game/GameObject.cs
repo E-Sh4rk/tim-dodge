@@ -83,12 +83,12 @@ namespace tim_dodge
 					position.Y += size.Y - new_size.Y;
 			}
 		}
-		public virtual void UpdateSprite(GameTime gt)
+		public virtual void UpdateSprite(float elapsed)
 		{
 			if (Sprite != null)
 			{
 				Point size = Size;
-				Sprite.UpdateFrame(gt);
+				Sprite.UpdateFrame(elapsed);
 				Point new_size = Size;
 				adjustSpritePosition(size, new_size);
 			}

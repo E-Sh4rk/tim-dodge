@@ -21,7 +21,6 @@ namespace tim_dodge
 
 		// Position is part of GameObject
 		protected Vector2 velocity;
-		protected Vector2 friction;
 		protected Vector2 forces;
 		protected Vector2 impulsions;
 
@@ -59,15 +58,16 @@ namespace tim_dodge
 		const float air_friction = 1.0f;
 		const float pixels_per_meter = 250;
 
-		protected virtual void ApplyCollision(Vector2 imp, int id, GameTime gt)
+		protected virtual void ApplyCollision(Vector2 imp, PhysicalObject obj, float elapsed)
 		{
-			already_computed_collisions.Add(id);
+			already_computed_collisions.Add(obj.ID);
 			collisions_impulsion += imp;
 		}
 
-		public void ApplyForces(List<PhysicalObject> objects, Map map, GameTime gameTime)
+		public void ApplyForces(List<PhysicalObject> objects, Map map, float elapsed)
 		{
-			double dt = gameTime.ElapsedGameTime.TotalSeconds;
+			double dt = elapsed;
+
 			if (!Ghost)
 			{
 				// Compute gravity, friction...
@@ -84,9 +84,10 @@ namespace tim_dodge
 			forces = new Vector2(0, 0);
 			impulsions = new Vector2(0, 0);
 		}
-		public void ApplyCollisions(List<PhysicalObject> objects, Map map, GameTime gameTime)
+		public void ApplyCollisions(List<PhysicalObject> objects, Map map, float elapsed)
 		{
-			double dt = gameTime.ElapsedGameTime.TotalSeconds;
+			double dt = elapsed;
+			
 			if (!Ghost)
 			{
 				// Compute collisions with other physical objects and, depending on the relative direction of the center of the sprite,
@@ -107,8 +108,8 @@ namespace tim_dodge
 					float min_mass = Math.Min(o.Mass, Mass);
 					float intensity = -collision_factor * (min_mass * prod);
 					collisions_impulsion += coll * intensity;
-					ApplyCollision(coll * intensity, o.ID, gameTime);
-					o.ApplyCollision(-coll * intensity, ID, gameTime);
+					ApplyCollision(coll * intensity, o, elapsed);
+					o.ApplyCollision(-coll * intensity, this, elapsed);
 				}
 			}
 
@@ -117,9 +118,11 @@ namespace tim_dodge
 			already_computed_collisions.Clear();
 			collisions_impulsion = new Vector2(0,0);
 		}
-		public virtual void UpdatePosition(List<PhysicalObject> objects, Map map, GameTime gameTime)
+		public virtual void UpdatePosition(List<PhysicalObject> objects, Map map, float elapsed)
 		{
-			position += velocity * (float)gameTime.ElapsedGameTime.TotalSeconds * pixels_per_meter;
+			double dt = elapsed;
+			
+			position += velocity * (float)dt * pixels_per_meter;
 			map.pMap.adjustPositionAndVelocity(this);
 		}
 	}

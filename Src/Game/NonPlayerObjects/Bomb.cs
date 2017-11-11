@@ -15,7 +15,7 @@ namespace tim_dodge
 			Damage = 2;
 		}
 
-		protected void autoDestruct(GameTime gameTime)
+		protected void autoDestruct(float elapsed)
 		{
 			if (Ghost)
 			{
@@ -24,23 +24,21 @@ namespace tim_dodge
 			}
 		}
 
-		protected bool damaged = false;
-		protected override void ApplyCollision(Vector2 imp, int id, GameTime gt)
+		protected override void ApplyCollision(Vector2 imp, PhysicalObject obj, float elapsed)
 		{
-			base.ApplyCollision(imp, id, gt);
-			// Destroy the bomb if collision with something else
-			damaged = true;
+			base.ApplyCollision(imp, obj, elapsed);
+			Damaged = true;
 		}
 
-		public override void UpdatePosition(List<PhysicalObject> objects, Map map, GameTime gameTime)
+		public override void UpdatePosition(List<PhysicalObject> objects, Map map, float elapsed)
 		{
-			if (damaged)
-				destructionMode(gameTime);
-			base.UpdatePosition(objects, map, gameTime);
-			autoDestruct(gameTime);
+			if (Damaged)
+				destructionMode(elapsed);
+			base.UpdatePosition(objects, map, elapsed);
+			autoDestruct(elapsed);
 		}
 
-		public override void destructionMode(GameTime gt)
+		protected void destructionMode(float elapsed)
 		{
 			if (!Ghost)
 			{

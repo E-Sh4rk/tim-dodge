@@ -35,15 +35,21 @@ namespace tim_dodge
 			protected set;
 		}
 
-		public virtual void destructionMode(GameTime gt)
-		{
-			Dead = true;
-		}
-
 		public bool Dead
 		{
 			get;
 			protected set;
+		}
+
+		public bool Damaged
+		{
+			get;
+			protected set;
+		}
+
+		public virtual void SufferDamage()
+		{
+			Damaged = true;
 		}
 
 		public virtual void TouchPlayer()
