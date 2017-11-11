@@ -38,8 +38,6 @@ namespace tim_dodge
 
 			//this.Score = Score;
 			min_time_between_squat = Sprite.GetFrameTimeOfState((int)State.Squat) * 8;
-
-			insensible_to_time_modif = true;
 		}
 
 		public enum State
@@ -80,12 +78,12 @@ namespace tim_dodge
  			return elapsed_since_last_squat >= min_time_between_squat;
  		}
 
-		public void Move(KeyboardState state, GameTime gameTime)
+		public void Move(KeyboardState state, float elapsed)
 		{
 			List<Controller.Direction> directions = Controller.GetDirections(state);
 
-			elapsed_since_last_jump += (float)gameTime.ElapsedGameTime.TotalSeconds;
-			elapsed_since_last_squat += (float)gameTime.ElapsedGameTime.TotalSeconds;
+			elapsed_since_last_jump += elapsed;
+			elapsed_since_last_squat += elapsed;
 
 			if (gameInst.Level.Current.Beginning)
 			{
@@ -166,9 +164,9 @@ namespace tim_dodge
 		protected double last_damage_time = 0f;
 		protected double last_bonus_time = 0f;
 
-		protected override void ApplyCollision(Vector2 imp, PhysicalObject obj, GameTime gt)
+		protected override void ApplyCollision(Vector2 imp, PhysicalObject obj, float elapsed)
 		{
-			base.ApplyCollision(imp, obj, gt);
+			base.ApplyCollision(imp, obj, elapsed);
 
 			if (obj is NonPlayerObject)
 			{
@@ -180,7 +178,7 @@ namespace tim_dodge
 					Life.incr(e.Life);
 					gameInst.scoreTim.incr(e.Bonus);
 					color = Color.LightBlue;
-					last_bonus_time = gt.TotalGameTime.TotalSeconds;
+					last_bonus_time = 0f;
 				}
 				// Damage
 				int damage = 0;
@@ -196,28 +194,32 @@ namespace tim_dodge
 							e.SufferDamage();
 						}
 						else
+						{
 							damage = e.Damage;
+							e.SufferDamage();
+						}
 					}
 				}
 				else
 					damage = e.Damage;
 				// If we are not invincible ..
-				if (gt.TotalGameTime.TotalSeconds - last_damage_time >= time_invicibility)
+				if (last_damage_time >= time_invicibility)
 				{
 					if (damage > 0)
 					{
 						Life.decr(damage);
 						color = Color.IndianRed;
-						last_damage_time = gt.TotalGameTime.TotalSeconds;
+						last_damage_time = 0f;
 					}
 				}
 			}
 		}
-		public override void UpdatePosition(List<PhysicalObject> objects, Map map, GameTime gameTime)
+		public override void UpdatePosition(List<PhysicalObject> objects, Map map, float elapsed)
 		{
-			base.UpdatePosition(objects, map, gameTime);
-			if (gameTime.TotalGameTime.TotalSeconds - last_damage_time >= time_invicibility && 
-			    gameTime.TotalGameTime.TotalSeconds - last_bonus_time >= time_bonus)
+			last_bonus_time += elapsed;
+			last_damage_time += elapsed;
+			base.UpdatePosition(objects, map, elapsed);
+			if (last_damage_time >= time_invicibility && last_bonus_time >= time_bonus)
 				color = Color.White;
 		}
 	}

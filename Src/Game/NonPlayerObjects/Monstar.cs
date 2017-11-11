@@ -19,7 +19,7 @@ namespace tim_dodge
 			Sprite.ChangeDirection(dir);
 		}
 
-		protected void autoDestruct(GameTime gameTime)
+		protected void autoDestruct(float elapsed)
 		{
 			if (Ghost)
 			{
@@ -28,7 +28,7 @@ namespace tim_dodge
 			}
 		}
 
-		public void Move(GameTime gameTime)
+		public void Move(float elapsed)
 		{
 			if (m.nearLeftWall(this))
 				Sprite.ChangeDirection(Controller.Direction.RIGHT);
@@ -46,9 +46,9 @@ namespace tim_dodge
 			}
 		}
 
-		protected override void ApplyCollision(Vector2 imp, PhysicalObject obj, GameTime gt)
+		protected override void ApplyCollision(Vector2 imp, PhysicalObject obj, float elapsed)
 		{
-			base.ApplyCollision(imp, obj, gt);
+			base.ApplyCollision(imp, obj, elapsed);
 			if (obj is Monstar)
 			{
 				Controller.Direction other_dir = Controller.Direction.LEFT;
@@ -58,15 +58,15 @@ namespace tim_dodge
 			}
 		}
 
-		public override void UpdatePosition(List<PhysicalObject> objects, Map map, GameTime gameTime)
+		public override void UpdatePosition(List<PhysicalObject> objects, Map map, float elapsed)
 		{
 			if (Damaged)
-				destructionMode(gameTime);
-			base.UpdatePosition(objects, map, gameTime);
-			autoDestruct(gameTime);
+				destructionMode(elapsed);
+			base.UpdatePosition(objects, map, elapsed);
+			autoDestruct(elapsed);
 		}
 
-		protected void destructionMode(GameTime gt)
+		protected void destructionMode(float elapsed)
 		{
 			if (!Ghost)
 			{

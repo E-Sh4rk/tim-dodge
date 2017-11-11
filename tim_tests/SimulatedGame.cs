@@ -12,7 +12,7 @@ namespace tim_tests
 			if (hard)
 			{
 				// Test level 5 with 0.5 hearts
-				player.Life.decr(5);
+				player.Life.decr(player.Life.value - 1);
 				Level.LevelUp();
 				Level.LevelUp();
 				Level.LevelUp();

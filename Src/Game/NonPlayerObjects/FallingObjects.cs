@@ -44,9 +44,9 @@ namespace tim_dodge
 
 		private float time;
 
-		public void Update(GameTime gt)
+		public void Update(float elapsed)
 		{
-			time += (float)gt.ElapsedGameTime.TotalSeconds;
+			time += elapsed;
 
 			if (!stopFalling)
 			{
@@ -72,7 +72,7 @@ namespace tim_dodge
 					else if (FireballActiv)
 					{
 						// a chance to have a cake
-						if (random.Next(0, 3) == 0)
+						if (random.Next(0, 5) == 0)
 						{
 							Sprite s = new Sprite("Content.objects.food.xml");
 							s.ChangeState(14);//(22);

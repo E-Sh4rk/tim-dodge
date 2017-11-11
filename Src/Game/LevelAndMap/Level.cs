@@ -22,23 +22,22 @@ namespace tim_dodge
 		public bool BombActiv;
 		public float interval { get; }
 
-		private int XPToEnd { get; } // Score to have to end the level
+		private float TimeToEnd { get; }
 		private int ScoreBeginning;
-		private int XP { get { return game.scoreTim.value - ScoreBeginning; } }
 
 		public bool Beginning { get; private set; }
-		private float time;
+		private float Time;
 		private const float timeOfBeg = 0.8f;
-		public bool EndOfLevel { get { return XP > XPToEnd && falling.FallingList.Count == 0; } }
+		public bool EndOfLevel { get { return Time > TimeToEnd && falling.FallingList.Count == 0; } }
 
-		public Level(GameInstance game, Map map, Texture2D Background, Texture MapTexture, int XPToEnd, float interval)
+		public Level(GameInstance game, Map map, Texture2D Background, Texture MapTexture, int timeToEnd, float interval)
 		{
 			this.game = game;
 			this.map = map;
 			this.Background = Background;
 			this.MapTexture = MapTexture;
 			this.interval = interval;
-			this.XPToEnd = XPToEnd;
+			this.TimeToEnd = timeToEnd;
 
 			falling = new FallingObjects(game, this);
 			walking = new WalkingObjects(game, this);
@@ -54,7 +53,7 @@ namespace tim_dodge
 		{
 			Beginning = true;
 			ScoreBeginning = game.scoreTim.value;
-			time = 0.0f;
+			Time = 0.0f;
 			map.gMap.changeTexture(MapTexture);
 			map.gMap.changeBackground(Background);
 		}
@@ -65,15 +64,15 @@ namespace tim_dodge
 			falling = new FallingObjects(game, this);
 		}
 
-		public void Update(GameTime gt)
+		public void Update(float elapsed)
 		{
-			time += (float)gt.ElapsedGameTime.TotalSeconds;
+			Time += elapsed;
 
-			if (Beginning && time > timeOfBeg)
+			if (Beginning && Time > timeOfBeg)
 				InitiateLevel();
 
 			if (!Beginning)
-				if (XP > XPToEnd)
+				if (Time > TimeToEnd)
 					falling.stopFalling = true;
 		}
 

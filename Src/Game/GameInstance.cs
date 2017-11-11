@@ -14,11 +14,12 @@ namespace tim_dodge
 	public class GameInstance
 	{
 		public Player player;
-
 		public Stat scoreTim { get; protected set; }
 
 		public Heart heart { get; protected set; }
 		public LevelManager Level { get; protected set; }
+
+		public float time_multiplicator = 1f;
 
 		public GameInstance()
 		{
@@ -39,10 +40,13 @@ namespace tim_dodge
 		{
 			KeyboardState state = Keyboard.GetState();
 
-			Level.Update(gameTime);
-			player.Move(state, gameTime);
-			Level.Current.falling.Update(gameTime);
-			Level.Current.walking.Update(gameTime);
+			float insensible_elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
+			float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds * time_multiplicator;
+
+			Level.Update(elapsed);
+			player.Move(state, insensible_elapsed); // Insensible to time speed
+			Level.Current.falling.Update(elapsed);
+			Level.Current.walking.Update(elapsed);
 
 			// All physical objects
 			List<PhysicalObject> phys_obj = new List<PhysicalObject>();
@@ -51,13 +55,13 @@ namespace tim_dodge
 			phys_obj.AddRange(Level.Current.walking.EnemiesList);
 
 			foreach (PhysicalObject po in phys_obj)
-				po.UpdateSprite(gameTime);
+				po.UpdateSprite(po is Player ? insensible_elapsed : elapsed);
 			foreach (PhysicalObject po in phys_obj)
-				po.ApplyForces(phys_obj, Level.Current.map, gameTime);
+				po.ApplyForces(phys_obj, Level.Current.map, po is Player ? insensible_elapsed : elapsed);
 			foreach (PhysicalObject po in phys_obj)
-				po.ApplyCollisions(phys_obj, Level.Current.map, gameTime);
+				po.ApplyCollisions(phys_obj, Level.Current.map, po is Player ? insensible_elapsed : elapsed);
 			foreach (PhysicalObject po in phys_obj)
-				po.UpdatePosition(phys_obj, Level.Current.map, gameTime);
+				po.UpdatePosition(phys_obj, Level.Current.map, po is Player ? insensible_elapsed : elapsed);
 
 			player.Life.Update();
 			if (player.IsOutOfBounds())
