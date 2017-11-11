@@ -21,7 +21,6 @@ namespace tim_dodge
 
 		// Position is part of GameObject
 		protected Vector2 velocity;
-		protected Vector2 friction;
 		protected Vector2 forces;
 		protected Vector2 impulsions;
 
