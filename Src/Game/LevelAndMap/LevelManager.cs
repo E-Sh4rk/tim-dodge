@@ -65,9 +65,9 @@ namespace tim_dodge
 			}
 		}
 
-		public void Update(GameTime gameTime)
+		public void Update(float elapsed)
 		{
-			Current.Update(gameTime);
+			Current.Update(elapsed);
 			if (Current.EndOfLevel)
 				LevelUp();
 		}

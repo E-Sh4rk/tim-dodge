@@ -15,7 +15,7 @@ namespace tim_dodge
 			Damage = 2;
 		}
 
-		protected void autoDestruct(GameTime gameTime)
+		protected void autoDestruct(float elapsed)
 		{
 			if (Ghost)
 			{
@@ -24,21 +24,21 @@ namespace tim_dodge
 			}
 		}
 
-		protected override void ApplyCollision(Vector2 imp, PhysicalObject obj, GameTime gt)
+		protected override void ApplyCollision(Vector2 imp, PhysicalObject obj, float elapsed)
 		{
-			base.ApplyCollision(imp, obj, gt);
+			base.ApplyCollision(imp, obj, elapsed);
 			Damaged = true;
 		}
 
-		public override void UpdatePosition(List<PhysicalObject> objects, Map map, GameTime gameTime)
+		public override void UpdatePosition(List<PhysicalObject> objects, Map map, float elapsed)
 		{
 			if (Damaged)
-				destructionMode(gameTime);
-			base.UpdatePosition(objects, map, gameTime);
-			autoDestruct(gameTime);
+				destructionMode(elapsed);
+			base.UpdatePosition(objects, map, elapsed);
+			autoDestruct(elapsed);
 		}
 
-		protected void destructionMode(GameTime gt)
+		protected void destructionMode(float elapsed)
 		{
 			if (!Ghost)
 			{

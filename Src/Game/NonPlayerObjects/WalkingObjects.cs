@@ -31,9 +31,9 @@ namespace tim_dodge
 		private float time;
 		private float interval;
 
-		public void Update(GameTime gt)
+		public void Update(float elapsed)
 		{
-			time += (float)gt.ElapsedGameTime.TotalSeconds;
+			time += elapsed;
 
 			while (time > interval)
 			{
@@ -61,7 +61,7 @@ namespace tim_dodge
 			// Moving
 			foreach (Monstar m in EnemiesList)
 			{
-				m.Move(gt);
+				m.Move(elapsed);
 			}
 
 			// Delete enemies that are dead

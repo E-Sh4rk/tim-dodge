@@ -44,9 +44,9 @@ namespace tim_dodge
 
 		private float time;
 
-		public void Update(GameTime gt)
+		public void Update(float elapsed)
 		{
-			time += (float)gt.ElapsedGameTime.TotalSeconds;
+			time += elapsed;
 
 			if (!stopFalling)
 			{

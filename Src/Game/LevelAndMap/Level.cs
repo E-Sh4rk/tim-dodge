@@ -64,9 +64,9 @@ namespace tim_dodge
 			falling = new FallingObjects(game, this);
 		}
 
-		public void Update(GameTime gt)
+		public void Update(float elapsed)
 		{
-			Time += (float)gt.ElapsedGameTime.TotalSeconds;
+			Time += elapsed;
 
 			if (Beginning && Time > timeOfBeg)
 				InitiateLevel();

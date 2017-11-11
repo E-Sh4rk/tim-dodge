@@ -16,27 +16,27 @@ namespace tim_dodge
 			Life = 1;
 		}
 
-		protected void autoDestruct(GameTime gameTime)
+		protected void autoDestruct(float elapsed)
 		{
 			if (Damaged)
 			{
-				wait_before_die -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+				wait_before_die -= elapsed;
 				if (wait_before_die <= 0f)
 					Dead = true;
 			}
 		}
 
-		protected override void ApplyCollision(Vector2 imp, PhysicalObject obj, GameTime gt)
+		protected override void ApplyCollision(Vector2 imp, PhysicalObject obj, float elapsed)
 		{
-			base.ApplyCollision(imp, obj, gt);
+			base.ApplyCollision(imp, obj, elapsed);
 			Damaged = true;
 			wait_before_die = 0f;
 		}
 
-		public override void UpdatePosition(List<PhysicalObject> objects, Map map, GameTime gameTime)
+		public override void UpdatePosition(List<PhysicalObject> objects, Map map, float elapsed)
 		{
-			base.UpdatePosition(objects, map, gameTime);
-			autoDestruct(gameTime);
+			base.UpdatePosition(objects, map, elapsed);
+			autoDestruct(elapsed);
 		}
 
 		float wait_before_die = 1.0f;
