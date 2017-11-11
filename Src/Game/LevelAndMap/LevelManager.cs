@@ -52,6 +52,7 @@ namespace tim_dodge
 			Level5.BombActiv = true;
 
 			Levels = new List<Level> { Level1, Level2, Level3, Level4, Level5 };
+
 			Current.BeginLevel();
 		}
 
