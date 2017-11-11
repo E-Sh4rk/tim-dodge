@@ -13,11 +13,14 @@ namespace tim_dodge
 	public class TimGame : Game
 	{
 		GraphicsDeviceManager graphics;
+		Renderer renderer;
 		SpriteBatch spriteBatch;
 
 		public const int WINDOW_WIDTH = 1280;
-
 		public const int WINDOW_HEIGHT = 720;
+
+		public static int GAME_WIDTH = 1280;
+		public static int GAME_HEIGHT = 720;
 
 		GameManager Game;
 
@@ -39,6 +42,7 @@ namespace tim_dodge
 		protected override void Initialize()
 		{
 			base.Initialize();
+			renderer = new Renderer(graphics);
 		}
 
 		public void Quit()
@@ -93,12 +97,7 @@ namespace tim_dodge
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Draw(GameTime gameTime)
 		{
-			graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
-
-			spriteBatch.Begin();
-			Game.Draw(spriteBatch);
-			spriteBatch.End();
-
+			renderer.Draw(spriteBatch, Game);
 			base.Draw(gameTime);
 		}
 	}

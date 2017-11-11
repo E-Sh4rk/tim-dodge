@@ -25,6 +25,8 @@ namespace tim_dodge
 			Vector2 PositionScoreTim = new Vector2(30, 20);
 
 			scoreTim = new Stat(Load.FontScore, Color.Black, "Score : ", 0);
+			//scoreTim = new Stat(Load.FontScore, Color.WhiteSmoke, "Score : ", 0);
+
 			scoreTim.Position = PositionScoreTim;
 
 			heart = new Heart(Load.HeartFull, Load.HeartSemi, Load.HeartEmpty);

@@ -79,6 +79,7 @@
     <Compile Include="Src\Snapshot\Replay.cs" />
     <Compile Include="Src\Snapshot\NonPlayerObjectSnapshot.cs" />
     <Compile Include="Src\Snapshot\PlayerObjectSnapshot.cs" />
+    <Compile Include="Src\Renderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.manifest" />
