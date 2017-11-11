@@ -58,9 +58,9 @@ namespace tim_dodge
 		const float air_friction = 1.0f;
 		const float pixels_per_meter = 250;
 
-		protected virtual void ApplyCollision(Vector2 imp, int id, GameTime gt)
+		protected virtual void ApplyCollision(Vector2 imp, PhysicalObject obj, GameTime gt)
 		{
-			already_computed_collisions.Add(id);
+			already_computed_collisions.Add(obj.ID);
 			collisions_impulsion += imp;
 		}
 
@@ -112,8 +112,8 @@ namespace tim_dodge
 					float min_mass = Math.Min(o.Mass, Mass);
 					float intensity = -collision_factor * (min_mass * prod);
 					collisions_impulsion += coll * intensity;
-					ApplyCollision(coll * intensity, o.ID, gameTime);
-					o.ApplyCollision(-coll * intensity, ID, gameTime);
+					ApplyCollision(coll * intensity, o, gameTime);
+					o.ApplyCollision(-coll * intensity, this, gameTime);
 				}
 			}
 

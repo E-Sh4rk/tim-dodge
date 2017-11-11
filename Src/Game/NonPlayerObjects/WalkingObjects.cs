@@ -25,7 +25,7 @@ namespace tim_dodge
 			map = Level.map;
 			EnemiesList = new List<Monstar>();
 			random = new Random();
-			interval = 2;
+			interval = 3;
 		}
 
 		private float time;

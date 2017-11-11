@@ -8,6 +8,7 @@ namespace tim_dodge
 		}
 
 		// Additional properties for players
+		public bool damaged { get; protected set; }
 		public bool dead { get; protected set; }
 		// Not really needed since a non-player object is alive iff it is present. So dead should always be true.
 

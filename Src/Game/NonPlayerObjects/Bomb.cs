@@ -24,23 +24,21 @@ namespace tim_dodge
 			}
 		}
 
-		protected bool damaged = false;
-		protected override void ApplyCollision(Vector2 imp, int id, GameTime gt)
+		protected override void ApplyCollision(Vector2 imp, PhysicalObject obj, GameTime gt)
 		{
-			base.ApplyCollision(imp, id, gt);
-			// Destroy the bomb if collision with something else
-			damaged = true;
+			base.ApplyCollision(imp, obj, gt);
+			Damaged = true;
 		}
 
 		public override void UpdatePosition(List<PhysicalObject> objects, Map map, GameTime gameTime)
 		{
-			if (damaged)
+			if (Damaged)
 				destructionMode(gameTime);
 			base.UpdatePosition(objects, map, gameTime);
 			autoDestruct(gameTime);
 		}
 
-		public override void destructionMode(GameTime gt)
+		protected void destructionMode(GameTime gt)
 		{
 			if (!Ghost)
 			{

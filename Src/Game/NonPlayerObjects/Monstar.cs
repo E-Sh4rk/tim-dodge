@@ -46,22 +46,27 @@ namespace tim_dodge
 			}
 		}
 
-		protected bool damaged = false;
-		protected override void ApplyCollision(Vector2 imp, int id, GameTime gt)
+		protected override void ApplyCollision(Vector2 imp, PhysicalObject obj, GameTime gt)
 		{
-			base.ApplyCollision(imp, id, gt);
-			damaged = true;
+			base.ApplyCollision(imp, obj, gt);
+			if (obj is Monstar)
+			{
+				Controller.Direction other_dir = Controller.Direction.LEFT;
+				if (Sprite.Direction == other_dir)
+					other_dir = Controller.Direction.RIGHT;
+				Sprite.ChangeDirection(other_dir);
+			}
 		}
 
 		public override void UpdatePosition(List<PhysicalObject> objects, Map map, GameTime gameTime)
 		{
-			if (damaged)
+			if (Damaged)
 				destructionMode(gameTime);
 			base.UpdatePosition(objects, map, gameTime);
 			autoDestruct(gameTime);
 		}
 
-		public override void destructionMode(GameTime gt)
+		protected void destructionMode(GameTime gt)
 		{
 			if (!Ghost)
 			{

@@ -166,50 +166,52 @@ namespace tim_dodge
 		protected double last_damage_time = 0f;
 		protected double last_bonus_time = 0f;
 
-		protected override void ApplyCollision(Vector2 imp, int id, GameTime gt)
+		protected override void ApplyCollision(Vector2 imp, PhysicalObject obj, GameTime gt)
 		{
-			base.ApplyCollision(imp, id, gt);
-			// Apply damage if necessary
+			base.ApplyCollision(imp, obj, gt);
 
-			List<NonPlayerObject> es = gameInst.Level.Current.falling.FallingList.FindAll(en => en.ID == id);
-			es.AddRange(gameInst.Level.Current.walking.EnemiesList.FindAll(en => en.ID == id));
-
-			// if there exist at least one object in interaction with Tim
-			if (es.Count > 0)
+			if (obj is NonPlayerObject)
 			{
-				// Bonus 
-				foreach (NonPlayerObject e in es.FindAll((NonPlayerObject obj) => obj.Damage == 0))
+				NonPlayerObject e = (NonPlayerObject)obj;
+				e.TouchPlayer();
+				// Bonus
+				if (e.Bonus > 0 || e.Life > 0)
 				{
 					Life.incr(e.Life);
 					gameInst.scoreTim.incr(e.Bonus);
-					e.TouchPlayer();
-				}
-
-				// color Tim
-				if (es.Exists(e => e.Bonus > 0 || e.Life > 0))
-				{
 					color = Color.LightBlue;
 					last_bonus_time = gt.TotalGameTime.TotalSeconds;
 				}
-
-				// if we are not invinvible ..
+				// Damage
+				int damage = 0;
+				if (e is Monstar)
+				{
+					if (!e.Damaged) // If e is damaged, it is because the collision has already been treated
+					{
+						float y_player = position.Y + Size.Y;
+						float y_e = e.Position.Y + e.Size.Y / 2;
+						if (y_player < y_e)
+						{
+							velocity.Y = 0; // To give an impression of bouncing
+							e.SufferDamage();
+						}
+						else
+							damage = e.Damage;
+					}
+				}
+				else
+					damage = e.Damage;
+				// If we are not invincible ..
 				if (gt.TotalGameTime.TotalSeconds - last_damage_time >= time_invicibility)
 				{
-					// take all the player wich give damage
-					foreach (NonPlayerObject e in es.FindAll((NonPlayerObject obj) => obj.Damage>0))
+					if (damage > 0)
 					{
-						Life.decr(e.Damage);
-						e.TouchPlayer();
-					}
-					if (es.Exists(e => e.Damage > 0))
-					{
+						Life.decr(damage);
 						color = Color.IndianRed;
 						last_damage_time = gt.TotalGameTime.TotalSeconds;
 					}
 				}
-
 			}
-
 		}
 		public override void UpdatePosition(List<PhysicalObject> objects, Map map, GameTime gameTime)
 		{
