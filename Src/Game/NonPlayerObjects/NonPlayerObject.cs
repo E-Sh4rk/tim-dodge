@@ -15,11 +15,11 @@ namespace tim_dodge
 			Damage = 0;
 			Bonus = 0;
 			Life = 0;
-			Poisons = new List<GameObject.PoisonState>();
+			poisonState = GameObject.PoisonState.Nothing;
 			Dead = false;
 		}
 
-		public List<GameObject.PoisonState> Poisons;
+		public PoisonState poisonState;
 
 		public int Damage
 		{

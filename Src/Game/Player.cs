@@ -160,7 +160,7 @@ namespace tim_dodge
 
 		const double time_invicibility = 0.5f;
 		const double time_bonus = 0.5f;
-		const double time_poison = 1.5f;
+		const double time_poison = 2f;
 
 		protected double last_damage_time = 0f;
 		protected double last_bonus_time = 0f;
@@ -183,15 +183,37 @@ namespace tim_dodge
 					last_bonus_time = 0f;
 				}
 
-				if (e.Poisons.Contains(PoisonState.Rotation))
+				switch (e.poisonState)
 				{
-					if (!gameInst.rotation)
-					{
-						poison_remaining_time += time_poison;
-						gameInst.rotation = true;
-						color = Color.DarkViolet;
-						last_damage_time = 0f; // It is for the color + immunity
-					}
+					case PoisonState.Horizontal:
+						if (!gameInst.flipH)
+						{
+							poison_remaining_time += time_poison;
+							gameInst.flipH = true;
+							color = Color.DarkViolet;
+							last_damage_time = 0f; // It is for the color + immunity
+						}
+						break;
+					case PoisonState.Vertical:
+						if (!gameInst.flipV)
+						{
+							poison_remaining_time += time_poison;
+							gameInst.flipV = true;
+							color = Color.DarkViolet;
+							last_damage_time = 0f; // It is for the color + immunity
+						}
+						break;
+					case PoisonState.Rotation:
+						if (!gameInst.rotation)
+						{
+							poison_remaining_time += time_poison;
+							gameInst.rotation = true;
+							color = Color.DarkViolet;
+							last_damage_time = 0f; // It is for the color + immunity
+						}
+						break;
+					case PoisonState.Nothing:
+						break;
 				}
 
 				// Damage
@@ -238,6 +260,8 @@ namespace tim_dodge
 			if (poison_remaining_time < Math.Pow(10, -3))
 			{
 				gameInst.rotation = false;
+				gameInst.flipH = false;
+				gameInst.flipV = false;
 			}
 
 			base.UpdatePosition(objects, map, elapsed);

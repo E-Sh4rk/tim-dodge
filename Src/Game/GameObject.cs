@@ -22,9 +22,10 @@ namespace tim_dodge
 
 		public enum PoisonState
 		{
-			Rotation = 0,
-			Horizontal = 1,
-			Vertical = 2
+			Nothing = 0,
+			Rotation = 1,
+			Horizontal = 2,
+			Vertical = 3
 		}
 
 		public Sprite Sprite

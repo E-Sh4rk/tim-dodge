@@ -43,29 +43,40 @@ namespace tim_dodge
 			scale = Math.Min(scale,(float)Math.Abs((h / (Math.Cos(Math.Atan2(w, h) - angle + 2 * Math.Atan2(h, w)) * diag))));
 			//scale = 0.7f;
 
+			bool rotation = false;
+			SpriteEffects effect = SpriteEffects.None;
+
 			try
 			{
-				if (!game.game.rotation && Math.Abs(angle) < Math.Pow(10,-3))
-				{
-					angle = 0;
-					scale = 1;
-				}
+				rotation = game.game.rotation;
+				if (game.game.flipH)
+					effect = SpriteEffects.FlipHorizontally;
+				else if (game.game.flipV)
+					effect = SpriteEffects.FlipVertically;
 				else
-				{
-					angle += pas;
-					if (angle > max)
-						pas = -pas;
-					//angle -= (float) (2 * Math.PI);
-					if (angle < -max)
-						pas = -pas;
-				}
+					effect = SpriteEffects.None;
 			}
 			catch { angle = 0; scale = 1;}
 
+			if (!rotation && Math.Abs(angle) < Math.Pow(10, -3))
+			{
+				angle = 0;
+				scale = 1;
+			}
+			else
+			{
+				angle += pas;
+				if (angle > max)
+					pas = -pas;
+				//angle -= (float) (2 * Math.PI);
+				if (angle < -max)
+					pas = -pas;
+			}
+
 			spriteBatch.Begin();
 			spriteBatch.Draw((Texture2D)renderTarget, middle, null, Color.White,
-			                 angle, middle,
-			                 scale, SpriteEffects.None, 0); // (float)(Math.PI * 2)
+							 angle, middle,
+							 scale, effect, 0); // (float)(Math.PI * 2)
 			spriteBatch.End();
 
 		}
