@@ -83,6 +83,8 @@
     <Compile Include="Src\Game\NonPlayerObjects\FirePoison.cs" />
     <Compile Include="Src\Game\NonPlayerObjects\FireGreen.cs" />
     <Compile Include="Src\Game\NonPlayerObjects\FireYellow.cs" />
+    <Compile Include="Src\MapEditorInstance.cs" />
+    <Compile Include="Src\Game\LevelAndMap\BlockObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.manifest" />

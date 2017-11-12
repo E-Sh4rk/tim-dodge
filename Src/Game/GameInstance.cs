@@ -20,9 +20,11 @@ namespace tim_dodge
 		public LevelManager Level { get; protected set; }
 
 		public float time_multiplicator = 1f;
-		public bool rotation = false;
-		public bool flipH = false;
-		public bool flipV = false;
+		public bool rotation;
+		public bool flipH;
+		public bool flipV;
+
+		public bool focus;
 
 		const int max_snapshots = 1000;
 		Snapshot[] snapshots = new Snapshot[max_snapshots];
@@ -52,6 +54,8 @@ namespace tim_dodge
 
 			Level = new LevelManager(this);
 			player = new Player(new Vector2(700, 450), heart, this);
+			UndoPoisons();
+			focus = true;
 		}
 
 		int mod(int x, int m)
