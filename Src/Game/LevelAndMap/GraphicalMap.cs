@@ -27,6 +27,7 @@ namespace tim_dodge
 		public void changeTexture(Texture NewMapTexture)
 		{
 			MapTexture = NewMapTexture;
+			tileMap.ForEach((BlockObject obj) => obj.ChangeTexture(NewMapTexture));
 		}
 
 		public void changeBackground(Texture2D NewBackground)

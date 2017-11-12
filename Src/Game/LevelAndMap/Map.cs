@@ -45,6 +45,11 @@ namespace tim_dodge
 			gMap.Draw(spriteBatch);
 		}
 
+		public void changeTexture(Texture NewMapTexture)
+		{
+			gMap.changeTexture(NewMapTexture);
+		}
+
 		public void AddBlock(BlockObject bl)
 		{
 			RemoveBlock(bl.x, bl.y);

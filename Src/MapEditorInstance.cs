@@ -73,6 +73,10 @@ namespace tim_dodge
 			}
 		}
 
+		public void Save(String path)
+		{
+			Serializer<List<BlockObject.SaveBlock>>.Save(path, map.tileMap.ConvertAll((BlockObject bl) => bl.CreateSave()));
+		}
 
 		public void Draw(SpriteBatch spriteBatch)
 		{

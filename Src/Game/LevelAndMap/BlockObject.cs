@@ -17,6 +17,33 @@ namespace tim_dodge
 			this.state = state;
 		}
 
+		public class SaveBlock
+		{
+			public int x;
+			public int y;
+			public Ground state;
+
+			// default for saving
+			public SaveBlock() { }
+
+			public SaveBlock(int x, int y, Ground state)
+			{
+				this.x = x;
+				this.y = y;
+				this.state = state;
+			}
+		}
+
+		public SaveBlock CreateSave()
+		{
+			return new SaveBlock(_x, _y, state);
+		}
+
+		public static BlockObject LoadSave(SaveBlock sbl)
+		{
+			return new BlockObject(Load.MapTextureNature, sbl.x, sbl.y, sbl.state);
+		}
+
 		private int _x;
 		private int _y;
 
