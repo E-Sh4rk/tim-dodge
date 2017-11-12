@@ -20,7 +20,7 @@ namespace tim_dodge
 
 		public bool stopFalling;
 
-		public List<NonPlayerObject> FallingList
+		public List<NonPlayerObject> EnemiesList
 		{
 			get;
 			protected set;
@@ -39,7 +39,7 @@ namespace tim_dodge
 			stopFalling = false;
 
 			random = new Random();
-			FallingList = new List<NonPlayerObject>();
+			EnemiesList = new List<NonPlayerObject>();
 		}
 
 		private float time;
@@ -60,7 +60,7 @@ namespace tim_dodge
 						Rectangle r1 = new Rectangle(bomb.Position.ToPoint(), bomb.Size);
 						Rectangle r2 = new Rectangle(game.player.Position.ToPoint(), game.player.Size);
 						bomb.ApplyNewImpulsion(new Vector2(Collision.direction_between(r1, r2, false).X * 0.04f, 0));
-						FallingList.Add(bomb);
+						EnemiesList.Add(bomb);
 					}
 					else if (FireballActiv && random.Next(0, 5) != 0)
 					{
@@ -73,21 +73,21 @@ namespace tim_dodge
 								Sprite s = new Sprite("Content.objects.fireball.xml");
 								int X = random.Next(0, TimGame.WINDOW_WIDTH - s.RectOfSprite().Size.X);
 								NonPlayerObject fireball = new FirePoison(Load.FireballTexture, s, new Vector2(X, -30));
-								FallingList.Add(fireball);
+								EnemiesList.Add(fireball);
 							}
 							else if (randF == 1)
 							{
 								Sprite s = new Sprite("Content.objects.fireball.xml");
 								int X = random.Next(0, TimGame.WINDOW_WIDTH - s.RectOfSprite().Size.X);
 								NonPlayerObject fireball = new FireYellow(Load.FireballTexture, s, new Vector2(X, -30));
-								FallingList.Add(fireball);
+								EnemiesList.Add(fireball);
 							}
 							else
 							{
 								Sprite s = new Sprite("Content.objects.fireball.xml");
 								int X = random.Next(0, TimGame.WINDOW_WIDTH - s.RectOfSprite().Size.X);
 								NonPlayerObject fireball = new FireGreen(Load.FireballTexture, s, new Vector2(X, -30));
-								FallingList.Add(fireball);
+								EnemiesList.Add(fireball);
 							}
 
 						}
@@ -97,7 +97,7 @@ namespace tim_dodge
 							Sprite s = new Sprite("Content.objects.fireball.xml");
 							int X = random.Next(0, TimGame.WINDOW_WIDTH - s.RectOfSprite().Size.X);
 							NonPlayerObject fireball = new Fireball(Load.FireballTexture, s, new Vector2(X, -30));
-							FallingList.Add(fireball);
+							EnemiesList.Add(fireball);
 						}
 					}
 					else if (FireballActiv)
@@ -109,14 +109,14 @@ namespace tim_dodge
 							s.ChangeState(14);//(22);
 							int X = random.Next(0, TimGame.WINDOW_WIDTH - s.RectOfSprite().Size.X);
 							NonPlayerObject food = new Food(Load.FoodTexture, s, new Vector2(X, -30));
-							FallingList.Add(food);
+							EnemiesList.Add(food);
 						}
 						else
 						{
 							Sprite s = new Sprite("Content.objects.coin.xml");
 							int X = random.Next(0, TimGame.WINDOW_WIDTH - s.RectOfSprite().Size.X);
 							NonPlayerObject coin = new Coin(Load.CoinTexture, s, new Vector2(X, -30));
-							FallingList.Add(coin);
+							EnemiesList.Add(coin);
 						}
 
 					}
@@ -125,20 +125,20 @@ namespace tim_dodge
 			}
 
 			// Delete enemies that are out of bounds
-			FallingList.RemoveAll((e => e.IsOutOfBounds()));
+			EnemiesList.RemoveAll((e => e.IsOutOfBounds()));
 
 			// Autodestruct ennemies on the ground 
-			if (FallingList.Count != 0)
-				FallingList.FindAll(map.pMap.nearTheGround).ForEach((e => e.SufferDamage()));
+			if (EnemiesList.Count != 0)
+				EnemiesList.FindAll(map.pMap.nearTheGround).ForEach((e => e.SufferDamage()));
 
 			// Delete enemies that are dead
 			int i = 0;
-			while (i < FallingList.Count)
+			while (i < EnemiesList.Count)
 			{
-				NonPlayerObject e = FallingList[i];
+				NonPlayerObject e = EnemiesList[i];
 				if (e.Dead)
 				{
-					FallingList.Remove(e);
+					EnemiesList.Remove(e);
 					game.scoreTim.incr(10);
 				}
 				else

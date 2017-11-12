@@ -28,7 +28,7 @@ namespace tim_dodge
 		public bool Beginning { get; private set; }
 		private float Time;
 		private const float timeOfBeg = 0.8f;
-		public bool EndOfLevel { get { return Time > TimeToEnd && falling.FallingList.Count == 0; } }
+		public bool EndOfLevel { get { return Time > TimeToEnd && falling.EnemiesList.Count == 0; } }
 
 		public Color scoreColor;
 

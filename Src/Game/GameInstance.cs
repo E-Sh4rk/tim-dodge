@@ -61,7 +61,7 @@ namespace tim_dodge
 			// All physical objects
 			List<PhysicalObject> phys_obj = new List<PhysicalObject>();
 			phys_obj.Add(player);
-			phys_obj.AddRange(Level.Current.falling.FallingList);
+			phys_obj.AddRange(Level.Current.falling.EnemiesList);
 			phys_obj.AddRange(Level.Current.walking.EnemiesList);
 
 			foreach (PhysicalObject po in phys_obj)
@@ -86,7 +86,7 @@ namespace tim_dodge
 			Level.Draw(spriteBatch);
 
 			player.Draw(spriteBatch);
-			foreach (NonPlayerObject en in Level.Current.falling.FallingList)
+			foreach (NonPlayerObject en in Level.Current.falling.EnemiesList)
 				en.Draw(spriteBatch);
 			foreach (NonPlayerObject en in Level.Current.walking.EnemiesList)
 				en.Draw(spriteBatch);
