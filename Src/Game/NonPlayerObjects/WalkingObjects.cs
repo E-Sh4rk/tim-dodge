@@ -43,7 +43,7 @@ namespace tim_dodge
 				if (random.Next(0, 2) == 0) // p = 1/2 to be on the right or on the left
 				{
 					dir = Controller.Direction.LEFT;
-					vec.X = TimGame.WINDOW_WIDTH;
+					vec.X = TimGame.GAME_WIDTH;
 				}
 				else 
 				{

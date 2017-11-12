@@ -92,7 +92,7 @@ namespace tim_dodge
 
 		public new void Draw(SpriteBatch spriteBatch)
 		{
-			spriteBatch.Draw(Background, Vector2.Zero, Color.White);
+			spriteBatch.Draw(Background, new Rectangle(0,0,TimGame.GAME_WIDTH, TimGame.GAME_HEIGHT), Color.White);
 			tileMap.ForEach((Map.Block obj) => DrawBlock(spriteBatch, obj));
 		}
 
@@ -103,8 +103,8 @@ namespace tim_dodge
 			spriteBatch.Draw(Texture.Image, bl.position, new Rectangle(TexturePosition, Size), color, 0f, new Vector2(0, 0), new Vector2(1, 1), Sprite.Effect, 0f);
 		}
 
-		public const int numberTileY = 11;
-		public const int numberTileX = 20;
+		public const int numberTileY = TimGame.GAME_HEIGHT/64;
+		public const int numberTileX = TimGame.GAME_WIDTH/64;
 
 	}
 }

@@ -50,7 +50,7 @@ namespace tim_dodge
 			});
 
 			walls[(int)Wall.left].Add(new Rectangle(-100, 0, 100, 625));
-			walls[(int)Wall.right].Add(new Rectangle(TimGame.WINDOW_WIDTH, 0, 100, 625));
+			walls[(int)Wall.right].Add(new Rectangle(TimGame.GAME_WIDTH, 0, 100, 625));
 			//walls[(int)Wall.bottom].Add(new Rectangle(0, 675, TimGame.WINDOW_WIDTH, 100));
 
 			roofs = walls[(int)Wall.roof].ToArray();

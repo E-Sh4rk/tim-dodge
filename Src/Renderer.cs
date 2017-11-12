@@ -15,8 +15,8 @@ namespace tim_dodge
 
 			renderTarget = new RenderTarget2D(
 				graphics.GraphicsDevice,
-				graphics.PreferredBackBufferWidth,
-				graphics.PreferredBackBufferHeight);
+				    TimGame.GAME_WIDTH,
+				    TimGame.GAME_HEIGHT);
 		}
 
 		float angle = 0;
@@ -36,12 +36,8 @@ namespace tim_dodge
 			Vector2 middle = new Vector2(w / 2.0f, h / 2.0f);
 
 			float proportion = h / w;
-			//float angle = (float)(3*Math.PI/4);
-			//angle = (float)Math.Atan2(w, h) + 0.4f;
-			//angle = 0.4f;
 			float scale = (float) Math.Abs((h / (Math.Cos(Math.Atan2(w,h)-angle)*diag)));
 			scale = Math.Min(scale,(float)Math.Abs((h / (Math.Cos(Math.Atan2(w, h) - angle + 2 * Math.Atan2(h, w)) * diag))));
-			//scale = 0.7f;
 
 			bool rotation = false;
 			SpriteEffects effect = SpriteEffects.None;
@@ -71,15 +67,16 @@ namespace tim_dodge
 				angle += pas;
 				if (angle > max)
 					pas = -pas;
-				//angle -= (float) (2 * Math.PI);
 				if (angle < -max)
 					pas = -pas;
 			}
 
+			scale /= TimGame.general_scale;
+
 			spriteBatch.Begin();
-			spriteBatch.Draw((Texture2D)renderTarget, middle, null, Color.White,
-							 angle, middle,
-							 scale, effect, 0); // (float)(Math.PI * 2)
+			spriteBatch.Draw((Texture2D)renderTarget, middle/TimGame.general_scale, null, Color.White,
+			                 angle, middle,
+							 scale, effect, 0);
 			spriteBatch.End();
 
 		}

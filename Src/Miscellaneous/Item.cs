@@ -77,7 +77,7 @@ namespace tim_dodge
 		public Item(Texture2D Image)
 		{
 			this.Image = Image;
-			Size = new Vector2(TimGame.WINDOW_WIDTH, TimGame.WINDOW_HEIGHT); // Default value
+			Size = new Vector2(TimGame.GAME_WIDTH, TimGame.GAME_HEIGHT); // Default value
 			Color = Color.White;
 			DefaultConstruct();
 		}
