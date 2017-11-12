@@ -39,12 +39,14 @@ namespace tim_dodge
 
 			falling = new FallingObjects(game, this);
 			walking = new WalkingObjects(game, this);
+			Time = 0.0f;
 		}
 
 		public void SetTime(float time) { this.Time = time; }
 
-		public bool Beginning { get { return Time > timeOfBeg; } }
+		public bool Beginning { get { return Time < timeOfBeg; } }
 		public bool EndOfLevel { get { return Time > TimeToEnd && falling.EnemiesList.Count == 0; } }
+		public bool StopFalling { get { return Time > TimeToEnd || Beginning; } }
 
 		public void Draw(SpriteBatch spriteBatch)
 		{
@@ -55,7 +57,6 @@ namespace tim_dodge
 		{
 			game.UndoPoisons();
 			game.scoreTim.Color = scoreColor;
-			Time = 0.0f;
 			map.gMap.changeTexture(MapTexture);
 			map.gMap.changeBackground(Background);
 		}

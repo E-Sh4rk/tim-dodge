@@ -36,7 +36,7 @@ namespace tim_dodge
 		{
 			time += elapsed;
 
-			if (!level.Beginning && !level.EndOfLevel)
+			if (!level.StopFalling)
 			{
 				while (time > level.interval)
 				{
