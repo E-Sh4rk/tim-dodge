@@ -30,7 +30,9 @@ namespace tim_dodge
 		private const float timeOfBeg = 0.8f;
 		public bool EndOfLevel { get { return Time > TimeToEnd && falling.FallingList.Count == 0; } }
 
-		public Level(GameInstance game, Map map, Texture2D Background, Texture MapTexture, int timeToEnd, float interval)
+		public Color scoreColor;
+
+		public Level(GameInstance game, Map map, Texture2D Background, Texture MapTexture, int timeToEnd, float interval, Color scoreColor)
 		{
 			this.game = game;
 			this.map = map;
@@ -38,6 +40,7 @@ namespace tim_dodge
 			this.MapTexture = MapTexture;
 			this.interval = interval;
 			this.TimeToEnd = timeToEnd;
+			this.scoreColor = scoreColor;
 
 			falling = new FallingObjects(game, this);
 			walking = new WalkingObjects(game, this);
@@ -53,6 +56,7 @@ namespace tim_dodge
 		{
 			game.UndoPoisons();
 			Beginning = true;
+			game.scoreTim.Color = scoreColor;
 			ScoreBeginning = game.scoreTim.value;
 			Time = 0.0f;
 			map.gMap.changeTexture(MapTexture);
