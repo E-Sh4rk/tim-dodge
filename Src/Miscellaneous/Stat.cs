@@ -31,6 +31,13 @@ namespace tim_dodge
 				value = 0;
 		}
 
+		public void set(int i)
+		{
+			value = i;
+			if (value < 0)
+				value = 0;
+		}
+
 		public new void Draw(SpriteBatch spriteBatch)
 		{
 			Text = Title + value;
