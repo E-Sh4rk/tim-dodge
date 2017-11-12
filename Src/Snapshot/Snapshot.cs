@@ -5,17 +5,11 @@ namespace tim_dodge
 {
 	public class Snapshot
 	{
-		public Snapshot(GameInstance game)
-		{
-			game_ptr = game;
-		}
-
-		public GameInstance game_ptr { get; }
+		public Snapshot() { }
 
 		// Objects (immutable snapshots)
-		public List<NonPlayerObjectSnapshot> walking_objects { get; protected set; }
-		public List<NonPlayerObjectSnapshot> falling_objects { get; protected set; }
-		public List<PlayerObjectSnapshot> player_objects { get; protected set; }
+		public List<ObjectSnapshot> objects_states { get; protected set; }
+		public List<GameObject> objects { get; protected set; }
 
 		// Map Dynamic Objects
 
@@ -23,56 +17,49 @@ namespace tim_dodge
 		public int level_number { get; protected set; }
 		public float level_time { get; protected set; }
 
-		public virtual void RestoreGameState()
+		public virtual void RestoreGameState(GameInstance game)
 		{
 			// Level infos
-			game_ptr.Level.SetLevel(level_number);
-			game_ptr.Level.Current.SetTime(level_time);
+			game.Level.SetLevel(level_number);
+			game.Level.Current.SetTime(level_time);
 
 			// Objects
-			game_ptr.Level.Current.falling.EnemiesList.Clear();
-			game_ptr.Level.Current.walking.EnemiesList.Clear();
+			game.Level.Current.falling.EnemiesList.Clear();
+			game.Level.Current.walking.EnemiesList.Clear();
 
-			foreach (ObjectSnapshot snap in player_objects)
-				snap.RestoreModelState();
-			foreach (ObjectSnapshot snap in walking_objects)
+			for (int i = 0; i < objects.Count; i++)
 			{
-				snap.RestoreModelState();
-				game_ptr.Level.Current.walking.EnemiesList.Add((Monstar)snap.model_ptr);
-			}
-			foreach (ObjectSnapshot snap in falling_objects)
-			{
-				snap.RestoreModelState();
-				game_ptr.Level.Current.falling.EnemiesList.Add((NonPlayerObject)snap.model_ptr);
+				GameObject o = objects[i];
+				ObjectSnapshot s = objects_states[i];
+				s.RestoreModelState(o);
+				if (o is Monstar)
+					game.Level.Current.walking.EnemiesList.Add((Monstar)o);
+				else if (o is NonPlayerObject)
+					game.Level.Current.falling.EnemiesList.Add((NonPlayerObject)o);
 			}
 		}
-		public virtual void CaptureGameState()
+		public virtual void CaptureGameState(GameInstance game)
 		{
 			// Level infos
-			level_number = game_ptr.Level.CurrentLevelNumber();
-			level_time = game_ptr.Level.Current.GetTime();
+			level_number = game.Level.CurrentLevelNumber();
+			level_time = game.Level.Current.GetTime();
 
 			// Objects
-			walking_objects = new List<NonPlayerObjectSnapshot>();
-			falling_objects = new List<NonPlayerObjectSnapshot>();
-			player_objects = new List<PlayerObjectSnapshot>();
-
-			PlayerObjectSnapshot pos = new PlayerObjectSnapshot(game_ptr.player);
-			pos.CaptureModelState();
-			player_objects.Add(pos);
-			foreach (NonPlayerObject npo in game_ptr.Level.Current.walking.EnemiesList)
+			objects_states = new List<ObjectSnapshot>();
+			objects = new List<GameObject>();
+			objects.Add(game.player);
+			objects.AddRange(game.Level.Current.walking.EnemiesList);
+			objects.AddRange(game.Level.Current.falling.EnemiesList);
+			foreach (GameObject o in objects)
 			{
-				NonPlayerObjectSnapshot s = new NonPlayerObjectSnapshot(npo);
-				s.CaptureModelState();
-				walking_objects.Add(s);
-			}
-			foreach (NonPlayerObject npo in game_ptr.Level.Current.falling.EnemiesList)
-			{
-				NonPlayerObjectSnapshot s = new NonPlayerObjectSnapshot(npo);
-				s.CaptureModelState();
-				falling_objects.Add(s);
+				ObjectSnapshot s = null;
+				if (o is Player)
+					s = new PlayerObjectSnapshot();
+				if (o is NonPlayerObject)
+					s = new NonPlayerObjectSnapshot();
+				s.CaptureModelState(o);
+				objects_states.Add(s);
 			}
 		}
-
 	}
 }
