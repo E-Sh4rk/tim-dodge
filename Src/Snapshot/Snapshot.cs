@@ -5,23 +5,17 @@ namespace tim_dodge
 {
 	public class Snapshot
 	{
-		public Snapshot() { }
-
 		// Objects (immutable snapshots)
 		public List<ObjectSnapshot> objects_states { get; protected set; }
 		public List<GameObject> objects { get; protected set; }
 
-		// Map Dynamic Objects
-
-		// Infos about Map/Level
-		public int level_number { get; protected set; }
-		public float level_time { get; protected set; }
+		// Level&map
+		public LevelSnapshot lvl { get; protected set; }
 
 		public virtual void RestoreGameState(GameInstance game)
 		{
 			// Level infos
-			game.Level.SetLevel(level_number);
-			game.Level.Current.SetTime(level_time);
+			lvl.RestoreLevelState(game);
 
 			// Objects
 			game.Level.Current.falling.EnemiesList.Clear();
@@ -41,8 +35,8 @@ namespace tim_dodge
 		public virtual void CaptureGameState(GameInstance game)
 		{
 			// Level infos
-			level_number = game.Level.CurrentLevelNumber();
-			level_time = game.Level.Current.GetTime();
+			lvl = new LevelSnapshot();
+			lvl.CaptureLevelState(game);
 
 			// Objects
 			objects_states = new List<ObjectSnapshot>();

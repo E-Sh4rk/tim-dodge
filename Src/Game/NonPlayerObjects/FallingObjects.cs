@@ -34,10 +34,9 @@ namespace tim_dodge
 
 		public void Update(float elapsed)
 		{
-			time += elapsed;
-
 			if (!level.StopFalling)
 			{
+				time += elapsed;
 				while (time > level.interval)
 				{
 					if (level.BombActiv && random.Next(0, 5) == 0)

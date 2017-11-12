@@ -33,26 +33,28 @@ namespace tim_dodge
 
 		public void Update(float elapsed)
 		{
-			time += elapsed;
-
-			while (time > interval)
+			if (!level.StopFalling)
 			{
-				Sprite s = new Sprite("Content.character.MonstarXml.xml");
-				Controller.Direction dir;
-				Vector2 vec = new Vector2(0f, 0f);
-				if (random.Next(0, 2) == 0) // p = 1/2 to be on the right or on the left
+				time += elapsed;
+				while (time > interval)
 				{
-					dir = Controller.Direction.LEFT;
-					vec.X = TimGame.GAME_WIDTH;
+					Sprite s = new Sprite("Content.character.MonstarXml.xml");
+					Controller.Direction dir;
+					Vector2 vec = new Vector2(0f, 0f);
+					if (random.Next(0, 2) == 0) // p = 1/2 to be on the right or on the left
+					{
+						dir = Controller.Direction.LEFT;
+						vec.X = TimGame.GAME_WIDTH;
+					}
+					else
+					{
+						dir = Controller.Direction.RIGHT;
+						vec.X = 0f;
+					}
+					Monstar m = new Monstar(Load.MonstarTexture, s, vec, level.map.pMap, dir);
+					EnemiesList.Add(m);
+					time -= interval;
 				}
-				else 
-				{
-					dir = Controller.Direction.RIGHT;
-					vec.X = 0f;
-				}
-				Monstar m = new Monstar(Load.MonstarTexture, s, vec, level.map.pMap, dir);
-				EnemiesList.Add(m);
-				time -= interval;
 			}
 
 			// Delete enemies that are out of bounds
@@ -66,7 +68,6 @@ namespace tim_dodge
 
 			// Delete enemies that are dead
 			EnemiesList.RemoveAll((e => e.Dead));
-
 		}
 	}
 }
