@@ -11,7 +11,8 @@ namespace tim_dodge
 	{
 		private Random random;
 		private GameInstance game;
-		private Map map;
+
+		private const float interval = 5;
 
 		public List<Monstar> EnemiesList
 		{
@@ -19,17 +20,14 @@ namespace tim_dodge
 			protected set;
 		}
 
-		public WalkingObjects(GameInstance game, Level Level)
+		public WalkingObjects(GameInstance game)
 		{
 			this.game = game;
-			map = Level.map;
 			EnemiesList = new List<Monstar>();
 			random = new Random();
-			interval = 5;
 		}
 
 		private float time;
-		private float interval;
 
 		public void Update(float elapsed)
 		{

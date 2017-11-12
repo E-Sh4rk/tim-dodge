@@ -19,7 +19,9 @@ namespace tim_dodge
 
 		// Map Dynamic Objects
 
-		// Score? Other special data for the player?
+		// Infos about Map/Level
+		public int level_number { get; protected set; }
+		public float level_time { get; protected set; }
 
 		public virtual void RestoreGameState()
 		{

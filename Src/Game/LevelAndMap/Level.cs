@@ -16,21 +16,16 @@ namespace tim_dodge
 		public Texture2D Background;
 		public Texture MapTexture;
 		private GameInstance game;
+		private Color scoreColor;
 
-		// bool false by default
 		public bool FireballActiv;
 		public bool BombActiv;
 		public float interval { get; }
-
 		private float TimeToEnd { get; }
-		private int ScoreBeginning;
 
-		public bool Beginning { get; private set; }
-		private float Time;
 		private const float timeOfBeg = 0.8f;
-		public bool EndOfLevel { get { return Time > TimeToEnd && falling.EnemiesList.Count == 0; } }
 
-		public Color scoreColor;
+		private float Time;
 
 		public Level(GameInstance game, Map map, Texture2D Background, Texture MapTexture, int timeToEnd, float interval, Color scoreColor)
 		{
@@ -43,9 +38,13 @@ namespace tim_dodge
 			this.scoreColor = scoreColor;
 
 			falling = new FallingObjects(game, this);
-			walking = new WalkingObjects(game, this);
-
+			walking = new WalkingObjects(game);
 		}
+
+		public void SetTime(float time) { this.Time = time }
+
+		public bool Beginning { get { return Time > timeOfBeg; } }
+		public bool EndOfLevel { get { return Time > TimeToEnd && falling.EnemiesList.Count == 0; } }
 
 		public void Draw(SpriteBatch spriteBatch)
 		{
@@ -55,31 +54,15 @@ namespace tim_dodge
 		public void BeginLevel()
 		{
 			game.UndoPoisons();
-			Beginning = true;
 			game.scoreTim.Color = scoreColor;
-			ScoreBeginning = game.scoreTim.value;
 			Time = 0.0f;
 			map.gMap.changeTexture(MapTexture);
 			map.gMap.changeBackground(Background);
 		}
 
-		private void InitiateLevel()
-		{
-			Beginning = false;
-			falling = new FallingObjects(game, this);
-		}
-
 		public void Update(float elapsed)
 		{
 			Time += elapsed;
-
-			if (Beginning && Time > timeOfBeg)
-				InitiateLevel();
-
-			if (!Beginning)
-				if (Time > TimeToEnd)
-					falling.stopFalling = true;
 		}
-
 	}
 }
