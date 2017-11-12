@@ -9,7 +9,7 @@ namespace tim_dodge
 	/// </summary>
 	public class Coin : NonPlayerObject
 	{
-		public Coin(Texture t, Sprite s, Vector2 p) : base(t, s, p)
+		public Coin(Vector2 p) : base(Load.CoinTexture, new Sprite("Content.objects.coin.xml"), p)
 		{
 			Mass = 7;
 			Bonus = 250;

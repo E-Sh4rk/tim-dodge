@@ -57,15 +57,15 @@ namespace tim_dodge
 			Map map = new Map(Load.BackgroundSun, Load.MapTextureNature);
 
 			LevelDefinition Level1 = new LevelDefinition(map, Load.BackgroundSun, Load.MapTextureNature,
-														 10, 0.4f, Color.Black, true, false);
+														 10, 0.3f, Color.Black, true, false);
 			LevelDefinition Level2 = new LevelDefinition(map, Load.BackgroundGreen, Load.MapTextureDesert,
-														 15, 0.3f, Color.Black, true, false);
+														 15, 0.2f, Color.Black, true, false);
 			LevelDefinition Level3 = new LevelDefinition(map, Load.BackgroundDark, Load.MapTextureGraveyard,
-														 20, 0.25f, Color.White, true, false);
+														 20, 0.15f, Color.White, true, false);
 			LevelDefinition Level4 = new LevelDefinition(map, Load.BackgroundWinter, Load.MapTextureWinter,
-														 25, 0.25f, Color.Black, true, true);
+														 25, 0.15f, Color.Black, true, true);
 			LevelDefinition Level5 = new LevelDefinition(map, Load.BackgroundSun, Load.MapTextureNature,
-														 50, 0.2f, Color.Black, true, true);
+														 50, 0.1f, Color.Black, true, true);
 
 			Levels = new List<LevelDefinition> { Level1, Level2, Level3, Level4, Level5 };
 			SetLevel(0);

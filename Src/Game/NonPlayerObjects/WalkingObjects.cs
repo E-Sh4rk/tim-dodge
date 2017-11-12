@@ -38,7 +38,6 @@ namespace tim_dodge
 				time += elapsed;
 				while (time > interval)
 				{
-					Sprite s = new Sprite("Content.character.MonstarXml.xml");
 					Controller.Direction dir;
 					Vector2 vec = new Vector2(0f, 0f);
 					if (random.Next(0, 2) == 0) // p = 1/2 to be on the right or on the left
@@ -51,7 +50,7 @@ namespace tim_dodge
 						dir = Controller.Direction.RIGHT;
 						vec.X = 0f;
 					}
-					Monstar m = new Monstar(Load.MonstarTexture, s, vec, level.map.pMap, dir);
+					Monstar m = new Monstar(vec, level.map.pMap, dir);
 					EnemiesList.Add(m);
 					time -= interval;
 				}

@@ -11,7 +11,8 @@ namespace tim_dodge
 	{
 		PhysicalMap m;
 
-		public Monstar(Texture t, Sprite s, Vector2 p, PhysicalMap m, Controller.Direction dir): base(t,s,p)
+		public Monstar(Vector2 p, PhysicalMap m, Controller.Direction dir):
+		base(Load.MonstarTexture,new Sprite("Content.character.MonstarXml.xml"),p)
 		{
 			Mass = 25;
 			Damage = 1;

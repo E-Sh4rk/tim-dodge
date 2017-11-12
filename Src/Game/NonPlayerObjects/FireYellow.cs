@@ -8,7 +8,7 @@ namespace tim_dodge
 	/// </summary>
 	public class FireYellow : Fireball
 	{
-		public FireYellow(Texture t, Sprite s, Vector2 p) : base(t, s, p)
+		public FireYellow(Vector2 p) : base(p)
 		{
 			Damage = 0;
 			color = Color.DeepPink;

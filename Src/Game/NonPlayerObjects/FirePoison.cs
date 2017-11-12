@@ -8,7 +8,7 @@ namespace tim_dodge
 	/// </summary>
 	public class FirePoison : Fireball
 	{
-		public FirePoison(Texture t, Sprite s, Vector2 p): base(t,s,p)
+		public FirePoison(Vector2 p): base(p)
 		{
 			Damage = 0;
 			color = Color.DarkViolet;

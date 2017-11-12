@@ -41,72 +41,47 @@ namespace tim_dodge
 				{
 					if (level.BombActiv && random.Next(0, 5) == 0)
 					{
-						Sprite s = new Sprite("Content.objects.bomb.xml");
-						int X = random.Next(0, TimGame.GAME_WIDTH - s.RectOfSprite().Size.X);
-						NonPlayerObject bomb = new Bomb(Load.BombTexture, s, new Vector2(X, -30));
+						NonPlayerObject bomb = new Bomb(new Vector2(0, -30));
+
+						int X = random.Next(0, TimGame.GAME_WIDTH - bomb.Size.X);
+						bomb.Position = new Vector2(X, bomb.Position.Y);
+
 						Rectangle r1 = new Rectangle(bomb.Position.ToPoint(), bomb.Size);
 						Rectangle r2 = new Rectangle(game.player.Position.ToPoint(), game.player.Size);
 						bomb.ApplyNewImpulsion(new Vector2(Collision.direction_between(r1, r2, false).X * 0.04f, 0));
 						EnemiesList.Add(bomb);
 					}
-
-					else if (level.FireballActiv && random.Next(0, 5) != 0)
+					else
 					{
-						// a chance to have a poison
-						if (random.Next(0, 2) == 0)
+						NonPlayerObject enemy = null;
+						if (level.FireballActiv && random.Next(0, 4) != 0)
 						{
-							int randF = random.Next(0, 3);
-							if (randF == 0)
+							// a chance to have a poison
+							if (random.Next(0, 2) == 0)
 							{
-								Sprite s = new Sprite("Content.objects.fireball.xml");
-								int X = random.Next(0, TimGame.GAME_WIDTH - s.RectOfSprite().Size.X);
-								NonPlayerObject fireball = new FirePoison(Load.FireballTexture, s, new Vector2(X, -30));
-								EnemiesList.Add(fireball);
+								int randF = random.Next(0, 3);
+								if (randF == 0)
+									enemy = new FirePoison(new Vector2(0, -30));
+								else if (randF == 1)
+									enemy = new FireYellow(new Vector2(0, -30));
+								else
+									enemy = new FireGreen(new Vector2(0, -30));
 							}
-							else if (randF == 1)
-							{
-								Sprite s = new Sprite("Content.objects.fireball.xml");
-								int X = random.Next(0, TimGame.GAME_WIDTH - s.RectOfSprite().Size.X);
-								NonPlayerObject fireball = new FireYellow(Load.FireballTexture, s, new Vector2(X, -30));
-								EnemiesList.Add(fireball);
-							}
+
+							else // a regular fireball
+								enemy = new Fireball(new Vector2(0, -30));
+						}
+						else if (level.FireballActiv)
+						{
+							// a chance to have a cake
+							if (random.Next(0, 4) == 0)
+								enemy = new Food(new Vector2(0, -30));
 							else
-							{
-								Sprite s = new Sprite("Content.objects.fireball.xml");
-								int X = random.Next(0, TimGame.GAME_WIDTH - s.RectOfSprite().Size.X);
-								NonPlayerObject fireball = new FireGreen(Load.FireballTexture, s, new Vector2(X, -30));
-								EnemiesList.Add(fireball);
-							}
-
+								enemy = new Coin(new Vector2(0, -30));
 						}
-
-						else // a regular fireball
-						{
-							Sprite s = new Sprite("Content.objects.fireball.xml");
-							int X = random.Next(0, TimGame.GAME_WIDTH - s.RectOfSprite().Size.X);
-							NonPlayerObject fireball = new Fireball(Load.FireballTexture, s, new Vector2(X, -30));
-							EnemiesList.Add(fireball);
-						}
-					}
-					else if (level.FireballActiv)
-					{
-						// a chance to have a cake
-						if (random.Next(0, 5) == 0)
-						{
-							Sprite s = new Sprite("Content.objects.food.xml");
-							s.ChangeState(14);//(22);
-							int X = random.Next(0, TimGame.GAME_WIDTH - s.RectOfSprite().Size.X);
-							NonPlayerObject food = new Food(Load.FoodTexture, s, new Vector2(X, -30));
-							EnemiesList.Add(food);
-						}
-						else
-						{
-							Sprite s = new Sprite("Content.objects.coin.xml");
-							int X = random.Next(0, TimGame.GAME_WIDTH - s.RectOfSprite().Size.X);
-							NonPlayerObject coin = new Coin(Load.CoinTexture, s, new Vector2(X, -30));
-							EnemiesList.Add(coin);
-						}
-
+						int X = random.Next(0, TimGame.GAME_WIDTH - enemy.Size.X);
+						enemy.Position = new Vector2(X, enemy.Position.Y);
+						EnemiesList.Add(enemy);
 					}
 					time -= level.interval;
 				}
