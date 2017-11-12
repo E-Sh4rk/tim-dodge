@@ -20,6 +20,9 @@ namespace tim_dodge
 		public LevelManager Level { get; protected set; }
 
 		public float time_multiplicator = 1f;
+		public bool rotation = false;
+		public bool flipH = false;
+		public bool flipV = false;
 
 		public GameInstance()
 		{

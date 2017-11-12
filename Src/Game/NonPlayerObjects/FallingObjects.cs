@@ -64,10 +64,22 @@ namespace tim_dodge
 					}
 					else if (FireballActiv && random.Next(0, 5) != 0)
 					{
-						Sprite s = new Sprite("Content.objects.fireball.xml");
-						int X = random.Next(0, TimGame.WINDOW_WIDTH - s.RectOfSprite().Size.X);
-						NonPlayerObject fireball = new Fireball(Load.FireballTexture, s, new Vector2(X, -30));
-						FallingList.Add(fireball);
+						// a chance to have a poison
+						if (random.Next(0, 6) == 0)
+						{
+							Sprite s = new Sprite("Content.objects.fireball.xml");
+							int X = random.Next(0, TimGame.WINDOW_WIDTH - s.RectOfSprite().Size.X);
+							NonPlayerObject fireball = new FirePoison(Load.FireballTexture, s, new Vector2(X, -30));
+							FallingList.Add(fireball);
+						}
+
+						else // a regular fireball
+						{
+							Sprite s = new Sprite("Content.objects.fireball.xml");
+							int X = random.Next(0, TimGame.WINDOW_WIDTH - s.RectOfSprite().Size.X);
+							NonPlayerObject fireball = new Fireball(Load.FireballTexture, s, new Vector2(X, -30));
+							FallingList.Add(fireball);
+						}
 					}
 					else if (FireballActiv)
 					{

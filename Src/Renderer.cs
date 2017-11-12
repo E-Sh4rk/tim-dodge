@@ -24,14 +24,7 @@ namespace tim_dodge
 		const float max = (float) Math.PI / 16;	
 
 		public void Draw(SpriteBatch spriteBatch, GameManager game)
-		{
-			angle += pas;
-			if (angle > max)
-				pas = -pas;
-			//angle -= (float) (2 * Math.PI);
-			if (angle < -max)
-				pas = -pas;
-			
+		{			
 			Rend(spriteBatch, game);
 			
 			graphics.GraphicsDevice.Clear(Color.Black);
@@ -52,10 +45,19 @@ namespace tim_dodge
 
 			try
 			{
-				if (!game.GameRunning || !game.rotation)
+				if (!game.game.rotation && Math.Abs(angle) < Math.Pow(10,-3))
 				{
 					angle = 0;
 					scale = 1;
+				}
+				else
+				{
+					angle += pas;
+					if (angle > max)
+						pas = -pas;
+					//angle -= (float) (2 * Math.PI);
+					if (angle < -max)
+						pas = -pas;
 				}
 			}
 			catch { angle = 0; scale = 1;}

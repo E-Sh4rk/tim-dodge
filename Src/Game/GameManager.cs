@@ -23,8 +23,6 @@ namespace tim_dodge
 
 		public bool GameRunning { get { return game != null; } }
 
-		public bool rotation = false;
-
 		public GameManager(ContentManager Content, TimGame Application)
 		{
 			Load.LoadContent(Content);

@@ -160,9 +160,11 @@ namespace tim_dodge
 
 		const double time_invicibility = 0.5f;
 		const double time_bonus = 0.5f;
+		const double time_poison = 1.5f;
 
 		protected double last_damage_time = 0f;
 		protected double last_bonus_time = 0f;
+		protected double poison_remaining_time = 0f;
 
 		protected override void ApplyCollision(Vector2 imp, PhysicalObject obj, float elapsed)
 		{
@@ -177,9 +179,21 @@ namespace tim_dodge
 				{
 					Life.incr(e.Life);
 					gameInst.scoreTim.incr(e.Bonus);
-					color = Color.LightBlue;
+					color = Color.GreenYellow;
 					last_bonus_time = 0f;
 				}
+
+				if (e.Poisons.Contains(PoisonState.Rotation))
+				{
+					if (!gameInst.rotation)
+					{
+						poison_remaining_time += time_poison;
+						gameInst.rotation = true;
+						color = Color.DarkViolet;
+						last_damage_time = 0f; // It is for the color + immunity
+					}
+				}
+
 				// Damage
 				int damage = 0;
 				if (e is Monstar)
@@ -214,10 +228,18 @@ namespace tim_dodge
 				}
 			}
 		}
+
 		public override void UpdatePosition(List<PhysicalObject> objects, Map map, float elapsed)
 		{
 			last_bonus_time += elapsed;
 			last_damage_time += elapsed;
+			poison_remaining_time = Math.Max(0, poison_remaining_time - elapsed);
+
+			if (poison_remaining_time < Math.Pow(10, -3))
+			{
+				gameInst.rotation = false;
+			}
+
 			base.UpdatePosition(objects, map, elapsed);
 			if (last_damage_time >= time_invicibility && last_bonus_time >= time_bonus)
 				color = Color.White;

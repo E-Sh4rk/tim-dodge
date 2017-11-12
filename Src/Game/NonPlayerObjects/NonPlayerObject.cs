@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 namespace tim_dodge
@@ -14,8 +15,11 @@ namespace tim_dodge
 			Damage = 0;
 			Bonus = 0;
 			Life = 0;
+			Poisons = new List<GameObject.PoisonState>();
 			Dead = false;
 		}
+
+		public List<GameObject.PoisonState> Poisons;
 
 		public int Damage
 		{

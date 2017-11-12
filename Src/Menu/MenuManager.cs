@@ -74,7 +74,7 @@ namespace tim_dodge
 				choiceSoundItem = new MenuItem("Deactivate Sound Effects", ChoiceSound);
 			try
 			{
-				if (GameManager.rotation)
+				if (GameManager.game.rotation)
 					choiceCharlieItem = new MenuItem("Deactivate Option Charlie", ChoiceCharlie);
 				else
 					choiceCharlieItem = new MenuItem("Activate Option Charlie", ChoiceCharlie);
@@ -223,14 +223,14 @@ namespace tim_dodge
 
 		private void ChoiceCharlie()
 		{
-			if (GameManager.rotation)
+			if (GameManager.game.rotation)
 			{
-				GameManager.rotation = false;
+				GameManager.game.rotation = false;
 				choiceCharlieItem.Text = "Activate Option Charlie";
 			}
 			else
 			{
-				GameManager.rotation = true;
+				GameManager.game.rotation = true;
 				choiceCharlieItem.Text = "Deactivate Option Charlie";
 			}
 					           
