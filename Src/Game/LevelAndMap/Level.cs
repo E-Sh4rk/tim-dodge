@@ -38,10 +38,10 @@ namespace tim_dodge
 			this.scoreColor = scoreColor;
 
 			falling = new FallingObjects(game, this);
-			walking = new WalkingObjects(game);
+			walking = new WalkingObjects(game, this);
 		}
 
-		public void SetTime(float time) { this.Time = time }
+		public void SetTime(float time) { this.Time = time; }
 
 		public bool Beginning { get { return Time > timeOfBeg; } }
 		public bool EndOfLevel { get { return Time > TimeToEnd && falling.EnemiesList.Count == 0; } }
