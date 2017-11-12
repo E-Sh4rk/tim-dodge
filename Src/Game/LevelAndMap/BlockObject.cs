@@ -23,17 +23,21 @@ namespace tim_dodge
 		public int x
 		{
 			get { return _x; }
-			set { _x = value; position.X = value * h; }
+			set { _x = value; position.X = value * w; }
 		}
 
 		public int y
 		{
 			get { return _y; }
-			set { _y = value; position.Y = value * w; }
+			set { _y = value; position.Y = value * h; }
 		}
 
 
-		public Ground state;
+		public Ground state
+		{
+			get { return (Ground)(Sprite.NowState());}
+			set { Sprite.ChangeState((int)value);}
+		}
 
 		public float h;
 		public float w;

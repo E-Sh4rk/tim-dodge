@@ -18,41 +18,53 @@ namespace tim_dodge
 		}
 
 		public BlockObject block;
-
 		public Map map;
-
 		public bool focus;
-
 		private BlockObject mouseBlock;
+
+		const double time_before_rechange = 0.2f;
+		protected double last_time_change = 0f;
 
 		public void Update(GameTime gameTime)
 		{
 			KeyboardState state = Keyboard.GetState();
 			MouseState mouse = Mouse.GetState();
+			float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
+			last_time_change += elapsed;
 
 			mouseBlock.x = (int)(mouse.X*TimGame.general_scale/mouseBlock.w);
 			mouseBlock.y = (int)(mouse.Y* TimGame.general_scale/mouseBlock.h);
 
-			if (state.IsKeyDown(Keys.N))
+			// we can change
+			if (last_time_change >= time_before_rechange)
 			{
-				var s = mouseBlock.Sprite.NowState();
-				if (s + 1 == mouseBlock.Sprite.NumberOfState())
-					s = -1;
-				mouseBlock.ChangeSpriteState(s+1);
-			}
+				if (state.IsKeyDown(Keys.N))
+				{
+					var s = mouseBlock.Sprite.NowState();
+					if (s == mouseBlock.Sprite.NumberOfState() - 1)
+						s = -1;
+					mouseBlock.ChangeSpriteState(s + 1);
+					mouseBlock.h = mouseBlock.Sprite.RectOfSprite().Height;
+					mouseBlock.w = mouseBlock.Sprite.RectOfSprite().Width;
+					last_time_change = 0f;
+				}
 
-			else if (state.IsKeyDown(Keys.P))
-			{
-				var s = mouseBlock.Sprite.NowState();
-				if (s == 0)
-					s = mouseBlock.Sprite.NumberOfState()-2;
-				mouseBlock.ChangeSpriteState(s+1);
+				else if (state.IsKeyDown(Keys.P))
+				{
+					var s = mouseBlock.Sprite.NowState();
+					if (s == 0)
+						s = mouseBlock.Sprite.NumberOfState();
+					mouseBlock.ChangeSpriteState(s - 1);
+					mouseBlock.h = mouseBlock.Sprite.RectOfSprite().Height;
+					mouseBlock.w = mouseBlock.Sprite.RectOfSprite().Width;
+					last_time_change = 0f;
+				}
 			}
 
 			if (mouse.LeftButton == ButtonState.Pressed || state.IsKeyDown(Keys.Enter))
 			{
 				map.AddBlock(mouseBlock);
-				mouseBlock = new BlockObject(Load.MapTextureNature, mouseBlock.x, mouseBlock.y, BlockObject.Ground.MiddleGround);
+				mouseBlock = new BlockObject(Load.MapTextureNature, mouseBlock.x, mouseBlock.y, mouseBlock.state);
 			}
 
 			else if (mouse.RightButton == ButtonState.Pressed || state.IsKeyDown(Keys.Delete) || state.IsKeyDown(Keys.Back))
