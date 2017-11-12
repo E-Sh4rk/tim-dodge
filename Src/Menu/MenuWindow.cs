@@ -50,6 +50,7 @@ namespace tim_dodge
 		{	// Calculates and set the dimensions of the menu's background
 			float MaxLengthItem = 0;
 			foreach (MenuItem item in ListItems)
+
 				MaxLengthItem = Math.Max(MaxLengthItem, item.Size.X);
 
 			float Width = ((2 * BackgroundBordureX) + 1) * MaxLengthItem;

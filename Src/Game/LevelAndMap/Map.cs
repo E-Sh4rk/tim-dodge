@@ -74,6 +74,10 @@ namespace tim_dodge
 			public float h;
 			public float w;
 
+			public Block()
+			{
+			}
+
 			public Block(float h, float w, int x, int y, Map.Ground state)
 			{
 				this.h = h;

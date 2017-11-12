@@ -72,6 +72,7 @@ namespace tim_dodge
 				choiceSoundItem = new MenuItem("   Activate Sound Effects   ", ChoiceSound);
 			else
 				choiceSoundItem = new MenuItem("Deactivate Sound Effects", ChoiceSound);
+			/*
 			try
 			{
 				if (GameManager.game.rotation)
@@ -82,12 +83,12 @@ namespace tim_dodge
 			catch
 			{
 				choiceCharlieItem = new MenuItem("Activate Option Charlie", ChoiceCharlie);
-			}
+			}*/
 
 			Initialize(ParamMenu, "Parameters", new List<MenuItem> {
 				choiceMusicItem,
 				choiceSoundItem,
-				choiceCharlieItem,
+				//choiceCharlieItem,
 				new MenuItem("Back to Menu", Previous) }
 					  );
 
