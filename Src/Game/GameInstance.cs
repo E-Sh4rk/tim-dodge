@@ -106,7 +106,6 @@ namespace tim_dodge
 				foreach (PhysicalObject po in phys_obj)
 					po.UpdatePosition(phys_obj, Level.Current.map, po is Player ? insensible_elapsed : elapsed);
 
-				player.Life.Update();
 				if (player.IsOutOfBounds())
 					player.Life.decr(player.Life.value);
 
@@ -127,8 +126,8 @@ namespace tim_dodge
 			scoreTim.Draw(spriteBatch);
 			player.Life.Draw(spriteBatch);
 
+			player.Life.Update();
 			heart.Draw(spriteBatch);
-
 		}
 
 	}

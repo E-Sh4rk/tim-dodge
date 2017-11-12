@@ -7,8 +7,6 @@ namespace tim_dodge
 		{
 		}
 
-		// Infos about Map/Level
-
 		// Infos about player name, date, etc
 
 		public void ExportToFile(string file)

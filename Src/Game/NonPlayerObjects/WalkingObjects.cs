@@ -11,7 +11,9 @@ namespace tim_dodge
 	{
 		private Random random;
 		private GameInstance game;
-		private Map map;
+		private Level level;
+
+		private const float interval = 5;
 
 		public List<Monstar> EnemiesList
 		{
@@ -19,17 +21,15 @@ namespace tim_dodge
 			protected set;
 		}
 
-		public WalkingObjects(GameInstance game, Level Level)
+		public WalkingObjects(GameInstance game, Level level)
 		{
 			this.game = game;
-			map = Level.map;
+			this.level = level;
 			EnemiesList = new List<Monstar>();
 			random = new Random();
-			interval = 5;
 		}
 
 		private float time;
-		private float interval;
 
 		public void Update(float elapsed)
 		{
@@ -50,7 +50,7 @@ namespace tim_dodge
 					dir = Controller.Direction.RIGHT;
 					vec.X = 0f;
 				}
-				Monstar m = new Monstar(Load.MonstarTexture, s, vec, map.pMap, dir);
+				Monstar m = new Monstar(Load.MonstarTexture, s, vec, level.map.pMap, dir);
 				EnemiesList.Add(m);
 				time -= interval;
 			}

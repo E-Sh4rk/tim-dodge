@@ -19,10 +19,17 @@ namespace tim_dodge
 
 		// Map Dynamic Objects
 
-		// Score? Other special data for the player?
+		// Infos about Map/Level
+		public int level_number { get; protected set; }
+		public float level_time { get; protected set; }
 
 		public virtual void RestoreGameState()
 		{
+			// Level infos
+			game_ptr.Level.SetLevel(level_number);
+			game_ptr.Level.Current.SetTime(level_time);
+
+			// Objects
 			game_ptr.Level.Current.falling.EnemiesList.Clear();
 			game_ptr.Level.Current.walking.EnemiesList.Clear();
 
@@ -41,6 +48,11 @@ namespace tim_dodge
 		}
 		public virtual void CaptureGameState()
 		{
+			// Level infos
+			level_number = game_ptr.Level.CurrentLevelNumber();
+			level_time = game_ptr.Level.Current.GetTime();
+
+			// Objects
 			walking_objects = new List<NonPlayerObjectSnapshot>();
 			falling_objects = new List<NonPlayerObjectSnapshot>();
 			player_objects = new List<PlayerObjectSnapshot>();

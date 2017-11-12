@@ -12,13 +12,7 @@ namespace tim_dodge
 	{
 		private Random random;
 		private GameInstance game;
-		private Map map;
-
-		private bool FireballActiv;
-		private bool BombActiv;
-		private float interval;
-
-		public bool stopFalling;
+		private Level level;
 
 		public List<NonPlayerObject> EnemiesList
 		{
@@ -30,13 +24,7 @@ namespace tim_dodge
 		{
 			time = 0;
 			this.game = game;
-			map = Level.map;
-
-			FireballActiv = Level.FireballActiv;
-			BombActiv = Level.BombActiv;
-			interval = Level.interval;
-
-			stopFalling = false;
+			this.level = Level;
 
 			random = new Random();
 			EnemiesList = new List<NonPlayerObject>();
@@ -48,11 +36,11 @@ namespace tim_dodge
 		{
 			time += elapsed;
 
-			if (!stopFalling)
+			if (!level.StopFalling)
 			{
-				while (time > interval)
+				while (time > level.interval)
 				{
-					if (BombActiv && random.Next(0, 5) == 0)
+					if (level.BombActiv && random.Next(0, 5) == 0)
 					{
 						Sprite s = new Sprite("Content.objects.bomb.xml");
 						int X = random.Next(0, TimGame.GAME_WIDTH - s.RectOfSprite().Size.X);
@@ -62,7 +50,8 @@ namespace tim_dodge
 						bomb.ApplyNewImpulsion(new Vector2(Collision.direction_between(r1, r2, false).X * 0.04f, 0));
 						EnemiesList.Add(bomb);
 					}
-					else if (FireballActiv && (random.Next(0, 5) != 0))
+
+					else if (level.FireballActiv && random.Next(0, 5) != 0)
 					{
 						// a chance to have a poison
 						if (random.Next(0, 2) == 0)
@@ -100,7 +89,7 @@ namespace tim_dodge
 							EnemiesList.Add(fireball);
 						}
 					}
-					else if (FireballActiv)
+					else if (level.FireballActiv)
 					{
 						// a chance to have a cake
 						if (random.Next(0, 5) == 0)
@@ -120,7 +109,7 @@ namespace tim_dodge
 						}
 
 					}
-					time -= interval;
+					time -= level.interval;
 				}
 			}
 
@@ -129,7 +118,7 @@ namespace tim_dodge
 
 			// Autodestruct ennemies on the ground 
 			if (EnemiesList.Count != 0)
-				EnemiesList.FindAll(map.pMap.nearTheGround).ForEach((e => e.SufferDamage()));
+				EnemiesList.FindAll(level.map.pMap.nearTheGround).ForEach((e => e.SufferDamage()));
 
 			// Delete enemies that are dead
 			int i = 0;

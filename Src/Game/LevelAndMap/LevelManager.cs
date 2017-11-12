@@ -86,6 +86,8 @@ namespace tim_dodge
 			}
 		}
 
+		public int CurrentLevelNumber() { return LevelNumber.value; }
+
 		public void LevelUp()
 		{
 			SetLevel(LevelNumber.value + 1);
