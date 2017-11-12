@@ -20,14 +20,6 @@ namespace tim_dodge
 			protected set;
 		}
 
-		public enum PoisonState
-		{
-			Nothing = 0,
-			Rotation = 1,
-			Horizontal = 2,
-			Vertical = 3
-		}
-
 		public Sprite Sprite
 		{
 			get;

@@ -15,8 +15,16 @@ namespace tim_dodge
 			Damage = 0;
 			Bonus = 0;
 			Life = 0;
-			poisonState = GameObject.PoisonState.Nothing;
+			poisonState = PoisonState.Nothing;
 			Dead = false;
+		}
+
+		public enum PoisonState
+		{
+			Nothing = 0,
+			Rotation = 1,
+			Horizontal = 2,
+			Vertical = 3
 		}
 
 		public PoisonState poisonState;

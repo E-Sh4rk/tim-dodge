@@ -112,6 +112,11 @@ namespace tim_dodge
 			return rect[(int)nowState].Length;
 		}
 
+		public int NumberOfState()
+		{
+			return rect.Length;
+		}
+
 		public int NowFrame() { return nowFrame; }
 		public int NowState() { return nowState; }
 

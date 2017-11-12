@@ -51,6 +51,7 @@ namespace tim_dodge
 			// Constructrion of menus
 			Initialize(InitialMenu, "Menu", new List<MenuItem> {
 				new MenuItem("New Game", NewGame),
+				new MenuItem("Map Editor", NewEditor),
 				new MenuItem("Parameters", Parameters),
 				new MenuItem("Best Scores", BestScores),
 				new MenuItem("Quit", Quit) }
@@ -59,6 +60,7 @@ namespace tim_dodge
 			Initialize(PauseMenu, "Pause", new List<MenuItem> {
 				new MenuItem("Resume", Resume),
 				new MenuItem("New Game", NewGame),
+				new MenuItem("Map Editor", NewEditor),
 				new MenuItem("Parameters", Parameters),
 				new MenuItem("Best Scores", BestScores),
 				new MenuItem("Quit", Quit) }
@@ -169,13 +171,26 @@ namespace tim_dodge
 			CurrentMenu = new List<MenuWindow>();
 		}
 
+		private void NewEditor()
+		{
+			GameManager.editor = new MapEditorInstance();
+			CurrentMenu = new List<MenuWindow>();
+		}
+
 		public void LaunchPause()
 		{
 			Load.sounds.playSound(Sound.SoundName.toogle);
 			CurrentMenu.Add(PauseMenu);
 		}
 
-		private void Resume() { CurrentMenu = new List<MenuWindow>(); }
+		private void Resume()
+		{ 
+			CurrentMenu = new List<MenuWindow>();
+			if (GameManager.GameRunning)
+				GameManager.game.focus = true;
+			else
+				GameManager.editor.focus = true;
+		}
 
 		private void Parameters() { CurrentMenu.Add(ParamMenu); }
 
