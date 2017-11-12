@@ -43,6 +43,7 @@ namespace tim_dodge
 		}
 
 		public void SetTime(float time) { this.Time = time; }
+		public float GetTime() { return Time; }
 
 		public bool Beginning { get { return Time < timeOfBeg; } }
 		public bool EndOfLevel { get { return Time > TimeToEnd && falling.EnemiesList.Count == 0; } }
