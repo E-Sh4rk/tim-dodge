@@ -5,7 +5,7 @@ using System.IO;
 namespace tim_dodge
 {
 	/// <summary>
-	/// Some utility functions to play load and save xml (for exemple : scores).
+	/// Some utility functions to load and save xml (for exemple : scores).
 	/// </summary>
 	public static class Serializer<T>
 	{
@@ -17,7 +17,6 @@ namespace tim_dodge
 				return (T)xml.Deserialize(reader);
 			}
 		}
-
 
 		public static void Save(string path, T instance)
 		{

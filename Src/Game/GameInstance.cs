@@ -74,12 +74,12 @@ namespace tim_dodge
 			{
 				if (current_snapshot_index != oldest_snapshot_index)
 					current_snapshot_index = mod(current_snapshot_index - 1, max_snapshots);
-				snapshots[current_snapshot_index].RestoreGameState();
+				snapshots[current_snapshot_index].RestoreGameState(this);
 			}
 			else
 			{
-				Snapshot s = new Snapshot(this);
-				s.CaptureGameState();
+				Snapshot s = new Snapshot();
+				s.CaptureGameState(this);
 				snapshots[current_snapshot_index%max_snapshots] = s;
 				newest_snapshot_index = current_snapshot_index;
 				current_snapshot_index = mod(current_snapshot_index + 1, max_snapshots);

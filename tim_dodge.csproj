@@ -74,17 +74,15 @@
     <Compile Include="Src\Game\LevelAndMap\PhysicalMap.cs" />
     <Compile Include="Src\Game\LevelAndMap\GraphicalMap.cs" />
     <Compile Include="Src\Snapshot\Snapshot.cs" />
-    <Compile Include="Src\Snapshot\ObjectSnapshot.cs" />
-    <Compile Include="Src\Snapshot\PhysicalObjectSnapshot.cs" />
-    <Compile Include="Src\Snapshot\Replay.cs" />
-    <Compile Include="Src\Snapshot\NonPlayerObjectSnapshot.cs" />
-    <Compile Include="Src\Snapshot\PlayerObjectSnapshot.cs" />
     <Compile Include="Src\Renderer.cs" />
     <Compile Include="Src\Game\NonPlayerObjects\FirePoison.cs" />
     <Compile Include="Src\Game\NonPlayerObjects\FireGreen.cs" />
     <Compile Include="Src\Game\NonPlayerObjects\FireYellow.cs" />
     <Compile Include="Src\MapEditorInstance.cs" />
     <Compile Include="Src\Game\LevelAndMap\BlockObject.cs" />
+    <Compile Include="Src\Snapshot\ObjectsSnapshot.cs" />
+    <Compile Include="Src\Snapshot\Replay.cs" />
+    <Compile Include="Src\Snapshot\LevelSnapshot.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.manifest" />

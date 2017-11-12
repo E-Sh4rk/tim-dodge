@@ -9,11 +9,12 @@ namespace tim_dodge
 	/// </summary>
 	public class Food : NonPlayerObject
 	{
-		public Food(Texture t, Sprite s, Vector2 p) : base(t, s, p)
+		public Food(Vector2 p) : base(Load.FoodTexture, new Sprite("Content.objects.food.xml"), p)
 		{
 			Mass = 5;
 			Bonus = 10;
 			Life = 1;
+			Sprite.ChangeState(14);
 		}
 
 		protected void autoDestruct(float elapsed)

@@ -12,7 +12,6 @@ namespace tim_dodge
 	{
 		private Random random;
 		private GameInstance game;
-		private Level level;
 
 		public List<NonPlayerObject> EnemiesList
 		{
@@ -20,11 +19,10 @@ namespace tim_dodge
 			protected set;
 		}
 
-		public FallingObjects(GameInstance game, Level Level)
+		public FallingObjects(GameInstance game)
 		{
 			time = 0;
 			this.game = game;
-			this.level = Level;
 
 			random = new Random();
 			EnemiesList = new List<NonPlayerObject>();
@@ -34,82 +32,56 @@ namespace tim_dodge
 
 		public void Update(float elapsed)
 		{
-			time += elapsed;
-
-			if (!level.StopFalling)
+			if (!game.Level.Current.StopFalling)
 			{
-				while (time > level.interval)
+				time += elapsed;
+				while (time > game.Level.Current.interval)
 				{
-					if (level.BombActiv && random.Next(0, 5) == 0)
+					if (game.Level.Current.BombActiv && random.Next(0, 5) == 0)
 					{
-						Sprite s = new Sprite("Content.objects.bomb.xml");
-						int X = random.Next(0, TimGame.GAME_WIDTH - s.RectOfSprite().Size.X);
-						NonPlayerObject bomb = new Bomb(Load.BombTexture, s, new Vector2(X, -30));
+						NonPlayerObject bomb = new Bomb(new Vector2(0, -30));
+
+						int X = random.Next(0, TimGame.GAME_WIDTH - bomb.Size.X);
+						bomb.Position = new Vector2(X, bomb.Position.Y);
+
 						Rectangle r1 = new Rectangle(bomb.Position.ToPoint(), bomb.Size);
 						Rectangle r2 = new Rectangle(game.player.Position.ToPoint(), game.player.Size);
 						bomb.ApplyNewImpulsion(new Vector2(Collision.direction_between(r1, r2, false).X * 0.04f, 0));
 						EnemiesList.Add(bomb);
 					}
-
-					else if (level.FireballActiv && random.Next(0, 5) != 0)
+					else
 					{
-						// a chance to have a poison
-						if (random.Next(0, 2) == 0)
+						NonPlayerObject enemy = null;
+						if (game.Level.Current.FireballActiv && random.Next(0, 4) != 0)
 						{
-							int randF = random.Next(0, 3);
-							if (randF == 0)
+							// a chance to have a poison
+							if (random.Next(0, 2) == 0)
 							{
-								Sprite s = new Sprite("Content.objects.fireball.xml");
-								int X = random.Next(0, TimGame.GAME_WIDTH - s.RectOfSprite().Size.X);
-								NonPlayerObject fireball = new FirePoison(Load.FireballTexture, s, new Vector2(X, -30));
-								EnemiesList.Add(fireball);
+								int randF = random.Next(0, 3);
+								if (randF == 0)
+									enemy = new FirePoison(new Vector2(0, -30));
+								else if (randF == 1)
+									enemy = new FireYellow(new Vector2(0, -30));
+								else
+									enemy = new FireGreen(new Vector2(0, -30));
 							}
-							else if (randF == 1)
-							{
-								Sprite s = new Sprite("Content.objects.fireball.xml");
-								int X = random.Next(0, TimGame.GAME_WIDTH - s.RectOfSprite().Size.X);
-								NonPlayerObject fireball = new FireYellow(Load.FireballTexture, s, new Vector2(X, -30));
-								EnemiesList.Add(fireball);
-							}
+
+							else // a regular fireball
+								enemy = new Fireball(new Vector2(0, -30));
+						}
+						else if (game.Level.Current.FireballActiv)
+						{
+							// a chance to have a cake
+							if (random.Next(0, 4) == 0)
+								enemy = new Food(new Vector2(0, -30));
 							else
-							{
-								Sprite s = new Sprite("Content.objects.fireball.xml");
-								int X = random.Next(0, TimGame.GAME_WIDTH - s.RectOfSprite().Size.X);
-								NonPlayerObject fireball = new FireGreen(Load.FireballTexture, s, new Vector2(X, -30));
-								EnemiesList.Add(fireball);
-							}
-
+								enemy = new Coin(new Vector2(0, -30));
 						}
-
-						else // a regular fireball
-						{
-							Sprite s = new Sprite("Content.objects.fireball.xml");
-							int X = random.Next(0, TimGame.GAME_WIDTH - s.RectOfSprite().Size.X);
-							NonPlayerObject fireball = new Fireball(Load.FireballTexture, s, new Vector2(X, -30));
-							EnemiesList.Add(fireball);
-						}
+						int X = random.Next(0, TimGame.GAME_WIDTH - enemy.Size.X);
+						enemy.Position = new Vector2(X, enemy.Position.Y);
+						EnemiesList.Add(enemy);
 					}
-					else if (level.FireballActiv)
-					{
-						// a chance to have a cake
-						if (random.Next(0, 5) == 0)
-						{
-							Sprite s = new Sprite("Content.objects.food.xml");
-							s.ChangeState(14);//(22);
-							int X = random.Next(0, TimGame.GAME_WIDTH - s.RectOfSprite().Size.X);
-							NonPlayerObject food = new Food(Load.FoodTexture, s, new Vector2(X, -30));
-							EnemiesList.Add(food);
-						}
-						else
-						{
-							Sprite s = new Sprite("Content.objects.coin.xml");
-							int X = random.Next(0, TimGame.GAME_WIDTH - s.RectOfSprite().Size.X);
-							NonPlayerObject coin = new Coin(Load.CoinTexture, s, new Vector2(X, -30));
-							EnemiesList.Add(coin);
-						}
-
-					}
-					time -= level.interval;
+					time -= game.Level.Current.interval;
 				}
 			}
 
@@ -118,7 +90,7 @@ namespace tim_dodge
 
 			// Autodestruct ennemies on the ground 
 			if (EnemiesList.Count != 0)
-				EnemiesList.FindAll(level.map.pMap.nearTheGround).ForEach((e => e.SufferDamage()));
+				EnemiesList.FindAll(game.Level.Current.map.pMap.nearTheGround).ForEach((e => e.SufferDamage()));
 
 			// Delete enemies that are dead
 			int i = 0;

@@ -37,8 +37,8 @@ namespace tim_dodge
 			this.TimeToEnd = timeToEnd;
 			this.scoreColor = scoreColor;
 
-			falling = new FallingObjects(game, this);
-			walking = new WalkingObjects(game, this);
+			falling = new FallingObjects(game);
+			walking = new WalkingObjects(game);
 			Time = 0.0f;
 		}
 
