@@ -114,9 +114,9 @@ namespace tim_dodge
 
 		public bool IsOutOfBounds()
 		{
-			if (Position.X > TimGame.WINDOW_WIDTH || Position.X < -Size.X)
+			if (Position.X > TimGame.GAME_WIDTH || Position.X < -Size.X)
 				return true;
-			if (Position.Y > TimGame.WINDOW_HEIGHT || Position.Y < -Size.Y)
+			if (Position.Y > TimGame.GAME_HEIGHT || Position.Y < -Size.Y)
 				return true;
 			return false;
 		}

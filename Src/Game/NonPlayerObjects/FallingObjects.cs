@@ -43,13 +43,14 @@ namespace tim_dodge
 					if (level.BombActiv && random.Next(0, 5) == 0)
 					{
 						Sprite s = new Sprite("Content.objects.bomb.xml");
-						int X = random.Next(0, TimGame.WINDOW_WIDTH - s.RectOfSprite().Size.X);
+						int X = random.Next(0, TimGame.GAME_WIDTH - s.RectOfSprite().Size.X);
 						NonPlayerObject bomb = new Bomb(Load.BombTexture, s, new Vector2(X, -30));
 						Rectangle r1 = new Rectangle(bomb.Position.ToPoint(), bomb.Size);
 						Rectangle r2 = new Rectangle(game.player.Position.ToPoint(), game.player.Size);
 						bomb.ApplyNewImpulsion(new Vector2(Collision.direction_between(r1, r2, false).X * 0.04f, 0));
 						EnemiesList.Add(bomb);
 					}
+
 					else if (level.FireballActiv && random.Next(0, 5) != 0)
 					{
 						// a chance to have a poison
@@ -59,21 +60,21 @@ namespace tim_dodge
 							if (randF == 0)
 							{
 								Sprite s = new Sprite("Content.objects.fireball.xml");
-								int X = random.Next(0, TimGame.WINDOW_WIDTH - s.RectOfSprite().Size.X);
+								int X = random.Next(0, TimGame.GAME_WIDTH - s.RectOfSprite().Size.X);
 								NonPlayerObject fireball = new FirePoison(Load.FireballTexture, s, new Vector2(X, -30));
 								EnemiesList.Add(fireball);
 							}
 							else if (randF == 1)
 							{
 								Sprite s = new Sprite("Content.objects.fireball.xml");
-								int X = random.Next(0, TimGame.WINDOW_WIDTH - s.RectOfSprite().Size.X);
+								int X = random.Next(0, TimGame.GAME_WIDTH - s.RectOfSprite().Size.X);
 								NonPlayerObject fireball = new FireYellow(Load.FireballTexture, s, new Vector2(X, -30));
 								EnemiesList.Add(fireball);
 							}
 							else
 							{
 								Sprite s = new Sprite("Content.objects.fireball.xml");
-								int X = random.Next(0, TimGame.WINDOW_WIDTH - s.RectOfSprite().Size.X);
+								int X = random.Next(0, TimGame.GAME_WIDTH - s.RectOfSprite().Size.X);
 								NonPlayerObject fireball = new FireGreen(Load.FireballTexture, s, new Vector2(X, -30));
 								EnemiesList.Add(fireball);
 							}
@@ -83,7 +84,7 @@ namespace tim_dodge
 						else // a regular fireball
 						{
 							Sprite s = new Sprite("Content.objects.fireball.xml");
-							int X = random.Next(0, TimGame.WINDOW_WIDTH - s.RectOfSprite().Size.X);
+							int X = random.Next(0, TimGame.GAME_WIDTH - s.RectOfSprite().Size.X);
 							NonPlayerObject fireball = new Fireball(Load.FireballTexture, s, new Vector2(X, -30));
 							EnemiesList.Add(fireball);
 						}
@@ -95,14 +96,14 @@ namespace tim_dodge
 						{
 							Sprite s = new Sprite("Content.objects.food.xml");
 							s.ChangeState(14);//(22);
-							int X = random.Next(0, TimGame.WINDOW_WIDTH - s.RectOfSprite().Size.X);
+							int X = random.Next(0, TimGame.GAME_WIDTH - s.RectOfSprite().Size.X);
 							NonPlayerObject food = new Food(Load.FoodTexture, s, new Vector2(X, -30));
 							EnemiesList.Add(food);
 						}
 						else
 						{
 							Sprite s = new Sprite("Content.objects.coin.xml");
-							int X = random.Next(0, TimGame.WINDOW_WIDTH - s.RectOfSprite().Size.X);
+							int X = random.Next(0, TimGame.GAME_WIDTH - s.RectOfSprite().Size.X);
 							NonPlayerObject coin = new Coin(Load.CoinTexture, s, new Vector2(X, -30));
 							EnemiesList.Add(coin);
 						}

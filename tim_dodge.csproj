@@ -115,6 +115,9 @@
     <EmbeddedResource Include="Content\ground\natureXml.xml" />
     <EmbeddedResource Include="Content\objects\coin.xml" />
     <EmbeddedResource Include="Content\objects\food.xml" />
+    <EmbeddedResource Include="Content\environment\dune.xml" />
+    <EmbeddedResource Include="Content\environment\flat.xml" />
+    <EmbeddedResource Include="Content\environment\water.xml" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />

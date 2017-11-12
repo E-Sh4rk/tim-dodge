@@ -50,6 +50,7 @@ namespace tim_dodge
 		{	// Calculates and set the dimensions of the menu's background
 			float MaxLengthItem = 0;
 			foreach (MenuItem item in ListItems)
+
 				MaxLengthItem = Math.Max(MaxLengthItem, item.Size.X);
 
 			float Width = ((2 * BackgroundBordureX) + 1) * MaxLengthItem;
@@ -60,8 +61,8 @@ namespace tim_dodge
 			Height += ListItems[0].Size.Y * BackgroundBordureY 
 			                      + ListItems.Last().Size.Y * (BackgroundBordureY - SpacingBetweenItems); // Top bordure
 
-			float X = (TimGame.WINDOW_WIDTH - Width) / 2;
-			float Y = (TimGame.WINDOW_HEIGHT - Height) / 2;
+			float X = (TimGame.GAME_WIDTH - Width) / 2;
+			float Y = (TimGame.GAME_HEIGHT - Height) / 2;
 
 			Size = new Vector2(Width, Height);
 			Position = new Vector2(X, Y); // menu at the center of the window

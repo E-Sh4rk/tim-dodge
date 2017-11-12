@@ -53,6 +53,7 @@ namespace tim_dodge
 
 		// XML
 		public static String PathHighScores { get; private set; }
+		public static List<String> PathLevels;
 
 		public static void LoadContent(ContentManager Content)
 		{
@@ -108,6 +109,7 @@ namespace tim_dodge
 
 			// XML
 			PathHighScores = "scores.xml";
+			PathLevels = new List<String> { "Content.environment.flat.xml", "Content.environment.dune.xml", "Content.environment.water.xml"};
 		}
 
 		public static List<BestScore> LoadHighScores()

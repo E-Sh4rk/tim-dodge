@@ -85,8 +85,8 @@ namespace tim_tests
 			//	Exit();
 #endif
 
-			gdm.PreferredBackBufferWidth = tim_dodge.TimGame.WINDOW_WIDTH;
-			gdm.PreferredBackBufferHeight = tim_dodge.TimGame.WINDOW_HEIGHT;
+			gdm.PreferredBackBufferWidth = tim_dodge.TimGame.GAME_WIDTH;
+			gdm.PreferredBackBufferHeight = tim_dodge.TimGame.GAME_HEIGHT;
 
 			if (Game != null)
 			{

@@ -53,7 +53,7 @@ namespace tim_dodge
 		public void Draw(SpriteBatch spriteBatch)
 		{
 			// Menu 
-			spriteBatch.Draw(Load.BackgroundSun, Vector2.Zero, Color.White);
+			spriteBatch.Draw(Load.BackgroundSun, new Rectangle(0, 0, TimGame.GAME_WIDTH, TimGame.GAME_HEIGHT), Color.White);
 
 			if (GameRunning)
 				game.Draw(spriteBatch);

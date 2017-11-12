@@ -51,8 +51,8 @@ namespace tim_dodge
 			LevelNumber.Position = new Vector2(game.scoreTim.source.X, game.scoreTim.source.Bottom);
 
 			Title = new Item("Level X", Load.FontTitleLevel, Color.Blue);
-			Title.Position = new Vector2((TimGame.WINDOW_WIDTH - Title.Size.X) / 2,
-										 (TimGame.WINDOW_HEIGHT - Title.Size.Y) / 2);
+			Title.Position = new Vector2((TimGame.GAME_WIDTH - Title.Size.X) / 2,
+										 (TimGame.GAME_HEIGHT - Title.Size.Y) / 2);
 
 			Map map = new Map(Load.BackgroundSun, Load.MapTextureNature);
 
