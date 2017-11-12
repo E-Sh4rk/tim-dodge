@@ -71,6 +71,9 @@ namespace tim_dodge
 					objects.Add(o);
 			}
 			GameObject[] objs = objects.ToArray();
+			Dictionary<GameObject,int> dictionary = new Dictionary<GameObject, int>(ReferenceEqualityComparer.Default);
+			for (int i = 0; i < objs.Length; i++)
+				dictionary.Add(objs[i],i);
 
 			// Convert them
 			GameObjectBuilder[] builders = new GameObjectBuilder[objs.Length];
@@ -89,10 +92,7 @@ namespace tim_dodge
 				ss.objects_states = s.objects_states;
 				ss.objects_ids = new List<int>();
 				foreach (GameObject o in s.objects)
-				{
-					// TODO
-					//ss.objects_ids.Add();
-				}
+					ss.objects_ids.Add(dictionary[o]);
 				sss.Add(ss);
 			}
 
