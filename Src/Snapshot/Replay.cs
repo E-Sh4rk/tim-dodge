@@ -1,9 +1,19 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Microsoft.Xna.Framework;
+using System.Linq;
 
 namespace tim_dodge
 {
+	public sealed class ReferenceEqualityComparer : IEqualityComparer, IEqualityComparer<object>
+	{
+		public static ReferenceEqualityComparer Default { get; } = new ReferenceEqualityComparer();
+
+		public new bool Equals(object x, object y) => ReferenceEquals(x, y);
+		public int GetHashCode(object obj) => RuntimeHelpers.GetHashCode(obj);
+	}
 	public class Replay
 	{
 		public class SSnapshot
@@ -49,6 +59,50 @@ namespace tim_dodge
 
 		public List<SSnapshot> snapshots;
 		public GameObjectBuilder[] objects;
+
+		// Conversion functions
+		public static Replay FromSnapshotList(List<Snapshot> snaps)
+		{
+			// Retrieve all objects
+			HashSet<GameObject> objects = new HashSet<GameObject>(ReferenceEqualityComparer.Default);
+			foreach (Snapshot s in snaps)
+			{
+				foreach (GameObject o in s.objects)
+					objects.Add(o);
+			}
+			GameObject[] objs = objects.ToArray();
+
+			// Convert them
+			GameObjectBuilder[] builders = new GameObjectBuilder[objs.Length];
+			for (int i = 0; i < objs.Length; i++)
+			{
+				builders[i] = new GameObjectBuilder();
+				builders[i].type = objs[i].GetType();
+			}
+
+			// Compute ssnapshots
+			List<SSnapshot> sss = new List<SSnapshot>();
+			foreach (Snapshot s in snaps)
+			{
+				SSnapshot ss = new SSnapshot();
+				ss.lvl = s.lvl;
+				ss.objects_states = s.objects_states;
+				ss.objects_ids = new List<int>();
+				foreach (GameObject o in s.objects)
+				{
+					// TODO
+					//ss.objects_ids.Add();
+				}
+				sss.Add(ss);
+			}
+
+			return null;
+		}
+		public List<Snapshot> ToSnapshotList()
+		{
+			// TODO
+			return null;
+		}
 
 		// Export and import functions
 		public void ExportToFile(string file)
