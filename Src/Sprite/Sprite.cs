@@ -58,6 +58,12 @@ namespace tim_dodge
 			}	
 		}
 
+		public void ChangeFrame(int frame)
+		{
+			if (frame >= 0 && frame < NumberOfFrames())
+				nowFrame = frame;
+		}
+
 		public Controller.Direction Direction
 		{
 			get;

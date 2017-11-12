@@ -28,11 +28,6 @@ namespace tim_dodge
 
 		private HeartState[] Container;
 
-		public object MyProperty
-		{
-			get;
-			private set;
-		}
 		public Heart(Texture2D full, Texture2D semi, Texture2D empty)
 		{
 			heartTexture = new Texture2D[3];
