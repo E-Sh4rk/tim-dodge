@@ -24,6 +24,14 @@ namespace tim_dodge
 		public bool flipH = false;
 		public bool flipV = false;
 
+		const int max_snapshots = 1000;
+		Snapshot[] snapshots = new Snapshot[max_snapshots];
+		int current_snapshot_index = 0;
+		int oldest_snapshot_index = 0;
+		int newest_snapshot_index = 0;
+		bool mode_rewind = false;
+		// TODO: modify falling&walking objects to not use alea if the future is known
+
 		public void UndoPoisons()
 		{
 			rotation = false;
@@ -46,39 +54,65 @@ namespace tim_dodge
 			player = new Player(new Vector2(700, 450), heart, this);
 		}
 
+		int mod(int x, int m)
+		{
+			int r = x % m;
+			return r < 0 ? r + m : r;
+		}
 		public void Update(GameTime gameTime)
 		{
 			KeyboardState state = Keyboard.GetState();
+			if (Controller.RewindKeyDown(state))
+				mode_rewind = true;
+			else
+				mode_rewind = false;
+			if (mode_rewind)
+			{
+				if (current_snapshot_index != oldest_snapshot_index)
+					current_snapshot_index = mod(current_snapshot_index - 1, max_snapshots);
+				snapshots[current_snapshot_index].RestoreGameState();
+			}
+			else
+			{
+				Snapshot s = new Snapshot(this);
+				s.CaptureGameState();
+				snapshots[current_snapshot_index%max_snapshots] = s;
+				newest_snapshot_index = current_snapshot_index;
+				current_snapshot_index = mod(current_snapshot_index + 1, max_snapshots);
+				if (current_snapshot_index == oldest_snapshot_index)
+					oldest_snapshot_index++;
 
-			float insensible_elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
-			float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds * time_multiplicator;
 
-			Level.Update(elapsed);
-			player.Move(state, insensible_elapsed); // Insensible to time speed
-			Level.Current.falling.Update(elapsed);
-			Level.Current.walking.Update(elapsed);
+				float insensible_elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
+				float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds * time_multiplicator;
 
-			// All physical objects
-			List<PhysicalObject> phys_obj = new List<PhysicalObject>();
-			phys_obj.Add(player);
-			phys_obj.AddRange(Level.Current.falling.EnemiesList);
-			phys_obj.AddRange(Level.Current.walking.EnemiesList);
+				Level.Update(elapsed);
+				player.Move(state, insensible_elapsed); // Insensible to time speed
+				Level.Current.falling.Update(elapsed);
+				Level.Current.walking.Update(elapsed);
 
-			foreach (PhysicalObject po in phys_obj)
-				po.UpdateSprite(po is Player ? insensible_elapsed : elapsed);
-			foreach (PhysicalObject po in phys_obj)
-				po.ApplyForces(phys_obj, Level.Current.map, po is Player ? insensible_elapsed : elapsed);
-			foreach (PhysicalObject po in phys_obj)
-				po.ApplyCollisions(phys_obj, Level.Current.map, po is Player ? insensible_elapsed : elapsed);
-			foreach (PhysicalObject po in phys_obj)
-				po.UpdatePosition(phys_obj, Level.Current.map, po is Player ? insensible_elapsed : elapsed);
+				// All physical objects
+				List<PhysicalObject> phys_obj = new List<PhysicalObject>();
+				phys_obj.Add(player);
+				phys_obj.AddRange(Level.Current.falling.EnemiesList);
+				phys_obj.AddRange(Level.Current.walking.EnemiesList);
 
-			player.Life.Update();
-			if (player.IsOutOfBounds())
-				player.Life.decr(player.Life.value);
+				foreach (PhysicalObject po in phys_obj)
+					po.UpdateSprite(po is Player ? insensible_elapsed : elapsed);
+				foreach (PhysicalObject po in phys_obj)
+					po.ApplyForces(phys_obj, Level.Current.map, po is Player ? insensible_elapsed : elapsed);
+				foreach (PhysicalObject po in phys_obj)
+					po.ApplyCollisions(phys_obj, Level.Current.map, po is Player ? insensible_elapsed : elapsed);
+				foreach (PhysicalObject po in phys_obj)
+					po.UpdatePosition(phys_obj, Level.Current.map, po is Player ? insensible_elapsed : elapsed);
 
-			if(player.IsDead())
-				player.ChangeSpriteState((int)Player.State.Dead);
+				player.Life.Update();
+				if (player.IsOutOfBounds())
+					player.Life.decr(player.Life.value);
+
+				if (player.IsDead())
+					player.ChangeSpriteState((int)Player.State.Dead);
+			}
 		}
 
 		public void Draw(SpriteBatch spriteBatch)
