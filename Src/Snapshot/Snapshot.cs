@@ -6,11 +6,11 @@ namespace tim_dodge
 	public class Snapshot
 	{
 		// Objects (immutable snapshots)
-		public List<ObjectSnapshot> objects_states { get; protected set; }
-		public List<GameObject> objects { get; protected set; }
+		public List<ObjectSnapshot> objects_states;
+		public List<GameObject> objects;
 
 		// Level&map
-		public LevelSnapshot lvl { get; protected set; }
+		public LevelSnapshot lvl;
 
 		public virtual void RestoreGameState(GameInstance game)
 		{

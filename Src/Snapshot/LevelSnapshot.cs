@@ -6,8 +6,8 @@ namespace tim_dodge
 		// Map Dynamic Objects
 
 		// Infos about Map/Level
-		public int level_number { get; protected set; }
-		public float level_time { get; protected set; }
+		public int level_number;
+		public float level_time;
 
 		public virtual void RestoreLevelState(GameInstance game)
 		{

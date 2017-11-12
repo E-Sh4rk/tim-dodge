@@ -6,11 +6,11 @@ namespace tim_dodge
 	public class ObjectSnapshot
 	{
 		// Properties that must be captured/restored. TYPES USED MUST NOT BE MUTABLE.
-		public Vector2 pos { get; set; }
-		public Color color { get; set; }
-		public int sprite_state { get; set; }
-		public int sprite_frame { get; set; }
-		public Controller.Direction sprite_direction { get; set; }
+		public Vector2 pos;
+		public Color color;
+		public int sprite_state;
+		public int sprite_frame;
+		public Controller.Direction sprite_direction;
 
 		public virtual void RestoreModelState(GameObject model_ptr)
 		{
@@ -32,8 +32,8 @@ namespace tim_dodge
 	public class PhysicalObjectSnapshot : ObjectSnapshot
 	{
 		// Additional properties for kinetic objects
-		public Vector2 velocity { get; set; }
-		public bool ghost { get; set; }
+		public Vector2 velocity;
+		public bool ghost;
 
 		public override void RestoreModelState(GameObject model_ptr)
 		{
@@ -51,7 +51,7 @@ namespace tim_dodge
 	public class PlayerObjectSnapshot : PhysicalObjectSnapshot
 	{
 		// Additional properties for players
-		public int life { get; set; }
+		public int life;
 
 		public override void RestoreModelState(GameObject model_ptr)
 		{
@@ -71,8 +71,8 @@ namespace tim_dodge
 	public class NonPlayerObjectSnapshot : PhysicalObjectSnapshot
 	{
 		// Additional properties for enemies
-		public bool damaged { get; set; }
-		public bool dead { get; set; }
+		public bool damaged;
+		public bool dead;
 		// Not really needed since a non-player object is alive iff it is present. So dead should always be true.
 
 		public override void RestoreModelState(GameObject model_ptr)

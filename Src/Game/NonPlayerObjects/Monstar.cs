@@ -9,14 +9,14 @@ namespace tim_dodge
 	/// </summary>
 	public class Monstar : NonPlayerObject
 	{
-		PhysicalMap m;
+		GameInstance g;
 
-		public Monstar(Vector2 p, PhysicalMap m, Controller.Direction dir):
+		public Monstar(Vector2 p, GameInstance g, Controller.Direction dir):
 		base(Load.MonstarTexture,new Sprite("Content.character.MonstarXml.xml"),p)
 		{
 			Mass = 25;
 			Damage = 1;
-			this.m = m;
+			this.g = g;
 			Sprite.ChangeDirection(dir);
 		}
 
@@ -31,9 +31,9 @@ namespace tim_dodge
 
 		public void Move(float elapsed)
 		{
-			if (m.nearLeftWall(this))
+			if (g.Level.Current.map.pMap.nearLeftWall(this))
 				Sprite.ChangeDirection(Controller.Direction.RIGHT);
-			if (m.nearRightWall(this))
+			if (g.Level.Current.map.pMap.nearRightWall(this))
 				Sprite.ChangeDirection(Controller.Direction.LEFT);
 			if (Sprite.Direction == Controller.Direction.LEFT)
 			{

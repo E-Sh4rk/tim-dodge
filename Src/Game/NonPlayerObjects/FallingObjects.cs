@@ -12,7 +12,6 @@ namespace tim_dodge
 	{
 		private Random random;
 		private GameInstance game;
-		private Level level;
 
 		public List<NonPlayerObject> EnemiesList
 		{
@@ -20,11 +19,10 @@ namespace tim_dodge
 			protected set;
 		}
 
-		public FallingObjects(GameInstance game, Level Level)
+		public FallingObjects(GameInstance game)
 		{
 			time = 0;
 			this.game = game;
-			this.level = Level;
 
 			random = new Random();
 			EnemiesList = new List<NonPlayerObject>();
@@ -34,12 +32,12 @@ namespace tim_dodge
 
 		public void Update(float elapsed)
 		{
-			if (!level.StopFalling)
+			if (!game.Level.Current.StopFalling)
 			{
 				time += elapsed;
-				while (time > level.interval)
+				while (time > game.Level.Current.interval)
 				{
-					if (level.BombActiv && random.Next(0, 5) == 0)
+					if (game.Level.Current.BombActiv && random.Next(0, 5) == 0)
 					{
 						NonPlayerObject bomb = new Bomb(new Vector2(0, -30));
 
@@ -54,7 +52,7 @@ namespace tim_dodge
 					else
 					{
 						NonPlayerObject enemy = null;
-						if (level.FireballActiv && random.Next(0, 4) != 0)
+						if (game.Level.Current.FireballActiv && random.Next(0, 4) != 0)
 						{
 							// a chance to have a poison
 							if (random.Next(0, 2) == 0)
@@ -71,7 +69,7 @@ namespace tim_dodge
 							else // a regular fireball
 								enemy = new Fireball(new Vector2(0, -30));
 						}
-						else if (level.FireballActiv)
+						else if (game.Level.Current.FireballActiv)
 						{
 							// a chance to have a cake
 							if (random.Next(0, 4) == 0)
@@ -83,7 +81,7 @@ namespace tim_dodge
 						enemy.Position = new Vector2(X, enemy.Position.Y);
 						EnemiesList.Add(enemy);
 					}
-					time -= level.interval;
+					time -= game.Level.Current.interval;
 				}
 			}
 
@@ -92,7 +90,7 @@ namespace tim_dodge
 
 			// Autodestruct ennemies on the ground 
 			if (EnemiesList.Count != 0)
-				EnemiesList.FindAll(level.map.pMap.nearTheGround).ForEach((e => e.SufferDamage()));
+				EnemiesList.FindAll(game.Level.Current.map.pMap.nearTheGround).ForEach((e => e.SufferDamage()));
 
 			// Delete enemies that are dead
 			int i = 0;
