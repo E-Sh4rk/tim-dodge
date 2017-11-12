@@ -179,7 +179,7 @@ namespace tim_dodge
 				{
 					Life.incr(e.Life);
 					gameInst.scoreTim.incr(e.Bonus);
-					color = Color.GreenYellow;
+					color = Color.Yellow;
 					last_bonus_time = 0f;
 				}
 

@@ -51,6 +51,7 @@ namespace tim_dodge
 
 		public void BeginLevel()
 		{
+			game.UndoPoisons();
 			Beginning = true;
 			ScoreBeginning = game.scoreTim.value;
 			Time = 0.0f;

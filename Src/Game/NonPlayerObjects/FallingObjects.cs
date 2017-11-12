@@ -65,13 +65,21 @@ namespace tim_dodge
 					else if (FireballActiv && random.Next(0, 5) != 0)
 					{
 						// a chance to have a poison
-						if (random.Next(0, 6) == 0)
+						if (random.Next(0, 2) == 0)
 						{
-							if (random.Next(0, 2) == 0)
+							int randF = random.Next(0, 3);
+							if (randF == 0)
 							{
 								Sprite s = new Sprite("Content.objects.fireball.xml");
 								int X = random.Next(0, TimGame.WINDOW_WIDTH - s.RectOfSprite().Size.X);
 								NonPlayerObject fireball = new FirePoison(Load.FireballTexture, s, new Vector2(X, -30));
+								FallingList.Add(fireball);
+							}
+							else if (randF == 1)
+							{
+								Sprite s = new Sprite("Content.objects.fireball.xml");
+								int X = random.Next(0, TimGame.WINDOW_WIDTH - s.RectOfSprite().Size.X);
+								NonPlayerObject fireball = new FireYellow(Load.FireballTexture, s, new Vector2(X, -30));
 								FallingList.Add(fireball);
 							}
 							else
@@ -103,7 +111,6 @@ namespace tim_dodge
 							NonPlayerObject food = new Food(Load.FoodTexture, s, new Vector2(X, -30));
 							FallingList.Add(food);
 						}
-
 						else
 						{
 							Sprite s = new Sprite("Content.objects.coin.xml");

@@ -102,10 +102,10 @@ namespace tim_dodge
 				new MenuItem("Quit the game", Quit) }
 					  );
 
-			YourName = new KeyboardReader("You beat an highscore".Length);
+			YourName = new KeyboardReader("You beat a highscore".Length);
 			EnterYourName = new MenuItem(messageYourName, Load.FontMenu, Load.ColorTextMenu); // Text updated by the update function
 			Initialize(Congrats, "Congrats !", new List<MenuItem> {
-				new MenuItem("You beat an highscore", Load.FontMenu, Load.ColorTextMenu),
+				new MenuItem("You beat a highscore", Load.FontMenu, Load.ColorTextMenu),
 				EnterYourName,
 				new MenuItem("<Validate>", RecordHighscore) }
 					  );

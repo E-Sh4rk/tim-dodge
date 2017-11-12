@@ -48,13 +48,16 @@ namespace tim_dodge
 
 			try
 			{
-				rotation = game.game.rotation;
-				if (game.game.flipH)
-					effect = SpriteEffects.FlipHorizontally;
-				else if (game.game.flipV)
-					effect = SpriteEffects.FlipVertically;
-				else
-					effect = SpriteEffects.None;
+				if (!game.MenuRunning)
+				{
+					rotation = game.game.rotation;
+					if (game.game.flipH)
+						effect = SpriteEffects.FlipHorizontally;
+					else if (game.game.flipV)
+						effect = SpriteEffects.FlipVertically;
+					else
+						effect = SpriteEffects.None;
+				}
 			}
 			catch { angle = 0; scale = 1;}
 

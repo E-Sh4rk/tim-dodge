@@ -24,6 +24,13 @@ namespace tim_dodge
 		public bool flipH = false;
 		public bool flipV = false;
 
+		public void UndoPoisons()
+		{
+			rotation = false;
+			flipH = false;
+			flipV = false;
+		}
+
 		public GameInstance()
 		{
 			Vector2 PositionScoreTim = new Vector2(30, 20);

@@ -6,13 +6,13 @@ namespace tim_dodge
 	/// <summary>
 	/// Ennemie which fall from the sky and poison the player (flip horizontally the screen).
 	/// </summary>
-	public class FireGreen : Fireball
+	public class FireYellow : Fireball
 	{
-		public FireGreen(Texture t, Sprite s, Vector2 p) : base(t, s, p)
+		public FireYellow(Texture t, Sprite s, Vector2 p) : base(t, s, p)
 		{
 			Damage = 0;
-			color = Color.DarkGreen;
-			poisonState = PoisonState.Horizontal;
+			color = Color.DeepPink;
+			poisonState = PoisonState.Vertical;
 		}
 	}
 }

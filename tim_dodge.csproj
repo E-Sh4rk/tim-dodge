@@ -82,6 +82,7 @@
     <Compile Include="Src\Renderer.cs" />
     <Compile Include="Src\Game\NonPlayerObjects\FirePoison.cs" />
     <Compile Include="Src\Game\NonPlayerObjects\FireGreen.cs" />
+    <Compile Include="Src\Game\NonPlayerObjects\FireYellow.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.manifest" />

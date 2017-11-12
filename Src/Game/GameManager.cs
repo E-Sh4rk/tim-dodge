@@ -22,6 +22,7 @@ namespace tim_dodge
 		private MenuManager Menu;
 
 		public bool GameRunning { get { return game != null; } }
+		public bool MenuRunning { get { return Menu.MenuRunning;} }
 
 		public GameManager(ContentManager Content, TimGame Application)
 		{
@@ -34,6 +35,7 @@ namespace tim_dodge
 		{
 			if (GameRunning && game.player.IsDead())
 			{
+				game.UndoPoisons();
 				Menu.LaunchGameOver();
 			}
 
