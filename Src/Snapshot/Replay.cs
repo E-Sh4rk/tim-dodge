@@ -28,13 +28,15 @@ namespace tim_dodge
 
 		public class GameObjectBuilder
 		{
-			public Type type;
+			//public Type type; // Not serializable...
+			public string type_str;
 
 			public GameObject BuildObject(GameInstance g)
 			{
 				GameObject o = null;
 				Vector2 p = new Vector2(0,0);
 
+				Type type = Type.GetType(type_str);
 				if (type == typeof(Bomb))
 					o = new Bomb(p);
 				if (type == typeof(Coin))
@@ -52,6 +54,7 @@ namespace tim_dodge
 				if (type == typeof(Monstar))
 					o = new Monstar(p, g, Controller.Direction.RIGHT);
 				//if (type == typeof(Player))
+				// /!\ For now, return null for player because it is managed by the game instance.
 
 				return o;
 			}
@@ -80,7 +83,8 @@ namespace tim_dodge
 			for (int i = 0; i < objs.Length; i++)
 			{
 				builders[i] = new GameObjectBuilder();
-				builders[i].type = objs[i].GetType();
+				//builders[i].type = objs[i].GetType();
+				builders[i].type_str = objs[i].GetType().AssemblyQualifiedName;
 			}
 
 			// Compute ssnapshots
@@ -107,7 +111,12 @@ namespace tim_dodge
 			// Instanciation of objects
 			GameObject[] instances = new GameObject[objects.Length];
 			for (int i = 0; i < objects.Length; i++)
+			{
 				instances[i] = objects[i].BuildObject(g);
+				// If Null, it must be the player...
+				if (instances[i] == null)
+					instances[i] = g.player;
+			}
 
 			// Conversion of the list
 			List<Snapshot> res = new List<Snapshot>();

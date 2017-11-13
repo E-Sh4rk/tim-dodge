@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Xml.Serialization;
+
 namespace tim_dodge
 {
 	public class LevelSnapshot
