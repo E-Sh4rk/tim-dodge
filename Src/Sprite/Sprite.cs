@@ -15,8 +15,6 @@ namespace tim_dodge
 	/// </summary>
 	public class Sprite
 	{
-		private XmlDocument doc = new XmlDocument();
-
 		public Sprite(string xml_path)
 		{
 			LoadXml(xml_path); 
@@ -136,6 +134,7 @@ namespace tim_dodge
 			var stream = new System.IO.StreamReader(res); 
 
 			string docs = stream.ReadToEnd();
+			XmlDocument doc = new XmlDocument();
 			doc.LoadXml(docs);
 			XmlElement all = doc.DocumentElement;
 

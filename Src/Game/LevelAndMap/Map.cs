@@ -10,7 +10,7 @@ namespace tim_dodge
 	/// </summary>
 	public class Map
 	{
-		public Map(Texture2D Background, Texture MapTexture, String loadMapString)
+		public Map(Texture2D Background, Texture MapTexture, string loadMapString)
 		{
 			loadTileMap(loadMapString);
 			gMap = new GraphicalMap(Background, MapTexture, tileMap);

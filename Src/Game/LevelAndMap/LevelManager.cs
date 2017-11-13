@@ -85,6 +85,7 @@ namespace tim_dodge
 				Current.FireballActiv = def.fireball_activ;
 				Current.BombActiv = def.bomb_activ;
 				Current.BeginLevel();
+				map.changeTexture(Current.MapTexture);
 			}
 		}
 
@@ -93,7 +94,6 @@ namespace tim_dodge
 		public void LevelUp()
 		{
 			SetLevel(LevelNumber.value + 1);
-			map.changeTexture(Current.MapTexture);
 		}
 
 		public void Update(float elapsed)

@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using System.IO;
 
 namespace tim_dodge
 {
@@ -56,9 +57,9 @@ namespace tim_dodge
 		public static List<String> PathLevels;
 
 		// Maps
-		public static String FlatMap = "Content/environment/flat.xml";
-		public static String DuneMap = "Content/environment/dune.xml";
-		public static String WaterMap = "Content/environment/water.xml";
+		public static String FlatMap = "flat.xml";
+		public static String DuneMap = "dune.xml";
+		public static String WaterMap = "water.xml";
 
 		public static void LoadContent(ContentManager Content)
 		{
@@ -115,6 +116,15 @@ namespace tim_dodge
 			// XML
 			PathHighScores = "scores.xml";
 			PathLevels = new List<String> { "Content.environment.flat.xml", "Content.environment.dune.xml", "Content.environment.water.xml"};
+
+			// Maps
+			foreach (string lvl in PathLevels)
+			{
+				var res = typeof(GameInstance).Module.Assembly.GetManifestResourceStream("tim_dodge." + lvl);
+				var stream = new System.IO.StreamReader(res);
+				string txt = stream.ReadToEnd();
+				File.WriteAllText(lvl.Substring(20),txt);
+			}
 		}
 
 		public static List<BestScore> LoadHighScores()
