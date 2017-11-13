@@ -123,47 +123,66 @@ namespace tim_dodge
 			return (rect[(int)nowState][nowFrame]).source;
 		}
 
+		// For memoisation of XMLs
+		struct XmlResult
+		{
+			public XmlResult(RectSprite[][] r, float[] ft) { rect = r; FrameTime = ft; }
+			public RectSprite[][] rect;
+			public float[] FrameTime;
+		}
+		private static Dictionary<string, XmlResult> XmlMemo = new Dictionary<string, XmlResult>();
+
 		/// <summary>
 		/// Load sprites relative to the xml file
 		/// </summary>
-		/// <param name="xml_path">Path to the xml file, replace / by . in the string exemple : Content.character.TimXml.xml</param>
+		/// <param name="xml_path">Path to the xml file, replace / by . in the string. Example : Content.character.TimXml.xml</param>
 		private void LoadXml(string xml_path)
 		{
-			var res = GetType().Module.Assembly.GetManifestResourceStream("tim_dodge."+xml_path);
-
-			var stream = new System.IO.StreamReader(res); 
-
-			string docs = stream.ReadToEnd();
-			stream.Close();
-
-			XmlDocument doc = new XmlDocument();
-			doc.LoadXml(docs);
-			XmlElement all = doc.DocumentElement;
-
-			if (all != null)
+			if (XmlMemo.ContainsKey(xml_path))
 			{
-				rect = new RectSprite[all.ChildNodes.Count][];
-				FrameTime = new float[all.ChildNodes.Count];
+				XmlResult res = XmlMemo[xml_path];
+				rect = res.rect;
+				FrameTime = res.FrameTime;
+			}
+			else
+			{
+				var res = GetType().Module.Assembly.GetManifestResourceStream("tim_dodge." + xml_path);
+				var stream = new System.IO.StreamReader(res);
+				string docs = stream.ReadToEnd();
+				stream.Close();
+				res.Close();
 
-				int i = 0;
-				foreach (XmlNode child in all.ChildNodes)
+				XmlDocument doc = new XmlDocument();
+				doc.LoadXml(docs);
+				XmlElement all = doc.DocumentElement;
+
+				if (all != null)
 				{
-					FrameTime[i] = 0f;
-					foreach (XmlAttribute val in child.Attributes)
-					{
-						if (val.Name == "delay")
-							FrameTime[i] = Convert.ToInt32(val.Value) / 1000f;
-					}
+					rect = new RectSprite[all.ChildNodes.Count][];
+					FrameTime = new float[all.ChildNodes.Count];
 
-					rect[i] = new RectSprite[child.ChildNodes.Count];
-					int j = 0;
-					foreach (XmlNode ligne in child.ChildNodes)
+					int i = 0;
+					foreach (XmlNode child in all.ChildNodes)
 					{
-						rect[i][j] = new RectSprite(ligne.Attributes);
-						j += 1;
+						FrameTime[i] = 0f;
+						foreach (XmlAttribute val in child.Attributes)
+						{
+							if (val.Name == "delay")
+								FrameTime[i] = Convert.ToInt32(val.Value) / 1000f;
+						}
+
+						rect[i] = new RectSprite[child.ChildNodes.Count];
+						int j = 0;
+						foreach (XmlNode ligne in child.ChildNodes)
+						{
+							rect[i][j] = new RectSprite(ligne.Attributes);
+							j += 1;
+						}
+						i += 1;
 					}
-					i += 1;
 				}
+
+				XmlMemo[xml_path] = new XmlResult(rect, FrameTime);
 			}
 		}
 	}

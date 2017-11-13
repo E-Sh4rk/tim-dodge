@@ -14,7 +14,7 @@ namespace tim_dodge
 		{
 			map = new Map(Load.BackgroundSun, Load.MapTextureNature, Load.DuneMap);
 			focus = true;
-			mouseBlock = new BlockObject(Load.MapTextureNature, Map.numberTileX / 2, Map.numberTileY / 2, BlockObject.Ground.MiddleGround);
+			mouseBlock = new BlockObject(Map.numberTileX / 2, Map.numberTileY / 2, BlockObject.Ground.MiddleGround);
 		}
 
 		public BlockObject block;
@@ -64,7 +64,7 @@ namespace tim_dodge
 			if (mouse.LeftButton == ButtonState.Pressed || state.IsKeyDown(Keys.Enter))
 			{
 				map.AddBlock(mouseBlock);
-				mouseBlock = new BlockObject(Load.MapTextureNature, mouseBlock.x, mouseBlock.y, mouseBlock.state);
+				mouseBlock = new BlockObject(mouseBlock.x, mouseBlock.y, mouseBlock.state);
 			}
 
 			else if (mouse.RightButton == ButtonState.Pressed || state.IsKeyDown(Keys.Delete) || state.IsKeyDown(Keys.Back))
