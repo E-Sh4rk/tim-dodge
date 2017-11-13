@@ -55,6 +55,11 @@ namespace tim_dodge
 		public static String PathHighScores { get; private set; }
 		public static List<String> PathLevels;
 
+		// Maps
+		public static String FlatMap = "Content/environment/flat.xml";
+		public static String DuneMap = "Content/environment/dune.xml";
+		public static String WaterMap = "Content/environment/water.xml";
+
 		public static void LoadContent(ContentManager Content)
 		{
 			// Sound

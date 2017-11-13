@@ -43,6 +43,11 @@ namespace tim_dodge
 			next_id++;
 		}
 
+		public void ChangeTexture(Texture newTexture)
+		{
+			Texture = newTexture;
+		}
+
 		public Point Size
 		{
 			get

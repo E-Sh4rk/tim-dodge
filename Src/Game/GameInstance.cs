@@ -129,7 +129,6 @@ namespace tim_dodge
 				en.Draw(spriteBatch);
 			scoreTim.Draw(spriteBatch);
 			player.Life.Draw(spriteBatch);
-
 			player.Life.Update();
 			heart.Draw(spriteBatch);
 		}

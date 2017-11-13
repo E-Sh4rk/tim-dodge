@@ -43,6 +43,8 @@ namespace tim_dodge
 			public bool bomb_activ;
 		}
 
+		public Map map;
+
 		public LevelManager(GameInstance game)
 		{
 			this.game = game;
@@ -54,7 +56,7 @@ namespace tim_dodge
 			Title.Position = new Vector2((TimGame.GAME_WIDTH - Title.Size.X) / 2,
 										 (TimGame.GAME_HEIGHT - Title.Size.Y) / 2);
 
-			Map map = new Map(Load.BackgroundSun, Load.MapTextureNature);
+			map = new Map(Load.BackgroundSun, Load.MapTextureNature, Load.DuneMap);
 
 			LevelDefinition Level1 = new LevelDefinition(map, Load.BackgroundSun, Load.MapTextureNature,
 														 10, 0.3f, Color.Black, true, false);
@@ -91,6 +93,7 @@ namespace tim_dodge
 		public void LevelUp()
 		{
 			SetLevel(LevelNumber.value + 1);
+			map.changeTexture(Current.MapTexture);
 		}
 
 		public void Update(float elapsed)
