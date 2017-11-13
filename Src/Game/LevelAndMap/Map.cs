@@ -33,8 +33,15 @@ namespace tim_dodge
 
 		public void loadTileMap(String name)
 		{
-			tileMap = Serializer<List<BlockObject.SaveBlock>>.Load(name).ConvertAll(
-				(BlockObject.SaveBlock input) => BlockObject.LoadBlock(input));
+			/*tileMap = Serializer<List<BlockObject.SaveBlock>>.Load(name).ConvertAll(
+				(BlockObject.SaveBlock input) => BlockObject.LoadBlock(input));*/
+			List<BlockObject.SaveBlock> tmp = Serializer<List<BlockObject.SaveBlock>>.Load(name);
+			List<BlockObject> res = new List<BlockObject>();
+			foreach (BlockObject.SaveBlock sb in tmp)
+			{
+				res.Add(BlockObject.LoadBlock(sb));
+			}
+			tileMap = res;
 		}
 
 		public void AddBlock(BlockObject bl)

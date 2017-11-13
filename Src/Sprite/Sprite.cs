@@ -134,6 +134,8 @@ namespace tim_dodge
 			var stream = new System.IO.StreamReader(res); 
 
 			string docs = stream.ReadToEnd();
+			stream.Close();
+
 			XmlDocument doc = new XmlDocument();
 			doc.LoadXml(docs);
 			XmlElement all = doc.DocumentElement;
