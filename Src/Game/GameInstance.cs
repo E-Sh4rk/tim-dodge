@@ -127,7 +127,7 @@ namespace tim_dodge
 				newest_snapshot_index = current_snapshot_index;
 				current_snapshot_index = mod(current_snapshot_index + 1, max_snapshots);
 				if (current_snapshot_index == oldest_snapshot_index)
-					oldest_snapshot_index++;
+					oldest_snapshot_index = mod(oldest_snapshot_index + 1, max_snapshots);
 
 				float insensible_elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
 				float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds * time_multiplicator;
