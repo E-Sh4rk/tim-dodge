@@ -44,6 +44,7 @@ namespace tim_tests
 		{
 			var stream = typeof(MainClass).Module.Assembly.GetManifestResourceStream("tim_tests.Resources." + str);
 			Texture2D t = g.textureFromStream(stream);
+			stream.Close();
 			return t;
 		}
 

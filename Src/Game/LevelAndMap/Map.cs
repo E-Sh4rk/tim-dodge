@@ -10,9 +10,9 @@ namespace tim_dodge
 	/// </summary>
 	public class Map
 	{
-		public Map(Texture2D Background, Texture MapTexture, Load.Maps MapLoad)
+		public Map(Texture2D Background, Texture MapTexture, ChooseMap.Maps MapLoad)
 		{
-			loadTileMap(Load.StringEnv(MapLoad));
+			loadTileMap(ChooseMap.StringEnv(MapLoad));
 			gMap = new GraphicalMap(Background, MapTexture, tileMap);
 			pMap = new PhysicalMap(gMap.tileMap);
 		}

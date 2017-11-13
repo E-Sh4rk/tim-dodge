@@ -49,6 +49,8 @@ namespace tim_tests
 		{
 			gdm = new GraphicsDeviceManager(this);
 			Content.RootDirectory = "Content";
+			gdm.PreferredBackBufferWidth = tim_dodge.TimGame.GAME_WIDTH;
+			gdm.PreferredBackBufferHeight = tim_dodge.TimGame.GAME_HEIGHT;
 		}
 
 		public void initializeHardLevel()
@@ -78,16 +80,6 @@ namespace tim_tests
 
 		protected override void Update(GameTime gameTime)
 		{
-			// For Mobile devices, this logic will close the Game when the Back button is pressed
-			// Exit() is obsolete on iOS
-#if !__IOS__ && !__TVOS__
-			//if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-			//	Exit();
-#endif
-
-			gdm.PreferredBackBufferWidth = tim_dodge.TimGame.GAME_WIDTH;
-			gdm.PreferredBackBufferHeight = tim_dodge.TimGame.GAME_HEIGHT;
-
 			if (Game != null)
 			{
 				// Continue game until a death occurs
@@ -98,23 +90,6 @@ namespace tim_tests
 			}
 
 			base.Update(gameTime);
-		}
-
-		/// <summary>
-		/// This is called when the game should draw itself.
-		/// </summary>
-		/// <param name="gameTime">Provides a snapshot of timing values.</param>
-		protected override void Draw(GameTime gameTime)
-		{
-			gdm.GraphicsDevice.Clear(Color.CornflowerBlue);
-
-			// Simulation: no need to draw
-			/*spriteBatch.Begin();
-			if (Game != null)
-				Game.Draw(spriteBatch);
-			spriteBatch.End();*/
-
-			base.Draw(gameTime);
 		}
 	}
 }

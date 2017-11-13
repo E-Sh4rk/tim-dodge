@@ -6,8 +6,8 @@ namespace tim_dodge
 	public class BlockObject : GameObject
 	{
 
-		public BlockObject(Texture texture, int x, int y, Ground state) : 
-		base(texture, new Sprite("Content.ground.natureXml.xml"), Vector2.Zero)
+		public BlockObject(int x, int y, Ground state) : 
+		base(Load.MapTextureNature, new Sprite("Content.ground.natureXml.xml"), Vector2.Zero)
 		{
 			Sprite.ChangeState((int)state);
 			h = Sprite.RectOfSprite().Height;
@@ -41,7 +41,7 @@ namespace tim_dodge
 
 		public static BlockObject LoadBlock(SaveBlock sbl)
 		{
-			return new BlockObject(Load.MapTextureNature, sbl.x, sbl.y, sbl.state);
+			return new BlockObject(sbl.x, sbl.y, sbl.state);
 		}
 
 		private int _x;

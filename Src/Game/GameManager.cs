@@ -32,7 +32,6 @@ namespace tim_dodge
 			Load.LoadContent(Content);
 			this.Application = Application;
 			Menu = new MenuManager(this);
-			game = new GameInstance(Menu.LoadMap);
 		}
 
 		public void Update(GameTime gameTime)
@@ -78,7 +77,11 @@ namespace tim_dodge
 				game.Draw(spriteBatch);
 
 			if (Menu.MenuRunning)
+			{
+				if (!GameRunning)
+					Menu.chooseMap.Draw(spriteBatch);
 				Menu.Draw(spriteBatch);
+			}
 
 			if (EditorRunning)
 				editor.Draw(spriteBatch);

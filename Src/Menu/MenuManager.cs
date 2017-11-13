@@ -36,7 +36,7 @@ namespace tim_dodge
 		private const String messageYourPath = "Enter a file name";
 		private KeyboardReader YourPath;
 
-		public Load.Maps LoadMap;
+		public ChooseMap chooseMap;
 
 		public bool MenuRunning { get { return CurrentMenu.Count != 0; } }
 
@@ -44,7 +44,7 @@ namespace tim_dodge
 
 		public MenuManager(GameManager GameManager)
 		{
-			LoadMap = Load.Maps.DuneMap;
+			chooseMap = new ChooseMap();
 
 			this.GameManager = GameManager;
 
@@ -157,12 +157,11 @@ namespace tim_dodge
 			}
 			else if (Controller.KeyPressed(Keys.Right))
 			{
-				LoadMap = Load.RightMap(LoadMap);	
-
+				chooseMap.RightMap();
 			}
 			else if (Controller.KeyPressed(Keys.Left))
 			{
-				LoadMap = Load.LeftMap(LoadMap);
+				chooseMap.LeftMap();
 			}
 
 			if (CurrentMenu.Last() == Congrats)
@@ -209,7 +208,7 @@ namespace tim_dodge
 		// Menu functions
 		private void NewGame()
 		{
-			GameManager.game = new GameInstance(LoadMap);
+			GameManager.game = new GameInstance(chooseMap.currentMap);
 			CurrentMenu = new List<MenuWindow>();
 		}
 

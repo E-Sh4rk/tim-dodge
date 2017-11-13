@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using System.IO;
 
 namespace tim_dodge
 {
@@ -55,36 +56,6 @@ namespace tim_dodge
 		public static String PathHighScores { get; private set; }
 		public static List<String> PathLevels;
 
-		// Maps
-		public enum Maps
-		{
-			DuneMap = 0,
-			FlatMap = 1,
-			WaterMap = 2
-		}
-
-		public static int nbMaps = 3;
-
-		private static List<String> EnvMaps = new List<String>
-		{ "Content/environment/dune.xml",
-			"Content/environment/flat.xml",
-			"Content/environment/water.xml"};
-
-		public static String StringEnv(Maps env)
-		{
-			return EnvMaps[(int)env];
-		}
-
-		public static Maps RightMap(Maps env)
-		{
-			return (Maps) (((int)env +1) % nbMaps);
-		}
-
-		public static Maps LeftMap(Maps env)
-		{
-			return (Maps)(((int)env + nbMaps - 1) % nbMaps);
-		}
-
 		public static void LoadContent(ContentManager Content)
 		{
 			// Sound
@@ -98,8 +69,7 @@ namespace tim_dodge
 				Content.Load<SoundEffect>("sound/ah"),
 				Content.Load<SoundEffect>("sound/coin"),
 				Content.Load<SoundEffect>("sound/food")
-			},
-				   new SoundEffect[] { Content.Load<SoundEffect>("sound/cuphead") });
+			},  new SoundEffect[] { Content.Load<SoundEffect>("sound/cuphead") });
 
 			// Texture2D
 			BackgroundMenu = Content.Load<Texture2D>("background/Menu");
@@ -140,6 +110,10 @@ namespace tim_dodge
 			// XML
 			PathHighScores = "scores.xml";
 			PathLevels = new List<String> { "Content.environment.flat.xml", "Content.environment.dune.xml", "Content.environment.water.xml"};
+
+			// Maps
+			foreach (string lvl in PathLevels)
+				File.WriteAllText(lvl.Substring(20),GetStringResource(lvl));
 		}
 
 		public static List<BestScore> LoadHighScores()
@@ -152,6 +126,16 @@ namespace tim_dodge
 			{
 				return new List<BestScore>();
 			}
+		}
+
+		public static string GetStringResource(string path)
+		{
+			var res = typeof(GameInstance).Module.Assembly.GetManifestResourceStream("tim_dodge." + path);
+			var stream = new StreamReader(res);
+			string txt = stream.ReadToEnd();
+			stream.Close();
+			res.Close();
+			return txt;
 		}
 	}
 }
