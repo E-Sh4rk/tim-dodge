@@ -59,7 +59,7 @@ namespace tim_dodge
 			Highscores = new MenuWindow();
 
 			// Constructrion of menus
-			Initialize(InitialMenu, "Menu", new List<MenuItem> {
+			Initialize(InitialMenu, "< Maps >", new List<MenuItem> {
 				new MenuItem("New Game", NewGame),
 				new MenuItem("Map Editor", NewEditor),
 				new MenuItem("Parameters", Parameters),
