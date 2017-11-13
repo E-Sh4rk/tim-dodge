@@ -74,8 +74,7 @@ namespace tim_dodge
 				Content.Load<SoundEffect>("sound/ah"),
 				Content.Load<SoundEffect>("sound/coin"),
 				Content.Load<SoundEffect>("sound/food")
-			},
-				   new SoundEffect[] { Content.Load<SoundEffect>("sound/cuphead") });
+			},  new SoundEffect[] { Content.Load<SoundEffect>("sound/cuphead") });
 
 			// Texture2D
 			BackgroundMenu = Content.Load<Texture2D>("background/Menu");
@@ -119,12 +118,7 @@ namespace tim_dodge
 
 			// Maps
 			foreach (string lvl in PathLevels)
-			{
-				var res = typeof(GameInstance).Module.Assembly.GetManifestResourceStream("tim_dodge." + lvl);
-				var stream = new System.IO.StreamReader(res);
-				string txt = stream.ReadToEnd();
-				File.WriteAllText(lvl.Substring(20),txt);
-			}
+				File.WriteAllText(lvl.Substring(20),GetStringResource(lvl));
 		}
 
 		public static List<BestScore> LoadHighScores()
@@ -137,6 +131,16 @@ namespace tim_dodge
 			{
 				return new List<BestScore>();
 			}
+		}
+
+		public static string GetStringResource(string path)
+		{
+			var res = typeof(GameInstance).Module.Assembly.GetManifestResourceStream("tim_dodge." + path);
+			var stream = new StreamReader(res);
+			string txt = stream.ReadToEnd();
+			stream.Close();
+			res.Close();
+			return txt;
 		}
 	}
 }

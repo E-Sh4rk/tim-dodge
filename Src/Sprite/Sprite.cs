@@ -146,14 +146,8 @@ namespace tim_dodge
 			}
 			else
 			{
-				var res = GetType().Module.Assembly.GetManifestResourceStream("tim_dodge." + xml_path);
-				var stream = new System.IO.StreamReader(res);
-				string docs = stream.ReadToEnd();
-				stream.Close();
-				res.Close();
-
 				XmlDocument doc = new XmlDocument();
-				doc.LoadXml(docs);
+				doc.LoadXml(Load.GetStringResource(xml_path));
 				XmlElement all = doc.DocumentElement;
 
 				if (all != null)
