@@ -3,27 +3,65 @@ using Microsoft.Xna.Framework;
 
 namespace tim_dodge
 {
+	public struct SVector
+	{
+		public SVector(float x, float y) { this.x = x; this.y = y; }
+		public float x;
+		public float y;
+
+		public Vector2 ToVector2()
+		{
+			return new Vector2(x,y);
+		}
+		static public SVector FromVector2(Vector2 v)
+		{
+			return new SVector(v.X,v.Y);
+		}
+	}
+	public struct SColor
+	{
+		public SColor(float r, float g, float b, float a)
+		{
+			this.a = a;
+			this.r = r;
+			this.g = g;
+			this.b = b;
+		}
+		public float a;
+		public float r;
+		public float g;
+		public float b;
+
+		public Color ToColor()
+		{
+			return new Color(r, g, b, a);
+		}
+		static public SColor FromColor(Color c)
+		{
+			return new SColor(c.R, c.G, c.B, c.A);
+		}
+	}
 	public class ObjectSnapshot
 	{
 		// Properties that must be captured/restored. TYPES USED MUST NOT BE MUTABLE.
-		public Vector2 pos;
-		public Color color;
+		public SVector pos;
+		public SColor color;
 		public int sprite_state;
 		public int sprite_frame;
 		public Controller.Direction sprite_direction;
 
 		public virtual void RestoreModelState(GameObject model_ptr)
 		{
-			model_ptr.Position = pos;
-			model_ptr.color = color;
+			model_ptr.Position = pos.ToVector2();
+			model_ptr.color = color.ToColor();
 			model_ptr.Sprite.ChangeState(sprite_state);
 			model_ptr.Sprite.ChangeFrame(sprite_frame);
 			model_ptr.Sprite.ChangeDirection(sprite_direction);
 		}
 		public virtual void CaptureModelState(GameObject model_ptr)
 		{
-			pos = model_ptr.Position;
-			color = model_ptr.color;
+			pos = SVector.FromVector2(model_ptr.Position);
+			color = SColor.FromColor(model_ptr.color);
 			sprite_state = model_ptr.Sprite.NowState();
 			sprite_frame = model_ptr.Sprite.NowFrame();
 			sprite_direction = model_ptr.Sprite.Direction;
@@ -32,19 +70,19 @@ namespace tim_dodge
 	public class PhysicalObjectSnapshot : ObjectSnapshot
 	{
 		// Additional properties for kinetic objects
-		public Vector2 velocity;
+		public SVector velocity;
 		public bool ghost;
 
 		public override void RestoreModelState(GameObject model_ptr)
 		{
 			base.RestoreModelState(model_ptr);
-			((PhysicalObject)model_ptr).Velocity = velocity;
+			((PhysicalObject)model_ptr).Velocity = velocity.ToVector2();
 			((PhysicalObject)model_ptr).Ghost = ghost;
 		}
 		public override void CaptureModelState(GameObject model_ptr)
 		{
 			base.CaptureModelState(model_ptr);
-			velocity = ((PhysicalObject)model_ptr).Velocity;
+			velocity = SVector.FromVector2(((PhysicalObject)model_ptr).Velocity);
 			ghost = ((PhysicalObject)model_ptr).Ghost;
 		}
 	}

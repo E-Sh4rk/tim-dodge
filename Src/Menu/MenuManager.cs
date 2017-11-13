@@ -31,6 +31,11 @@ namespace tim_dodge
 		private int gameScore;
 		private const int SizeHighscores = 5;
 
+		private MenuWindow SaveEditor;
+		private MenuItem EnterYourPath;
+		private const String messageYourPath = "Enter a file name";
+		private KeyboardReader YourPath;
+
 		public bool MenuRunning { get { return CurrentMenu.Count != 0; } }
 
 		GameManager GameManager;
@@ -45,6 +50,7 @@ namespace tim_dodge
 			ParamMenu = new MenuWindow();
 			Gameover = new MenuWindow();
 			Congrats = new MenuWindow();
+			SaveEditor = new MenuWindow();
 			QuitMenu = new MenuWindow();
 			Highscores = new MenuWindow();
 
@@ -116,6 +122,17 @@ namespace tim_dodge
 			Congrats.Position = new Vector2(Congrats.Position.X, Gameover.ListItems[1].source.Y);
 			Congrats.AlignItems();
 
+			YourPath = new KeyboardReader("Save your map".Length);
+			EnterYourPath = new MenuItem(messageYourPath, Load.FontMenu, Load.ColorTextMenu); // Text updated by the update function
+			Initialize(SaveEditor, "Saving !", new List<MenuItem> {
+				new MenuItem("Save your map", Load.FontMenu, Load.ColorTextMenu),
+				EnterYourPath,
+				new MenuItem("<Validate>", RecordMap) }
+					  );
+			SaveEditor.Opacity = 0.9f;
+			SaveEditor.Position = new Vector2(SaveEditor.Position.X, 100);//Gameover.ListItems[1].source.Y);
+			SaveEditor.AlignItems();
+
 			// First Menu appearing
 			CurrentMenu = new List<MenuWindow>();
 			CurrentMenu.Add(InitialMenu);
@@ -151,6 +168,22 @@ namespace tim_dodge
 				}
 			}
 
+			else if (CurrentMenu.Last() == SaveEditor)
+			{
+				YourPath.Update();
+				if (YourPath.Text == String.Empty)
+				{
+					EnterYourPath.Text = messageYourPath;
+					SaveEditor.AlignItems();
+				}
+				else
+				{
+					EnterYourPath.Text = YourPath.Text;
+					SaveEditor.AlignItems();
+				}
+				
+			}
+
 			CurrentMenu.Last().Update();
 		}
 
@@ -161,10 +194,7 @@ namespace tim_dodge
 			CurrentMenu.Last().Draw(spriteBatch);
 		}
 
-
-
 		// Menu functions
-
 		private void NewGame()
 		{
 			GameManager.game = new GameInstance();
@@ -211,6 +241,12 @@ namespace tim_dodge
 					YourName.Text = String.Empty;
 				}
 			}
+		}
+
+		public void LaunchSaveMap()
+		{
+			CurrentMenu.Add(SaveEditor);
+			YourPath.Text = String.Empty;
 		}
 
 		private void BackInitialMenu() { CurrentMenu = new List<MenuWindow> { InitialMenu }; }
@@ -317,6 +353,17 @@ namespace tim_dodge
 				Serializer<List<BestScore>>.Save(Load.PathHighScores, highscores);
 
 				CurrentMenu.Remove(CurrentMenu.Last());
+				CurrentMenu.Add(InitialMenu);
+			}
+		}
+
+		private void RecordMap()
+		{
+			if (YourPath.Text != String.Empty)
+			{
+				GameManager.editor.Save(YourPath.Text + ".xml");
+				CurrentMenu.Remove(CurrentMenu.Last());
+				CurrentMenu.Add(InitialMenu);
 			}
 		}
 

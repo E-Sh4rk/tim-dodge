@@ -51,7 +51,8 @@ namespace tim_dodge
 				if (Controller.KeyPressed(Keys.Escape))
 				{
 					editor.focus = false;
-					Menu.LaunchPause();
+					//Menu.LaunchPause();
+					Menu.LaunchSaveMap();
 				}
 				editor.Update(gameTime);
 			}
