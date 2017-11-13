@@ -39,7 +39,7 @@ namespace tim_dodge
 			return new SaveBlock(_x, _y, state);
 		}
 
-		public static BlockObject LoadSave(SaveBlock sbl)
+		public static BlockObject LoadBlock(SaveBlock sbl)
 		{
 			return new BlockObject(Load.MapTextureNature, sbl.x, sbl.y, sbl.state);
 		}

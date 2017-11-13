@@ -12,7 +12,7 @@ namespace tim_dodge
 	{
 		public MapEditorInstance()
 		{
-			map = new Map(Load.BackgroundSun, Load.MapTextureNature);
+			map = new Map(Load.BackgroundSun, Load.MapTextureNature, Load.DuneMap);
 			focus = true;
 			mouseBlock = new BlockObject(Load.MapTextureNature, Map.numberTileX / 2, Map.numberTileY / 2, BlockObject.Ground.MiddleGround);
 		}
@@ -69,7 +69,7 @@ namespace tim_dodge
 
 			else if (mouse.RightButton == ButtonState.Pressed || state.IsKeyDown(Keys.Delete) || state.IsKeyDown(Keys.Back))
 			{
-				map.RemoveBlock(mouseBlock.x, mouseBlock.y);
+				map.RemoveBlock(mouseBlock.x, mouseBlock.y, false);
 			}
 		}
 

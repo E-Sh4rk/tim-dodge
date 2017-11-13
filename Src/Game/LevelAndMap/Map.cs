@@ -10,28 +10,9 @@ namespace tim_dodge
 	/// </summary>
 	public class Map
 	{
-		public Map(Texture2D Background, Texture MapTexture)
+		public Map(Texture2D Background, Texture MapTexture, String loadMapString)
 		{
-			tileMap = new List<BlockObject>();
-
-			//Object(Texture texture, int x, int y, Ground state)
-			tileMap.Add(new BlockObject(MapTexture, 6, Map.numberTileY, BlockObject.Ground.RightDurt));
-			tileMap.Add(new BlockObject(MapTexture, 10, Map.numberTileY, BlockObject.Ground.LeftDurt));
-			tileMap.Add(new BlockObject(MapTexture, 6, Map.numberTileY - 1, BlockObject.Ground.RightGround));
-			tileMap.Add(new BlockObject(MapTexture, 10, Map.numberTileY - 1, BlockObject.Ground.LeftGround));
-
-
-			for (int i = 0; i < Map.numberTileX; i++)
-			{
-				if (i < 6 || i > 10)
-				{
-					tileMap.Add(new BlockObject(MapTexture, i, Map.numberTileY - 1, BlockObject.Ground.MiddleGround));
-					tileMap.Add(new BlockObject(MapTexture, i, Map.numberTileY, BlockObject.Ground.MiddleDurt));
-				}
-
-			}
-			//Serializer<List<Map.Block>>.Save(Load.PathLevels[0], tileMap);
-
+			loadTileMap(loadMapString);
 			gMap = new GraphicalMap(Background, MapTexture, tileMap);
 			pMap = new PhysicalMap(gMap.tileMap);
 		}
@@ -50,17 +31,28 @@ namespace tim_dodge
 			gMap.changeTexture(NewMapTexture);
 		}
 
+		public void loadTileMap(String name)
+		{
+			tileMap = Serializer<List<BlockObject.SaveBlock>>.Load(name).ConvertAll(
+				(BlockObject.SaveBlock input) => BlockObject.LoadBlock(input));
+		}
+
 		public void AddBlock(BlockObject bl)
 		{
-			RemoveBlock(bl.x, bl.y);
+			RemoveBlock(bl.x, bl.y, true);
 			tileMap.Add(bl);
 		}
 
-		public void RemoveBlock(int x, int y)
+		public void RemoveBlock(int x, int y, bool testWater)
 		{
 			try
 			{
-				tileMap.Remove(tileMap.Find((BlockObject obj) => obj.x == x && obj.y == y));
+				if (testWater)
+					tileMap.Remove(tileMap.Find((BlockObject obj) => obj.state != BlockObject.Ground.MiddleWater &&
+												obj.state != BlockObject.Ground.UpWater &&
+												obj.x == x && obj.y == y));
+				else
+					tileMap.Remove(tileMap.Find((BlockObject obj) => obj.x == x && obj.y == y));
 			}
 			catch { }
 		}

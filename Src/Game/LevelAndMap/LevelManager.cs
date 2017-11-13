@@ -56,7 +56,7 @@ namespace tim_dodge
 			Title.Position = new Vector2((TimGame.GAME_WIDTH - Title.Size.X) / 2,
 										 (TimGame.GAME_HEIGHT - Title.Size.Y) / 2);
 
-			map = new Map(Load.BackgroundSun, Load.MapTextureNature);
+			map = new Map(Load.BackgroundSun, Load.MapTextureNature, Load.DuneMap);
 
 			LevelDefinition Level1 = new LevelDefinition(map, Load.BackgroundSun, Load.MapTextureNature,
 														 10, 0.3f, Color.Black, true, false);
