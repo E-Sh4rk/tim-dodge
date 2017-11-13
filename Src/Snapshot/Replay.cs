@@ -96,12 +96,33 @@ namespace tim_dodge
 				sss.Add(ss);
 			}
 
-			return null;
+			Replay rep = new Replay();
+			rep.objects = builders;
+			rep.snapshots = sss;
+
+			return rep;
 		}
-		public List<Snapshot> ToSnapshotList()
+		public List<Snapshot> ToSnapshotList(GameInstance g)
 		{
-			// TODO
-			return null;
+			// Instanciation of objects
+			GameObject[] instances = new GameObject[objects.Length];
+			for (int i = 0; i < objects.Length; i++)
+				instances[i] = objects[i].BuildObject(g);
+
+			// Conversion of the list
+			List<Snapshot> res = new List<Snapshot>();
+			foreach (SSnapshot ss in snapshots)
+			{
+				Snapshot s = new Snapshot();
+				s.lvl = ss.lvl;
+				s.objects_states = ss.objects_states;
+				s.objects = new List<GameObject>();
+				foreach (int id in ss.objects_ids)
+					s.objects.Add(instances[id]);
+				res.Add(s);
+			}
+
+			return res;
 		}
 
 		// Export and import functions
