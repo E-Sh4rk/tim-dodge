@@ -32,6 +32,7 @@ namespace tim_dodge
 			Load.LoadContent(Content);
 			this.Application = Application;
 			Menu = new MenuManager(this);
+			game = new GameInstance(Menu.LoadMap);
 		}
 
 		public void Update(GameTime gameTime)

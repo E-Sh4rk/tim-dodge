@@ -36,12 +36,16 @@ namespace tim_dodge
 		private const String messageYourPath = "Enter a file name";
 		private KeyboardReader YourPath;
 
+		public Load.Maps LoadMap;
+
 		public bool MenuRunning { get { return CurrentMenu.Count != 0; } }
 
 		GameManager GameManager;
 
 		public MenuManager(GameManager GameManager)
 		{
+			LoadMap = Load.Maps.DuneMap;
+
 			this.GameManager = GameManager;
 
 			// Initialization of windows
@@ -66,7 +70,6 @@ namespace tim_dodge
 			Initialize(PauseMenu, "Pause", new List<MenuItem> {
 				new MenuItem("Resume", Resume),
 				new MenuItem("New Game", NewGame),
-				new MenuItem("Map Editor", NewEditor),
 				new MenuItem("Parameters", Parameters),
 				new MenuItem("Best Scores", BestScores),
 				new MenuItem("Quit", Quit) }
@@ -152,6 +155,15 @@ namespace tim_dodge
 				Load.sounds.playSound(Sound.SoundName.toogle);
 				Previous();
 			}
+			else if (Controller.KeyPressed(Keys.Right))
+			{
+				LoadMap = Load.RightMap(LoadMap);	
+
+			}
+			else if (Controller.KeyPressed(Keys.Left))
+			{
+				LoadMap = Load.LeftMap(LoadMap);
+			}
 
 			if (CurrentMenu.Last() == Congrats)
 			{
@@ -197,7 +209,7 @@ namespace tim_dodge
 		// Menu functions
 		private void NewGame()
 		{
-			GameManager.game = new GameInstance();
+			GameManager.game = new GameInstance(LoadMap);
 			CurrentMenu = new List<MenuWindow>();
 		}
 

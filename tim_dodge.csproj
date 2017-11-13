@@ -119,8 +119,12 @@
     <EmbeddedResource Include="Content\ground\natureXml.xml" />
     <EmbeddedResource Include="Content\objects\coin.xml" />
     <EmbeddedResource Include="Content\objects\food.xml" />
-    <EmbeddedResource Include="Content\environment\flat.xml" />
-    <EmbeddedResource Include="Content\environment\water.xml" />
+    <EmbeddedResource Include="Content\environment\flat.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Content\environment\water.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Content\environment\dune.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>

@@ -61,11 +61,6 @@
     <state>MiddleGround</state>
   </SaveBlock>
   <SaveBlock>
-    <x>10</x>
-    <y>13</y>
-    <state>MiddleGround</state>
-  </SaveBlock>
-  <SaveBlock>
     <x>9</x>
     <y>13</y>
     <state>LeftGround</state>
@@ -644,5 +639,10 @@
     <x>29</x>
     <y>15</y>
     <state>MiddleDurt</state>
+  </SaveBlock>
+  <SaveBlock>
+    <x>10</x>
+    <y>13</y>
+    <state>RightEGround</state>
   </SaveBlock>
 </ArrayOfSaveBlock>

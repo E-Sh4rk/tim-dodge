@@ -56,9 +56,34 @@ namespace tim_dodge
 		public static List<String> PathLevels;
 
 		// Maps
-		public static String FlatMap = "Content/environment/flat.xml";
-		public static String DuneMap = "Content/environment/dune.xml";
-		public static String WaterMap = "Content/environment/water.xml";
+		public enum Maps
+		{
+			DuneMap = 0,
+			FlatMap = 1,
+			WaterMap = 2
+		}
+
+		public static int nbMaps = 3;
+
+		private static List<String> EnvMaps = new List<String>
+		{ "Content/environment/dune.xml",
+			"Content/environment/flat.xml",
+			"Content/environment/water.xml"};
+
+		public static String StringEnv(Maps env)
+		{
+			return EnvMaps[(int)env];
+		}
+
+		public static Maps RightMap(Maps env)
+		{
+			return (Maps) (((int)env +1) % nbMaps);
+		}
+
+		public static Maps LeftMap(Maps env)
+		{
+			return (Maps)(((int)env + nbMaps - 1) % nbMaps);
+		}
 
 		public static void LoadContent(ContentManager Content)
 		{

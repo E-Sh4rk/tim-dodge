@@ -12,7 +12,7 @@ namespace tim_dodge
 	{
 		public MapEditorInstance()
 		{
-			map = new Map(Load.BackgroundSun, Load.MapTextureNature, Load.DuneMap);
+			map = new Map(Load.BackgroundSun, Load.MapTextureNature, Load.Maps.DuneMap);
 			focus = true;
 			mouseBlock = new BlockObject(Load.MapTextureNature, Map.numberTileX / 2, Map.numberTileY / 2, BlockObject.Ground.MiddleGround);
 		}

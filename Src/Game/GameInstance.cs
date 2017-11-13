@@ -41,7 +41,7 @@ namespace tim_dodge
 			flipV = false;
 		}
 
-		public GameInstance()
+		public GameInstance(Load.Maps MapLoad)
 		{
 			Vector2 PositionScoreTim = new Vector2(30, 20);
 
@@ -52,8 +52,8 @@ namespace tim_dodge
 
 			heart = new Heart(Load.HeartFull, Load.HeartSemi, Load.HeartEmpty);
 
-			Level = new LevelManager(this);
-			player = new Player(new Vector2(700, 450), heart, this);
+			Level = new LevelManager(this, MapLoad);
+			player = new Player(new Vector2(700, 300), heart, this);
 			UndoPoisons();
 			focus = true;
 		}
