@@ -11,7 +11,8 @@ namespace tim_dodge
 	{
 		private Random random;
 		private GameInstance game;
-		private Map map;
+
+		private const float interval = 5;
 
 		public List<Monstar> EnemiesList
 		{
@@ -19,40 +20,38 @@ namespace tim_dodge
 			protected set;
 		}
 
-		public WalkingObjects(GameInstance game, Level Level)
+		public WalkingObjects(GameInstance game)
 		{
 			this.game = game;
-			map = Level.map;
 			EnemiesList = new List<Monstar>();
 			random = new Random();
-			interval = 5;
 		}
 
 		private float time;
-		private float interval;
 
 		public void Update(float elapsed)
 		{
-			time += elapsed;
-
-			while (time > interval)
+			if (!game.Level.Current.StopFalling)
 			{
-				Sprite s = new Sprite("Content.character.MonstarXml.xml");
-				Controller.Direction dir;
-				Vector2 vec = new Vector2(0f, 0f);
-				if (random.Next(0, 2) == 0) // p = 1/2 to be on the right or on the left
+				time += elapsed;
+				while (time > interval)
 				{
-					dir = Controller.Direction.LEFT;
-					vec.X = TimGame.WINDOW_WIDTH;
+					Controller.Direction dir;
+					Vector2 vec = new Vector2(0f, 0f);
+					if (random.Next(0, 2) == 0) // p = 1/2 to be on the right or on the left
+					{
+						dir = Controller.Direction.LEFT;
+						vec.X = TimGame.GAME_WIDTH;
+					}
+					else
+					{
+						dir = Controller.Direction.RIGHT;
+						vec.X = 0f;
+					}
+					Monstar m = new Monstar(vec, game, dir);
+					EnemiesList.Add(m);
+					time -= interval;
 				}
-				else 
-				{
-					dir = Controller.Direction.RIGHT;
-					vec.X = 0f;
-				}
-				Monstar m = new Monstar(Load.MonstarTexture, s, vec, map.pMap, dir);
-				EnemiesList.Add(m);
-				time -= interval;
 			}
 
 			// Delete enemies that are out of bounds
@@ -66,7 +65,6 @@ namespace tim_dodge
 
 			// Delete enemies that are dead
 			EnemiesList.RemoveAll((e => e.Dead));
-
 		}
 	}
 }

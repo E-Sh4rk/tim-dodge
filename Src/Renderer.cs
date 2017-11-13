@@ -15,8 +15,8 @@ namespace tim_dodge
 
 			renderTarget = new RenderTarget2D(
 				graphics.GraphicsDevice,
-				graphics.PreferredBackBufferWidth,
-				graphics.PreferredBackBufferHeight);
+				    TimGame.GAME_WIDTH,
+				    TimGame.GAME_HEIGHT);
 		}
 
 		float angle = 0;
@@ -24,14 +24,7 @@ namespace tim_dodge
 		const float max = (float) Math.PI / 16;	
 
 		public void Draw(SpriteBatch spriteBatch, GameManager game)
-		{
-			angle += pas;
-			if (angle > max)
-				pas = -pas;
-			//angle -= (float) (2 * Math.PI);
-			if (angle < -max)
-				pas = -pas;
-			
+		{			
 			Rend(spriteBatch, game);
 			
 			graphics.GraphicsDevice.Clear(Color.Black);
@@ -43,27 +36,47 @@ namespace tim_dodge
 			Vector2 middle = new Vector2(w / 2.0f, h / 2.0f);
 
 			float proportion = h / w;
-			//float angle = (float)(3*Math.PI/4);
-			//angle = (float)Math.Atan2(w, h) + 0.4f;
-			//angle = 0.4f;
 			float scale = (float) Math.Abs((h / (Math.Cos(Math.Atan2(w,h)-angle)*diag)));
 			scale = Math.Min(scale,(float)Math.Abs((h / (Math.Cos(Math.Atan2(w, h) - angle + 2 * Math.Atan2(h, w)) * diag))));
-			//scale = 0.7f;
+
+			bool rotation = false;
+			SpriteEffects effect = SpriteEffects.None;
 
 			try
 			{
-				if (!game.GameRunning || !game.rotation)
+				if (!game.MenuRunning)
 				{
-					angle = 0;
-					scale = 1;
+					rotation = game.game.rotation;
+					if (game.game.flipH)
+						effect = SpriteEffects.FlipHorizontally;
+					else if (game.game.flipV)
+						effect = SpriteEffects.FlipVertically;
+					else
+						effect = SpriteEffects.None;
 				}
 			}
 			catch { angle = 0; scale = 1;}
 
+			if (!rotation && Math.Abs(angle) < Math.Pow(10, -3))
+			{
+				angle = 0;
+				scale = 1;
+			}
+			else
+			{
+				angle += pas;
+				if (angle > max)
+					pas = -pas;
+				if (angle < -max)
+					pas = -pas;
+			}
+
+			scale /= TimGame.general_scale;
+
 			spriteBatch.Begin();
-			spriteBatch.Draw((Texture2D)renderTarget, middle, null, Color.White,
+			spriteBatch.Draw((Texture2D)renderTarget, middle/TimGame.general_scale, null, Color.White,
 			                 angle, middle,
-			                 scale, SpriteEffects.None, 0); // (float)(Math.PI * 2)
+							 scale, effect, 0);
 			spriteBatch.End();
 
 		}

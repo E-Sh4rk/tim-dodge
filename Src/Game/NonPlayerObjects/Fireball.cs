@@ -9,7 +9,7 @@ namespace tim_dodge
 	/// </summary>
 	public class Fireball : NonPlayerObject
 	{
-		public Fireball(Texture t, Sprite s, Vector2 p): base(t,s,p)
+		public Fireball(Vector2 p): base(Load.FireballTexture,new Sprite("Content.objects.fireball.xml"),p)
 		{
 			Mass = 5;
 			Damage = 1;

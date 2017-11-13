@@ -31,7 +31,7 @@ namespace tim_dodge
 		}
 
 
-		public PhysicalMap(List<Map.Block> tileMap)
+		public PhysicalMap(List<BlockObject> tileMap)
 		{
 			List<Rectangle>[] walls = new List<Rectangle>[4];
 
@@ -40,7 +40,7 @@ namespace tim_dodge
 				walls[i] = new List<Rectangle>();
 			}
 
-			tileMap.ForEach((Map.Block bl) =>
+			tileMap.ForEach((BlockObject bl) =>
 			{
 				List<Rectangle>[] result = walls_of_ground(bl);
 				for (int i = 0; i < 4; i++)
@@ -49,8 +49,8 @@ namespace tim_dodge
 				}
 			});
 
-			walls[(int)Wall.left].Add(new Rectangle(-100, 0, 100, 625));
-			walls[(int)Wall.right].Add(new Rectangle(TimGame.WINDOW_WIDTH, 0, 100, 625));
+			walls[(int)Wall.left].Add(new Rectangle(-100, 0, 100, TimGame.GAME_HEIGHT));
+			walls[(int)Wall.right].Add(new Rectangle(TimGame.GAME_WIDTH, 0, 100, TimGame.GAME_HEIGHT));
 			//walls[(int)Wall.bottom].Add(new Rectangle(0, 675, TimGame.WINDOW_WIDTH, 100));
 
 			roofs = walls[(int)Wall.roof].ToArray();
@@ -153,9 +153,9 @@ namespace tim_dodge
 			right = 3
 		}
 
-		public List<Rectangle>[] walls_of_ground(Map.Block bl)
+		public List<Rectangle>[] walls_of_ground(BlockObject bl)
 		{
-			Map.Ground ground = bl.state;
+			BlockObject.Ground ground = bl.state;
 
 			List<Rectangle>[] walls = new List<Rectangle>[4];
 
@@ -164,25 +164,25 @@ namespace tim_dodge
 				walls[i] = new List<Rectangle>();
 			}
 
-			List<Map.Ground> rightsG = new List<Map.Ground> { Map.Ground.LeftGround, Map.Ground.LeftDurt, Map.Ground.BottomLeft2Durt, Map.Ground.LeftPlatform };
-			List<Map.Ground> leftsG = new List<Map.Ground> { Map.Ground.RightGround, Map.Ground.RightDurt, Map.Ground.BottomRight2Durt, Map.Ground.RightPlatform };
-			List<Map.Ground> bottomsG = new List<Map.Ground> { Map.Ground.LeftGround, Map.Ground.MiddleGround, Map.Ground.RightGround, Map.Ground.RightEGround, Map.Ground.LeftEGround, Map.Ground.LeftPlatform, Map.Ground.RightPlatform, Map.Ground.MiddlePlatform};
-			List<Map.Ground> roofsG = new List<Map.Ground> { Map.Ground.BottomDurt, Map.Ground.BottomLeft2Durt, Map.Ground.BottomRight2Durt};
+			List<BlockObject.Ground> rightsG = new List<BlockObject.Ground> { BlockObject.Ground.LeftGround, BlockObject.Ground.LeftDurt, BlockObject.Ground.BottomLeft2Durt, BlockObject.Ground.LeftPlatform };
+			List<BlockObject.Ground> leftsG = new List<BlockObject.Ground> { BlockObject.Ground.RightGround, BlockObject.Ground.RightDurt, BlockObject.Ground.BottomRight2Durt, BlockObject.Ground.RightPlatform };
+			List<BlockObject.Ground> bottomsG = new List<BlockObject.Ground> { BlockObject.Ground.LeftGround, BlockObject.Ground.MiddleGround, BlockObject.Ground.RightGround, BlockObject.Ground.RightEGround, BlockObject.Ground.LeftEGround, BlockObject.Ground.LeftPlatform, BlockObject.Ground.RightPlatform, BlockObject.Ground.MiddlePlatform};
+			List<BlockObject.Ground> roofsG = new List<BlockObject.Ground> { BlockObject.Ground.BottomDurt, BlockObject.Ground.BottomLeft2Durt, BlockObject.Ground.BottomRight2Durt};
 
 			const int pixelOffset = 10;
 			const int magicBorder = 10;
 
 			if (leftsG.Exists(e => e == ground))
-				walls[(int)Wall.left].Add(new Rectangle((int)(bl.position.X + 3*bl.w/4), (int)bl.position.Y + pixelOffset, (int)(bl.w/4), (int)(bl.h - pixelOffset*2)));
+				walls[(int)Wall.left].Add(new Rectangle((int)(bl.Position.X + 3*bl.w/4), (int)bl.Position.Y + pixelOffset, (int)(bl.w/4), (int)(bl.h - pixelOffset*2)));
 
 			if (rightsG.Exists(e => e == ground))
-				walls[(int)Wall.right].Add(new Rectangle((int)bl.position.X, (int)bl.position.Y + pixelOffset, (int)(bl.w / 4), (int)(bl.h - pixelOffset*2)));
+				walls[(int)Wall.right].Add(new Rectangle((int)bl.Position.X, (int)bl.Position.Y + pixelOffset, (int)(bl.w / 4), (int)(bl.h - pixelOffset*2)));
 
 			if (roofsG.Exists(e => e == ground))
-				walls[(int)Wall.roof].Add(new Rectangle((int)bl.position.X + magicBorder, (int)(bl.position.Y + (bl.h / 2)), (int)(bl.w - 2*magicBorder) , (int)bl.h / 2));
+				walls[(int)Wall.roof].Add(new Rectangle((int)bl.Position.X + magicBorder, (int)(bl.Position.Y + (bl.h / 2)), (int)(bl.w - 2*magicBorder) , (int)bl.h / 2));
 
 			if (bottomsG.Exists(e => e == ground))
-				walls[(int)Wall.bottom].Add(new Rectangle((int)bl.position.X + magicBorder, (int)(bl.position.Y), (int)(bl.w - 2*magicBorder), (int)bl.h / 2));
+				walls[(int)Wall.bottom].Add(new Rectangle((int)bl.Position.X + magicBorder, (int)(bl.Position.Y), (int)(bl.w - 2*magicBorder), (int)bl.h / 2));
 
 				
 			return walls;

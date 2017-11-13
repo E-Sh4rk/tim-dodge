@@ -12,103 +12,94 @@ namespace tim_dodge
 	{
 		private Random random;
 		private GameInstance game;
-		private Map map;
 
-		private bool FireballActiv;
-		private bool BombActiv;
-		private float interval;
-
-		public bool stopFalling;
-
-		public List<NonPlayerObject> FallingList
+		public List<NonPlayerObject> EnemiesList
 		{
 			get;
 			protected set;
 		}
 
-		public FallingObjects(GameInstance game, Level Level)
+		public FallingObjects(GameInstance game)
 		{
 			time = 0;
 			this.game = game;
-			map = Level.map;
-
-			FireballActiv = Level.FireballActiv;
-			BombActiv = Level.BombActiv;
-			interval = Level.interval;
-
-			stopFalling = false;
 
 			random = new Random();
-			FallingList = new List<NonPlayerObject>();
+			EnemiesList = new List<NonPlayerObject>();
 		}
 
 		private float time;
 
 		public void Update(float elapsed)
 		{
-			time += elapsed;
-
-			if (!stopFalling)
+			if (!game.Level.Current.StopFalling)
 			{
-				while (time > interval)
+				time += elapsed;
+				while (time > game.Level.Current.interval)
 				{
-					if (BombActiv && random.Next(0, 5) == 0)
+					if (game.Level.Current.BombActiv && random.Next(0, 5) == 0)
 					{
-						Sprite s = new Sprite("Content.objects.bomb.xml");
-						int X = random.Next(0, TimGame.WINDOW_WIDTH - s.RectOfSprite().Size.X);
-						NonPlayerObject bomb = new Bomb(Load.BombTexture, s, new Vector2(X, -30));
+						NonPlayerObject bomb = new Bomb(new Vector2(0, -30));
+
+						int X = random.Next(0, TimGame.GAME_WIDTH - bomb.Size.X);
+						bomb.Position = new Vector2(X, bomb.Position.Y);
+
 						Rectangle r1 = new Rectangle(bomb.Position.ToPoint(), bomb.Size);
 						Rectangle r2 = new Rectangle(game.player.Position.ToPoint(), game.player.Size);
 						bomb.ApplyNewImpulsion(new Vector2(Collision.direction_between(r1, r2, false).X * 0.04f, 0));
-						FallingList.Add(bomb);
+						EnemiesList.Add(bomb);
 					}
-					else if (FireballActiv && random.Next(0, 5) != 0)
+					else
 					{
-						Sprite s = new Sprite("Content.objects.fireball.xml");
-						int X = random.Next(0, TimGame.WINDOW_WIDTH - s.RectOfSprite().Size.X);
-						NonPlayerObject fireball = new Fireball(Load.FireballTexture, s, new Vector2(X, -30));
-						FallingList.Add(fireball);
-					}
-					else if (FireballActiv)
-					{
-						// a chance to have a cake
-						if (random.Next(0, 5) == 0)
+						NonPlayerObject enemy = null;
+						if (game.Level.Current.FireballActiv && random.Next(0, 4) != 0)
 						{
-							Sprite s = new Sprite("Content.objects.food.xml");
-							s.ChangeState(14);//(22);
-							int X = random.Next(0, TimGame.WINDOW_WIDTH - s.RectOfSprite().Size.X);
-							NonPlayerObject food = new Food(Load.FoodTexture, s, new Vector2(X, -30));
-							FallingList.Add(food);
-						}
+							// a chance to have a poison
+							if (random.Next(0, 2) == 0)
+							{
+								int randF = random.Next(0, 3);
+								if (randF == 0)
+									enemy = new FirePoison(new Vector2(0, -30));
+								else if (randF == 1)
+									enemy = new FireYellow(new Vector2(0, -30));
+								else
+									enemy = new FireGreen(new Vector2(0, -30));
+							}
 
-						else
+							else // a regular fireball
+								enemy = new Fireball(new Vector2(0, -30));
+						}
+						else if (game.Level.Current.FireballActiv)
 						{
-							Sprite s = new Sprite("Content.objects.coin.xml");
-							int X = random.Next(0, TimGame.WINDOW_WIDTH - s.RectOfSprite().Size.X);
-							NonPlayerObject coin = new Coin(Load.CoinTexture, s, new Vector2(X, -30));
-							FallingList.Add(coin);
+							// a chance to have a cake
+							if (random.Next(0, 4) == 0)
+								enemy = new Food(new Vector2(0, -30));
+							else
+								enemy = new Coin(new Vector2(0, -30));
 						}
-
+						int X = random.Next(0, TimGame.GAME_WIDTH - enemy.Size.X);
+						enemy.Position = new Vector2(X, enemy.Position.Y);
+						EnemiesList.Add(enemy);
 					}
-					time -= interval;
+					time -= game.Level.Current.interval;
 				}
 			}
 
 			// Delete enemies that are out of bounds
-			FallingList.RemoveAll((e => e.IsOutOfBounds()));
+			EnemiesList.RemoveAll((e => e.IsOutOfBounds()));
 
 			// Autodestruct ennemies on the ground 
-			if (FallingList.Count != 0)
-				FallingList.FindAll(map.pMap.nearTheGround).ForEach((e => e.SufferDamage()));
+			if (EnemiesList.Count != 0)
+				EnemiesList.FindAll(game.Level.Current.map.pMap.nearTheGround).ForEach((e => e.SufferDamage()));
 
 			// Delete enemies that are dead
 			int i = 0;
-			while (i < FallingList.Count)
+			while (i < EnemiesList.Count)
 			{
-				NonPlayerObject e = FallingList[i];
+				NonPlayerObject e = EnemiesList[i];
 				if (e.Dead)
 				{
-					FallingList.Remove(e);
+					EnemiesList.Remove(e);
 					game.scoreTim.incr(10);
 				}
 				else

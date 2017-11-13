@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 namespace tim_dodge
@@ -14,8 +15,19 @@ namespace tim_dodge
 			Damage = 0;
 			Bonus = 0;
 			Life = 0;
+			poisonState = PoisonState.Nothing;
 			Dead = false;
 		}
+
+		public enum PoisonState
+		{
+			Nothing = 0,
+			Rotation = 1,
+			Horizontal = 2,
+			Vertical = 3
+		}
+
+		public PoisonState poisonState;
 
 		public int Damage
 		{
@@ -45,6 +57,12 @@ namespace tim_dodge
 		{
 			get;
 			protected set;
+		}
+
+		public virtual void SetState(bool damaged, bool dead)
+		{
+			Damaged = damaged;
+			Dead = dead;
 		}
 
 		public virtual void SufferDamage()

@@ -11,59 +11,85 @@ namespace tim_dodge
 	/// </summary>
 	public class LevelManager
 	{
-		public Level Current { get { return Levels[LevelNumber.value - 1]; } }
-		private List<Level> Levels;
+		public Level Current { get; protected set; }
+		private List<LevelDefinition> Levels;
 		private Stat LevelNumber;
 		private Item Title;
+		GameInstance game;
 
-		private Level Level1;
-		private Level Level2;
-		private Level Level3;
-		private Level Level4;
-		private Level Level5;
+		struct LevelDefinition
+		{
+			public LevelDefinition(Map m, Texture2D bck, Texture map_text, int time,
+								  float interval, Color int_color, bool fireball, bool bomb)
+			{
+				this.map = m;
+				this.background = bck;
+				this.map_texture = map_text;
+				this.time = time;
+				this.interval = interval;
+				this.interface_color = int_color;
+				this.fireball_activ = fireball;
+				this.bomb_activ = bomb;
+			}
+
+			public Map map;
+			public Texture2D background;
+			public Texture map_texture;
+			public int time;
+			public float interval;
+			public Color interface_color;
+
+			public bool fireball_activ;
+			public bool bomb_activ;
+		}
 
 		public LevelManager(GameInstance game)
 		{
+			this.game = game;
 			LevelNumber = new Stat(Load.FontScore, Color.Red, "Level : ", 1);
 			// level below score
 			LevelNumber.Position = new Vector2(game.scoreTim.source.X, game.scoreTim.source.Bottom);
 
-			Title = new Item("Level 1", Load.FontTitleLevel, Color.Blue);
-			Title.Position = new Vector2((TimGame.WINDOW_WIDTH - Title.Size.X) / 2,
-										 (TimGame.WINDOW_HEIGHT - Title.Size.Y) / 2);
+			Title = new Item("Level X", Load.FontTitleLevel, Color.Blue);
+			Title.Position = new Vector2((TimGame.GAME_WIDTH - Title.Size.X) / 2,
+										 (TimGame.GAME_HEIGHT - Title.Size.Y) / 2);
 
 			Map map = new Map(Load.BackgroundSun, Load.MapTextureNature);
 
-			Level1 = new Level(game, map, Load.BackgroundSun, Load.MapTextureNature, 10, 0.4f);
-			Level1.FireballActiv = true;
-
-			Level2 = new Level(game, map, Load.BackgroundGreen, Load.MapTextureDesert, 15, 0.3f);
-			Level2.FireballActiv = true;
-
-			Level3 = new Level(game, map, Load.BackgroundDark, Load.MapTextureGraveyard,20, 0.25f);
-			Level3.FireballActiv = true;
-
-			Level4 = new Level(game, map, Load.BackgroundWinter, Load.MapTextureWinter, 25, 0.25f);
-			Level4.FireballActiv = true;
-			Level4.BombActiv = true;
-
-			Level5 = new Level(game, map, Load.BackgroundSun, Load.MapTextureNature, 50, 0.2f);
-			Level5.FireballActiv = true;
-			Level5.BombActiv = true;
-
-			Levels = new List<Level> { Level1, Level2, Level3, Level4, Level5 };
-
-			Current.BeginLevel();
+			LevelDefinition Level1 = new LevelDefinition(map, Load.BackgroundSun, Load.MapTextureNature,
+														 10, 0.3f, Color.Black, true, false);
+			LevelDefinition Level2 = new LevelDefinition(map, Load.BackgroundGreen, Load.MapTextureDesert,
+														 15, 0.2f, Color.Black, true, false);
+			LevelDefinition Level3 = new LevelDefinition(map, Load.BackgroundDark, Load.MapTextureGraveyard,
+														 20, 0.15f, Color.White, true, false);
+			LevelDefinition Level4 = new LevelDefinition(map, Load.BackgroundWinter, Load.MapTextureWinter,
+														 25, 0.15f, Color.Black, true, true);
+			LevelDefinition Level5 = new LevelDefinition(map, Load.BackgroundSun, Load.MapTextureNature,
+														 50, 0.1f, Color.Black, true, true);
+			Levels = new List<LevelDefinition> { Level1, Level2, Level3, Level4, Level5 };
+			SetLevel(0);
 		}
+
+		public void SetLevel(int lvl)
+		{
+			if (lvl != LevelNumber.value && lvl < Levels.Count && lvl >= 0)
+			{
+				LevelNumber.set(lvl);
+				Title.Text = "Level " + (LevelNumber.value + 1).ToString();
+
+				LevelDefinition def = Levels[lvl];
+				Current = new Level(game, def.map, def.background, def.map_texture, def.time, def.interval, def.interface_color);
+				Current.FireballActiv = def.fireball_activ;
+				Current.BombActiv = def.bomb_activ;
+				Current.BeginLevel();
+			}
+		}
+
+		public int CurrentLevelNumber() { return LevelNumber.value; }
 
 		public void LevelUp()
 		{
-			if (LevelNumber.value < Levels.Count)
-			{
-				LevelNumber.incr(1);
-				Title.Text = "Level " + LevelNumber.value.ToString();
-				Current.BeginLevel();
-			}
+			SetLevel(LevelNumber.value + 1);
 		}
 
 		public void Update(float elapsed)

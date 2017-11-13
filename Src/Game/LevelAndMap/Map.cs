@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -11,78 +12,56 @@ namespace tim_dodge
 	{
 		public Map(Texture2D Background, Texture MapTexture)
 		{
-			gMap = new GraphicalMap(Background, MapTexture);
+			tileMap = new List<BlockObject>();
+
+			//Object(Texture texture, int x, int y, Ground state)
+			tileMap.Add(new BlockObject(MapTexture, 6, Map.numberTileY, BlockObject.Ground.RightDurt));
+			tileMap.Add(new BlockObject(MapTexture, 10, Map.numberTileY, BlockObject.Ground.LeftDurt));
+			tileMap.Add(new BlockObject(MapTexture, 6, Map.numberTileY - 1, BlockObject.Ground.RightGround));
+			tileMap.Add(new BlockObject(MapTexture, 10, Map.numberTileY - 1, BlockObject.Ground.LeftGround));
+
+
+			for (int i = 0; i < Map.numberTileX; i++)
+			{
+				if (i < 6 || i > 10)
+				{
+					tileMap.Add(new BlockObject(MapTexture, i, Map.numberTileY - 1, BlockObject.Ground.MiddleGround));
+					tileMap.Add(new BlockObject(MapTexture, i, Map.numberTileY, BlockObject.Ground.MiddleDurt));
+				}
+
+			}
+			//Serializer<List<Map.Block>>.Save(Load.PathLevels[0], tileMap);
+
+			gMap = new GraphicalMap(Background, MapTexture, tileMap);
 			pMap = new PhysicalMap(gMap.tileMap);
 		}
 
 		public GraphicalMap gMap;
 		public PhysicalMap pMap;
+		public List<BlockObject> tileMap;
 
 		public void Draw(SpriteBatch spriteBatch)
 		{
 			gMap.Draw(spriteBatch);
 		}
 
-		public enum Ground
+		public void AddBlock(BlockObject bl)
 		{
-			LeftGround = 0,
-			MiddleGround = 1,
-			RightGround = 2,
-			LeftDurt = 3,
-			MiddleDurt = 4,
-			RightDurt = 5,
-			RightEGround = 6,
-			BottomRightDurt = 7,
-			BottomDurt = 8,
-			BottomLeftDurt = 9,
-			LeftEGround = 10,
-			BottomLeft2Durt = 11,
-			LeftPlatform = 12,
-			MiddlePlatform = 13,
-			RightPlatform = 14,
-			BottomRight2Durt = 15,
-			UpWater = 16,
-			MiddleWater = 17,
+			RemoveBlock(bl.x, bl.y);
+			tileMap.Add(bl);
 		}
 
-		public class Block
+		public void RemoveBlock(int x, int y)
 		{
-			private int _x;
-			private int _y;
-
-			public int x
+			try
 			{
-				get { return _x; }
-				set { _x = value; _position.X = value * h; }
+				tileMap.Remove(tileMap.Find((BlockObject obj) => obj.x == x && obj.y == y));
 			}
-
-			public int y
-			{
-				get { return _y; }
-				set { _y = value; _position.Y = value * w; }
-			}
-
-			private Vector2 _position;
-
-			public Vector2 position
-			{
-				get { return _position; }
-			}
-
-			public Map.Ground state;
-
-			public float h;
-			public float w;
-
-			public Block(float h, float w, int x, int y, Map.Ground state)
-			{
-				this.h = h;
-				this.w = w;
-				this.x = x;
-				this.y = y;
-				this.state = state;
-			}
+			catch { }
 		}
+
+		public const int numberTileY = TimGame.GAME_HEIGHT / 64;
+		public const int numberTileX = TimGame.GAME_WIDTH / 64;
 
 	}
 }

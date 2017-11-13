@@ -36,6 +36,11 @@ namespace tim_dodge
 			return directions;
 		}
 
+		public static bool RewindKeyDown(KeyboardState state)
+		{
+			return state.IsKeyDown(Keys.LeftShift);
+		}
+
 		public static bool KeyPressed(Keys key)
 		{	// Return True iff the Key key just has been pressed
 			return TimGame.previousKeyState.IsKeyUp(key) && TimGame.currentKeyState.IsKeyDown(key);

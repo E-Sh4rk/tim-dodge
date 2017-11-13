@@ -9,7 +9,7 @@ namespace tim_dodge
 	/// </summary>
 	public class Bomb : NonPlayerObject
 	{
-		public Bomb(Texture t, Sprite s, Vector2 p): base(t,s,p)
+		public Bomb(Vector2 p): base(Load.BombTexture,new Sprite("Content.objects.bomb.xml"),p)
 		{
 			Mass = 5;
 			Damage = 2;

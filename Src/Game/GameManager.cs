@@ -19,11 +19,13 @@ namespace tim_dodge
 		public TimGame Application { get; }
 
 		public GameInstance game;
+		public MapEditorInstance editor;
+
 		private MenuManager Menu;
 
-		public bool GameRunning { get { return game != null; } }
-
-		public bool rotation = false;
+		public bool GameRunning { get { return game != null;} }
+		public bool MenuRunning { get { return Menu.MenuRunning;} }
+		public bool EditorRunning { get { return editor != null && editor.focus; } }
 
 		public GameManager(ContentManager Content, TimGame Application)
 		{
@@ -36,16 +38,31 @@ namespace tim_dodge
 		{
 			if (GameRunning && game.player.IsDead())
 			{
+				game.UndoPoisons();
+				game.focus = false;
 				Menu.LaunchGameOver();
 			}
 
 			if (Menu.MenuRunning)
 				Menu.Update();
 
-			else if (GameRunning)
+			else if (EditorRunning)
+			{
+				if (Controller.KeyPressed(Keys.Escape))
+				{
+					editor.focus = false;
+					Menu.LaunchPause();
+				}
+				editor.Update(gameTime);
+			}
+
+			else if (GameRunning && game.focus)
 			{
 				if (Controller.KeyPressed(Keys.Space) || Controller.KeyPressed(Keys.P) || Controller.KeyPressed(Keys.Escape))
+				{
+					game.focus = false;
 					Menu.LaunchPause();
+				}
 				game.Update(gameTime);
 			}
 		}
@@ -53,13 +70,16 @@ namespace tim_dodge
 		public void Draw(SpriteBatch spriteBatch)
 		{
 			// Menu 
-			spriteBatch.Draw(Load.BackgroundSun, Vector2.Zero, Color.White);
+			spriteBatch.Draw(Load.BackgroundSun, new Rectangle(0, 0, TimGame.GAME_WIDTH, TimGame.GAME_HEIGHT), Color.White);
 
 			if (GameRunning)
 				game.Draw(spriteBatch);
 
 			if (Menu.MenuRunning)
 				Menu.Draw(spriteBatch);
+
+			if (EditorRunning)
+				editor.Draw(spriteBatch);
 		}
 	}
 }

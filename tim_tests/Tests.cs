@@ -68,7 +68,7 @@ namespace tim_tests
 		{
 			// Should be dead at the end
 			g.initializeHardLevel();
-			int remainingFrames = 250;
+			int remainingFrames = 500;
 			bool ok1 = false;
 			while (remainingFrames > 0)
 			{

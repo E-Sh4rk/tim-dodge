@@ -51,6 +51,7 @@ namespace tim_dodge
 			// Constructrion of menus
 			Initialize(InitialMenu, "Menu", new List<MenuItem> {
 				new MenuItem("New Game", NewGame),
+				new MenuItem("Map Editor", NewEditor),
 				new MenuItem("Parameters", Parameters),
 				new MenuItem("Best Scores", BestScores),
 				new MenuItem("Quit", Quit) }
@@ -59,6 +60,7 @@ namespace tim_dodge
 			Initialize(PauseMenu, "Pause", new List<MenuItem> {
 				new MenuItem("Resume", Resume),
 				new MenuItem("New Game", NewGame),
+				new MenuItem("Map Editor", NewEditor),
 				new MenuItem("Parameters", Parameters),
 				new MenuItem("Best Scores", BestScores),
 				new MenuItem("Quit", Quit) }
@@ -72,9 +74,10 @@ namespace tim_dodge
 				choiceSoundItem = new MenuItem("   Activate Sound Effects   ", ChoiceSound);
 			else
 				choiceSoundItem = new MenuItem("Deactivate Sound Effects", ChoiceSound);
+			/*
 			try
 			{
-				if (GameManager.rotation)
+				if (GameManager.game.rotation)
 					choiceCharlieItem = new MenuItem("Deactivate Option Charlie", ChoiceCharlie);
 				else
 					choiceCharlieItem = new MenuItem("Activate Option Charlie", ChoiceCharlie);
@@ -82,12 +85,12 @@ namespace tim_dodge
 			catch
 			{
 				choiceCharlieItem = new MenuItem("Activate Option Charlie", ChoiceCharlie);
-			}
+			}*/
 
 			Initialize(ParamMenu, "Parameters", new List<MenuItem> {
 				choiceMusicItem,
 				choiceSoundItem,
-				choiceCharlieItem,
+				//choiceCharlieItem,
 				new MenuItem("Back to Menu", Previous) }
 					  );
 
@@ -102,10 +105,10 @@ namespace tim_dodge
 				new MenuItem("Quit the game", Quit) }
 					  );
 
-			YourName = new KeyboardReader("You beat an highscore".Length);
+			YourName = new KeyboardReader("You beat a highscore".Length);
 			EnterYourName = new MenuItem(messageYourName, Load.FontMenu, Load.ColorTextMenu); // Text updated by the update function
 			Initialize(Congrats, "Congrats !", new List<MenuItem> {
-				new MenuItem("You beat an highscore", Load.FontMenu, Load.ColorTextMenu),
+				new MenuItem("You beat a highscore", Load.FontMenu, Load.ColorTextMenu),
 				EnterYourName,
 				new MenuItem("<Validate>", RecordHighscore) }
 					  );
@@ -168,13 +171,26 @@ namespace tim_dodge
 			CurrentMenu = new List<MenuWindow>();
 		}
 
+		private void NewEditor()
+		{
+			GameManager.editor = new MapEditorInstance();
+			CurrentMenu = new List<MenuWindow>();
+		}
+
 		public void LaunchPause()
 		{
 			Load.sounds.playSound(Sound.SoundName.toogle);
 			CurrentMenu.Add(PauseMenu);
 		}
 
-		private void Resume() { CurrentMenu = new List<MenuWindow>(); }
+		private void Resume()
+		{ 
+			CurrentMenu = new List<MenuWindow>();
+			if (GameManager.GameRunning)
+				GameManager.game.focus = true;
+			else
+				GameManager.editor.focus = true;
+		}
 
 		private void Parameters() { CurrentMenu.Add(ParamMenu); }
 
@@ -223,14 +239,14 @@ namespace tim_dodge
 
 		private void ChoiceCharlie()
 		{
-			if (GameManager.rotation)
+			if (GameManager.game.rotation)
 			{
-				GameManager.rotation = false;
+				GameManager.game.rotation = false;
 				choiceCharlieItem.Text = "Activate Option Charlie";
 			}
 			else
 			{
-				GameManager.rotation = true;
+				GameManager.game.rotation = true;
 				choiceCharlieItem.Text = "Deactivate Option Charlie";
 			}
 					           

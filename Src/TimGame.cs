@@ -18,9 +18,10 @@ namespace tim_dodge
 
 		public const int WINDOW_WIDTH = 1280;
 		public const int WINDOW_HEIGHT = 720;
+		public const float general_scale = 1.5f;
 
-		public static int GAME_WIDTH = 1280;
-		public static int GAME_HEIGHT = 720;
+		public const int GAME_WIDTH = (int)(WINDOW_WIDTH*general_scale);
+		public const int GAME_HEIGHT = (int)(WINDOW_HEIGHT*general_scale);
 
 		GameManager Game;
 
@@ -72,15 +73,8 @@ namespace tim_dodge
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Update(GameTime gameTime)
 		{
-			// For Mobile devices, this logic will close the Game when the Back button is pressed
-			// Exit() is obsolete on iOS
-#if !__IOS__ && !__TVOS__
-			//if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-			//	Exit();
-#endif
-
-			graphics.PreferredBackBufferWidth = WINDOW_WIDTH;
-			graphics.PreferredBackBufferHeight = WINDOW_HEIGHT;
+			//graphics.PreferredBackBufferWidth = GAME_WIDTH;
+			//graphics.PreferredBackBufferHeight = GAME_HEIGHT;
 
 			// cf function KeyPressed in the class Controller
 			previousKeyState = currentKeyState;
