@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Xml.Serialization;
 using Microsoft.Xna.Framework;
 
 namespace tim_dodge
@@ -41,6 +42,7 @@ namespace tim_dodge
 			return new SColor(c.R, c.G, c.B, c.A);
 		}
 	}
+	[XmlInclude(typeof(PhysicalObjectSnapshot))]
 	public class ObjectSnapshot
 	{
 		// Properties that must be captured/restored. TYPES USED MUST NOT BE MUTABLE.
@@ -67,6 +69,8 @@ namespace tim_dodge
 			sprite_direction = model_ptr.Sprite.Direction;
 		}
 	}
+	[XmlInclude(typeof(PlayerObjectSnapshot))]
+	[XmlInclude(typeof(NonPlayerObjectSnapshot))]
 	public class PhysicalObjectSnapshot : ObjectSnapshot
 	{
 		// Additional properties for kinetic objects

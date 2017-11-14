@@ -77,7 +77,11 @@ namespace tim_dodge
 				game.Draw(spriteBatch);
 
 			if (Menu.MenuRunning)
+			{
+				if (!GameRunning)
+					Menu.chooseMap.Draw(spriteBatch);
 				Menu.Draw(spriteBatch);
+			}
 
 			if (EditorRunning)
 				editor.Draw(spriteBatch);

@@ -30,8 +30,9 @@ namespace tim_dodge
 		Snapshot[] snapshots = new Snapshot[max_snapshots];
 		int current_snapshot_index = 0;
 		int oldest_snapshot_index = 0;
-		int newest_snapshot_index = 0;
+		int newest_snapshot_index = -1;
 		bool mode_rewind = false;
+		bool mode_replay = false;
 		// TODO: modify falling&walking objects to not use alea if the future is known
 
 		public void UndoPoisons()
@@ -41,7 +42,7 @@ namespace tim_dodge
 			flipV = false;
 		}
 
-		public GameInstance()
+		public GameInstance(ChooseMap.Maps MapLoad)
 		{
 			Vector2 PositionScoreTim = new Vector2(30, 20);
 
@@ -52,10 +53,39 @@ namespace tim_dodge
 
 			heart = new Heart(Load.HeartFull, Load.HeartSemi, Load.HeartEmpty);
 
-			Level = new LevelManager(this);
-			player = new Player(new Vector2(700, 450), heart, this);
+			Level = new LevelManager(this, MapLoad);
+			player = new Player(new Vector2(700, 300), heart, this);
 			UndoPoisons();
 			focus = true;
+		}
+
+		public void SaveReplay(string file)
+		{
+			List<Snapshot> lst = new List<Snapshot>();
+			int i = oldest_snapshot_index;
+			while (i != current_snapshot_index)
+			{
+				lst.Add(snapshots[i]);
+				i = mod(i + 1,max_snapshots);
+			}
+			Replay.FromSnapshotList(lst).ExportToFile(file);
+		}
+		public void LoadReplay(string file)
+		{
+			List<Snapshot> lst = Replay.ImportFromFile(file).ToSnapshotList(this);
+
+			oldest_snapshot_index = 0;
+			current_snapshot_index = 0;
+			newest_snapshot_index = -1;
+			foreach (Snapshot s in lst)
+			{
+				if (newest_snapshot_index + 1 >= max_snapshots)
+					break;
+				newest_snapshot_index++;
+				snapshots[newest_snapshot_index] = s;
+			}
+
+			mode_replay = true;
 		}
 
 		int mod(int x, int m)
@@ -66,14 +96,27 @@ namespace tim_dodge
 		public void Update(GameTime gameTime)
 		{
 			KeyboardState state = Keyboard.GetState();
+
+			if (Controller.KeyPressed(Keys.S))
+				SaveReplay("replay.xml");
+			if (Controller.KeyPressed(Keys.L))
+				LoadReplay("replay.xml");
+
 			if (Controller.RewindKeyDown(state))
 				mode_rewind = true;
 			else
 				mode_rewind = false;
+
 			if (mode_rewind)
 			{
 				if (current_snapshot_index != oldest_snapshot_index)
 					current_snapshot_index = mod(current_snapshot_index - 1, max_snapshots);
+				snapshots[current_snapshot_index].RestoreGameState(this);
+			}
+			else if (mode_replay)
+			{
+				if (current_snapshot_index != newest_snapshot_index)
+					current_snapshot_index = mod(current_snapshot_index + 1, max_snapshots);
 				snapshots[current_snapshot_index].RestoreGameState(this);
 			}
 			else
@@ -84,8 +127,7 @@ namespace tim_dodge
 				newest_snapshot_index = current_snapshot_index;
 				current_snapshot_index = mod(current_snapshot_index + 1, max_snapshots);
 				if (current_snapshot_index == oldest_snapshot_index)
-					oldest_snapshot_index++;
-
+					oldest_snapshot_index = mod(oldest_snapshot_index + 1, max_snapshots);
 
 				float insensible_elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
 				float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds * time_multiplicator;

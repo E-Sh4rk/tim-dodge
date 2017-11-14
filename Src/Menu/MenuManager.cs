@@ -36,12 +36,16 @@ namespace tim_dodge
 		private const String messageYourPath = "Enter a file name";
 		private KeyboardReader YourPath;
 
+		public ChooseMap chooseMap;
+
 		public bool MenuRunning { get { return CurrentMenu.Count != 0; } }
 
 		GameManager GameManager;
 
 		public MenuManager(GameManager GameManager)
 		{
+			chooseMap = new ChooseMap();
+
 			this.GameManager = GameManager;
 
 			// Initialization of windows
@@ -55,7 +59,7 @@ namespace tim_dodge
 			Highscores = new MenuWindow();
 
 			// Constructrion of menus
-			Initialize(InitialMenu, "Menu", new List<MenuItem> {
+			Initialize(InitialMenu, "< Maps >", new List<MenuItem> {
 				new MenuItem("New Game", NewGame),
 				new MenuItem("Map Editor", NewEditor),
 				new MenuItem("Parameters", Parameters),
@@ -66,7 +70,6 @@ namespace tim_dodge
 			Initialize(PauseMenu, "Pause", new List<MenuItem> {
 				new MenuItem("Resume", Resume),
 				new MenuItem("New Game", NewGame),
-				new MenuItem("Map Editor", NewEditor),
 				new MenuItem("Parameters", Parameters),
 				new MenuItem("Best Scores", BestScores),
 				new MenuItem("Quit", Quit) }
@@ -152,6 +155,14 @@ namespace tim_dodge
 				Load.sounds.playSound(Sound.SoundName.toogle);
 				Previous();
 			}
+			else if (Controller.KeyPressed(Keys.Right))
+			{
+				chooseMap.RightMap();
+			}
+			else if (Controller.KeyPressed(Keys.Left))
+			{
+				chooseMap.LeftMap();
+			}
 
 			if (CurrentMenu.Last() == Congrats)
 			{
@@ -197,7 +208,7 @@ namespace tim_dodge
 		// Menu functions
 		private void NewGame()
 		{
-			GameManager.game = new GameInstance();
+			GameManager.game = new GameInstance(chooseMap.currentMap);
 			CurrentMenu = new List<MenuWindow>();
 		}
 

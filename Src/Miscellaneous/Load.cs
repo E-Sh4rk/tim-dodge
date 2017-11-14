@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using System.IO;
 
 namespace tim_dodge
 {
@@ -55,11 +56,6 @@ namespace tim_dodge
 		public static String PathHighScores { get; private set; }
 		public static List<String> PathLevels;
 
-		// Maps
-		public static String FlatMap = "Content/environment/flat.xml";
-		public static String DuneMap = "Content/environment/dune.xml";
-		public static String WaterMap = "Content/environment/water.xml";
-
 		public static void LoadContent(ContentManager Content)
 		{
 			// Sound
@@ -73,8 +69,7 @@ namespace tim_dodge
 				Content.Load<SoundEffect>("sound/ah"),
 				Content.Load<SoundEffect>("sound/coin"),
 				Content.Load<SoundEffect>("sound/food")
-			},
-				   new SoundEffect[] { Content.Load<SoundEffect>("sound/cuphead") });
+			},  new SoundEffect[] { Content.Load<SoundEffect>("sound/cuphead") });
 
 			// Texture2D
 			BackgroundMenu = Content.Load<Texture2D>("background/Menu");
@@ -115,6 +110,10 @@ namespace tim_dodge
 			// XML
 			PathHighScores = "scores.xml";
 			PathLevels = new List<String> { "Content.environment.flat.xml", "Content.environment.dune.xml", "Content.environment.water.xml"};
+
+			// Maps
+			foreach (string lvl in PathLevels)
+				File.WriteAllText(lvl.Substring(20),GetStringResource(lvl));
 		}
 
 		public static List<BestScore> LoadHighScores()
@@ -127,6 +126,16 @@ namespace tim_dodge
 			{
 				return new List<BestScore>();
 			}
+		}
+
+		public static string GetStringResource(string path)
+		{
+			var res = typeof(GameInstance).Module.Assembly.GetManifestResourceStream("tim_dodge." + path);
+			var stream = new StreamReader(res);
+			string txt = stream.ReadToEnd();
+			stream.Close();
+			res.Close();
+			return txt;
 		}
 	}
 }
