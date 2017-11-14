@@ -21,17 +21,17 @@ namespace tim_dodge
 	}
 	public struct SColor
 	{
-		public SColor(float r, float g, float b, float a)
+		public SColor(int r, int g, int b, int a)
 		{
 			this.a = a;
 			this.r = r;
 			this.g = g;
 			this.b = b;
 		}
-		public float a;
-		public float r;
-		public float g;
-		public float b;
+		public int a;
+		public int r;
+		public int g;
+		public int b;
 
 		public Color ToColor()
 		{
