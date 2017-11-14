@@ -6,8 +6,9 @@ namespace tim_dodge
 	/// </summary>
 	public class BestScore
 	{
-		public String name;
+		public string name;
 		public int score;
+		public string replay_filename;
 
 		public static int Compare(BestScore b1, BestScore b2)
 		{

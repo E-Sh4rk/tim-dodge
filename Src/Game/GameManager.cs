@@ -45,7 +45,6 @@ namespace tim_dodge
 
 			if (Menu.MenuRunning)
 				Menu.Update();
-
 			else if (EditorRunning)
 			{
 				if (Controller.KeyPressed(Keys.Escape))
@@ -56,7 +55,6 @@ namespace tim_dodge
 				}
 				editor.Update(gameTime);
 			}
-
 			else if (GameRunning && game.focus)
 			{
 				if (Controller.KeyPressed(Keys.Space) || Controller.KeyPressed(Keys.P) || Controller.KeyPressed(Keys.Escape))

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.IO;
 
 namespace tim_dodge
 {
@@ -235,6 +236,13 @@ namespace tim_dodge
 
 		private void Parameters() { CurrentMenu.Add(ParamMenu); }
 
+		private void StartReplay(string filename)
+		{
+			GameManager.game = new GameInstance(chooseMap.currentMap);
+			GameManager.game.LoadReplay(filename);
+			CurrentMenu = new List<MenuWindow>();
+		}
+
 		public void LaunchGameOver()
 		{
 			if (CurrentMenu.Count == 0)
@@ -317,6 +325,7 @@ namespace tim_dodge
 		{
 			List<BestScore> emptyScores = new List<BestScore>();
 			Serializer<List<BestScore>>.Save(Load.PathHighScores, emptyScores);
+			try { Directory.Delete("replays", true); } catch { }
 			Previous();
 			BestScores();
 		}
@@ -334,7 +343,9 @@ namespace tim_dodge
 				{
 					String name = highscores[i].name;
 					String score = highscores[i].score.ToString();
-					ScoreItems.Add(new MenuItem((i + 1).ToString() + ". " + name + " : " + score, Load.FontMenu, Load.ColorTextMenu));
+					String filename = highscores[i].replay_filename;
+					ScoreItems.Add(new MenuItem((i + 1).ToString() + ". " + name + " : " + score, /*Load.FontMenu, Load.ColorTextMenu,*/
+					                            () => { StartReplay(filename);}));
 				}
 			}
 
@@ -355,11 +366,16 @@ namespace tim_dodge
 				BestScore newScore = new BestScore();
 				newScore.score = gameScore;
 				newScore.name = YourName.Text;
+				newScore.replay_filename = "replays/"+newScore.name+"-"+newScore.score+".xml";
+				GameManager.game.SaveReplay(newScore.replay_filename);
 				highscores.Add(newScore);
 				highscores.Sort((b1, b2) => BestScore.Compare(b1, b2));
 
 				while (highscores.Count > SizeHighscores)
+				{
+					try { File.Delete(highscores.Last().replay_filename); } catch { }
 					highscores.Remove(highscores.Last());
+				}
 
 				Serializer<List<BestScore>>.Save(Load.PathHighScores, highscores);
 

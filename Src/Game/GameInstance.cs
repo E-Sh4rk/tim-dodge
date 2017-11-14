@@ -26,7 +26,7 @@ namespace tim_dodge
 
 		public bool focus;
 
-		const int max_snapshots = 1000;
+		const int max_snapshots = 10000;
 		Snapshot[] snapshots = new Snapshot[max_snapshots];
 		int current_snapshot_index = 0;
 		int oldest_snapshot_index = 0;
@@ -68,24 +68,28 @@ namespace tim_dodge
 				lst.Add(snapshots[i]);
 				i = mod(i + 1,max_snapshots);
 			}
-			Replay.FromSnapshotList(lst).ExportToFile(file);
+			try { Replay.FromSnapshotList(lst).ExportToFile(file); } catch { }
 		}
 		public void LoadReplay(string file)
 		{
-			List<Snapshot> lst = Replay.ImportFromFile(file).ToSnapshotList(this);
+			List<Snapshot> lst = null;
+			try { lst = Replay.ImportFromFile(file).ToSnapshotList(this); }
+			catch { }
 
-			oldest_snapshot_index = 0;
-			current_snapshot_index = 0;
-			newest_snapshot_index = -1;
-			foreach (Snapshot s in lst)
+			if (lst != null)
 			{
-				if (newest_snapshot_index + 1 >= max_snapshots)
-					break;
-				newest_snapshot_index++;
-				snapshots[newest_snapshot_index] = s;
+				oldest_snapshot_index = 0;
+				current_snapshot_index = 0;
+				newest_snapshot_index = -1;
+				foreach (Snapshot s in lst)
+				{
+					if (newest_snapshot_index + 1 >= max_snapshots)
+						break;
+					newest_snapshot_index++;
+					snapshots[newest_snapshot_index] = s;
+				}
+				mode_replay = true;
 			}
-
-			mode_replay = true;
 		}
 
 		int mod(int x, int m)
@@ -96,11 +100,6 @@ namespace tim_dodge
 		public void Update(GameTime gameTime)
 		{
 			KeyboardState state = Keyboard.GetState();
-
-			if (Controller.KeyPressed(Keys.S))
-				SaveReplay("replay.xml");
-			if (Controller.KeyPressed(Keys.L))
-				LoadReplay("replay.xml");
 
 			if (Controller.RewindKeyDown(state))
 				mode_rewind = true;
