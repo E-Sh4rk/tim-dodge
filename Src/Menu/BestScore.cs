@@ -9,6 +9,7 @@ namespace tim_dodge
 		public string name;
 		public int score;
 		public string replay_filename;
+		public ChooseMap.Maps map;
 
 		public static int Compare(BestScore b1, BestScore b2)
 		{

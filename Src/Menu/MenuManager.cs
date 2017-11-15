@@ -158,11 +158,13 @@ namespace tim_dodge
 			}
 			else if (Controller.KeyPressed(Keys.Right))
 			{
-				chooseMap.RightMap();
+				if (!GameManager.GameRunning)
+					chooseMap.RightMap();
 			}
 			else if (Controller.KeyPressed(Keys.Left))
 			{
-				chooseMap.LeftMap();
+				if (!GameManager.GameRunning)
+					chooseMap.LeftMap();
 			}
 
 			if (CurrentMenu.Last() == Congrats)
@@ -236,9 +238,9 @@ namespace tim_dodge
 
 		private void Parameters() { CurrentMenu.Add(ParamMenu); }
 
-		private void StartReplay(string filename)
+		private void StartReplay(ChooseMap.Maps map, string filename)
 		{
-			GameManager.game = new GameInstance(chooseMap.currentMap);
+			GameManager.game = new GameInstance(map);
 			GameManager.game.LoadReplay(filename);
 			CurrentMenu = new List<MenuWindow>();
 		}
@@ -344,8 +346,9 @@ namespace tim_dodge
 					String name = highscores[i].name;
 					String score = highscores[i].score.ToString();
 					String filename = highscores[i].replay_filename;
+					ChooseMap.Maps map = highscores[i].map;
 					ScoreItems.Add(new MenuItem((i + 1).ToString() + ". " + name + " : " + score, /*Load.FontMenu, Load.ColorTextMenu,*/
-					                            () => { StartReplay(filename);}));
+					                            () => { StartReplay(map, filename);}));
 				}
 			}
 
@@ -367,6 +370,7 @@ namespace tim_dodge
 				newScore.score = gameScore;
 				newScore.name = YourName.Text;
 				newScore.replay_filename = "replays/"+newScore.name+"-"+newScore.score+".xml";
+				newScore.map = chooseMap.currentMap;
 				GameManager.game.SaveReplay(newScore.replay_filename);
 				highscores.Add(newScore);
 				highscores.Sort((b1, b2) => BestScore.Compare(b1, b2));
