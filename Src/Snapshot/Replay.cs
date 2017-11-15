@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Microsoft.Xna.Framework;
 using System.Linq;
+using System.IO;
 
 namespace tim_dodge
 {
@@ -137,6 +138,7 @@ namespace tim_dodge
 		// Export and import functions
 		public void ExportToFile(string file)
 		{
+			Directory.CreateDirectory(Path.GetDirectoryName(file));
 			Serializer<Replay>.Save(file, this);
 		}
 		public static Replay ImportFromFile(string file)
