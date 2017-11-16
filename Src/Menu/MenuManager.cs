@@ -250,7 +250,7 @@ namespace tim_dodge
 			if (CurrentMenu.Count == 0)
 			{
 				CurrentMenu.Add(Gameover);
-				gameScore = GameManager.game.scoreTim.value;
+				gameScore = GameManager.game.GetGlobalScore();
 
 				List<BestScore> highscores = Load.LoadHighScores();
 

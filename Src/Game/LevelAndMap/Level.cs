@@ -57,7 +57,7 @@ namespace tim_dodge
 		public void BeginLevel()
 		{
 			game.UndoPoisons();
-			game.scoreTim.Color = scoreColor;
+			game.SetScoresColor(scoreColor);
 			map.gMap.changeTexture(MapTexture);
 			map.gMap.changeBackground(Background);
 		}

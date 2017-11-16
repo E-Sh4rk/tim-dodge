@@ -28,12 +28,12 @@ namespace tim_dodge
 
 		private HeartState[] Container;
 
-		public Heart(Texture2D full, Texture2D semi, Texture2D empty)
+		public Heart()
 		{
 			heartTexture = new Texture2D[3];
-			heartTexture[(int)HeartState.full] = full;
-			heartTexture[(int)HeartState.semi] = semi;
-			heartTexture[(int)HeartState.empty] = empty;
+			heartTexture[(int)HeartState.full] = Load.HeartFull;
+			heartTexture[(int)HeartState.semi] = Load.HeartSemi;
+			heartTexture[(int)HeartState.empty] = Load.HeartEmpty;
 
 			Container = new HeartState[slotNumber];
 
@@ -41,14 +41,14 @@ namespace tim_dodge
 
 		}
 
-		public Heart(Texture2D full, Texture2D semi, Texture2D empty, int initlife)
-		: this(full, semi, empty)
+		public Heart(int initlife) : this()
 		{
 			value = initlife;
 		}
 
-		public void Update()
+		public void Draw(SpriteBatch spriteBatch)
 		{
+			// Update
 			for (int i = 0; i < slotNumber; i++)
 			{
 				if (value - 2 * i == 1)
@@ -56,15 +56,11 @@ namespace tim_dodge
 				else if (value - 2 * i <= 0)
 					Container[i] = HeartState.empty;
 				else
-					Container[i] = HeartState.full;                        
+					Container[i] = HeartState.full;
 			}
-		}
 
-
-		public void Draw(SpriteBatch spriteBatch)
-		{
+			// Draw
 			Vector2 position = new Vector2(position0.X, position0.Y);
-
 			for (int i = 0; i < slotNumber; i++)
 			{
 				spriteBatch.Draw(heartTexture[(int)Container[i]], position, Color.White);

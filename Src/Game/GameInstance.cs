@@ -14,9 +14,7 @@ namespace tim_dodge
 	public class GameInstance
 	{
 		public Player player;
-		public Stat scoreTim { get; protected set; }
 
-		public Heart heart { get; protected set; }
 		public LevelManager Level { get; protected set; }
 
 		public float time_multiplicator = 1f;
@@ -35,6 +33,19 @@ namespace tim_dodge
 		bool mode_replay = false;
 		// TODO: modify falling&walking objects to not use alea if the future is known
 
+		public int GetGlobalScore()
+		{
+			return player.Score.value;
+		}
+		public void AddToScores(int v)
+		{
+			player.Score.incr(v);
+		}
+		public void SetScoresColor(Color c)
+		{
+			player.Score.Color = c;
+		}
+
 		public void UndoPoisons()
 		{
 			rotation = false;
@@ -44,17 +55,11 @@ namespace tim_dodge
 
 		public GameInstance(ChooseMap.Maps MapLoad)
 		{
-			Vector2 PositionScoreTim = new Vector2(30, 20);
+			Stat score = new Stat(Load.FontScore, Color.Black, "Score : ", 0);
+			score.Position = new Vector2(30, 20);
 
-			scoreTim = new Stat(Load.FontScore, Color.Black, "Score : ", 0);
-			//scoreTim = new Stat(Load.FontScore, Color.WhiteSmoke, "Score : ", 0);
-
-			scoreTim.Position = PositionScoreTim;
-
-			heart = new Heart(Load.HeartFull, Load.HeartSemi, Load.HeartEmpty);
-
+			player = new Player(new Vector2(700, 300), score, this);
 			Level = new LevelManager(this, MapLoad);
-			player = new Player(new Vector2(700, 300), heart, this);
 			UndoPoisons();
 			focus = true;
 		}
@@ -168,10 +173,8 @@ namespace tim_dodge
 				en.Draw(spriteBatch);
 			foreach (NonPlayerObject en in Level.Current.walking.EnemiesList)
 				en.Draw(spriteBatch);
-			scoreTim.Draw(spriteBatch);
+			player.Score.Draw(spriteBatch);
 			player.Life.Draw(spriteBatch);
-			player.Life.Update();
-			heart.Draw(spriteBatch);
 		}
 
 	}

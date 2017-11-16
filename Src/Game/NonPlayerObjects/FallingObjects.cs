@@ -100,7 +100,7 @@ namespace tim_dodge
 				if (e.Dead)
 				{
 					EnemiesList.Remove(e);
-					game.scoreTim.incr(10);
+					game.AddToScores(10);
 				}
 				else
 					i++;
