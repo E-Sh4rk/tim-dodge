@@ -12,7 +12,8 @@ namespace tim_tests
 			if (hard)
 			{
 				// Test level 5 with 0.5 hearts
-				player.Life.decr(player.Life.value - 1);
+				foreach(tim_dodge.Player p in players)
+					p.Life.decr(p.Life.value - 1);
 				Level.LevelUp();
 				Level.LevelUp();
 				Level.LevelUp();
@@ -28,7 +29,13 @@ namespace tim_tests
 
 		public new void Update(GameTime gameTime)
 		{
-			if (player.IsDead())
+			bool isDead = true;
+			foreach (tim_dodge.Player p in players)
+			{
+				if (!p.IsDead())
+					isDead = false;
+			}
+			if (isDead)
 				alreadyDead = true;
 			base.Update(gameTime);
 		}

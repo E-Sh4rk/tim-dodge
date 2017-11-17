@@ -35,7 +35,7 @@ namespace tim_dodge
 			//public Type type; // Not serializable...
 			public string type_str;
 
-			public GameObject BuildObject(GameInstance g)
+			public GameObject BuildObject(GameInstance g, int nb_players)
 			{
 				GameObject o = null;
 				Vector2 p = new Vector2(0,0);
@@ -58,7 +58,7 @@ namespace tim_dodge
 				if (type == typeof(Monstar))
 					o = new Monstar(p, g, Controller.Direction.RIGHT);
 				if (type == typeof(Player))
-					o = new Player(p, g.GetNewScorePosition(), g);
+					o = new Player(p, g.GetNewScorePosition(nb_players), g);
 
 				return o;
 			}
@@ -114,11 +114,14 @@ namespace tim_dodge
 		{
 			// Instanciation of objects
 			GameObject[] instances = new GameObject[objects.Length];
+			int nb_players = 0;
 			for (int i = 0; i < objects.Length; i++)
 			{
-				instances[i] = objects[i].BuildObject(g);
+				instances[i] = objects[i].BuildObject(g, nb_players);
 				if (instances[i] == null)
 					System.Diagnostics.Debug.Assert(false);
+				if (instances[i] is Player)
+					nb_players++;
 			}
 
 			// Conversion of the list

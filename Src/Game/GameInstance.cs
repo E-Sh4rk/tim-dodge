@@ -64,15 +64,15 @@ namespace tim_dodge
 		public GameInstance(ChooseMap.Maps MapLoad)
 		{
 			players = new List<Player>();
-			players.Add(new Player(new Vector2(700, 300), new Vector2(30, 20), this));
+			players.Add(new Player(new Vector2(700, 300), GetNewScorePosition(0), this));
 			Level = new LevelManager(this, MapLoad);
 			UndoPoisons();
 			focus = true;
 		}
 
-		public Vector2 GetNewScorePosition()
+		public Vector2 GetNewScorePosition(int nb)
 		{
-			return new Vector2(30, 20);
+			return new Vector2(30, 20+50*nb);
 		}
 
 		public void SaveReplay(string file)
