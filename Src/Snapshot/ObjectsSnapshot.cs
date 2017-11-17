@@ -94,6 +94,7 @@ namespace tim_dodge
 	{
 		// Additional properties for players
 		public int life;
+		public int score;
 
 		public override void RestoreModelState(GameObject model_ptr)
 		{
@@ -103,11 +104,13 @@ namespace tim_dodge
 				((Player)model_ptr).Life.decr(diff);
 			if (diff < 0)
 				((Player)model_ptr).Life.incr(-diff);
+			((Player)model_ptr).Score.set(score);
 		}
 		public override void CaptureModelState(GameObject model_ptr)
 		{
 			base.CaptureModelState(model_ptr);
 			life = ((Player)model_ptr).Life.value;
+			score = ((Player)model_ptr).Score.value;
 		}
 	}
 	public class NonPlayerObjectSnapshot : PhysicalObjectSnapshot

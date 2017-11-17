@@ -13,9 +13,9 @@ namespace tim_dodge
 		private Texture2D[] heartTexture;
 
 		public const int slotNumber = 4;
-
 		private static Vector2 spacement = new Vector2(50,0);
-		private Vector2 position0 = new Vector2(TimGame.GAME_WIDTH - ((slotNumber)*(spacement.X) ), 20);
+
+		private Vector2 position = new Vector2(0, 0);
 
 		public int value { get; private set; }
 
@@ -28,7 +28,7 @@ namespace tim_dodge
 
 		private HeartState[] Container;
 
-		public Heart()
+		public Heart(Vector2 pos)
 		{
 			heartTexture = new Texture2D[3];
 			heartTexture[(int)HeartState.full] = Load.HeartFull;
@@ -38,10 +38,10 @@ namespace tim_dodge
 			Container = new HeartState[slotNumber];
 
 			value = slotNumber * 2;
-
+			position = new Vector2(TimGame.GAME_WIDTH - ((slotNumber) * (spacement.X)), pos.Y);
 		}
 
-		public Heart(int initlife) : this()
+		public Heart(Vector2 pos, int initlife) : this(pos)
 		{
 			value = initlife;
 		}
@@ -60,11 +60,11 @@ namespace tim_dodge
 			}
 
 			// Draw
-			Vector2 position = new Vector2(position0.X, position0.Y);
+			Vector2 pos = new Vector2(position.X, position.Y);
 			for (int i = 0; i < slotNumber; i++)
 			{
-				spriteBatch.Draw(heartTexture[(int)Container[i]], position, Color.White);
-				position += spacement;
+				spriteBatch.Draw(heartTexture[(int)Container[i]], pos, Color.White);
+				pos += spacement;
 			}
 		}
 

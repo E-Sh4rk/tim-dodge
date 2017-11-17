@@ -43,9 +43,10 @@ namespace tim_dodge
 
 						int X = random.Next(0, TimGame.GAME_WIDTH - bomb.Size.X);
 						bomb.Position = new Vector2(X, bomb.Position.Y);
+						Player playerAimed = game.players[random.Next(0, game.players.Count)];
 
 						Rectangle r1 = new Rectangle(bomb.Position.ToPoint(), bomb.Size);
-						Rectangle r2 = new Rectangle(game.player.Position.ToPoint(), game.player.Size);
+						Rectangle r2 = new Rectangle(playerAimed.Position.ToPoint(), playerAimed.Size);
 						bomb.ApplyNewImpulsion(new Vector2(Collision.direction_between(r1, r2, false).X * 0.04f, 0));
 						EnemiesList.Add(bomb);
 					}

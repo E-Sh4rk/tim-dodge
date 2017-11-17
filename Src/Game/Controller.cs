@@ -17,20 +17,38 @@ namespace tim_dodge
 			BOTTOM = 3
 		}
 
-		public static List<Direction> GetDirections(KeyboardState state)
+		public static List<Direction> GetDirectionsPlayer1(KeyboardState state)
 		{
 			List<Direction> directions = new List<Direction>();
 
-			if (state.IsKeyDown(Keys.Q) || state.IsKeyDown(Keys.Left))
+			if (state.IsKeyDown(Keys.Left))
 				directions.Add(Direction.LEFT);
 
-			if (state.IsKeyDown(Keys.S) || state.IsKeyDown(Keys.Down))
+			if (state.IsKeyDown(Keys.Down))
 				directions.Add(Direction.BOTTOM);
 
-			if (state.IsKeyDown(Keys.D) || state.IsKeyDown(Keys.Right))
+			if (state.IsKeyDown(Keys.Right))
 				directions.Add(Direction.RIGHT);
 
-			if (state.IsKeyDown(Keys.Z) || state.IsKeyDown(Keys.Up))
+			if (state.IsKeyDown(Keys.Up))
+				directions.Add(Direction.TOP);
+
+			return directions;
+		}
+		public static List<Direction> GetDirectionsPlayer2(KeyboardState state)
+		{
+			List<Direction> directions = new List<Direction>();
+
+			if (state.IsKeyDown(Keys.Q))
+				directions.Add(Direction.LEFT);
+
+			if (state.IsKeyDown(Keys.S))
+				directions.Add(Direction.BOTTOM);
+
+			if (state.IsKeyDown(Keys.D))
+				directions.Add(Direction.RIGHT);
+
+			if (state.IsKeyDown(Keys.Z))
 				directions.Add(Direction.TOP);
 
 			return directions;

@@ -20,7 +20,7 @@ namespace tim_dodge
 			return (Life.value == 0);
 		}
 
-		public Player(Vector2 pos, Stat score, GameInstance gi)
+		public Player(Vector2 pos, Vector2 scorePosition, GameInstance gi)
 			: base(Load.TimTexture, new Sprite("Content.character.TimXml.xml"), pos)
 		{
 			JumpImpulsion = new Vector2(0f, -180f);//-250f);//-180f);
@@ -31,8 +31,9 @@ namespace tim_dodge
 			gameInst = gi;
 			Sprite.ChangeDirection(Controller.Direction.RIGHT);
 
-			this.Life = new Heart();
-			this.Score = score;
+			this.Life = new Heart(scorePosition);
+			this.Score = new Stat(Load.FontScore, Color.Black, "Score : ", 0);
+			this.Score.Position = scorePosition;
 
 			//this.Score = Score;
 			min_time_between_squat = Sprite.GetFrameTimeOfState((int)State.Squat) * 8;
@@ -74,10 +75,8 @@ namespace tim_dodge
  			return elapsed_since_last_squat >= min_time_between_squat;
  		}
 
-		public void Move(KeyboardState state, float elapsed)
+		public void Move(List<Controller.Direction> directions, float elapsed)
 		{
-			List<Controller.Direction> directions = Controller.GetDirections(state);
-
 			elapsed_since_last_jump += elapsed;
 			elapsed_since_last_squat += elapsed;
 

@@ -54,8 +54,8 @@ namespace tim_dodge
 					o = new Food(p);
 				if (type == typeof(Monstar))
 					o = new Monstar(p, g, Controller.Direction.RIGHT);
-				//if (type == typeof(Player))
-				// /!\ For now, return null for player because it is managed by the game instance.
+				if (type == typeof(Player))
+					o = new Player(p, g.GetNewScorePosition(), g);
 
 				return o;
 			}
@@ -114,9 +114,8 @@ namespace tim_dodge
 			for (int i = 0; i < objects.Length; i++)
 			{
 				instances[i] = objects[i].BuildObject(g);
-				// If Null, it must be the player...
 				if (instances[i] == null)
-					instances[i] = g.player;
+					System.Diagnostics.Debug.Assert(false);
 			}
 
 			// Conversion of the list
