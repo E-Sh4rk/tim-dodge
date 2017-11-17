@@ -23,5 +23,15 @@ namespace tim_dodge
 		public MenuItem(String Text, SpriteFont spriteFont, Color Color) : base(Text, spriteFont, Color)
 		{
 		}
+
+		public void ChangeFont(SpriteFont fontItem)
+		{
+			this.fontItem = fontItem;
+			Size = fontItem.MeasureString(Text);
+			source = new Rectangle((int)(position.X + origin.X),
+					   (int)(position.Y + origin.Y),
+					   (int)(size.X),
+					   (int)(size.Y));
+		}
 	}
 }

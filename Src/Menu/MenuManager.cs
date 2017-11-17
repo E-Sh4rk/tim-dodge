@@ -161,11 +161,13 @@ namespace tim_dodge
 			}
 			else if (Controller.KeyPressed(Keys.Right))
 			{
+				Load.sounds.playSound(Sound.SoundName.toogle);
 				if (!GameManager.GameRunning)
 					chooseMap.RightMap();
 			}
 			else if (Controller.KeyPressed(Keys.Left))
 			{
+				Load.sounds.playSound(Sound.SoundName.toogle);
 				if (!GameManager.GameRunning)
 					chooseMap.LeftMap();
 			}
@@ -214,14 +216,13 @@ namespace tim_dodge
 		// Menu functions
 		private void NewGame()
 		{
-			GameManager.game = new GameInstance(chooseMap.currentMap);
+			GameManager.game = new GameInstance(chooseMap.currentMap, 1);
 			CurrentMenu = new List<MenuWindow>();
 		}
 
 		private void NewMultiGame()
 		{
-			GameManager.game = new GameInstance(chooseMap.currentMap);
-			GameManager.game.players.Add(new Player(new Vector2(10,10), new Vector2(0,25), GameManager.game));
+			GameManager.game = new GameInstance(chooseMap.currentMap, 2);
 			CurrentMenu = new List<MenuWindow>();
 		}
 
@@ -250,7 +251,7 @@ namespace tim_dodge
 
 		private void StartReplay(ChooseMap.Maps map, string filename)
 		{
-			GameManager.game = new GameInstance(map);
+			GameManager.game = new GameInstance(map,1);
 			GameManager.game.LoadReplay(filename);
 			CurrentMenu = new List<MenuWindow>();
 		}

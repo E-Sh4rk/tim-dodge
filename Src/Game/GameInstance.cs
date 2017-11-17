@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -63,8 +63,13 @@ namespace tim_dodge
 
 		public GameInstance(ChooseMap.Maps MapLoad, int nbPlayer)
 		{
+			Debug.Assert(nbPlayer >= 1 && nbPlayer <=2);
 			players = new List<Player>();
-			players.Add(new Player(new Vector2(700, 300), new Vector2(30, 20), this));
+			for (int i = 0; i < nbPlayer; i++)
+			{
+				players.Add(new Player(new Vector2(700, 300), new Vector2(30, 20), this));
+			}
+
 			Level = new LevelManager(this, MapLoad);
 			UndoPoisons();
 			focus = true;
