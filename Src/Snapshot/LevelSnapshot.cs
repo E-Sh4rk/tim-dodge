@@ -3,6 +3,7 @@ using System.Xml.Serialization;
 
 namespace tim_dodge
 {
+	[Serializable]
 	public class LevelSnapshot
 	{
 		// Map Dynamic Objects

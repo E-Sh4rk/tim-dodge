@@ -15,8 +15,10 @@ namespace tim_dodge
 		public new bool Equals(object x, object y) => ReferenceEquals(x, y);
 		public int GetHashCode(object obj) => RuntimeHelpers.GetHashCode(obj);
 	}
+	[Serializable]
 	public class Replay
 	{
+		[Serializable]
 		public class SSnapshot
 		{
 			// Objects (immutable snapshots)
@@ -27,6 +29,7 @@ namespace tim_dodge
 			public LevelSnapshot lvl;
 		}
 
+		[Serializable]
 		public class GameObjectBuilder
 		{
 			//public Type type; // Not serializable...
@@ -138,11 +141,13 @@ namespace tim_dodge
 		public void ExportToFile(string file)
 		{
 			Directory.CreateDirectory(Path.GetDirectoryName(file));
-			Serializer<Replay>.Save(file, this);
+			//Serializer<Replay>.Save(file, this);
+			BinarySerializer.Save(file, this);
 		}
 		public static Replay ImportFromFile(string file)
 		{
-			return Serializer<Replay>.Load(file);
+			//return Serializer<Replay>.Load(file);
+			return (Replay)BinarySerializer.Load(file);
 		}
 	}
 }
