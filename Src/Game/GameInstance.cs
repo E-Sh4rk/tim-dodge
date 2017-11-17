@@ -61,7 +61,7 @@ namespace tim_dodge
 			flipV = false;
 		}
 
-		public GameInstance(ChooseMap.Maps MapLoad)
+		public GameInstance(ChooseMap.Maps MapLoad, int nbPlayer)
 		{
 			players = new List<Player>();
 			players.Add(new Player(new Vector2(700, 300), new Vector2(30, 20), this));
