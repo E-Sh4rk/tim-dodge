@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 
 namespace tim_dodge
 {
+	[Serializable]
 	public struct SVector
 	{
 		public SVector(float x, float y) { this.x = x; this.y = y; }
@@ -19,6 +20,7 @@ namespace tim_dodge
 			return new SVector(v.X,v.Y);
 		}
 	}
+	[Serializable]
 	public struct SColor
 	{
 		public SColor(int r, int g, int b, int a)
@@ -42,6 +44,7 @@ namespace tim_dodge
 			return new SColor(c.R, c.G, c.B, c.A);
 		}
 	}
+	[Serializable]
 	[XmlInclude(typeof(PhysicalObjectSnapshot))]
 	public class ObjectSnapshot
 	{
@@ -69,6 +72,7 @@ namespace tim_dodge
 			sprite_direction = model_ptr.Sprite.Direction;
 		}
 	}
+	[Serializable]
 	[XmlInclude(typeof(PlayerObjectSnapshot))]
 	[XmlInclude(typeof(NonPlayerObjectSnapshot))]
 	public class PhysicalObjectSnapshot : ObjectSnapshot
@@ -90,6 +94,7 @@ namespace tim_dodge
 			ghost = ((PhysicalObject)model_ptr).Ghost;
 		}
 	}
+	[Serializable]
 	public class PlayerObjectSnapshot : PhysicalObjectSnapshot
 	{
 		// Additional properties for players
@@ -113,6 +118,7 @@ namespace tim_dodge
 			score = ((Player)model_ptr).Score.value;
 		}
 	}
+	[Serializable]
 	public class NonPlayerObjectSnapshot : PhysicalObjectSnapshot
 	{
 		// Additional properties for enemies
