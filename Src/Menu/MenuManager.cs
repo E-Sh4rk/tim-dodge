@@ -24,6 +24,7 @@ namespace tim_dodge
 		private MenuWindow Gameover;
 		private MenuWindow QuitMenu;
 		private MenuWindow Highscores;
+		private MenuItem MultiPlayer;
 
 		private MenuWindow Congrats;
 		private MenuItem EnterYourName;
@@ -58,10 +59,12 @@ namespace tim_dodge
 			SaveEditor = new MenuWindow();
 			QuitMenu = new MenuWindow();
 			Highscores = new MenuWindow();
+			//MultiPlayer = new MenuItem();
 
 			// Constructrion of menus
 			Initialize(InitialMenu, "< Maps >", new List<MenuItem> {
 				new MenuItem("New Game", NewGame),
+				new MenuItem("New 2 Game", NewMultiGame),
 				new MenuItem("Map Editor", NewEditor),
 				new MenuItem("Parameters", Parameters),
 				new MenuItem("Best Scores", BestScores),
@@ -212,6 +215,13 @@ namespace tim_dodge
 		private void NewGame()
 		{
 			GameManager.game = new GameInstance(chooseMap.currentMap);
+			CurrentMenu = new List<MenuWindow>();
+		}
+
+		private void NewMultiGame()
+		{
+			GameManager.game = new GameInstance(chooseMap.currentMap);
+			GameManager.game.players.Add(new Player(new Vector2(10,10), new Vector2(0,25), GameManager.game));
 			CurrentMenu = new List<MenuWindow>();
 		}
 
