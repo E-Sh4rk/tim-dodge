@@ -222,12 +222,7 @@ namespace tim_dodge
 
 		private void NewMultiGame()
 		{
-
-			//GameManager.game = new GameInstance(chooseMap.currentMap, 2);
-
-			GameManager.game = new GameInstance(chooseMap.currentMap,1);
-			GameManager.game.players.Add(new Player(new Vector2(10,10), GameManager.game.GetNewScorePosition(1), GameManager.game));
-                   
+			GameManager.game = new GameInstance(chooseMap.currentMap,2);                   
 			CurrentMenu = new List<MenuWindow>();
 		}
 

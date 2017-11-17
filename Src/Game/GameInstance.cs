@@ -61,17 +61,17 @@ namespace tim_dodge
 			flipV = false;
 		}
 
-            public GameInstance(ChooseMap.Maps MapLoad, int nbPlayer)
+        public GameInstance(ChooseMap.Maps MapLoad, int nbPlayer)
 		{
 			Debug.Assert(nbPlayer >= 1 && nbPlayer <=2);
 			players = new List<Player>();
 
-			//for (int i = 0; i < nbPlayer; i++)
-			//{
-			//	players.Add(new Player(new Vector2(700, 300), new Vector2(30, 20), this));
-			//}
+			for (int i = 0; i < nbPlayer; i++)
+			{
+				players.Add(new Player(new Vector2((TimGame.GAME_WIDTH/nbPlayer)*i+(TimGame.GAME_WIDTH / nbPlayer / 2), 300),
+				                       GetNewScorePosition(i), this));
+			}
 
-			players.Add(new Player(new Vector2(700, 300), GetNewScorePosition(0), this));
 			Level = new LevelManager(this, MapLoad);
 			UndoPoisons();
 			focus = true;
