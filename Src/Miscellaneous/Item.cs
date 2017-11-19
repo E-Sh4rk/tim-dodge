@@ -14,13 +14,14 @@ namespace tim_dodge
 		public Color Color;
 		public float Opacity; // between 0.0f and 1.0f : indice of transparence
 
-		private String text;
-		private SpriteFont fontItem;
-		private Color DefaultColor;
-		private Texture2D Image;
-		private Vector2 position;
-		private Vector2 origin;
-		private Vector2 size;
+		protected String text;
+		protected SpriteFont fontItem;
+		protected SpriteFont DefaultFont;
+		protected Color DefaultColor;
+		protected Texture2D Image;
+		protected Vector2 position;
+		protected Vector2 origin;
+		protected Vector2 size;
 
 		public String Text
 		{
@@ -68,7 +69,7 @@ namespace tim_dodge
 		public Item(String Text, SpriteFont fontItem, Color Color)
 		{
 			this.text = Text;
-			this.fontItem = fontItem;
+			this.fontItem = DefaultFont = fontItem;
 			this.Color = DefaultColor = Color;
 			Size = fontItem.MeasureString(Text);
 			DefaultConstruct();
@@ -96,6 +97,17 @@ namespace tim_dodge
 		public void unsetColor()
 		{
 			Color = DefaultColor;
+		}
+
+		public void unsetFont()
+		{
+			fontItem = DefaultFont;
+			Size = fontItem.MeasureString(Text);
+			source = new Rectangle((int)(position.X + origin.X),
+					   (int)(position.Y + origin.Y),
+					   (int)(size.X),
+					   (int)(size.Y));
+
 		}
 
 		public void Draw(SpriteBatch spriteBatch)

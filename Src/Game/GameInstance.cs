@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -13,10 +13,8 @@ namespace tim_dodge
 	/// </summary>
 	public class GameInstance
 	{
-		public Player player;
-		public Stat scoreTim { get; protected set; }
+		public List<Player> players;
 
-		public Heart heart { get; protected set; }
 		public LevelManager Level { get; protected set; }
 
 		public float time_multiplicator = 1f;
@@ -35,6 +33,27 @@ namespace tim_dodge
 		bool mode_replay = false;
 		// TODO: modify falling&walking objects to not use alea if the future is known
 
+		public int GetGlobalScore()
+		{
+			int max = 0;
+			foreach (Player p in players)
+			{
+				if (p.Score.value > max)
+					max = p.Score.value;
+			}
+			return max;
+		}
+		public void AddToScores(int v)
+		{
+			foreach (Player p in players)
+				p.Score.incr(v);
+		}
+		public void SetScoresColor(Color c)
+		{
+			foreach (Player p in players)
+				p.Score.Color = c;
+		}
+
 		public void UndoPoisons()
 		{
 			rotation = false;
@@ -42,21 +61,25 @@ namespace tim_dodge
 			flipV = false;
 		}
 
-		public GameInstance(ChooseMap.Maps MapLoad)
+        public GameInstance(ChooseMap.Maps MapLoad, int nbPlayer)
 		{
-			Vector2 PositionScoreTim = new Vector2(30, 20);
+			Debug.Assert(nbPlayer >= 1 && nbPlayer <=2);
+			players = new List<Player>();
 
-			scoreTim = new Stat(Load.FontScore, Color.Black, "Score : ", 0);
-			//scoreTim = new Stat(Load.FontScore, Color.WhiteSmoke, "Score : ", 0);
-
-			scoreTim.Position = PositionScoreTim;
-
-			heart = new Heart(Load.HeartFull, Load.HeartSemi, Load.HeartEmpty);
+			for (int i = 0; i < nbPlayer; i++)
+			{
+				players.Add(new Player(new Vector2((TimGame.GAME_WIDTH/nbPlayer)*i+(TimGame.GAME_WIDTH / nbPlayer / 2), 300),
+				                       GetNewScorePosition(i), this));
+			}
 
 			Level = new LevelManager(this, MapLoad);
-			player = new Player(new Vector2(700, 300), heart, this);
 			UndoPoisons();
 			focus = true;
+		}
+
+		public Vector2 GetNewScorePosition(int nb)
+		{
+			return new Vector2(30, 20+50*nb);
 		}
 
 		public void SaveReplay(string file)
@@ -132,13 +155,18 @@ namespace tim_dodge
 				float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds * time_multiplicator;
 
 				Level.Update(elapsed);
-				player.Move(state, insensible_elapsed); // Insensible to time speed
 				Level.Current.falling.Update(elapsed);
 				Level.Current.walking.Update(elapsed);
 
+				// Move players
+				if (players.Count >= 1)
+					players[0].Move(Controller.GetDirectionsPlayer1(state), insensible_elapsed); // Insensible to time speed
+				if (players.Count >= 2)
+					players[1].Move(Controller.GetDirectionsPlayer2(state), insensible_elapsed); // Insensible to time speed
+
 				// All physical objects
 				List<PhysicalObject> phys_obj = new List<PhysicalObject>();
-				phys_obj.Add(player);
+				phys_obj.AddRange(players);
 				phys_obj.AddRange(Level.Current.falling.EnemiesList);
 				phys_obj.AddRange(Level.Current.walking.EnemiesList);
 
@@ -151,11 +179,15 @@ namespace tim_dodge
 				foreach (PhysicalObject po in phys_obj)
 					po.UpdatePosition(phys_obj, Level.Current.map, po is Player ? insensible_elapsed : elapsed);
 
-				if (player.IsOutOfBounds())
-					player.Life.decr(player.Life.value);
+				// Additional operations on players
+				foreach (Player p in players)
+				{
+					if (p.IsOutOfBounds())
+						p.Life.decr(p.Life.value);
+					if (p.IsDead())
+						p.ChangeSpriteState((int)Player.State.Dead);
+				}
 
-				if (player.IsDead())
-					player.ChangeSpriteState((int)Player.State.Dead);
 			}
 		}
 
@@ -163,15 +195,17 @@ namespace tim_dodge
 		{
 			Level.Draw(spriteBatch);
 
-			player.Draw(spriteBatch);
+			foreach (Player p in players)
+				p.Draw(spriteBatch);
 			foreach (NonPlayerObject en in Level.Current.falling.EnemiesList)
 				en.Draw(spriteBatch);
 			foreach (NonPlayerObject en in Level.Current.walking.EnemiesList)
 				en.Draw(spriteBatch);
-			scoreTim.Draw(spriteBatch);
-			player.Life.Draw(spriteBatch);
-			player.Life.Update();
-			heart.Draw(spriteBatch);
+			foreach (Player p in players)
+			{
+				p.Score.Draw(spriteBatch);
+				p.Life.Draw(spriteBatch);
+			}
 		}
 
 	}

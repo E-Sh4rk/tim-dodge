@@ -46,6 +46,7 @@ namespace tim_dodge
 		public static SpriteFont FontTitleMenu { get; private set; }
 		public static SpriteFont FontScore { get; private set; }
 		public static SpriteFont FontTitleLevel { get; private set; }
+		public static SpriteFont FontMenuHighlight { get; private set; }
 
 		// Color
 		public static Color ColorTextMenu { get; private set; }
@@ -101,6 +102,7 @@ namespace tim_dodge
 			FontTitleMenu = Content.Load<SpriteFont>("SpriteFonts/TitleMenu");
 			FontScore = Content.Load<SpriteFont>("SpriteFonts/Score");
 			FontTitleLevel = Content.Load<SpriteFont>("SpriteFonts/Level");
+			FontMenuHighlight = Content.Load<SpriteFont>("SpriteFonts/MenuHighlight");
 
 			// Color
 			ColorTextMenu = Color.White;

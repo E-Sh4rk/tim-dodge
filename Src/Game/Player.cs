@@ -12,29 +12,28 @@ namespace tim_dodge
 	/// </summary>
 	public class Player : PhysicalObject
 	{
-
-		public Heart Life;
-		//public Stat Score;
-
+		public Heart Life { get; protected set; }
+		public Stat Score { get; protected set; }
 
 		public bool IsDead()
 		{
 			return (Life.value == 0);
 		}
 
-		public Player(Vector2 pos, Heart Life, GameInstance gi)
+		public Player(Vector2 pos, Vector2 scorePosition, GameInstance gi)
 			: base(Load.TimTexture, new Sprite("Content.character.TimXml.xml"), pos)
 		{
 			JumpImpulsion = new Vector2(0f, -180f);//-250f);//-180f);
 			JumpMore = new Vector2(0, -150);
 			DashForceLeft = new Vector2(-1500f, 0f);
 			DashForceRight = -DashForceLeft;
-			this.map = gi.Level.Current.map;
 			Mass = 50;
 			gameInst = gi;
 			Sprite.ChangeDirection(Controller.Direction.RIGHT);
 
-			this.Life = Life;
+			this.Life = new Heart(scorePosition);
+			this.Score = new Stat(Load.FontScore, Color.Black, "Score : ", 0);
+			this.Score.Position = scorePosition;
 
 			//this.Score = Score;
 			min_time_between_squat = Sprite.GetFrameTimeOfState((int)State.Squat) * 8;
@@ -52,8 +51,6 @@ namespace tim_dodge
 		}
 
 		protected SoundEffect jump;
-		protected Map map;
-
 		protected Vector2 JumpImpulsion;
 		protected Vector2 JumpMore;
 
@@ -70,7 +67,7 @@ namespace tim_dodge
 
 		public bool CanJump()
 		{
-			return map.pMap.nearTheGround(this) && elapsed_since_last_jump >= min_time_between_jump;
+			return gameInst.Level.map.pMap.nearTheGround(this) && elapsed_since_last_jump >= min_time_between_jump;
 		}
 
 		public bool CanSquat()
@@ -78,10 +75,8 @@ namespace tim_dodge
  			return elapsed_since_last_squat >= min_time_between_squat;
  		}
 
-		public void Move(KeyboardState state, float elapsed)
+		public void Move(List<Controller.Direction> directions, float elapsed)
 		{
-			List<Controller.Direction> directions = Controller.GetDirections(state);
-
 			elapsed_since_last_jump += elapsed;
 			elapsed_since_last_squat += elapsed;
 
@@ -102,7 +97,7 @@ namespace tim_dodge
 					{
 						Load.sounds.playSound(Sound.SoundName.jump);
 						elapsed_since_last_jump = 0;
-						map.pMap.magnetizeToGround(this);
+						gameInst.Level.map.pMap.magnetizeToGround(this);
 						ApplyNewImpulsion(JumpImpulsion);
 					}
 					else
@@ -138,7 +133,7 @@ namespace tim_dodge
 
 				if (!squatMode)
 				{
-					if (!map.pMap.nearTheGround(this))
+					if (!gameInst.Level.map.pMap.nearTheGround(this))
 					{
 						if (Math.Abs(Velocity.X) > 2)
 							ChangeSpriteState((int)State.Jump);
@@ -178,7 +173,7 @@ namespace tim_dodge
 				if (e.Bonus > 0 || e.Life > 0)
 				{
 					Life.incr(e.Life);
-					gameInst.scoreTim.incr(e.Bonus);
+					Score.incr(e.Bonus);
 					color = Color.Yellow;
 					last_bonus_time = 0f;
 				}

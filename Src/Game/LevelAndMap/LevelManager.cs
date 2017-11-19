@@ -12,9 +12,10 @@ namespace tim_dodge
 	public class LevelManager
 	{
 		public Level Current { get; protected set; }
-		private List<LevelDefinition> Levels;
-		private Stat LevelNumber;
-		private Item Title;
+		List<LevelDefinition> Levels;
+		Stat LevelNumberStat;
+		Item Title;
+		private int LevelNumber;
 		GameInstance game;
 
 		struct LevelDefinition
@@ -48,9 +49,10 @@ namespace tim_dodge
 		public LevelManager(GameInstance game, ChooseMap.Maps EnvMap)
 		{
 			this.game = game;
-			LevelNumber = new Stat(Load.FontScore, Color.Red, "Level : ", 1);
-			// level below score
-			LevelNumber.Position = new Vector2(game.scoreTim.source.X, game.scoreTim.source.Bottom);
+			this.LevelNumber = -1;
+
+			LevelNumberStat = new Stat(Load.FontScore, Color.Red, "Level : ", 0);
+			LevelNumberStat.Position = new Vector2((TimGame.GAME_WIDTH-LevelNumberStat.Size.X)/2, 25);
 
 			Title = new Item("Level X", Load.FontTitleLevel, Color.Blue);
 			Title.Position = new Vector2((TimGame.GAME_WIDTH - Title.Size.X) / 2,
@@ -74,10 +76,11 @@ namespace tim_dodge
 
 		public void SetLevel(int lvl)
 		{
-			if (lvl != LevelNumber.value && lvl < Levels.Count && lvl >= 0)
+			if (lvl != LevelNumber && lvl < Levels.Count && lvl >= 0)
 			{
-				LevelNumber.set(lvl);
-				Title.Text = "Level " + (LevelNumber.value + 1).ToString();
+				LevelNumber = lvl;
+				Title.Text = "Level " + (lvl + 1).ToString();
+				LevelNumberStat.set(lvl + 1);
 
 				LevelDefinition def = Levels[lvl];
 				Current = new Level(game, def.map, def.background, def.map_texture, def.time, def.interval, def.interface_color);
@@ -88,11 +91,11 @@ namespace tim_dodge
 			}
 		}
 
-		public int CurrentLevelNumber() { return LevelNumber.value; }
+		public int CurrentLevelNumber() { return LevelNumber; }
 
 		public void LevelUp()
 		{
-			SetLevel(LevelNumber.value + 1);
+			SetLevel(LevelNumber + 1);
 		}
 
 		public void Update(float elapsed)
@@ -105,7 +108,7 @@ namespace tim_dodge
 		public void Draw(SpriteBatch spriteBatch)
 		{
 			Current.Draw(spriteBatch);
-			LevelNumber.Draw(spriteBatch);
+			LevelNumberStat.Draw(spriteBatch);
 			if (Current.Beginning)
 				Title.Draw(spriteBatch);
 		}

@@ -20,6 +20,7 @@ namespace tim_dodge
 			// Objects
 			game.Level.Current.falling.EnemiesList.Clear();
 			game.Level.Current.walking.EnemiesList.Clear();
+			game.players.Clear();
 
 			for (int i = 0; i < objects.Count; i++)
 			{
@@ -30,6 +31,8 @@ namespace tim_dodge
 					game.Level.Current.walking.EnemiesList.Add((Monstar)o);
 				else if (o is NonPlayerObject)
 					game.Level.Current.falling.EnemiesList.Add((NonPlayerObject)o);
+				else if (o is Player)
+					game.players.Add((Player)o);
 			}
 		}
 		public virtual void CaptureGameState(GameInstance game)
@@ -41,7 +44,7 @@ namespace tim_dodge
 			// Objects
 			objects_states = new List<ObjectSnapshot>();
 			objects = new List<GameObject>();
-			objects.Add(game.player);
+			objects.AddRange(game.players);
 			objects.AddRange(game.Level.Current.walking.EnemiesList);
 			objects.AddRange(game.Level.Current.falling.EnemiesList);
 			foreach (GameObject o in objects)

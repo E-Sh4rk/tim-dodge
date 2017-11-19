@@ -107,6 +107,7 @@
     <None Include="Content\SpriteFonts\Level.spritefont" />
     <None Include="Content\objects\coin.png" />
     <None Include="Content\objects\food.png" />
+    <None Include="Content\SpriteFonts\MenuHighlight.spritefont" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icon.ico" />

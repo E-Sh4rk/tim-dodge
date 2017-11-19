@@ -36,11 +36,20 @@ namespace tim_dodge
 
 		public void Update(GameTime gameTime)
 		{
-			if (GameRunning && game.player.IsDead())
+			if (GameRunning)
 			{
-				game.UndoPoisons();
-				game.focus = false;
-				Menu.LaunchGameOver();
+				bool allDead = true;
+				foreach (Player p in game.players)
+				{
+					if (!p.IsDead())
+						allDead = false;
+				}
+				if (allDead)
+				{
+					game.UndoPoisons();
+					game.focus = false;
+					Menu.LaunchGameOver();
+				}
 			}
 
 			if (Menu.MenuRunning)

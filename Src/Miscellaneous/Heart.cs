@@ -13,9 +13,9 @@ namespace tim_dodge
 		private Texture2D[] heartTexture;
 
 		public const int slotNumber = 4;
-
 		private static Vector2 spacement = new Vector2(50,0);
-		private Vector2 position0 = new Vector2(TimGame.GAME_WIDTH - ((slotNumber)*(spacement.X) ), 20);
+
+		private Vector2 position = new Vector2(0, 0);
 
 		public int value { get; private set; }
 
@@ -28,27 +28,27 @@ namespace tim_dodge
 
 		private HeartState[] Container;
 
-		public Heart(Texture2D full, Texture2D semi, Texture2D empty)
+		public Heart(Vector2 pos)
 		{
 			heartTexture = new Texture2D[3];
-			heartTexture[(int)HeartState.full] = full;
-			heartTexture[(int)HeartState.semi] = semi;
-			heartTexture[(int)HeartState.empty] = empty;
+			heartTexture[(int)HeartState.full] = Load.HeartFull;
+			heartTexture[(int)HeartState.semi] = Load.HeartSemi;
+			heartTexture[(int)HeartState.empty] = Load.HeartEmpty;
 
 			Container = new HeartState[slotNumber];
 
 			value = slotNumber * 2;
-
+			position = new Vector2(TimGame.GAME_WIDTH - ((slotNumber) * (spacement.X)), pos.Y);
 		}
 
-		public Heart(Texture2D full, Texture2D semi, Texture2D empty, int initlife)
-		: this(full, semi, empty)
+		public Heart(Vector2 pos, int initlife) : this(pos)
 		{
 			value = initlife;
 		}
 
-		public void Update()
+		public void Draw(SpriteBatch spriteBatch)
 		{
+			// Update
 			for (int i = 0; i < slotNumber; i++)
 			{
 				if (value - 2 * i == 1)
@@ -56,19 +56,15 @@ namespace tim_dodge
 				else if (value - 2 * i <= 0)
 					Container[i] = HeartState.empty;
 				else
-					Container[i] = HeartState.full;                        
+					Container[i] = HeartState.full;
 			}
-		}
 
-
-		public void Draw(SpriteBatch spriteBatch)
-		{
-			Vector2 position = new Vector2(position0.X, position0.Y);
-
+			// Draw
+			Vector2 pos = new Vector2(position.X, position.Y);
 			for (int i = 0; i < slotNumber; i++)
 			{
-				spriteBatch.Draw(heartTexture[(int)Container[i]], position, Color.White);
-				position += spacement;
+				spriteBatch.Draw(heartTexture[(int)Container[i]], pos, Color.White);
+				pos += spacement;
 			}
 		}
 

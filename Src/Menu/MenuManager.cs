@@ -24,6 +24,7 @@ namespace tim_dodge
 		private MenuWindow Gameover;
 		private MenuWindow QuitMenu;
 		private MenuWindow Highscores;
+		private MenuItem MultiPlayer;
 
 		private MenuWindow Congrats;
 		private MenuItem EnterYourName;
@@ -58,10 +59,12 @@ namespace tim_dodge
 			SaveEditor = new MenuWindow();
 			QuitMenu = new MenuWindow();
 			Highscores = new MenuWindow();
+			//MultiPlayer = new MenuItem();
 
 			// Constructrion of menus
 			Initialize(InitialMenu, "< Maps >", new List<MenuItem> {
 				new MenuItem("New Game", NewGame),
+				new MenuItem("New 2 Game", NewMultiGame),
 				new MenuItem("Map Editor", NewEditor),
 				new MenuItem("Parameters", Parameters),
 				new MenuItem("Best Scores", BestScores),
@@ -158,11 +161,15 @@ namespace tim_dodge
 			}
 			else if (Controller.KeyPressed(Keys.Right))
 			{
-				chooseMap.RightMap();
+				Load.sounds.playSound(Sound.SoundName.toogle);
+				if (!GameManager.GameRunning)
+					chooseMap.RightMap();
 			}
 			else if (Controller.KeyPressed(Keys.Left))
 			{
-				chooseMap.LeftMap();
+				Load.sounds.playSound(Sound.SoundName.toogle);
+				if (!GameManager.GameRunning)
+					chooseMap.LeftMap();
 			}
 
 			if (CurrentMenu.Last() == Congrats)
@@ -209,7 +216,13 @@ namespace tim_dodge
 		// Menu functions
 		private void NewGame()
 		{
-			GameManager.game = new GameInstance(chooseMap.currentMap);
+			GameManager.game = new GameInstance(chooseMap.currentMap, 1);
+			CurrentMenu = new List<MenuWindow>();
+		}
+
+		private void NewMultiGame()
+		{
+			GameManager.game = new GameInstance(chooseMap.currentMap,2);                   
 			CurrentMenu = new List<MenuWindow>();
 		}
 
@@ -236,9 +249,9 @@ namespace tim_dodge
 
 		private void Parameters() { CurrentMenu.Add(ParamMenu); }
 
-		private void StartReplay(string filename)
+		private void StartReplay(ChooseMap.Maps map, string filename)
 		{
-			GameManager.game = new GameInstance(chooseMap.currentMap);
+			GameManager.game = new GameInstance(map,1);
 			GameManager.game.LoadReplay(filename);
 			CurrentMenu = new List<MenuWindow>();
 		}
@@ -248,7 +261,7 @@ namespace tim_dodge
 			if (CurrentMenu.Count == 0)
 			{
 				CurrentMenu.Add(Gameover);
-				gameScore = GameManager.game.scoreTim.value;
+				gameScore = GameManager.game.GetGlobalScore();
 
 				List<BestScore> highscores = Load.LoadHighScores();
 
@@ -344,8 +357,9 @@ namespace tim_dodge
 					String name = highscores[i].name;
 					String score = highscores[i].score.ToString();
 					String filename = highscores[i].replay_filename;
+					ChooseMap.Maps map = highscores[i].map;
 					ScoreItems.Add(new MenuItem((i + 1).ToString() + ". " + name + " : " + score, /*Load.FontMenu, Load.ColorTextMenu,*/
-					                            () => { StartReplay(filename);}));
+					                            () => { StartReplay(map, filename);}));
 				}
 			}
 
@@ -367,6 +381,7 @@ namespace tim_dodge
 				newScore.score = gameScore;
 				newScore.name = YourName.Text;
 				newScore.replay_filename = "replays/"+newScore.name+"-"+newScore.score+".xml";
+				newScore.map = chooseMap.currentMap;
 				GameManager.game.SaveReplay(newScore.replay_filename);
 				highscores.Add(newScore);
 				highscores.Sort((b1, b2) => BestScore.Compare(b1, b2));

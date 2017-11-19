@@ -23,7 +23,7 @@ namespace tim_dodge
 		// Proportionnality constant (proportional to the size of the item)
 		public const float BackgroundBordureX = 1f / 4f;
 		public const float BackgroundBordureY = 1f / 2f;
-		public const float SpacingBetweenItems = 1f / 4f;
+		public const float SpacingBetweenItems = 1f / 3f;
 
 		public MenuWindow() : base(Load.BackgroundMenu)
 		{
@@ -50,8 +50,11 @@ namespace tim_dodge
 		{	// Calculates and set the dimensions of the menu's background
 			float MaxLengthItem = 0;
 			foreach (MenuItem item in ListItems)
-
+			{
+				item.ChangeFont(Load.FontMenuHighlight);
 				MaxLengthItem = Math.Max(MaxLengthItem, item.Size.X);
+				item.unsetFont();
+			}
 
 			float Width = ((2 * BackgroundBordureX) + 1) * MaxLengthItem;
 
@@ -92,8 +95,12 @@ namespace tim_dodge
 		public void HighlightsCurrentItem()
 		{
 			foreach (MenuItem item in ListItems)
+			{
 				item.unsetColor();
+				item.unsetFont();
+			}
 			ListSelectableItems[itemNumber].Color = Load.ColorHighlightSelection;
+			ListSelectableItems[itemNumber].ChangeFont(Load.FontMenuHighlight);
 		}
 
 		public void Update()
@@ -121,6 +128,7 @@ namespace tim_dodge
 				itemNumber = 0;
 
 			HighlightsCurrentItem();
+			AlignItems();
 		}
 
 		public new void Draw(SpriteBatch spriteBatch)

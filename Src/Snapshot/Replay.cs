@@ -15,8 +15,10 @@ namespace tim_dodge
 		public new bool Equals(object x, object y) => ReferenceEquals(x, y);
 		public int GetHashCode(object obj) => RuntimeHelpers.GetHashCode(obj);
 	}
+	[Serializable]
 	public class Replay
 	{
+		[Serializable]
 		public class SSnapshot
 		{
 			// Objects (immutable snapshots)
@@ -27,12 +29,13 @@ namespace tim_dodge
 			public LevelSnapshot lvl;
 		}
 
+		[Serializable]
 		public class GameObjectBuilder
 		{
 			//public Type type; // Not serializable...
 			public string type_str;
 
-			public GameObject BuildObject(GameInstance g)
+			public GameObject BuildObject(GameInstance g, int nb_players)
 			{
 				GameObject o = null;
 				Vector2 p = new Vector2(0,0);
@@ -54,8 +57,8 @@ namespace tim_dodge
 					o = new Food(p);
 				if (type == typeof(Monstar))
 					o = new Monstar(p, g, Controller.Direction.RIGHT);
-				//if (type == typeof(Player))
-				// /!\ For now, return null for player because it is managed by the game instance.
+				if (type == typeof(Player))
+					o = new Player(p, g.GetNewScorePosition(nb_players), g);
 
 				return o;
 			}
@@ -111,12 +114,14 @@ namespace tim_dodge
 		{
 			// Instanciation of objects
 			GameObject[] instances = new GameObject[objects.Length];
+			int nb_players = 0;
 			for (int i = 0; i < objects.Length; i++)
 			{
-				instances[i] = objects[i].BuildObject(g);
-				// If Null, it must be the player...
+				instances[i] = objects[i].BuildObject(g, nb_players);
 				if (instances[i] == null)
-					instances[i] = g.player;
+					System.Diagnostics.Debug.Assert(false);
+				if (instances[i] is Player)
+					nb_players++;
 			}
 
 			// Conversion of the list
@@ -139,11 +144,13 @@ namespace tim_dodge
 		public void ExportToFile(string file)
 		{
 			Directory.CreateDirectory(Path.GetDirectoryName(file));
-			Serializer<Replay>.Save(file, this);
+			//Serializer<Replay>.Save(file, this);
+			BinarySerializer.Save(file, this);
 		}
 		public static Replay ImportFromFile(string file)
 		{
-			return Serializer<Replay>.Load(file);
+			//return Serializer<Replay>.Load(file);
+			return (Replay)BinarySerializer.Load(file);
 		}
 	}
 }
