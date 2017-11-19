@@ -10,9 +10,9 @@ namespace tim_dodge
 {
 	public class MapEditorInstance 
 	{
-		public MapEditorInstance()
+		public MapEditorInstance(ChooseMap.Maps Maps)
 		{
-			map = new Map(Load.BackgroundSun, Load.MapTextureNature, ChooseMap.Maps.DuneMap);
+			map = new Map(Load.BackgroundSun, Load.MapTextureNature, Maps);
 			focus = true;
 			mouseBlock = new BlockObject(Map.numberTileX / 2, Map.numberTileY / 2, BlockObject.Ground.MiddleGround);
 		}
@@ -82,6 +82,12 @@ namespace tim_dodge
 		{
 			map.Draw(spriteBatch);
 			mouseBlock.Draw(spriteBatch);
+
+			// TODO : Box pour la sélection de la tile en cours
+			//Texture2D whiteRectangle = new Texture2D(GraphicsDevice, 1, 1);
+			//whiteRectangle.SetData(new[] { Color.White });
+			//System. blackPen = new Pen(Color.Black, 3);
+
 		}
 
 	}

@@ -228,7 +228,7 @@ namespace tim_dodge
 
 		private void NewEditor()
 		{
-			GameManager.editor = new MapEditorInstance();
+			GameManager.editor = new MapEditorInstance(chooseMap.currentMap);
 			CurrentMenu = new List<MenuWindow>();
 		}
 
@@ -281,7 +281,11 @@ namespace tim_dodge
 			YourPath.Text = String.Empty;
 		}
 
-		private void BackInitialMenu() { CurrentMenu = new List<MenuWindow> { InitialMenu }; }
+		private void BackInitialMenu() 
+		{ 
+			CurrentMenu = new List<MenuWindow> { InitialMenu };
+			GameManager.game = null;
+		}
 
 		private void Previous()
 		{
