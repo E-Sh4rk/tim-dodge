@@ -61,15 +61,19 @@ namespace tim_dodge
 			flipV = false;
 		}
 
-        public GameInstance(ChooseMap.Maps MapLoad, int nbPlayer)
+		public GameManager gm;
+
+		public GameInstance(ChooseMap.Maps MapLoad, int nbPlayer, GameManager gm)
 		{
+			this.gm = gm;
+
 			Debug.Assert(nbPlayer >= 1 && nbPlayer <=2);
 			players = new List<Player>();
 
 			for (int i = 0; i < nbPlayer; i++)
 			{
 				players.Add(new Player(new Vector2((TimGame.GAME_WIDTH/nbPlayer)*i+(TimGame.GAME_WIDTH / nbPlayer / 2), 300),
-				                       GetNewScorePosition(i), this));
+				                       GetNewScorePosition(i), GetNewFuelPosition(i), this));
 			}
 
 			Level = new LevelManager(this, MapLoad);
@@ -80,6 +84,11 @@ namespace tim_dodge
 		public Vector2 GetNewScorePosition(int nb)
 		{
 			return new Vector2(30, 20+50*nb);
+		}
+
+		public Vector2 GetNewFuelPosition(int nb)
+		{
+			return new Vector2(300, 20+50*nb);
 		}
 
 		public void SaveReplay(string file)
@@ -205,6 +214,7 @@ namespace tim_dodge
 			{
 				p.Score.Draw(spriteBatch);
 				p.Life.Draw(spriteBatch);
+				p.Fuel.Draw(spriteBatch);
 			}
 		}
 

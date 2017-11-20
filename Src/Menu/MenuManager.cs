@@ -63,8 +63,8 @@ namespace tim_dodge
 
 			// Constructrion of menus
 			Initialize(InitialMenu, "< Maps >", new List<MenuItem> {
-				new MenuItem("New Game", NewGame),
-				new MenuItem("New 2 Game", NewMultiGame),
+				new MenuItem("One Player", NewGame),
+				new MenuItem("Two Players", NewMultiGame),
 				new MenuItem("Map Editor", NewEditor),
 				new MenuItem("Parameters", Parameters),
 				new MenuItem("Best Scores", BestScores),
@@ -73,7 +73,7 @@ namespace tim_dodge
 
 			Initialize(PauseMenu, "Pause", new List<MenuItem> {
 				new MenuItem("Resume", Resume),
-				new MenuItem("New Game", NewGame),
+				new MenuItem("Quit this game", BackInitialMenu),
 				new MenuItem("Parameters", Parameters),
 				new MenuItem("Best Scores", BestScores),
 				new MenuItem("Quit", Quit) }
@@ -216,25 +216,26 @@ namespace tim_dodge
 		// Menu functions
 		private void NewGame()
 		{
-			GameManager.game = new GameInstance(chooseMap.currentMap, 1);
+			GameManager.game = new GameInstance(chooseMap.currentMap, 1, GameManager);
 			CurrentMenu = new List<MenuWindow>();
 		}
 
 		private void NewMultiGame()
 		{
-			GameManager.game = new GameInstance(chooseMap.currentMap,2);                   
+			GameManager.game = new GameInstance(chooseMap.currentMap, 2, GameManager);                   
 			CurrentMenu = new List<MenuWindow>();
 		}
 
 		private void NewEditor()
 		{
-			GameManager.editor = new MapEditorInstance(chooseMap.currentMap);
+			GameManager.editor = new MapEditorInstance(chooseMap.currentMap, GameManager);
 			CurrentMenu = new List<MenuWindow>();
 		}
 
 		public void LaunchPause()
 		{
 			Load.sounds.playSound(Sound.SoundName.toogle);
+			PauseMenu.itemNumber = 0;
 			CurrentMenu.Add(PauseMenu);
 		}
 
@@ -251,7 +252,7 @@ namespace tim_dodge
 
 		private void StartReplay(ChooseMap.Maps map, string filename)
 		{
-			GameManager.game = new GameInstance(map,1);
+			GameManager.game = new GameInstance(map, 1, GameManager);
 			GameManager.game.LoadReplay(filename);
 			CurrentMenu = new List<MenuWindow>();
 		}
@@ -269,6 +270,7 @@ namespace tim_dodge
 				{
 					// an highscore is beaten
 					Load.sounds.playSound(Sound.SoundName.applause);
+					Congrats.itemNumber = 0;
 					CurrentMenu.Add(Congrats);
 					YourName.Text = String.Empty;
 				}
@@ -398,8 +400,7 @@ namespace tim_dodge
 
 				Serializer<List<BestScore>>.Save(Load.PathHighScores, highscores);
 
-				CurrentMenu.Remove(CurrentMenu.Last());
-				CurrentMenu.Add(InitialMenu);
+				BackInitialMenu();
 			}
 		}
 
@@ -408,8 +409,7 @@ namespace tim_dodge
 			if (YourPath.Text != String.Empty)
 			{
 				GameManager.editor.Save(YourPath.Text + ".xml");
-				CurrentMenu.Remove(CurrentMenu.Last());
-				CurrentMenu.Add(InitialMenu);
+				BackInitialMenu();
 			}
 		}
 

@@ -14,13 +14,14 @@ namespace tim_dodge
 	{
 		public Heart Life { get; protected set; }
 		public Stat Score { get; protected set; }
+		public FuelBar Fuel { get; protected set; }
 
 		public bool IsDead()
 		{
 			return (Life.value == 0);
 		}
 
-		public Player(Vector2 pos, Vector2 scorePosition, GameInstance gi)
+		public Player(Vector2 pos, Vector2 scorePosition, Vector2 fuelPosition, GameInstance gi)
 			: base(Load.TimTexture, new Sprite("Content.character.TimXml.xml"), pos)
 		{
 			JumpImpulsion = new Vector2(0f, -180f);//-250f);//-180f);
@@ -31,10 +32,10 @@ namespace tim_dodge
 			gameInst = gi;
 			Sprite.ChangeDirection(Controller.Direction.RIGHT);
 
-			this.Life = new Heart(scorePosition);
+			this.Life = new Heart(scorePosition, Color.Black);
 			this.Score = new Stat(Load.FontScore, Color.Black, "Score : ", 0);
 			this.Score.Position = scorePosition;
-
+			this.Fuel = new FuelBar(fuelPosition, gameInst.gm, Color.Black);
 			//this.Score = Score;
 			min_time_between_squat = Sprite.GetFrameTimeOfState((int)State.Squat) * 8;
 		}
@@ -65,6 +66,11 @@ namespace tim_dodge
  		protected float elapsed_since_last_squat = 0;
  		protected bool squatMode = false;
 
+		public bool CanMove()
+		{
+			return !IsDead();
+		}
+
 		public bool CanJump()
 		{
 			return gameInst.Level.map.pMap.nearTheGround(this) && elapsed_since_last_jump >= min_time_between_jump;
@@ -86,68 +92,71 @@ namespace tim_dodge
 					ChangeSpriteState((int)State.Tie);
 			}
 
-			else 
+			else
 			{
-				if (CanSquat())
-					squatMode = false;
-
-				if (directions.Exists(el => el == Controller.Direction.TOP))
-				{
-					if (CanJump())
-					{
-						Load.sounds.playSound(Sound.SoundName.jump);
-						elapsed_since_last_jump = 0;
-						gameInst.Level.map.pMap.magnetizeToGround(this);
-						ApplyNewImpulsion(JumpImpulsion);
-					}
-					else
-					{
-						if (Velocity.Y < 0) // if we are in the first state of jumping 
-							ApplyNewForce(JumpMore);
-					}
-				}
-
-				if (directions.Exists(el => el == Controller.Direction.LEFT))
-				{
-					Sprite.ChangeDirection(Controller.Direction.LEFT);
-					if (velocity.X >= -3)
-						ApplyNewForce(DashForceLeft);
-				}
-
-				if (directions.Exists(el => el == Controller.Direction.RIGHT))
-				{
-					Sprite.ChangeDirection(Controller.Direction.RIGHT);
-					if (velocity.X <= 3)
-						ApplyNewForce(DashForceRight);
-				}
-
-				if (directions.Exists(el => el == Controller.Direction.BOTTOM))
+				if (CanMove())
 				{
 					if (CanSquat())
-					{
-						ChangeSpriteState((int)State.Squat);
-						elapsed_since_last_squat = 0;
-						squatMode = true;
-					}
-				}
+						squatMode = false;
 
-				if (!squatMode)
-				{
-					if (!gameInst.Level.map.pMap.nearTheGround(this))
+					if (directions.Exists(el => el == Controller.Direction.TOP))
 					{
-						if (Math.Abs(Velocity.X) > 2)
-							ChangeSpriteState((int)State.Jump);
+						if (CanJump())
+						{
+							Load.sounds.playSound(Sound.SoundName.jump);
+							elapsed_since_last_jump = 0;
+							gameInst.Level.map.pMap.magnetizeToGround(this);
+							ApplyNewImpulsion(JumpImpulsion);
+						}
 						else
-							ChangeSpriteState((int)State.JumpH);
-
+						{
+							if (Velocity.Y < 0) // if we are in the first state of jumping 
+								ApplyNewForce(JumpMore);
+						}
 					}
 
-					else
+					if (directions.Exists(el => el == Controller.Direction.LEFT))
 					{
-						if (Math.Abs(Velocity.X) > 0.7)
-							ChangeSpriteState((int)State.Walk);
+						Sprite.ChangeDirection(Controller.Direction.LEFT);
+						if (velocity.X >= -3)
+							ApplyNewForce(DashForceLeft);
+					}
+
+					if (directions.Exists(el => el == Controller.Direction.RIGHT))
+					{
+						Sprite.ChangeDirection(Controller.Direction.RIGHT);
+						if (velocity.X <= 3)
+							ApplyNewForce(DashForceRight);
+					}
+
+					if (directions.Exists(el => el == Controller.Direction.BOTTOM))
+					{
+						if (CanSquat())
+						{
+							ChangeSpriteState((int)State.Squat);
+							elapsed_since_last_squat = 0;
+							squatMode = true;
+						}
+					}
+
+					if (!squatMode)
+					{
+						if (!gameInst.Level.map.pMap.nearTheGround(this))
+						{
+							if (Math.Abs(Velocity.X) > 2)
+								ChangeSpriteState((int)State.Jump);
+							else
+								ChangeSpriteState((int)State.JumpH);
+
+						}
+
 						else
-							ChangeSpriteState((int)State.Stay);
+						{
+							if (Math.Abs(Velocity.X) > 0.7)
+								ChangeSpriteState((int)State.Walk);
+							else
+								ChangeSpriteState((int)State.Stay);
+						}
 					}
 				}
 			}
