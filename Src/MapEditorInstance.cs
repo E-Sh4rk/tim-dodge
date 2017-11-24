@@ -10,9 +10,14 @@ namespace tim_dodge
 {
 	public class MapEditorInstance 
 	{
-		public MapEditorInstance()
+
+		GameManager gameManager;
+
+		public MapEditorInstance(ChooseMap.Maps Maps, GameManager gameManager)
 		{
-			map = new Map(Load.BackgroundSun, Load.MapTextureNature, ChooseMap.Maps.DuneMap);
+			this.gameManager = gameManager;
+
+			map = new Map(Load.BackgroundSun, Load.MapTextureNature, Maps);
 			focus = true;
 			mouseBlock = new BlockObject(Map.numberTileX / 2, Map.numberTileY / 2, BlockObject.Ground.MiddleGround);
 		}
@@ -61,7 +66,7 @@ namespace tim_dodge
 				}
 			}
 
-			if (mouse.LeftButton == ButtonState.Pressed || state.IsKeyDown(Keys.Enter))
+			if (mouse.LeftButton == ButtonState.Pressed || state.IsKeyDown(Keys.Space))
 			{
 				map.AddBlock(mouseBlock);
 				mouseBlock = new BlockObject(mouseBlock.x, mouseBlock.y, mouseBlock.state);
@@ -81,7 +86,29 @@ namespace tim_dodge
 		public void Draw(SpriteBatch spriteBatch)
 		{
 			map.Draw(spriteBatch);
+
+			int b = 2;
+			Texture2D SingleTexture = new Texture2D(gameManager.Application.GraphicsDevice, mouseBlock.Size.X+2*b, mouseBlock.Size.Y+2*b, false, SurfaceFormat.Color);
+
+			Color[] color = new Color[ (mouseBlock.Size.X+2*b) * (mouseBlock.Size.Y+2*b)];//set the color to the amount of pixels in the textures
+			for (int i = 0; i < color.Length; i++)//loop through all the colors setting them to whatever values we want
+			{
+				color[i] = Color.Black;
+			}
+
+			SingleTexture.SetData(color);
+			spriteBatch.Draw(SingleTexture, 
+			                 new Rectangle((int)mouseBlock.Position.X-b, 
+			                               (int)mouseBlock.Position.Y-b, mouseBlock.Size.X+2*b, 
+			                               mouseBlock.Size.Y + 2*b), Color.Red);
+
 			mouseBlock.Draw(spriteBatch);
+
+			// TODO : Box pour la sélection de la tile en cours
+			//Texture2D whiteRectangle = new Texture2D(GraphicsDevice, 1, 1);
+			//whiteRectangle.SetData(new[] { Color.White });
+			//System. blackPen = new Pen(Color.Black, 3);
+
 		}
 
 	}

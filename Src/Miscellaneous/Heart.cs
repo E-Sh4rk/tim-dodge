@@ -17,6 +17,10 @@ namespace tim_dodge
 
 		private Vector2 position = new Vector2(0, 0);
 
+		protected SpriteFont fontItem;
+		public Color Color;
+		public string sfuel = "Heart : ";
+
 		public int value { get; private set; }
 
 		enum HeartState
@@ -28,8 +32,11 @@ namespace tim_dodge
 
 		private HeartState[] Container;
 
-		public Heart(Vector2 pos)
+		public Heart(Vector2 pos, Color Color)
 		{
+			fontItem = Load.FontScore;
+			this.Color = Color;
+
 			heartTexture = new Texture2D[3];
 			heartTexture[(int)HeartState.full] = Load.HeartFull;
 			heartTexture[(int)HeartState.semi] = Load.HeartSemi;
@@ -41,7 +48,7 @@ namespace tim_dodge
 			position = new Vector2(TimGame.GAME_WIDTH - ((slotNumber) * (spacement.X)), pos.Y);
 		}
 
-		public Heart(Vector2 pos, int initlife) : this(pos)
+		public Heart(Vector2 pos, int initlife, Color color) : this(pos, color)
 		{
 			value = initlife;
 		}
@@ -60,6 +67,10 @@ namespace tim_dodge
 			}
 
 			// Draw
+			Vector2 size = fontItem.MeasureString(sfuel);
+			size.Y = 0;
+			spriteBatch.DrawString(fontItem, sfuel, position-size, Color);
+
 			Vector2 pos = new Vector2(position.X, position.Y);
 			for (int i = 0; i < slotNumber; i++)
 			{

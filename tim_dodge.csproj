@@ -84,6 +84,7 @@
     <Compile Include="Src\Snapshot\Replay.cs" />
     <Compile Include="Src\Snapshot\LevelSnapshot.cs" />
     <Compile Include="Src\Menu\ChooseMap.cs" />
+    <Compile Include="Src\Miscellaneous\FuelBar.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.manifest" />
