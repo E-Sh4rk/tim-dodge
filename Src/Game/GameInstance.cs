@@ -17,6 +17,8 @@ namespace tim_dodge
 
 		public LevelManager Level { get; protected set; }
 
+		public FuelBar Fuel { get; protected set; }
+
 		public float time_multiplicator = 1f;
 		public bool rotation;
 		public bool flipH;
@@ -73,12 +75,13 @@ namespace tim_dodge
 			for (int i = 0; i < nbPlayer; i++)
 			{
 				players.Add(new Player(new Vector2((TimGame.GAME_WIDTH/nbPlayer)*i+(TimGame.GAME_WIDTH / nbPlayer / 2), 300),
-				                       GetNewScorePosition(i), GetNewFuelPosition(i), this));
+				                       GetNewScorePosition(i), this));
 			}
 
 			Level = new LevelManager(this, MapLoad);
 			UndoPoisons();
 			focus = true;
+			Fuel = new FuelBar(GetNewFuelPosition(0), gm, Color.Black);
 		}
 
 		public Vector2 GetNewScorePosition(int nb)
@@ -134,7 +137,17 @@ namespace tim_dodge
 			KeyboardState state = Keyboard.GetState();
 
 			if (Controller.RewindKeyDown(state))
-				mode_rewind = true;
+			{
+				if (Fuel.isFull)
+				{
+					mode_rewind = true;
+					Fuel.decr(50); // When shift is pushed, the fuel bar decrease of 50%
+				}
+				if (Fuel.isEmpty)
+					mode_rewind = false;
+				if (mode_rewind)
+					Fuel.decr(0.5f); // In each update the fuel bar decrease of 0.5%
+			}
 			else
 				mode_rewind = false;
 
@@ -195,7 +208,9 @@ namespace tim_dodge
 						p.Life.decr(p.Life.value);
 					if (p.IsDead())
 						p.ChangeSpriteState((int)Player.State.Dead);
+					Fuel.Update();
 				}
+
 
 			}
 		}
@@ -214,7 +229,7 @@ namespace tim_dodge
 			{
 				p.Score.Draw(spriteBatch);
 				p.Life.Draw(spriteBatch);
-				p.Fuel.Draw(spriteBatch);
+				Fuel.Draw(spriteBatch);
 			}
 		}
 
