@@ -14,14 +14,13 @@ namespace tim_dodge
 	{
 		public Heart Life { get; protected set; }
 		public Stat Score { get; protected set; }
-		public FuelBar Fuel { get; protected set; }
 
 		public bool IsDead()
 		{
 			return (Life.value == 0);
 		}
 
-		public Player(Vector2 pos, Vector2 scorePosition, Vector2 fuelPosition, GameInstance gi)
+		public Player(Vector2 pos, Vector2 scorePosition, GameInstance gi)
 			: base(Load.TimTexture, new Sprite("Content.character.TimXml.xml"), pos)
 		{
 			JumpImpulsion = new Vector2(0f, -180f);//-250f);//-180f);
@@ -35,7 +34,6 @@ namespace tim_dodge
 			this.Life = new Heart(scorePosition, Color.Black);
 			this.Score = new Stat(Load.FontScore, Color.Black, "Score : ", 0);
 			this.Score.Position = scorePosition;
-			this.Fuel = new FuelBar(fuelPosition, gameInst.gm, Color.Black);
 			//this.Score = Score;
 			min_time_between_squat = Sprite.GetFrameTimeOfState((int)State.Squat) * 8;
 		}

@@ -14,8 +14,8 @@ namespace tim_dodge
 		{
 			this.tileMap = tileMap;
 
-			this.MapTexture = MapTexture;
 			this.Background = Background;
+			changeTexture(MapTexture);
 		}
 
 		public Texture MapTexture;

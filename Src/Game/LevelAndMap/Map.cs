@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -20,6 +21,15 @@ namespace tim_dodge
 		public GraphicalMap gMap;
 		public PhysicalMap pMap;
 		public List<BlockObject> tileMap;
+		public List<MapPlatform> platforms;
+
+		public class SaveMap
+		{
+			public SaveMap() { }
+			public SaveMap(List<BlockObject.SaveBlock> tm, List<MapPlatform.SavePlatform> p) { tileMap = tm; platforms = p; }
+			public List<BlockObject.SaveBlock> tileMap;
+			public List<MapPlatform.SavePlatform> platforms;
+		}
 
 		public void Draw(SpriteBatch spriteBatch)
 		{
@@ -31,10 +41,11 @@ namespace tim_dodge
 			gMap.changeTexture(NewMapTexture);
 		}
 
-		public void loadTileMap(String name)
+		public void loadTileMap(string name)
 		{
-			tileMap = Serializer<List<BlockObject.SaveBlock>>.Load(name).ConvertAll(
-				(BlockObject.SaveBlock input) => BlockObject.LoadBlock(input));
+			SaveMap sm = Serializer<SaveMap>.Load(name);
+			tileMap = sm.tileMap.ConvertAll(BlockObject.LoadBlock);
+			platforms = sm.platforms.ConvertAll(MapPlatform.LoadPlatform);
 		}
 
 		public void AddBlock(BlockObject bl)
