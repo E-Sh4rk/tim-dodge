@@ -5,7 +5,6 @@ namespace tim_dodge
 {
 	public class BlockObject : GameObject
 	{
-
 		public BlockObject(int x, int y, Ground state) : 
 		base(Load.MapTextureNature, new Sprite("Content.ground.natureXml.xml"), Vector2.Zero)
 		{

@@ -30,7 +30,6 @@ namespace tim_dodge
 			protected set;
 		}
 
-
 		public PhysicalMap(List<BlockObject> tileMap)
 		{
 			List<Rectangle>[] walls = new List<Rectangle>[4];
