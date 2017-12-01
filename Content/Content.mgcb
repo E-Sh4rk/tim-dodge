@@ -354,3 +354,9 @@
 /processorParam:TextureFormat=Compressed
 /build:SpriteFonts/MenuHighlight.spritefont
 
+#begin sound/dj.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sound/dj.wav
+

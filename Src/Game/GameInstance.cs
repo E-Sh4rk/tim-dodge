@@ -134,9 +134,23 @@ namespace tim_dodge
 			KeyboardState state = Keyboard.GetState();
 
 			if (Controller.RewindKeyDown(state))
-				mode_rewind = true;
+			{
+				if (!mode_rewind)
+				{
+					mode_rewind = true;
+					Load.sounds.playRewind();
+				}
+
+			}
 			else
-				mode_rewind = false;
+			{
+				if (mode_rewind)
+				{
+					mode_rewind = false;
+					Load.sounds.stopRewind();
+				}
+
+			}
 
 			if (mode_rewind)
 			{

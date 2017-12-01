@@ -7,7 +7,7 @@ namespace tim_tests
 {
 	public class SimulatedGameInstance : tim_dodge.GameInstance
 	{
-		public SimulatedGameInstance(bool hard) : base(tim_dodge.ChooseMap.Maps.FlatMap)
+		public SimulatedGameInstance(bool hard) : base(tim_dodge.ChooseMap.Maps.FlatMap, 1, (tim_dodge.GameManager)null)
 		{
 			if (hard)
 			{

@@ -70,7 +70,8 @@ namespace tim_dodge
 				Content.Load<SoundEffect>("sound/ah"),
 				Content.Load<SoundEffect>("sound/coin"),
 				Content.Load<SoundEffect>("sound/food")
-			},  new SoundEffect[] { Content.Load<SoundEffect>("sound/cuphead") });
+			},  new SoundEffect[] { Content.Load<SoundEffect>("sound/cuphead"),
+							Content.Load<SoundEffect>("sound/dj")});
 
 			// Texture2D
 			BackgroundMenu = Content.Load<Texture2D>("background/Menu");
