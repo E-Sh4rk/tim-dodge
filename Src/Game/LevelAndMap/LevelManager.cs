@@ -70,7 +70,6 @@ namespace tim_dodge
 														 25, 0.15f, Color.Black, true, true);
 			LevelDefinition Level5 = new LevelDefinition(map, Load.BackgroundSun, Load.MapTextureNature,
 														 50, 0.1f, Color.Black, true, true);
-
 			Levels = new List<LevelDefinition> { Level1, Level2, Level3, Level4, Level5 };
 			SetLevel(0);
 		}

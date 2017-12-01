@@ -111,7 +111,7 @@ namespace tim_dodge
 
 			// XML
 			PathHighScores = "scores.xml";
-			PathLevels = new List<String> { "Content.environment.flat.xml", "Content.environment.dune.xml", "Content.environment.water.xml"};
+			PathLevels = new List<String> { "Content.environment.flat.xml", "Content.environment.dune.xml", "Content.environment.water.xml" };
 
 			// Maps
 			foreach (string lvl in PathLevels)
