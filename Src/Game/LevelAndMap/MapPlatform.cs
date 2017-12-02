@@ -5,10 +5,6 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace tim_dodge
 {
-	/*
-	 * TODO : Level editor
-	 * TODO : Snapshots
-	 */
 	public class MapPlatform
 	{
 		public PlatformObject[] objs { get; protected set; }
