@@ -24,11 +24,6 @@ namespace tim_dodge
 		protected Vector2 forces;
 		protected Vector2 impulsions;
 
-		/// <summary>
-		/// The referential for the x axis. Non-zero when the character is on a moving platform.
-		/// </summary>
-		public float x_referential = 0f;
-
 		protected SortedSet<int> already_computed_collisions;
 		protected Vector2 collisions_impulsion;
 
@@ -128,9 +123,9 @@ namespace tim_dodge
 		}
 		public virtual void UpdatePosition(List<PhysicalObject> objects, Map map, float elapsed)
 		{
-			map.pMap.adjustXReferential(this);
+			float xref = map.pMap.getXReferential(this);
 			double dt = elapsed;
-			position += (velocity + new Vector2(x_referential, 0)) * (float)dt * pixels_per_meter;
+			position += (velocity + new Vector2(xref, 0)) * (float)dt * pixels_per_meter;
 			map.pMap.adjustPositionAndVelocity(this);
 		}
 	}

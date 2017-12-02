@@ -96,23 +96,20 @@ namespace tim_dodge
 		}
 
 		const int ground_detection_space = 1;
-		public void adjustXReferential(PhysicalObject o)
+		public float getXReferential(PhysicalObject o)
 		{
 			Point pos = o.Position.ToPoint();
 			pos.Y = pos.Y + ground_detection_space;
 			Rectangle ro = new Rectangle(pos, o.Size);
 
-			o.x_referential = 0;
 			int i = 0;
 			foreach (Rectangle r in grounds)
 			{
 				if (Collision.rect_collision(ro, r) != null)
-				{
-					o.x_referential = allGroundVelocity[i];
-					break;
-				}
+					return allGroundVelocity[i];
 				i++;
 			}
+			return 0f;
 		}
 		public bool nearTheGround(PhysicalObject o)
 		{
