@@ -5,23 +5,27 @@ namespace tim_dodge
 {
 	public class PlatformObject : GameObject
 	{
-		public PlatformObject(int x, int y, BlockObject.Ground state) :
+		public PlatformObject(float x, float y, BlockObject.Ground state) :
 		base(Load.MapTextureNature, new Sprite("Content.ground.natureXml.xml"), new Vector2(x,y))
 		{
-			Sprite.ChangeState((int)state);
 			this.state = state;
+			this.x = x;
+			this.y = y;
 		}
+
+		public int h;
+		public int w;
 
 		public class SavePlatformObject
 		{
-			public int x;
-			public int y;
+			public float x;
+			public float y;
 			public BlockObject.Ground state;
 
 			// default for saving
 			public SavePlatformObject() { }
 
-			public SavePlatformObject(int x, int y, BlockObject.Ground state)
+			public SavePlatformObject(float x, float y, BlockObject.Ground state)
 			{
 				this.x = x;
 				this.y = y;
@@ -39,23 +43,27 @@ namespace tim_dodge
 			return new PlatformObject(sbl.x, sbl.y, sbl.state);
 		}
 
-		public int x
+		public float x
 		{
-			get { return (int)position.X; }
+			get { return position.X; }
 			set { position.X = value; }
 		}
 
-		public int y
+		public float y
 		{
-			get { return (int)position.Y; }
+			get { return position.Y; }
 			set { position.Y = value; }
 		}
-
 
 		public BlockObject.Ground state
 		{
 			get { return (BlockObject.Ground)(Sprite.NowState()); }
-			set { Sprite.ChangeState((int)value); }
+			set
+			{
+				Sprite.ChangeState((int)value);
+				h = Sprite.RectOfSprite().Height;
+				w = Sprite.RectOfSprite().Width;
+			}
 		}
 
 	}

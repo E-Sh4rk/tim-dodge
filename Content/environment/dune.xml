@@ -654,17 +654,17 @@
 			<platform>
 				<SavePlatformObject>
 					<x>200</x>
-				    <y>500</y>
+				    <y>550</y>
 				    <state>LeftPlatform</state>
 				</SavePlatformObject>
 				<SavePlatformObject>
 					<x>250</x>
-				    <y>500</y>
+				    <y>550</y>
 				    <state>MiddlePlatform</state>
 				</SavePlatformObject>
 				<SavePlatformObject>
 					<x>300</x>
-				    <y>500</y>
+				    <y>550</y>
 				    <state>RightPlatform</state>
 				</SavePlatformObject>
 			</platform>

@@ -8,12 +8,9 @@ namespace tim_dodge
 		public BlockObject(int x, int y, Ground state) : 
 		base(Load.MapTextureNature, new Sprite("Content.ground.natureXml.xml"), Vector2.Zero)
 		{
-			Sprite.ChangeState((int)state);
-			h = Sprite.RectOfSprite().Height;
-			w = Sprite.RectOfSprite().Width;
+			this.state = state;
 			this.x = x;
 			this.y = y;
-			this.state = state;
 		}
 
 		public class SaveBlock
@@ -62,11 +59,13 @@ namespace tim_dodge
 		public Ground state
 		{
 			get { return (Ground)(Sprite.NowState());}
-			set { Sprite.ChangeState((int)value);}
+			set { Sprite.ChangeState((int)value);
+				h = Sprite.RectOfSprite().Height;
+				w = Sprite.RectOfSprite().Width;}
 		}
 
-		public float h;
-		public float w;
+		public int h;
+		public int w;
 
 		public enum Ground
 		{

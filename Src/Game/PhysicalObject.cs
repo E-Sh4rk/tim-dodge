@@ -24,6 +24,11 @@ namespace tim_dodge
 		protected Vector2 forces;
 		protected Vector2 impulsions;
 
+		/// <summary>
+		/// The referential for the x axis. Non-zero when the character is on a moving platform.
+		/// </summary>
+		public float x_referential = 0f;
+
 		protected SortedSet<int> already_computed_collisions;
 		protected Vector2 collisions_impulsion;
 
@@ -37,6 +42,9 @@ namespace tim_dodge
 			get { return velocity; }
 			set { velocity = value; }
 		}
+		/// <summary>
+		/// Set Ghost to true if you want the object to stop interacting with the environment.
+		/// </summary>
 		public bool Ghost
 		{
 			get;
@@ -52,11 +60,11 @@ namespace tim_dodge
 			impulsions += imp;
 		}
 
-		const float collision_factor = 1.25f;
-		const float gravity = 9.81f;//24.79f;//1.622f;//9.81f;
-		const float ground_friction = 10.0f;
-		const float air_friction = 1.0f;
-		const float pixels_per_meter = 250;
+		public const float collision_factor = 1.25f;
+		public const float gravity = 9.81f;//24.79f;//1.622f;//9.81f;
+		public const float ground_friction = 10.0f;
+		public const float air_friction = 1.0f;
+		public const float pixels_per_meter = 250;
 
 		protected virtual void ApplyCollision(Vector2 imp, PhysicalObject obj, float elapsed)
 		{
@@ -120,9 +128,9 @@ namespace tim_dodge
 		}
 		public virtual void UpdatePosition(List<PhysicalObject> objects, Map map, float elapsed)
 		{
+			map.pMap.adjustXReferential(this);
 			double dt = elapsed;
-			
-			position += velocity * (float)dt * pixels_per_meter;
+			position += (velocity + new Vector2(x_referential, 0)) * (float)dt * pixels_per_meter;
 			map.pMap.adjustPositionAndVelocity(this);
 		}
 	}

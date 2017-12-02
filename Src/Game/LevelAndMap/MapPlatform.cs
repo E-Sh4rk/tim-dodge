@@ -5,29 +5,33 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace tim_dodge
 {
+	/*
+	 * TODO : Level editor
+	 * TODO : Snapshots
+	 */
 	public class MapPlatform
 	{
 		public PlatformObject[] objs { get; protected set; }
-		public int x_offset = 0;
-		public int y_offset = 0;
+		public float x_velocity = 0;
+		public float y_velocity = 0;
 
-		public MapPlatform(PlatformObject[] objs, int xoff, int yoff)
+		public MapPlatform(PlatformObject[] objs, float xvel, float yvel)
 		{
 			this.objs = objs;
-			x_offset = xoff;
-			y_offset = yoff;
+			x_velocity = xvel;
+			y_velocity = yvel;
 		}
 
 		public class SavePlatform
 		{
-			public int x_offset = 0;
-			public int y_offset = 0;
+			public float x_offset = 0;
+			public float y_offset = 0;
 			public PlatformObject.SavePlatformObject[] platform;
 
 			// default for saving
 			public SavePlatform() { }
 
-			public SavePlatform(int x, int y, PlatformObject.SavePlatformObject[] p)
+			public SavePlatform(float x, float y, PlatformObject.SavePlatformObject[] p)
 			{
 				this.x_offset = x;
 				this.y_offset = y;
@@ -40,7 +44,7 @@ namespace tim_dodge
 			PlatformObject.SavePlatformObject[] bs = new PlatformObject.SavePlatformObject[objs.Length];
 			for (int i = 0; i < bs.Length; i++)
 				bs[i] = objs[i].CreateSave();
-			return new SavePlatform(x_offset, y_offset, bs);
+			return new SavePlatform(x_velocity, y_velocity, bs);
 		}
 
 		public static MapPlatform LoadPlatform(SavePlatform sp)
@@ -51,19 +55,29 @@ namespace tim_dodge
 			return new MapPlatform(objs, sp.x_offset, sp.y_offset);
 		}
 
-		public void Move()
+		public void Move(float elapsed)
 		{
 			foreach (PlatformObject o in objs)
 			{
-				o.x += x_offset;
-				o.y += y_offset;
+				o.x += x_velocity*elapsed*PhysicalObject.pixels_per_meter;
+				o.y += y_velocity*elapsed*PhysicalObject.pixels_per_meter;
 			}
 		}
 
 		public void ChangeDirection()
 		{
-			x_offset = -x_offset;
-			y_offset = -y_offset;
+			x_velocity = -x_velocity;
+			y_velocity = -y_velocity;
+		}
+
+		public bool Intersect(Rectangle r)
+		{
+			foreach (PlatformObject po in objs)
+			{
+				if (r.Intersects(new Rectangle((int)po.x, (int)po.y, po.w, po.h)))
+					return true;
+			}
+			return false;
 		}
 
 		public void ChangeTexture(Texture newTexture)

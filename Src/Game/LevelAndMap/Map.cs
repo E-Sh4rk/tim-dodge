@@ -68,11 +68,42 @@ namespace tim_dodge
 			catch { }
 		}
 
+		bool platformInCollision(MapPlatform pl)
+		{
+			foreach (MapPlatform mp in platforms)
+			{
+				if (!mp.Equals(pl))
+					foreach (PlatformObject po in mp.objs)
+						if (pl.Intersect(new Rectangle((int)po.x, (int)po.y, po.w, po.h)))
+							return true;
+			}
+			foreach (BlockObject o in tileMap)
+			{
+				if (pl.Intersect(new Rectangle((int)o.Position.X, (int)o.Position.Y, o.w, o.h)))
+					return true;
+			}
+			Rectangle[] screenEdges = new Rectangle[4];
+			screenEdges[0] = new Rectangle(0,-1,TimGame.GAME_WIDTH,1);
+			screenEdges[1] = new Rectangle(-1, 0, 1, TimGame.GAME_HEIGHT);
+			screenEdges[2] = new Rectangle(0, TimGame.GAME_HEIGHT, TimGame.GAME_WIDTH, 1);
+			screenEdges[3] = new Rectangle(TimGame.GAME_WIDTH, 0, 1, TimGame.GAME_HEIGHT);
+			foreach (Rectangle r in screenEdges)
+			{
+				if (pl.Intersect(r))
+					return true;
+			}
+			return false;
+		}
 		public void Update(float elapsed)
 		{
 			foreach (MapPlatform p in platforms)
 			{
-				p.Move();
+				p.Move(elapsed);
+				if (platformInCollision(p))
+				{
+					p.ChangeDirection();
+					p.Move(elapsed);
+				}
 			}
 			pMap.Update();
 		}
