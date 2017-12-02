@@ -14,8 +14,8 @@ namespace tim_dodge
 		public Map(Texture2D Background, Texture MapTexture, ChooseMap.Maps MapLoad)
 		{
 			loadTileMap(ChooseMap.StringEnv(MapLoad));
-			gMap = new GraphicalMap(Background, MapTexture, tileMap);
-			pMap = new PhysicalMap(gMap.tileMap);
+			gMap = new GraphicalMap(Background, MapTexture, tileMap, platforms);
+			pMap = new PhysicalMap(gMap.tileMap, platforms);
 		}
 
 		public GraphicalMap gMap;
@@ -66,6 +66,15 @@ namespace tim_dodge
 					tileMap.Remove(tileMap.Find((BlockObject obj) => obj.x == x && obj.y == y));
 			}
 			catch { }
+		}
+
+		public void Update(float elapsed)
+		{
+			foreach (MapPlatform p in platforms)
+			{
+				p.Move();
+			}
+			pMap.Update();
 		}
 
 		public const int numberTileY = TimGame.GAME_HEIGHT / 64;

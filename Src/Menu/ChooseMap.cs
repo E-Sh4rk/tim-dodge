@@ -17,10 +17,12 @@ namespace tim_dodge
 
 		public void loadTileMap(ChooseMap.Maps map)
 		{
-			List<BlockObject.SaveBlock> lst = new List<BlockObject.SaveBlock>();
+			/*List<BlockObject.SaveBlock> lst = new List<BlockObject.SaveBlock>();
 			lst.Add(new BlockObject.SaveBlock());
 			lst.Add(new BlockObject.SaveBlock());
-			Serializer<Map.SaveMap>.Save("tmp.xml", new Map.SaveMap(lst, new List<MapPlatform.SavePlatform>()));
+			List<MapPlatform.SavePlatform> p = new List<MapPlatform.SavePlatform>();
+			p.Add(new MapPlatform.SavePlatform());
+			Serializer<Map.SaveMap>.Save("tmp.xml", new Map.SaveMap(lst, p));*/
 			Map.SaveMap m = Serializer<Map.SaveMap>.Load(StringEnv(map));
 			tileMap = m.tileMap.ConvertAll(BlockObject.LoadBlock);
 		}

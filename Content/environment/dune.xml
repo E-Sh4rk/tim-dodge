@@ -647,5 +647,27 @@
 	    <state>RightEGround</state>
 	  </SaveBlock>
 	</tileMap>
-	<platforms/>
+	<platforms>
+		<SavePlatform>
+			<x_offset>1</x_offset>
+			<y_offset>0</y_offset>
+			<platform>
+				<SavePlatformObject>
+					<x>200</x>
+				    <y>500</y>
+				    <state>LeftPlatform</state>
+				</SavePlatformObject>
+				<SavePlatformObject>
+					<x>250</x>
+				    <y>500</y>
+				    <state>MiddlePlatform</state>
+				</SavePlatformObject>
+				<SavePlatformObject>
+					<x>300</x>
+				    <y>500</y>
+				    <state>RightPlatform</state>
+				</SavePlatformObject>
+			</platform>
+		</SavePlatform>
+	</platforms>
 </SaveMap>

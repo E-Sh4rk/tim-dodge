@@ -189,8 +189,11 @@ namespace tim_dodge
 				if (current_snapshot_index == oldest_snapshot_index)
 					oldest_snapshot_index = mod(oldest_snapshot_index + 1, max_snapshots);
 
+				// Update!
 				float insensible_elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
 				float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds * time_multiplicator;
+
+				Level.Current.map.Update(elapsed);
 
 				Level.Update(elapsed);
 				Level.Current.falling.Update(elapsed);

@@ -1,5 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using System.Linq;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace tim_dodge
 {
@@ -56,6 +58,24 @@ namespace tim_dodge
 				o.x += x_offset;
 				o.y += y_offset;
 			}
+		}
+
+		public void ChangeDirection()
+		{
+			x_offset = -x_offset;
+			y_offset = -y_offset;
+		}
+
+		public void ChangeTexture(Texture newTexture)
+		{
+			foreach (PlatformObject po in objs)
+				po.ChangeTexture(newTexture);
+		}
+
+		public void Draw(SpriteBatch sb)
+		{
+			foreach (PlatformObject po in objs)
+				po.Draw(sb);
 		}
 	}
 }
