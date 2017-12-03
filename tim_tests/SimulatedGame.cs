@@ -1,13 +1,38 @@
 ﻿using System;
 using System.IO;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using tim_dodge;
 
 namespace tim_tests
 {
+	public class SimulatedGameManager : GameManager
+	{
+		SimulatedGameInstance sgi;
+
+		public SimulatedGameManager(ContentManager Content, TimGame Application, bool hard):
+		base(Content, Application)
+		{
+			sgi = new SimulatedGameInstance(hard, this);
+		}
+
+		public override void Update(GameTime gameTime)
+		{
+			sgi.Update(gameTime);
+		}
+
+		public bool HasDied()
+		{
+			return sgi.HasDied();
+		}
+
+		public override void Draw(SpriteBatch spriteBatch) { }
+	}
 	public class SimulatedGameInstance : tim_dodge.GameInstance
 	{
-		public SimulatedGameInstance(bool hard) : base(tim_dodge.ChooseMap.Maps.FlatMap, 1, (tim_dodge.GameManager)null)
+		public SimulatedGameInstance(bool hard, GameManager gm) :
+		base(tim_dodge.ChooseMap.Maps.FlatMap, 1, gm)
 		{
 			if (hard)
 			{
@@ -29,16 +54,21 @@ namespace tim_tests
 
 		public new void Update(GameTime gameTime)
 		{
-			bool isDead = true;
-			foreach (tim_dodge.Player p in players)
+			if (!alreadyDead)
 			{
-				if (!p.IsDead())
-					isDead = false;
+				bool isDead = true;
+				foreach (tim_dodge.Player p in players)
+				{
+					if (!p.IsDead())
+						isDead = false;
+				}
+				if (isDead)
+					alreadyDead = true;
+				base.Update(gameTime);
 			}
-			if (isDead)
-				alreadyDead = true;
-			base.Update(gameTime);
 		}
+
+		public new void Draw(SpriteBatch spriteBatch) { }
 
 		public bool HasDied()
 		{
@@ -46,27 +76,21 @@ namespace tim_tests
 		}
 	}
 
-	public class SimulatedGame : Game
+	public class SimulatedGame : TimGame
 	{
-		GraphicsDeviceManager gdm = null;
-		SimulatedGameInstance Game;
-		SpriteBatch spriteBatch;
+		SimulatedGameManager Game;
 
 		public SimulatedGame()
 		{
-			gdm = new GraphicsDeviceManager(this);
-			Content.RootDirectory = "Content";
-			gdm.PreferredBackBufferWidth = tim_dodge.TimGame.GAME_WIDTH;
-			gdm.PreferredBackBufferHeight = tim_dodge.TimGame.GAME_HEIGHT;
 		}
 
 		public void initializeHardLevel()
 		{
-			Game = new SimulatedGameInstance(true);
+			Game = new SimulatedGameManager(Content, this, true);
 		}
 		public void initializeEasyLevel()
 		{
-			Game = new SimulatedGameInstance(false);
+			Game = new SimulatedGameManager(Content, this, false);
 		}
 
 		public bool isGameTerminated()
@@ -76,13 +100,7 @@ namespace tim_tests
 
 		public Texture2D textureFromStream(Stream stream)
 		{
-			return Texture2D.FromStream(gdm.GraphicsDevice, stream);
-		}
-
-		protected override void LoadContent()
-		{
-			spriteBatch = new SpriteBatch(GraphicsDevice);
-			tim_dodge.Load.LoadContent(Content);
+			return Texture2D.FromStream(graphics.GraphicsDevice, stream);
 		}
 
 		protected override void Update(GameTime gameTime)
@@ -98,5 +116,7 @@ namespace tim_tests
 
 			base.Update(gameTime);
 		}
+
+		protected override void Draw(GameTime gameTime) { }
 	}
 }

@@ -669,5 +669,26 @@
 				</SavePlatformObject>
 			</platform>
 		</SavePlatform>
+		<SavePlatform>
+			<x_offset>0</x_offset>
+			<y_offset>1</y_offset>
+			<platform>
+				<SavePlatformObject>
+					<x>100</x>
+				    <y>350</y>
+				    <state>LeftPlatform</state>
+				</SavePlatformObject>
+				<SavePlatformObject>
+					<x>150</x>
+				    <y>350</y>
+				    <state>MiddlePlatform</state>
+				</SavePlatformObject>
+				<SavePlatformObject>
+					<x>200</x>
+				    <y>350</y>
+				    <state>RightPlatform</state>
+				</SavePlatformObject>
+			</platform>
+		</SavePlatform>
 	</platforms>
 </SaveMap>
