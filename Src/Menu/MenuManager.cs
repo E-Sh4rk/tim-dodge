@@ -20,11 +20,9 @@ namespace tim_dodge
 		private MenuWindow ParamMenu;
 		private MenuItem choiceMusicItem;
 		private MenuItem choiceSoundItem;
-		private MenuItem choiceCharlieItem;
 		private MenuWindow Gameover;
 		private MenuWindow QuitMenu;
 		private MenuWindow Highscores;
-		private MenuItem MultiPlayer;
 
 		private MenuWindow Congrats;
 		private MenuItem EnterYourName;
@@ -59,7 +57,6 @@ namespace tim_dodge
 			SaveEditor = new MenuWindow();
 			QuitMenu = new MenuWindow();
 			Highscores = new MenuWindow();
-			//MultiPlayer = new MenuItem();
 
 			// Constructrion of menus
 			Initialize(InitialMenu, "< Maps >", new List<MenuItem> {
@@ -87,18 +84,6 @@ namespace tim_dodge
 				choiceSoundItem = new MenuItem("   Activate Sound Effects   ", ChoiceSound);
 			else
 				choiceSoundItem = new MenuItem("Deactivate Sound Effects", ChoiceSound);
-			/*
-			try
-			{
-				if (GameManager.game.rotation)
-					choiceCharlieItem = new MenuItem("Deactivate Option Charlie", ChoiceCharlie);
-				else
-					choiceCharlieItem = new MenuItem("Activate Option Charlie", ChoiceCharlie);
-			}
-			catch
-			{
-				choiceCharlieItem = new MenuItem("Activate Option Charlie", ChoiceCharlie);
-			}*/
 
 			Initialize(ParamMenu, "Parameters", new List<MenuItem> {
 				choiceMusicItem,
@@ -113,7 +98,7 @@ namespace tim_dodge
 					  );
 
 			Initialize(Gameover, "Game Over", new List<MenuItem> {
-				new MenuItem("Play Again", NewGame),
+				new MenuItem("Play Again", PlayAgain),
 				new MenuItem("Back Menu", BackInitialMenu),
 				new MenuItem("Quit the game", Quit) }
 					  );
@@ -214,12 +199,18 @@ namespace tim_dodge
 		}
 
 		// Menu functions
-		private void NewGame()
+		private void PlayAgain()
 		{
 			if (GameManager.game.InitialNbPlayers == 1)
 				GameManager.game = new GameInstance(chooseMap.currentMap, 1, GameManager);
 			else
 				GameManager.game = new GameInstance(chooseMap.currentMap, 2, GameManager);
+			CurrentMenu = new List<MenuWindow>();
+		}
+
+		private void NewGame()
+		{
+			GameManager.game = new GameInstance(chooseMap.currentMap, 1, GameManager);
 			CurrentMenu = new List<MenuWindow>();
 		}
 
@@ -312,21 +303,6 @@ namespace tim_dodge
 				Load.sounds.pauseMusic();
 				choiceMusicItem.Text = "Activate Music";
 			}
-		}
-
-		private void ChoiceCharlie()
-		{
-			if (GameManager.game.rotation)
-			{
-				GameManager.game.rotation = false;
-				choiceCharlieItem.Text = "Activate Option Charlie";
-			}
-			else
-			{
-				GameManager.game.rotation = true;
-				choiceCharlieItem.Text = "Deactivate Option Charlie";
-			}
-					           
 		}
 
 		private void ChoiceSound()
