@@ -14,6 +14,7 @@ namespace tim_dodge
 	public class GameInstance
 	{
 		public List<Player> players;
+		public int InitialNbPlayers;
 
 		public LevelManager Level { get; protected set; }
 
@@ -68,6 +69,7 @@ namespace tim_dodge
 		public GameInstance(ChooseMap.Maps MapLoad, int nbPlayer, GameManager gm)
 		{
 			this.gm = gm;
+			InitialNbPlayers = nbPlayer;
 
 			Debug.Assert(nbPlayer >= 1 && nbPlayer <=2);
 			players = new List<Player>();

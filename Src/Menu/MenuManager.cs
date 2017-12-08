@@ -216,7 +216,10 @@ namespace tim_dodge
 		// Menu functions
 		private void NewGame()
 		{
-			GameManager.game = new GameInstance(chooseMap.currentMap, 1, GameManager);
+			if (GameManager.game.InitialNbPlayers == 1)
+				GameManager.game = new GameInstance(chooseMap.currentMap, 1, GameManager);
+			else
+				GameManager.game = new GameInstance(chooseMap.currentMap, 2, GameManager);
 			CurrentMenu = new List<MenuWindow>();
 		}
 
