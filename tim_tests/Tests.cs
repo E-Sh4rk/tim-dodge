@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -23,7 +24,8 @@ namespace tim_tests
 			if (g == null)
 			{
 				g = new SimulatedGame();
-				g.RunOneFrame();
+				//g.RunOneFrame();
+				g.Init();
 				Console.WriteLine("Simulated game initialized!");
 			}
 		}
@@ -32,6 +34,8 @@ namespace tim_tests
 		{
 			if (g != null)
 			{
+				/*Monitor.PulseAll(g);
+				Monitor.Exit(this);*/
 				g.Exit();
 				g.Dispose();
 				Console.WriteLine("Simulated game disposed!");
