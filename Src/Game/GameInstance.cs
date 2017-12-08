@@ -193,11 +193,8 @@ namespace tim_dodge
 				float insensible_elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
 				float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds * time_multiplicator;
 
+				// First, the map
 				Level.Current.map.Update(elapsed);
-
-				Level.Update(elapsed);
-				Level.Current.falling.Update(elapsed);
-				Level.Current.walking.Update(elapsed);
 
 				// Move players
 				if (players.Count >= 1)
@@ -230,6 +227,10 @@ namespace tim_dodge
 					Fuel.Update();
 				}
 
+				// Logic of levels / ennemies
+				Level.Update(elapsed);
+				Level.Current.falling.Update(elapsed);
+				Level.Current.walking.Update(elapsed);
 
 			}
 		}

@@ -96,6 +96,7 @@ namespace tim_dodge
 		}
 
 		const int ground_detection_space = 1;
+		const int wall_detection_space = 1;
 		public float getXReferential(PhysicalObject o)
 		{
 			Point pos = o.Position.ToPoint();
@@ -124,11 +125,10 @@ namespace tim_dodge
 			}
 			return false;
 		}
-		const int wall_detection_space = 1;
 		public bool nearRightWall(PhysicalObject o)
 		{
 			Point pos = o.Position.ToPoint();
-			pos.X = pos.X + ground_detection_space;
+			pos.X = pos.X + wall_detection_space;
 			Rectangle ro = new Rectangle(pos, o.Size);
 			foreach (Rectangle r in rightWalls)
 			{
@@ -140,7 +140,7 @@ namespace tim_dodge
 		public bool nearLeftWall(PhysicalObject o)
 		{
 			Point pos = o.Position.ToPoint();
-			pos.X = pos.X - ground_detection_space;
+			pos.X = pos.X - wall_detection_space;
 			Rectangle ro = new Rectangle(pos, o.Size);
 			foreach (Rectangle r in leftWalls)
 			{
