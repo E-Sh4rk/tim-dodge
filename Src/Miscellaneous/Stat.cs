@@ -11,7 +11,7 @@ namespace tim_dodge
 	public class Stat : Item
 	{
 		public int value { get; private set; }
-		private String Title;
+		public String Title;
 
 		public Stat(SpriteFont fontStat, Color Color, String Title, int value) : base(Title + value, fontStat, Color)
 		{

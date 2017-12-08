@@ -17,7 +17,7 @@ namespace tim_dodge
 
 		public LevelManager Level { get; protected set; }
 
-		public FuelBar Fuel { get; protected set; }
+		public FuelBar Fuel { get; protected set; }	
 
 		public float time_multiplicator = 1f;
 		public bool rotation;
@@ -80,14 +80,21 @@ namespace tim_dodge
 
 			if (nbPlayer > 1)
 			{
-				players[0].ColorPlayer = Color.PaleTurquoise;
-				players[1].ColorPlayer = Color.PaleVioletRed;
+				Player p1 = players[0];
+				Player p2 = players[1];
+				p1.ColorPlayer = Color.PaleTurquoise;
+				p2.ColorPlayer = Color.PaleVioletRed;
+				p1.Score.Title = "Score Right : ";
+				p2.Score.Title = "Score Left : ";
+				p1.Life.sfuel = "Right : ";
+				p2.Life.sfuel = "Left : ";
 			}
 
 			Level = new LevelManager(this, MapLoad);
 			UndoPoisons();
 			focus = true;
-			Fuel = new FuelBar(GetNewFuelPosition(0), gm, Color.Black);
+			if (nbPlayer == 1)
+				Fuel = new FuelBar(GetNewFuelPosition(0), gm, Color.Black);
 		}
 
 		public Vector2 GetNewScorePosition(int nb)
@@ -142,37 +149,38 @@ namespace tim_dodge
 		{
 			KeyboardState state = Keyboard.GetState();
 
-			if (Controller.RewindKeyDown(state))
+			if (players.Count == 1)
 			{
-				if (Fuel.isFull && !mode_rewind)
+				if (Controller.RewindKeyDown(state))
 				{
-					mode_rewind = true;
-					Load.sounds.playRewind();
-					Fuel.decr(50); // When shift is pushed, the fuel bar decrease of 50%
-				}
+					if (Fuel.isFull && !mode_rewind)
+					{
+						mode_rewind = true;
+						Load.sounds.playRewind();
+						Fuel.decr(50); // When shift is pushed, the fuel bar decrease of 50%
+					}
 
-				if (Fuel.isEmpty)
+					if (Fuel.isEmpty)
+					{
+						mode_rewind = false;
+						Load.sounds.stopRewind();
+					}
+
+					if (mode_rewind)
+					{
+						Fuel.decr(0.5f); // In each update the fuel bar decrease of 0.5%
+					}
+				}
+				else
 				{
-					mode_rewind = false;
-					Load.sounds.stopRewind();
-				}
+					if (mode_rewind)
+					{
+						mode_rewind = false;
+						Load.sounds.stopRewind();
+					}
 
-				if (mode_rewind)
-				{
-					Fuel.decr(0.5f); // In each update the fuel bar decrease of 0.5%
 				}
-
 			}
-			else
-			{
-				if (mode_rewind)
-				{
-					mode_rewind = false;
-					Load.sounds.stopRewind();
-				}
-
-			}
-
 			if (mode_rewind)
 			{
 				if (current_snapshot_index != oldest_snapshot_index)
@@ -230,7 +238,8 @@ namespace tim_dodge
 						p.Life.decr(p.Life.value);
 					if (p.IsDead())
 						p.ChangeSpriteState((int)Player.State.Dead);
-					Fuel.Update();
+					if (players.Count == 1)
+						Fuel.Update();
 				}
 
 				// Logic of levels / ennemies
@@ -255,7 +264,8 @@ namespace tim_dodge
 			{
 				p.Score.Draw(spriteBatch);
 				p.Life.Draw(spriteBatch);
-				Fuel.Draw(spriteBatch);
+				if (players.Count == 1)
+					Fuel.Draw(spriteBatch);
 			}
 		}
 
