@@ -112,7 +112,7 @@ namespace tim_dodge
 					  );
 			Congrats.Opacity = 0.9f;
 			Congrats.Position = new Vector2(Congrats.Position.X, Gameover.ListItems[1].source.Y);
-			Congrats.AlignItems();
+			//Congrats.AlignItemsX();
 
 			YourPath = new KeyboardReader("Save your map".Length);
 			EnterYourPath = new MenuItem(messageYourPath, Load.FontMenu, Load.ColorTextMenu); // Text updated by the update function
@@ -123,7 +123,7 @@ namespace tim_dodge
 					  );
 			SaveEditor.Opacity = 0.9f;
 			SaveEditor.Position = new Vector2(SaveEditor.Position.X, 100);//Gameover.ListItems[1].source.Y);
-			SaveEditor.AlignItems();
+			//SaveEditor.AlignItems();
 
 			// First Menu appearing
 			CurrentMenu = new List<MenuWindow>();
@@ -163,12 +163,12 @@ namespace tim_dodge
 				if (YourName.Text == String.Empty)
 				{
 					EnterYourName.Text = messageYourName;
-					Congrats.AlignItems();
+					Congrats.AlignItemsX();
 				}
 				else
 				{
 					EnterYourName.Text = YourName.Text;
-					Congrats.AlignItems();
+					Congrats.AlignItemsX();
 				}
 			}
 
@@ -178,12 +178,12 @@ namespace tim_dodge
 				if (YourPath.Text == String.Empty)
 				{
 					EnterYourPath.Text = messageYourPath;
-					SaveEditor.AlignItems();
+					SaveEditor.AlignItemsX();
 				}
 				else
 				{
 					EnterYourPath.Text = YourPath.Text;
-					SaveEditor.AlignItems();
+					SaveEditor.AlignItemsX();
 				}
 				
 			}

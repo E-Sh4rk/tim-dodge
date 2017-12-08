@@ -41,7 +41,8 @@ namespace tim_dodge
 			}
 
 			SetBackground();
-			AlignItems();
+			AlignItemsX();
+			AlignItemsY();
 
 			ListSelectableItems = ListItems.FindAll(item => item.Selectable);
 		}
@@ -72,9 +73,9 @@ namespace tim_dodge
 			Opacity = 0.5f;
 		}
 
-		public void AlignItems()
+		public void AlignItemsY()
 		{   
-			// Calculates and positions the items of the menu
+			// Calculates and positions the ordinate of items of the menu
 			float currentY = BackgroundBordureY * ListItems[0].Size.Y;
 			int i;
 			for (i = 0; i < ListItems.Count; i++)
@@ -82,14 +83,28 @@ namespace tim_dodge
 				MenuItem item = ListItems[i];
 				item.Origin = Position;
 
-				float X = (Size.X - item.Size.X) / 2; // center item in the menu
-				item.Position = new Vector2(X, currentY);
+				item.Position = new Vector2(item.Position.X, currentY);
 
 				float heightItem = item.Size.Y;
 				float interval = SpacingBetweenItems * heightItem;
 
 				currentY += heightItem + interval;
 			}
+		}
+
+		public void AlignItemsX()
+		{
+			// Calculates and positions the abscisse of items of the menu	
+			int i;
+			for (i = 0; i < ListItems.Count; i++)
+			{
+				MenuItem item = ListItems[i];
+				item.Origin = Position;
+
+				float X = (Size.X - item.Size.X) / 2; // center item in the menu
+				item.Position = new Vector2(X, item.Position.Y);
+			}
+
 		}
 
 		public void HighlightsCurrentItem()
@@ -128,7 +143,7 @@ namespace tim_dodge
 				itemNumber = 0;
 
 			HighlightsCurrentItem();
-			AlignItems();
+			AlignItemsX();
 		}
 
 		public new void Draw(SpriteBatch spriteBatch)
