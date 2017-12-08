@@ -78,6 +78,12 @@ namespace tim_dodge
 				                       GetNewScorePosition(i), this));
 			}
 
+			if (nbPlayer > 1)
+			{
+				players[0].ColorPlayer = Color.PaleTurquoise;
+				players[1].ColorPlayer = Color.PaleVioletRed;
+			}
+
 			Level = new LevelManager(this, MapLoad);
 			UndoPoisons();
 			focus = true;
