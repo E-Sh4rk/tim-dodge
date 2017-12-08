@@ -84,10 +84,10 @@ namespace tim_dodge
 				Player p2 = players[1];
 				p1.ColorPlayer = Color.PaleTurquoise;
 				p2.ColorPlayer = Color.PaleVioletRed;
-				p1.Score.Title = "Score Right : ";
-				p2.Score.Title = "Score Left : ";
-				p1.Life.sfuel = "Right : ";
-				p2.Life.sfuel = "Left : ";
+				p1.Score.Title = "Right Score : ";
+				p2.Score.Title = "Left Score : ";
+				p1.Life.sfuel = "Right Player : ";
+				p2.Life.sfuel = "Left Player : ";
 			}
 
 			Level = new LevelManager(this, MapLoad);
@@ -104,7 +104,7 @@ namespace tim_dodge
 
 		public Vector2 GetNewFuelPosition(int nb)
 		{
-			return new Vector2(300, 20+50*nb);
+			return new Vector2(500, 20+50*nb);
 		}
 
 		public void SaveReplay(string file)
@@ -237,7 +237,17 @@ namespace tim_dodge
 					if (p.IsOutOfBounds())
 						p.Life.decr(p.Life.value);
 					if (p.IsDead())
+					{
 						p.ChangeSpriteState((int)Player.State.Dead);
+						if (players.Count > 1)
+						{
+							players.Remove(p);
+							if (players.Count == 1)
+								Fuel = new FuelBar(GetNewFuelPosition(0), gm, Color.Black);
+							break;
+						}
+						
+					}
 					if (players.Count == 1)
 						Fuel.Update();
 				}
