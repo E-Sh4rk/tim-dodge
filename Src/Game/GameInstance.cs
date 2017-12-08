@@ -14,7 +14,7 @@ namespace tim_dodge
 	public class GameInstance
 	{
 		public List<Player> players;
-		public int InitialNbPlayers;
+		public int InitialNbPlayers = 1;
 
 		public LevelManager Level { get; protected set; }
 
