@@ -22,12 +22,14 @@ namespace tim_dodge
 			private set;
 		}
 
+		//private SoundEffectInstance musicNow;
 		private SoundEffectInstance musicNow;
 
 		public Sound(SoundEffect[] sfx, SoundEffect[] musc)
 		{
 			sounds = sfx;
 			musics = musc;
+
 
 			sfxmute = false; // Mute sound effects by default
 			musicmute = false; // Mute music by default
