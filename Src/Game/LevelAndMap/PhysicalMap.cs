@@ -9,63 +9,114 @@ namespace tim_dodge
 	/// </summary>
 	public class PhysicalMap
 	{
+		Rectangle[] fixedRoofs;
+		Rectangle[] allRoofs;
 		public Rectangle[] roofs
 		{
-			get;
-			protected set;
+			get { return allRoofs; }
 		}
+		Rectangle[] fixedGround;
+		Rectangle[] allGround;
+		float[] allGroundVelocity;
 		public Rectangle[] grounds
 		{
-			get;
-			protected set;
+			get { return allGround; }
 		}
+		Rectangle[] fixedLWalls;
+		Rectangle[] allLWalls;
 		public Rectangle[] leftWalls
 		{
-			get;
-			protected set;
+			get { return allLWalls; }
 		}
+		Rectangle[] fixedRWalls;
+		Rectangle[] allRWalls;
 		public Rectangle[] rightWalls
 		{
-			get;
-			protected set;
+			get { return allRWalls; }
 		}
 
+		List<MapPlatform> platforms;
 
-		public PhysicalMap(List<BlockObject> tileMap)
+		public PhysicalMap(List<BlockObject> tileMap, List<MapPlatform> platforms)
 		{
-			List<Rectangle>[] walls = new List<Rectangle>[4];
+			this.platforms = platforms;
 
+			List<Rectangle>[] walls = new List<Rectangle>[4];
 			for (int i = 0; i < 4; i++)
-			{
 				walls[i] = new List<Rectangle>();
-			}
 
 			tileMap.ForEach((BlockObject bl) =>
 			{
 				List<Rectangle>[] result = walls_of_ground(bl);
 				for (int i = 0; i < 4; i++)
-				{
 					walls[i].AddRange(result[i]);
-				}
 			});
 
 			walls[(int)Wall.left].Add(new Rectangle(-100, 0, 100, TimGame.GAME_HEIGHT));
 			walls[(int)Wall.right].Add(new Rectangle(TimGame.GAME_WIDTH, 0, 100, TimGame.GAME_HEIGHT));
 			walls[(int)Wall.roof].Add(new Rectangle(0, -100, TimGame.GAME_WIDTH, 100));
 
-			roofs = walls[(int)Wall.roof].ToArray();
-			leftWalls = walls[(int)Wall.left].ToArray();
-			rightWalls = walls[(int)Wall.right].ToArray();
-			grounds = walls[(int)Wall.bottom].ToArray();
+			fixedRoofs = walls[(int)Wall.roof].ToArray();
+			fixedLWalls = walls[(int)Wall.left].ToArray();
+			fixedRWalls = walls[(int)Wall.right].ToArray();
+			fixedGround = walls[(int)Wall.bottom].ToArray();
+		}
 
+		public void Update()
+		{
+			List<float> groundVelocity = new List<float>();
+			List<Rectangle>[] walls = new List<Rectangle>[4];
+			for (int i = 0; i < 4; i++)
+				walls[i] = new List<Rectangle>();
+
+			platforms.ForEach((MapPlatform bl) =>
+			{
+				foreach (PlatformObject po in bl.objs)
+				{
+					List<Rectangle>[] result = walls_of_ground(po);
+					for (int i = 0; i < 4; i++)
+						walls[i].AddRange(result[i]);
+					for (int i = 0; i < result[(int)Wall.bottom].Count; i++)
+						groundVelocity.Add(bl.x_velocity);
+				}
+			});
+
+			walls[(int)Wall.roof].AddRange(fixedRoofs);
+			walls[(int)Wall.left].AddRange(fixedLWalls);
+			walls[(int)Wall.right].AddRange(fixedRWalls);
+			walls[(int)Wall.bottom].AddRange(fixedGround);
+			for (int i = 0; i < fixedGround.Length; i++)
+				groundVelocity.Add(0);
+
+			allRoofs = walls[(int)Wall.roof].ToArray();
+			allLWalls = walls[(int)Wall.left].ToArray();
+			allRWalls = walls[(int)Wall.right].ToArray();
+			allGround = walls[(int)Wall.bottom].ToArray();
+			allGroundVelocity = groundVelocity.ToArray();
 		}
 
 		const int ground_detection_space = 1;
+		public float getXReferential(PhysicalObject o)
+		{
+			Point pos = o.Position.ToPoint();
+			pos.Y = pos.Y + ground_detection_space;
+			Rectangle ro = new Rectangle(pos, o.Size);
+
+			int i = 0;
+			foreach (Rectangle r in grounds)
+			{
+				if (Collision.rect_collision(ro, r) != null)
+					return allGroundVelocity[i];
+				i++;
+			}
+			return 0f;
+		}
 		public bool nearTheGround(PhysicalObject o)
 		{
 			Point pos = o.Position.ToPoint();
 			pos.Y = pos.Y + ground_detection_space;
 			Rectangle ro = new Rectangle(pos, o.Size);
+
 			foreach (Rectangle r in grounds)
 			{
 				if (Collision.rect_collision(ro, r) != null)
@@ -153,6 +204,12 @@ namespace tim_dodge
 			right = 3
 		}
 
+		public List<Rectangle>[] walls_of_ground(PlatformObject po)
+		{
+			BlockObject bo = new BlockObject(0, 0, po.state);
+			bo.Position = new Vector2(po.x, po.y);
+			return walls_of_ground(bo);
+		}
 		public List<Rectangle>[] walls_of_ground(BlockObject bl)
 		{
 			BlockObject.Ground ground = bl.state;
@@ -167,9 +224,9 @@ namespace tim_dodge
 			List<BlockObject.Ground> rightsG = new List<BlockObject.Ground> { BlockObject.Ground.LeftGround, BlockObject.Ground.LeftDurt, BlockObject.Ground.BottomLeft2Durt, BlockObject.Ground.LeftPlatform };
 			List<BlockObject.Ground> leftsG = new List<BlockObject.Ground> { BlockObject.Ground.RightGround, BlockObject.Ground.RightDurt, BlockObject.Ground.BottomRight2Durt, BlockObject.Ground.RightPlatform };
 			List<BlockObject.Ground> bottomsG = new List<BlockObject.Ground> { BlockObject.Ground.LeftGround, BlockObject.Ground.MiddleGround, BlockObject.Ground.RightGround, BlockObject.Ground.RightEGround, BlockObject.Ground.LeftEGround, BlockObject.Ground.LeftPlatform, BlockObject.Ground.RightPlatform, BlockObject.Ground.MiddlePlatform};
-			List<BlockObject.Ground> roofsG = new List<BlockObject.Ground> { BlockObject.Ground.BottomDurt, BlockObject.Ground.BottomLeft2Durt, BlockObject.Ground.BottomRight2Durt};
+			List<BlockObject.Ground> roofsG = new List<BlockObject.Ground> { BlockObject.Ground.BottomDurt, BlockObject.Ground.BottomLeft2Durt, BlockObject.Ground.BottomRight2Durt, BlockObject.Ground.LeftPlatform, BlockObject.Ground.RightPlatform, BlockObject.Ground.MiddlePlatform};
 
-			const int pixelOffset = 10;
+			const int pixelOffset = 20;
 			const int magicBorder = 10;
 
 			if (leftsG.Exists(e => e == ground))

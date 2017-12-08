@@ -85,6 +85,8 @@
     <Compile Include="Src\Snapshot\LevelSnapshot.cs" />
     <Compile Include="Src\Menu\ChooseMap.cs" />
     <Compile Include="Src\Miscellaneous\FuelBar.cs" />
+    <Compile Include="Src\Game\LevelAndMap\PlatformObject.cs" />
+    <Compile Include="Src\Game\LevelAndMap\MapPlatform.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.manifest" />

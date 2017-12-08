@@ -17,8 +17,14 @@ namespace tim_dodge
 
 		public void loadTileMap(ChooseMap.Maps map)
 		{
-			tileMap = Serializer<List<BlockObject.SaveBlock>>.Load(StringEnv(map)).ConvertAll(
-				(BlockObject.SaveBlock input) => BlockObject.LoadBlock(input));
+			/*List<BlockObject.SaveBlock> lst = new List<BlockObject.SaveBlock>();
+			lst.Add(new BlockObject.SaveBlock());
+			lst.Add(new BlockObject.SaveBlock());
+			List<MapPlatform.SavePlatform> p = new List<MapPlatform.SavePlatform>();
+			p.Add(new MapPlatform.SavePlatform());
+			Serializer<Map.SaveMap>.Save("tmp.xml", new Map.SaveMap(lst, p));*/
+			Map.SaveMap m = Serializer<Map.SaveMap>.Load(StringEnv(map));
+			tileMap = m.tileMap.ConvertAll(BlockObject.LoadBlock);
 		}
 
 		public enum Maps

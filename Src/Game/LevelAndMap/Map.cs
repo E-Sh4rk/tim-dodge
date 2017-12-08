@@ -14,13 +14,22 @@ namespace tim_dodge
 		public Map(Texture2D Background, Texture MapTexture, ChooseMap.Maps MapLoad)
 		{
 			loadTileMap(ChooseMap.StringEnv(MapLoad));
-			gMap = new GraphicalMap(Background, MapTexture, tileMap);
-			pMap = new PhysicalMap(gMap.tileMap);
+			gMap = new GraphicalMap(Background, MapTexture, tileMap, platforms);
+			pMap = new PhysicalMap(gMap.tileMap, platforms);
 		}
 
 		public GraphicalMap gMap;
 		public PhysicalMap pMap;
 		public List<BlockObject> tileMap;
+		public List<MapPlatform> platforms;
+
+		public class SaveMap
+		{
+			public SaveMap() { }
+			public SaveMap(List<BlockObject.SaveBlock> tm, List<MapPlatform.SavePlatform> p) { tileMap = tm; platforms = p; }
+			public List<BlockObject.SaveBlock> tileMap;
+			public List<MapPlatform.SavePlatform> platforms;
+		}
 
 		public void Draw(SpriteBatch spriteBatch)
 		{
@@ -32,10 +41,11 @@ namespace tim_dodge
 			gMap.changeTexture(NewMapTexture);
 		}
 
-		public void loadTileMap(String name)
+		public void loadTileMap(string name)
 		{
-			tileMap = Serializer<List<BlockObject.SaveBlock>>.Load(name).ConvertAll(
-				(BlockObject.SaveBlock input) => BlockObject.LoadBlock(input));
+			SaveMap sm = Serializer<SaveMap>.Load(name);
+			tileMap = sm.tileMap.ConvertAll(BlockObject.LoadBlock);
+			platforms = sm.platforms.ConvertAll(MapPlatform.LoadPlatform);
 		}
 
 		public void AddBlock(BlockObject bl)
@@ -56,6 +66,46 @@ namespace tim_dodge
 					tileMap.Remove(tileMap.Find((BlockObject obj) => obj.x == x && obj.y == y));
 			}
 			catch { }
+		}
+
+		bool platformInCollision(MapPlatform pl)
+		{
+			foreach (MapPlatform mp in platforms)
+			{
+				if (!mp.Equals(pl))
+					foreach (PlatformObject po in mp.objs)
+						if (pl.Intersect(new Rectangle((int)po.x, (int)po.y, po.w, po.h)))
+							return true;
+			}
+			foreach (BlockObject o in tileMap)
+			{
+				if (pl.Intersect(new Rectangle((int)o.Position.X, (int)o.Position.Y, o.w, o.h)))
+					return true;
+			}
+			Rectangle[] screenEdges = new Rectangle[4];
+			screenEdges[0] = new Rectangle(0,-1,TimGame.GAME_WIDTH,1);
+			screenEdges[1] = new Rectangle(-1, 0, 1, TimGame.GAME_HEIGHT);
+			screenEdges[2] = new Rectangle(0, TimGame.GAME_HEIGHT, TimGame.GAME_WIDTH, 1);
+			screenEdges[3] = new Rectangle(TimGame.GAME_WIDTH, 0, 1, TimGame.GAME_HEIGHT);
+			foreach (Rectangle r in screenEdges)
+			{
+				if (pl.Intersect(r))
+					return true;
+			}
+			return false;
+		}
+		public void Update(float elapsed)
+		{
+			foreach (MapPlatform p in platforms)
+			{
+				p.Move(elapsed);
+				if (platformInCollision(p))
+				{
+					p.ChangeDirection();
+					p.Move(elapsed);
+				}
+			}
+			pMap.Update();
 		}
 
 		public const int numberTileY = TimGame.GAME_HEIGHT / 64;

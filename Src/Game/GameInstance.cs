@@ -72,7 +72,7 @@ namespace tim_dodge
 			Debug.Assert(nbPlayer >= 1 && nbPlayer <=2);
 			players = new List<Player>();
 
-			for (int i = 0; i < nbPlayer; i++)
+			for (int i = nbPlayer - 1; i > -1; i--)
 			{
 				players.Add(new Player(new Vector2((TimGame.GAME_WIDTH/nbPlayer)*i+(TimGame.GAME_WIDTH / nbPlayer / 2), 300),
 				                       GetNewScorePosition(i), this));
@@ -138,18 +138,34 @@ namespace tim_dodge
 
 			if (Controller.RewindKeyDown(state))
 			{
-				if (Fuel.isFull)
+				if (Fuel.isFull && !mode_rewind)
 				{
 					mode_rewind = true;
+					Load.sounds.playRewind();
 					Fuel.decr(50); // When shift is pushed, the fuel bar decrease of 50%
 				}
+
 				if (Fuel.isEmpty)
+				{
 					mode_rewind = false;
+					Load.sounds.stopRewind();
+				}
+
 				if (mode_rewind)
+				{
 					Fuel.decr(0.5f); // In each update the fuel bar decrease of 0.5%
+				}
+
 			}
 			else
-				mode_rewind = false;
+			{
+				if (mode_rewind)
+				{
+					mode_rewind = false;
+					Load.sounds.stopRewind();
+				}
+
+			}
 
 			if (mode_rewind)
 			{
@@ -173,8 +189,11 @@ namespace tim_dodge
 				if (current_snapshot_index == oldest_snapshot_index)
 					oldest_snapshot_index = mod(oldest_snapshot_index + 1, max_snapshots);
 
+				// Update!
 				float insensible_elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
 				float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds * time_multiplicator;
+
+				Level.Current.map.Update(elapsed);
 
 				Level.Update(elapsed);
 				Level.Current.falling.Update(elapsed);

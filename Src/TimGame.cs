@@ -12,9 +12,9 @@ namespace tim_dodge
 	/// </summary>
 	public class TimGame : Game
 	{
-		GraphicsDeviceManager graphics;
-		Renderer renderer;
-		SpriteBatch spriteBatch;
+		protected GraphicsDeviceManager graphics;
+		protected Renderer renderer;
+		protected SpriteBatch spriteBatch;
 
 		public const int WINDOW_WIDTH = 1280;
 		public const int WINDOW_HEIGHT = 720;

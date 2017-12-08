@@ -34,7 +34,7 @@ namespace tim_dodge
 			Menu = new MenuManager(this);
 		}
 
-		public void Update(GameTime gameTime)
+		public virtual void Update(GameTime gameTime)
 		{
 			if (GameRunning)
 			{
@@ -75,7 +75,7 @@ namespace tim_dodge
 			}
 		}
 
-		public void Draw(SpriteBatch spriteBatch)
+		public virtual void Draw(SpriteBatch spriteBatch)
 		{
 			// Menu 
 			spriteBatch.Draw(Load.BackgroundSun, new Rectangle(0, 0, TimGame.GAME_WIDTH, TimGame.GAME_HEIGHT), Color.White);

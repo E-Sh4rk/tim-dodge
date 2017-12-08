@@ -22,8 +22,14 @@ namespace tim_dodge
 			private set;
 		}
 
-		//private SoundEffectInstance musicNow;
+		public bool rewindmode
+		{
+			get;
+			private set;
+		}
+
 		private SoundEffectInstance musicNow;
+		private SoundEffectInstance rewindMus;
 
 		public Sound(SoundEffect[] sfx, SoundEffect[] musc)
 		{
@@ -33,6 +39,7 @@ namespace tim_dodge
 
 			sfxmute = false; // Mute sound effects by default
 			musicmute = false; // Mute music by default
+			rewindmode = false; // No rewind by default
 
 			try // Catch exceptions in case the computer can't play songs (example: Travis)
 			{
@@ -40,6 +47,9 @@ namespace tim_dodge
 				musicNow.Play();
 				musicNow.Volume = 0.60f;
 				musicNow.IsLooped = true;
+
+				rewindMus = musics[(int)MusicName.dj].CreateInstance();
+				rewindMus.Volume = 0.60f;
 			}
 			catch { }
 		}
@@ -55,13 +65,14 @@ namespace tim_dodge
 			applause = 6,
 			ah = 7,
 			coin = 8,
-			food = 9
+			food = 9,
 		}
 
 
 		public enum MusicName
 		{
-			cuphead = 0
+			cuphead = 0,
+			dj = 1
 		}
 
 
@@ -87,6 +98,33 @@ namespace tim_dodge
 				if (!musicmute)
 				{
 					musicNow.Play();
+				}
+			}
+			catch { }
+		}
+
+		public void playRewind()
+		{
+			try
+			{
+				if (!musicmute)
+				{
+					pauseMusic();
+					rewindmode = true;
+					rewindMus.Play();
+				}
+			}
+			catch { }
+		}
+		public void stopRewind()
+		{
+			try
+			{
+				if (rewindmode)
+				{
+					rewindMus.Stop();
+					resumeMusic();
+					rewindmode = false;
 				}
 			}
 			catch { }

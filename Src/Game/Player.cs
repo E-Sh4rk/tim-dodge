@@ -87,7 +87,9 @@ namespace tim_dodge
 			if (gameInst.Level.Current.Beginning)
 			{
 				if (Sprite.NowState() != (int)State.Tie)
+				{
 					ChangeSpriteState((int)State.Tie);
+				}
 			}
 
 			else

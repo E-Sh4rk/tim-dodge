@@ -10,12 +10,13 @@ namespace tim_dodge
 	/// </summary>
 	public class GraphicalMap
 	{
-		public GraphicalMap(Texture2D Background, Texture MapTexture, List<BlockObject> tileMap)
+		public GraphicalMap(Texture2D Background, Texture MapTexture, List<BlockObject> tileMap, List<MapPlatform> platforms)
 		{
 			this.tileMap = tileMap;
+			this.platforms = platforms;
 
-			this.MapTexture = MapTexture;
 			this.Background = Background;
+			changeTexture(MapTexture);
 		}
 
 		public Texture MapTexture;
@@ -23,11 +24,13 @@ namespace tim_dodge
 		public Texture2D Background;
 
 		public List<BlockObject> tileMap;
+		public List<MapPlatform> platforms;
 
 		public void changeTexture(Texture NewMapTexture)
 		{
 			MapTexture = NewMapTexture;
 			tileMap.ForEach((BlockObject obj) => obj.ChangeTexture(NewMapTexture));
+			platforms.ForEach((MapPlatform obj) => obj.ChangeTexture(NewMapTexture));
 		}
 
 		public void changeBackground(Texture2D NewBackground)
@@ -35,11 +38,11 @@ namespace tim_dodge
 			Background = NewBackground;
 		}
 
-
 		public void Draw(SpriteBatch spriteBatch)
 		{
 			spriteBatch.Draw(Background, new Rectangle(0,0,TimGame.GAME_WIDTH, TimGame.GAME_HEIGHT), Color.White);
 			tileMap.ForEach((BlockObject obj) => obj.Draw(spriteBatch));
+			platforms.ForEach((MapPlatform obj) => obj.Draw(spriteBatch));
 		}
 	}
 }
