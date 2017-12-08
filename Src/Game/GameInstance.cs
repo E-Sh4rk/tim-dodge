@@ -72,10 +72,16 @@ namespace tim_dodge
 			Debug.Assert(nbPlayer >= 1 && nbPlayer <=2);
 			players = new List<Player>();
 
-			for (int i = 0; i < nbPlayer; i++)
+			for (int i = nbPlayer - 1; i > -1; i--)
 			{
 				players.Add(new Player(new Vector2((TimGame.GAME_WIDTH/nbPlayer)*i+(TimGame.GAME_WIDTH / nbPlayer / 2), 300),
 				                       GetNewScorePosition(i), this));
+			}
+
+			if (nbPlayer > 1)
+			{
+				players[0].ColorPlayer = Color.PaleTurquoise;
+				players[1].ColorPlayer = Color.PaleVioletRed;
 			}
 
 			Level = new LevelManager(this, MapLoad);

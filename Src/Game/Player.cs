@@ -15,6 +15,16 @@ namespace tim_dodge
 		public Heart Life { get; protected set; }
 		public Stat Score { get; protected set; }
 
+		private Color colorPlayer = Color.White;
+		public Color ColorPlayer
+		{
+			get { return colorPlayer; }
+			set {
+				color = value;
+				colorPlayer = value;
+			}
+		}
+
 		public bool IsDead()
 		{
 			return (Life.value == 0);
@@ -270,7 +280,7 @@ namespace tim_dodge
 
 			base.UpdatePosition(objects, map, elapsed);
 			if (last_damage_time >= time_invicibility && last_bonus_time >= time_bonus)
-				color = Color.White;
+				color = ColorPlayer;//Color.White;
 		}
 	}
 }

@@ -36,6 +36,7 @@ namespace tim_dodge
 			sounds = sfx;
 			musics = musc;
 
+
 			sfxmute = false; // Mute sound effects by default
 			musicmute = false; // Mute music by default
 			rewindmode = false; // No rewind by default
