@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Threading;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -11,20 +12,30 @@ namespace tim_tests
 	{
 		SimulatedGameInstance sgi;
 
-		public SimulatedGameManager(ContentManager Content, TimGame Application, bool hard):
+		public SimulatedGameManager(ContentManager Content, TimGame Application):
 		base(Content, Application)
+		{
+			sgi = null;	
+		}
+
+		public void StartGameInstance(bool hard)
 		{
 			sgi = new SimulatedGameInstance(hard, this);
 		}
 
 		public override void Update(GameTime gameTime)
 		{
-			sgi.Update(gameTime);
+			if (sgi != null)
+			{
+				sgi.Update(gameTime);
+				if (sgi.HasDied())
+					sgi = null;
+			}
 		}
 
 		public bool HasDied()
 		{
-			return sgi.HasDied();
+			return sgi == null || sgi.HasDied();
 		}
 
 		public override void Draw(SpriteBatch spriteBatch) { }
@@ -82,20 +93,27 @@ namespace tim_tests
 
 		public SimulatedGame()
 		{
+			
+		}
+
+		public void Init()
+		{
+			RunOneFrame();
+			Game = new SimulatedGameManager(Content, this);
 		}
 
 		public void initializeHardLevel()
 		{
-			Game = new SimulatedGameManager(Content, this, true);
+			Game.StartGameInstance(true);
 		}
 		public void initializeEasyLevel()
 		{
-			Game = new SimulatedGameManager(Content, this, false);
+			Game.StartGameInstance(false);
 		}
 
 		public bool isGameTerminated()
 		{
-			return Game == null;
+			return Game.HasDied();
 		}
 
 		public Texture2D textureFromStream(Stream stream)
@@ -106,14 +124,7 @@ namespace tim_tests
 		protected override void Update(GameTime gameTime)
 		{
 			if (Game != null)
-			{
-				// Continue game until a death occurs
-				if (Game.HasDied())
-					Game = null;
-				else
-					Game.Update(gameTime);
-			}
-
+				Game.Update(gameTime);
 			base.Update(gameTime);
 		}
 
