@@ -48,10 +48,15 @@ namespace tim_dodge
 			foreach (Player p in players)
 				p.Score.incr(v);
 		}
-		public void SetScoresColor(Color c)
+		public void SetTextColor(Color c)
 		{
 			foreach (Player p in players)
+			{
 				p.Score.Color = c;
+				p.Life.Color = c;
+				if (Fuel != null)
+					Fuel.ColorText = c;
+			}
 		}
 
 		public GameManager gm;
