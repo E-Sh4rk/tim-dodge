@@ -51,8 +51,8 @@ namespace tim_dodge
 					o = new FireGreen(p);
 				if (type == typeof(FirePoison))
 					o = new FirePoison(p);
-				if (type == typeof(FireYellow))
-					o = new FireYellow(p);
+				if (type == typeof(FirePink))
+					o = new FirePink(p);
 				if (type == typeof(Food))
 					o = new Food(p);
 				if (type == typeof(Monstar))

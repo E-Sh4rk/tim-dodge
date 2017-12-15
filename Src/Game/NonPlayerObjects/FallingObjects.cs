@@ -62,7 +62,7 @@ namespace tim_dodge
 								if (randF == 0)
 									enemy = new FirePoison(new Vector2(0, -30));
 								else if (randF == 1)
-									enemy = new FireYellow(new Vector2(0, -30));
+									enemy = new FirePink(new Vector2(0, -30));
 								else
 									enemy = new FireGreen(new Vector2(0, -30));
 							}
