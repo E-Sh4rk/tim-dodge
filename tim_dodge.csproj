@@ -77,7 +77,7 @@
     <Compile Include="Src\Renderer.cs" />
     <Compile Include="Src\Game\NonPlayerObjects\FirePoison.cs" />
     <Compile Include="Src\Game\NonPlayerObjects\FireGreen.cs" />
-    <Compile Include="Src\Game\NonPlayerObjects\FireYellow.cs" />
+    <Compile Include="Src\Game\NonPlayerObjects\FirePink.cs" />
     <Compile Include="Src\MapEditorInstance.cs" />
     <Compile Include="Src\Game\LevelAndMap\BlockObject.cs" />
     <Compile Include="Src\Snapshot\ObjectsSnapshot.cs" />
