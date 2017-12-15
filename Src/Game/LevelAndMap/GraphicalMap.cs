@@ -40,7 +40,10 @@ namespace tim_dodge
 
 		public void Draw(SpriteBatch spriteBatch)
 		{
-			spriteBatch.Draw(Background, new Rectangle(0,0,TimGame.GAME_WIDTH, TimGame.GAME_HEIGHT), Color.White);
+			Color c = Color.White;
+			if (Background == Load.BackgroundDark)
+				c *= 0.8f;
+			spriteBatch.Draw(Background, new Rectangle(0,0,TimGame.GAME_WIDTH, TimGame.GAME_HEIGHT), c);
 			tileMap.ForEach((BlockObject obj) => obj.Draw(spriteBatch));
 			platforms.ForEach((MapPlatform obj) => obj.Draw(spriteBatch));
 		}
