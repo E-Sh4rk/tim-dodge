@@ -54,13 +54,6 @@ namespace tim_dodge
 				p.Score.Color = c;
 		}
 
-		/*public void UndoPoisons()
-		{
-			rotation = false;
-			flipH = false;
-			flipV = false;
-		}*/
-
 		public GameManager gm;
 
 		public GameInstance(ChooseMap.Maps MapLoad, int nbPlayer, GameManager gm)
@@ -90,7 +83,6 @@ namespace tim_dodge
 			}
 
 			Level = new LevelManager(this, MapLoad);
-			//UndoPoisons();
 			focus = true;
 			if (nbPlayer == 1)
 				Fuel = new FuelBar(GetNewFuelPosition(0), gm, Color.Black);
