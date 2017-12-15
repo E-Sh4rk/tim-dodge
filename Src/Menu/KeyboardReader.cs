@@ -39,8 +39,7 @@ namespace tim_dodge
 					else
 					{
 						string keyString = key.ToString();
-						bool isUpperCase = (Array.Exists(pressedKeys, k => k == Keys.RightShift)) ||
-							(Array.Exists(pressedKeys, k => k == Keys.LeftShift));
+                        bool isUpperCase = Array.Exists(pressedKeys, k => k == Keys.RightShift || k == Keys.LeftShift);
 						
 						if (keyString.Length == 1) // to write only letters
 						{

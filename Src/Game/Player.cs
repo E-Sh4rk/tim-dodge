@@ -209,7 +209,7 @@ namespace tim_dodge
 							poison_remaining_time += time_poison;
 							flipH = true;
 							color = Color.DarkViolet;
-							last_damage_time = 0f; // It is for the color + immunity
+							//last_damage_time = 0f; // It is for the color + immunity
 						}
 						break;
 					case NonPlayerObject.PoisonState.Vertical:
@@ -218,7 +218,7 @@ namespace tim_dodge
 							poison_remaining_time += time_poison;
 							flipV = true;
 							color = Color.DarkViolet;
-							last_damage_time = 0f; // It is for the color + immunity
+							//last_damage_time = 0f; // It is for the color + immunity
 						}
 						break;
 					case NonPlayerObject.PoisonState.Rotation:
@@ -227,7 +227,7 @@ namespace tim_dodge
 							poison_remaining_time += time_poison;
 							rotation = true;
 							color = Color.DarkViolet;
-							last_damage_time = 0f; // It is for the color + immunity
+							//last_damage_time = 0f; // It is for the color + immunity
 						}
 						break;
 					case NonPlayerObject.PoisonState.Nothing:

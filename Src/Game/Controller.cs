@@ -56,8 +56,8 @@ namespace tim_dodge
 
 		public static bool RewindKeyDown(KeyboardState state)
 		{
-			return state.IsKeyDown(Keys.LeftShift);
-		}
+            return state.IsKeyDown(Keys.LeftShift) || state.IsKeyDown(Keys.RightShift);
+        }
 
 		public static bool KeyPressed(Keys key)
 		{	// Return True iff the Key key just has been pressed

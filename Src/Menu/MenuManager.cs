@@ -201,22 +201,29 @@ namespace tim_dodge
 		// Menu functions
 		private void PlayAgain()
 		{
-			if (GameManager.gi.InitialNbPlayers == 1)
-				GameManager.gi = new GameInstance(chooseMap.currentMap, 1, GameManager);
-			else
-				GameManager.gi = new GameInstance(chooseMap.currentMap, 2, GameManager);
-			CurrentMenu = new List<MenuWindow>();
+            if (GameManager.gi.InitialNbPlayers == 1)
+            {
+                Load.sounds.newGameSong();
+                GameManager.gi = new GameInstance(chooseMap.currentMap, 1, GameManager);
+            }
+            else
+            {
+                GameManager.gi = new GameInstance(chooseMap.currentMap, 2, GameManager);
+            }
+            CurrentMenu = new List<MenuWindow>();
 		}
 
 		private void NewGame()
 		{
-			GameManager.gi = new GameInstance(chooseMap.currentMap, 1, GameManager);
+            Load.sounds.newGameSong();
+            GameManager.gi = new GameInstance(chooseMap.currentMap, 1, GameManager);
 			CurrentMenu = new List<MenuWindow>();
 		}
 
 		private void NewMultiGame()
 		{
-			GameManager.gi = new GameInstance(chooseMap.currentMap, 2, GameManager);                   
+            Load.sounds.newGameSong();
+            GameManager.gi = new GameInstance(chooseMap.currentMap, 2, GameManager);                   
 			CurrentMenu = new List<MenuWindow>();
 		}
 
@@ -229,6 +236,7 @@ namespace tim_dodge
 		public void LaunchPause()
 		{
 			Load.sounds.playSound(Sound.SoundName.toogle);
+            Load.sounds.playMusic(Sound.MusicName.menu);
 			PauseMenu.itemNumber = 0;
 			CurrentMenu.Add(PauseMenu);
 		}
@@ -236,17 +244,25 @@ namespace tim_dodge
 		private void Resume()
 		{ 
 			CurrentMenu = new List<MenuWindow>();
-			if (GameManager.GameRunning)
-				GameManager.gi.focus = true;
-			else
-				GameManager.editor.focus = true;
+    
+            if (GameManager.GameRunning)
+            {
+                Load.sounds.playMusic(Sound.MusicName.cuphead);
+                GameManager.gi.focus = true;
+            }
+            else
+            {
+                Load.sounds.playMusic(Sound.MusicName.menu);
+                GameManager.editor.focus = true;
+            }
 		}
 
 		private void Parameters() { CurrentMenu.Add(ParamMenu); }
 
 		private void StartReplay(ChooseMap.Maps map, string filename)
 		{
-			GameManager.gi = new GameInstance(map, 1, GameManager);
+            Load.sounds.playMusic(Sound.MusicName.cuphead);
+            GameManager.gi = new GameInstance(map, 1, GameManager);
 			GameManager.gi.LoadReplay(filename);
 			CurrentMenu = new List<MenuWindow>();
 		}
@@ -254,8 +270,10 @@ namespace tim_dodge
 		public void LaunchGameOver()
 		{
 			if (CurrentMenu.Count == 0)
-			{
-				CurrentMenu.Add(Gameover);
+            {
+                Gameover.itemNumber = 0;
+                Load.sounds.playMusic(Sound.MusicName.menu);
+                CurrentMenu.Add(Gameover);
 				gameScore = GameManager.gi.GetGlobalScore();
 
 				List<BestScore> highscores = Load.LoadHighScores();
@@ -280,7 +298,8 @@ namespace tim_dodge
 		private void BackInitialMenu() 
 		{ 
 			CurrentMenu = new List<MenuWindow> { InitialMenu };
-			GameManager.gi = null;
+            Load.sounds.playMusic(Sound.MusicName.menu);
+            GameManager.gi = null;
 		}
 
 		private void Previous()

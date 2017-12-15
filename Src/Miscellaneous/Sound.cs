@@ -29,32 +29,44 @@ namespace tim_dodge
 		}
 
 		private SoundEffectInstance musicNow;
-		private SoundEffectInstance rewindMus;
+        private SoundEffectInstance[] musicLoaded;
 
 		public Sound(SoundEffect[] sfx, SoundEffect[] musc)
 		{
 			sounds = sfx;
 			musics = musc;
-
+            musicLoaded = new SoundEffectInstance[3];
 
 			sfxmute = false; // Mute sound effects by default
 			musicmute = false; // Mute music by default
 			rewindmode = false; // No rewind by default
 
-			try // Catch exceptions in case the computer can't play songs (example: Travis)
+			try // Catch exceptions (in case the computer can't play songs (example: Travis)
 			{
-				musicNow = musics[(int)MusicName.cuphead].CreateInstance();
-				musicNow.Play();
-				musicNow.Volume = 0.60f;
-				musicNow.IsLooped = true;
+                for (int i = 0; i < 3; i++)
+                {
+                    musicLoaded[i] = musics[i].CreateInstance();
+                    musicLoaded[i].Volume = 0.60f;
+                    musicLoaded[i].IsLooped = true;
+                }
 
-				rewindMus = musics[(int)MusicName.dj].CreateInstance();
-				rewindMus.Volume = 0.60f;
-			}
+                musicNow = musicLoaded[(int)MusicName.menu];
+                musicNow.Resume();
+            }
 			catch { }
 		}
 
-		public enum SoundName
+        public void realStopMusic(MusicName song)
+        {
+            int i = (int)song;
+            musicLoaded[i].Stop();
+            musicLoaded[i].Dispose();
+            musicLoaded[i] = musics[i].CreateInstance();
+            musicLoaded[i].Volume = 0.60f;
+            musicLoaded[i].IsLooped = true;
+        }
+
+        public enum SoundName
 		{
 			jump = 0,
 			explosion = 1,
@@ -72,7 +84,8 @@ namespace tim_dodge
 		public enum MusicName
 		{
 			cuphead = 0,
-			dj = 1
+			dj = 1,
+            menu = 2
 		}
 
 
@@ -90,14 +103,12 @@ namespace tim_dodge
 		{
 			try // Catch exceptions in case the computer can't play songs (example: Travis)
 			{
-				musicNow.Stop();
-				musicNow = musics[(int)mus].CreateInstance();
-				musicNow.Volume = 0.60f;
-				musicNow.IsLooped = true;
+				musicNow.Pause();
+                musicNow = musicLoaded[(int)mus];
 
 				if (!musicmute)
 				{
-					musicNow.Play();
+					musicNow.Resume();
 				}
 			}
 			catch { }
@@ -111,7 +122,7 @@ namespace tim_dodge
 				{
 					pauseMusic();
 					rewindmode = true;
-					rewindMus.Play();
+                    musicLoaded[(int)MusicName.dj].Play();
 				}
 			}
 			catch { }
@@ -122,7 +133,7 @@ namespace tim_dodge
 			{
 				if (rewindmode)
 				{
-					rewindMus.Stop();
+                    musicLoaded[(int)MusicName.dj].Stop();
 					resumeMusic();
 					rewindmode = false;
 				}
@@ -156,6 +167,21 @@ namespace tim_dodge
 			catch { }
 		}
 
+        public void newGameSong()
+        {
+            try // Catch exceptions in case the computer can't play songs (example: Travis)
+            {
+                if (!musicmute)
+                {
+                    realStopMusic(MusicName.cuphead);
+                    musicNow.Pause();
+                    musicLoaded[(int)MusicName.cuphead].Resume();
+               
+                    musicNow = musicLoaded[(int)MusicName.cuphead];
+                }
+            }
+            catch { }
+        }
 
 	}
 }
