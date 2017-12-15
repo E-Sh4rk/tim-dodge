@@ -15,6 +15,10 @@ namespace tim_dodge
 		public Heart Life { get; protected set; }
 		public Stat Score { get; protected set; }
 
+		public bool rotation;
+		public bool flipH;
+		public bool flipV;
+
 		private Color colorPlayer = Color.White;
 		public Color ColorPlayer
 		{
@@ -200,28 +204,28 @@ namespace tim_dodge
 				switch (e.poisonState)
 				{
 					case NonPlayerObject.PoisonState.Horizontal:
-						if (!gameInst.flipH)
+						if (!flipH)
 						{
 							poison_remaining_time += time_poison;
-							gameInst.flipH = true;
+							flipH = true;
 							color = Color.DarkViolet;
 							last_damage_time = 0f; // It is for the color + immunity
 						}
 						break;
 					case NonPlayerObject.PoisonState.Vertical:
-						if (!gameInst.flipV)
+						if (!flipV)
 						{
 							poison_remaining_time += time_poison;
-							gameInst.flipV = true;
+							flipV = true;
 							color = Color.DarkViolet;
 							last_damage_time = 0f; // It is for the color + immunity
 						}
 						break;
 					case NonPlayerObject.PoisonState.Rotation:
-						if (!gameInst.rotation)
+						if (!rotation)
 						{
 							poison_remaining_time += time_poison;
-							gameInst.rotation = true;
+							rotation = true;
 							color = Color.DarkViolet;
 							last_damage_time = 0f; // It is for the color + immunity
 						}
@@ -273,9 +277,9 @@ namespace tim_dodge
 
 			if (poison_remaining_time < Math.Pow(10, -3))
 			{
-				gameInst.rotation = false;
-				gameInst.flipH = false;
-				gameInst.flipV = false;
+				rotation = false;
+				flipH = false;
+				flipV = false;
 			}
 
 			base.UpdatePosition(objects, map, elapsed);

@@ -18,12 +18,12 @@ namespace tim_dodge
 	{
 		public TimGame Application { get; }
 
-		public GameInstance game;
+		public GameInstance gi;
 		public MapEditorInstance editor;
 
 		private MenuManager Menu;
 
-		public bool GameRunning { get { return game != null;} }
+		public bool GameRunning { get { return gi != null;} }
 		public bool MenuRunning { get { return Menu.MenuRunning;} }
 		public bool EditorRunning { get { return editor != null && editor.focus; } }
 
@@ -39,15 +39,15 @@ namespace tim_dodge
 			if (GameRunning)
 			{
 				bool allDead = true;
-				foreach (Player p in game.players)
+				foreach (Player p in gi.players)
 				{
 					if (!p.IsDead())
 						allDead = false;
 				}
 				if (allDead)
 				{
-					game.UndoPoisons();
-					game.focus = false;
+					//gi.UndoPoisons();
+					gi.focus = false;
 					Menu.LaunchGameOver();
 				}
 			}
@@ -64,14 +64,14 @@ namespace tim_dodge
 				}
 				editor.Update(gameTime);
 			}
-			else if (GameRunning && game.focus)
+			else if (GameRunning && gi.focus)
 			{
 				if (Controller.KeyPressed(Keys.Space) || Controller.KeyPressed(Keys.P) || Controller.KeyPressed(Keys.Escape))
 				{
-					game.focus = false;
+					gi.focus = false;
 					Menu.LaunchPause();
 				}
-				game.Update(gameTime);
+				gi.Update(gameTime);
 			}
 		}
 
@@ -81,7 +81,7 @@ namespace tim_dodge
 			spriteBatch.Draw(Load.BackgroundSun, new Rectangle(0, 0, TimGame.GAME_WIDTH, TimGame.GAME_HEIGHT), Color.White);
 
 			if (GameRunning)
-				game.Draw(spriteBatch);
+				gi.Draw(spriteBatch);
 
 			if (Menu.MenuRunning)
 			{

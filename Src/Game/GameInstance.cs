@@ -21,9 +21,6 @@ namespace tim_dodge
 		public FuelBar Fuel { get; protected set; }	
 
 		public float time_multiplicator = 1f;
-		public bool rotation;
-		public bool flipH;
-		public bool flipV;
 
 		public bool focus;
 
@@ -57,12 +54,12 @@ namespace tim_dodge
 				p.Score.Color = c;
 		}
 
-		public void UndoPoisons()
+		/*public void UndoPoisons()
 		{
 			rotation = false;
 			flipH = false;
 			flipV = false;
-		}
+		}*/
 
 		public GameManager gm;
 
@@ -93,7 +90,7 @@ namespace tim_dodge
 			}
 
 			Level = new LevelManager(this, MapLoad);
-			UndoPoisons();
+			//UndoPoisons();
 			focus = true;
 			if (nbPlayer == 1)
 				Fuel = new FuelBar(GetNewFuelPosition(0), gm, Color.Black);

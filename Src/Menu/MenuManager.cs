@@ -201,22 +201,22 @@ namespace tim_dodge
 		// Menu functions
 		private void PlayAgain()
 		{
-			if (GameManager.game.InitialNbPlayers == 1)
-				GameManager.game = new GameInstance(chooseMap.currentMap, 1, GameManager);
+			if (GameManager.gi.InitialNbPlayers == 1)
+				GameManager.gi = new GameInstance(chooseMap.currentMap, 1, GameManager);
 			else
-				GameManager.game = new GameInstance(chooseMap.currentMap, 2, GameManager);
+				GameManager.gi = new GameInstance(chooseMap.currentMap, 2, GameManager);
 			CurrentMenu = new List<MenuWindow>();
 		}
 
 		private void NewGame()
 		{
-			GameManager.game = new GameInstance(chooseMap.currentMap, 1, GameManager);
+			GameManager.gi = new GameInstance(chooseMap.currentMap, 1, GameManager);
 			CurrentMenu = new List<MenuWindow>();
 		}
 
 		private void NewMultiGame()
 		{
-			GameManager.game = new GameInstance(chooseMap.currentMap, 2, GameManager);                   
+			GameManager.gi = new GameInstance(chooseMap.currentMap, 2, GameManager);                   
 			CurrentMenu = new List<MenuWindow>();
 		}
 
@@ -237,7 +237,7 @@ namespace tim_dodge
 		{ 
 			CurrentMenu = new List<MenuWindow>();
 			if (GameManager.GameRunning)
-				GameManager.game.focus = true;
+				GameManager.gi.focus = true;
 			else
 				GameManager.editor.focus = true;
 		}
@@ -246,8 +246,8 @@ namespace tim_dodge
 
 		private void StartReplay(ChooseMap.Maps map, string filename)
 		{
-			GameManager.game = new GameInstance(map, 1, GameManager);
-			GameManager.game.LoadReplay(filename);
+			GameManager.gi = new GameInstance(map, 1, GameManager);
+			GameManager.gi.LoadReplay(filename);
 			CurrentMenu = new List<MenuWindow>();
 		}
 
@@ -256,7 +256,7 @@ namespace tim_dodge
 			if (CurrentMenu.Count == 0)
 			{
 				CurrentMenu.Add(Gameover);
-				gameScore = GameManager.game.GetGlobalScore();
+				gameScore = GameManager.gi.GetGlobalScore();
 
 				List<BestScore> highscores = Load.LoadHighScores();
 
@@ -280,7 +280,7 @@ namespace tim_dodge
 		private void BackInitialMenu() 
 		{ 
 			CurrentMenu = new List<MenuWindow> { InitialMenu };
-			GameManager.game = null;
+			GameManager.gi = null;
 		}
 
 		private void Previous()
@@ -367,7 +367,7 @@ namespace tim_dodge
 				newScore.name = YourName.Text;
 				newScore.replay_filename = "replays/"+newScore.name+"-"+newScore.score+".xml";
 				newScore.map = chooseMap.currentMap;
-				GameManager.game.SaveReplay(newScore.replay_filename);
+				GameManager.gi.SaveReplay(newScore.replay_filename);
 				highscores.Add(newScore);
 				highscores.Sort((b1, b2) => BestScore.Compare(b1, b2));
 

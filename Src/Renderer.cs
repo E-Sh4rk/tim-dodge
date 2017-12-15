@@ -23,9 +23,9 @@ namespace tim_dodge
 		float pas = -0.007f;
 		const float max = (float) Math.PI / 16;	
 
-		public void Draw(SpriteBatch spriteBatch, GameManager game)
+		public void Draw(SpriteBatch spriteBatch, GameManager gm)
 		{			
-			Rend(spriteBatch, game);
+			Rend(spriteBatch, gm);
 			
 			graphics.GraphicsDevice.Clear(Color.Black);
 
@@ -44,15 +44,18 @@ namespace tim_dodge
 
 			try
 			{
-				if (!game.MenuRunning)
+				if (!gm.MenuRunning)
 				{
-					rotation = game.game.rotation;
-					if (game.game.flipH)
-						effect = SpriteEffects.FlipHorizontally;
-					else if (game.game.flipV)
-						effect = SpriteEffects.FlipVertically;
-					else
-						effect = SpriteEffects.None;
+					foreach (Player p in gm.gi.players)
+					{
+						rotation |= p.rotation;
+						if (p.flipH)
+							effect = SpriteEffects.FlipHorizontally;
+						else if (p.flipV)
+							effect = SpriteEffects.FlipVertically;
+						else
+							effect = SpriteEffects.None;
+					}
 				}
 			}
 			catch { angle = 0; scale = 1;}
