@@ -89,9 +89,9 @@ namespace tim_dodge
 				ApplyNewForce(new Vector2(0.0f, gravity * Mass));
 				// TODO: Improve friction
 				if (map.pMap.nearTheGround(this))
-					ApplyNewForce(practical_velocity() * (-ground_friction) * Mass);
+					ApplyNewForce(velocity * (-ground_friction) * Mass);
 				else
-					ApplyNewForce(practical_velocity() * (-air_friction) * Mass);
+					ApplyNewForce(velocity * (-air_friction) * Mass);
 			}
 
 			// Compute new velocity by taking into account all the forces and impulsions
