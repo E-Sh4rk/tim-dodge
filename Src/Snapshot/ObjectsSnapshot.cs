@@ -80,18 +80,21 @@ namespace tim_dodge
 		// Additional properties for kinetic objects
 		public SVector velocity;
 		public bool ghost;
+		public SVector last_velocity;
 
 		public override void RestoreModelState(GameObject model_ptr)
 		{
 			base.RestoreModelState(model_ptr);
 			((PhysicalObject)model_ptr).Velocity = velocity.ToVector2();
 			((PhysicalObject)model_ptr).Ghost = ghost;
+			((PhysicalObject)model_ptr).last_computed_velocity = last_velocity.ToVector2();
 		}
 		public override void CaptureModelState(GameObject model_ptr)
 		{
 			base.CaptureModelState(model_ptr);
 			velocity = SVector.FromVector2(((PhysicalObject)model_ptr).Velocity);
 			ghost = ((PhysicalObject)model_ptr).Ghost;
+			last_velocity = SVector.FromVector2(((PhysicalObject)model_ptr).last_computed_velocity);
 		}
 	}
 	[Serializable]
