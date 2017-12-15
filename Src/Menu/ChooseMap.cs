@@ -12,7 +12,8 @@ namespace tim_dodge
 			loadTileMap(currentMap);
 		}
 
-		List<BlockObject> tileMap;
+		private List<BlockObject> tileMap;
+		private List<MapPlatform> platforms;
 		public Maps currentMap;
 
 		public void loadTileMap(ChooseMap.Maps map)
@@ -25,6 +26,7 @@ namespace tim_dodge
 			Serializer<Map.SaveMap>.Save("tmp.xml", new Map.SaveMap(lst, p));*/
 			Map.SaveMap m = Serializer<Map.SaveMap>.Load(StringEnv(map));
 			tileMap = m.tileMap.ConvertAll(BlockObject.LoadBlock);
+			platforms = m.platforms.ConvertAll(MapPlatform.LoadPlatform);
 		}
 
 		public enum Maps
@@ -61,6 +63,7 @@ namespace tim_dodge
 		public void Draw(SpriteBatch spriteBatch)
 		{
 			tileMap.ForEach((BlockObject obj) => obj.Draw(spriteBatch));
+			platforms.ForEach((MapPlatform obj) => obj.Draw(spriteBatch));
 		}
 	}
 }

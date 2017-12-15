@@ -11,6 +11,7 @@ namespace tim_dodge
 	{
 		public PhysicalObject(Texture t, Sprite s, Vector2 p): base (t, s, p)
 		{
+			last_computed_velocity = Vector2.Zero;
 			Mass = 5;
 			forces = new Vector2(0, 0);
 			impulsions = new Vector2(0, 0);
@@ -23,9 +24,20 @@ namespace tim_dodge
 		protected Vector2 velocity;
 		protected Vector2 forces;
 		protected Vector2 impulsions;
+		public Vector2 last_computed_velocity;
 
 		protected SortedSet<int> already_computed_collisions;
 		protected Vector2 collisions_impulsion;
+
+		/// <summary>
+		/// Practical velocity, used for better result when computing collisions.
+		/// </summary>
+		public Vector2 practical_velocity()
+		{
+			if (velocity.LengthSquared() > last_computed_velocity.LengthSquared())
+				return velocity;
+			return last_computed_velocity;
+		}
 
 		public float Mass
 		{
@@ -55,7 +67,7 @@ namespace tim_dodge
 			impulsions += imp;
 		}
 
-		public const float collision_factor = 1.25f;
+		public const float collision_factor = 1.05f;
 		public const float gravity = 9.81f;//24.79f;//1.622f;//9.81f;
 		public const float ground_friction = 10.0f;
 		public const float air_friction = 1.0f;
@@ -104,7 +116,7 @@ namespace tim_dodge
 					if (coll_opt == null)
 						continue;
 					Vector2 coll = coll_opt.Value;
-					Vector2 rel_velocity = velocity - o.velocity;
+					Vector2 rel_velocity = practical_velocity() - o.practical_velocity();
 					float prod = coll.X * rel_velocity.X + coll.Y * rel_velocity.Y;
 					if (prod <= 0)
 						continue;
@@ -125,8 +137,10 @@ namespace tim_dodge
 		{
 			float xref = map.pMap.getXReferential(this);
 			double dt = elapsed;
+			Vector2 lp = position;
 			position += (velocity + new Vector2(xref, 0)) * (float)dt * pixels_per_meter;
 			map.pMap.adjustPositionAndVelocity(this);
+			last_computed_velocity = (position - lp) / elapsed / pixels_per_meter;
 		}
 	}
 }

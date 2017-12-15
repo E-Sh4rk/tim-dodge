@@ -16,7 +16,7 @@ namespace tim_dodge
 		public Texture2D Background;
 		public Texture MapTexture;
 		private GameInstance game;
-		private Color scoreColor;
+		private Color textColor;
 
 		public bool FireballActiv;
 		public bool BombActiv;
@@ -27,7 +27,7 @@ namespace tim_dodge
 
 		private float Time;
 
-		public Level(GameInstance game, Map map, Texture2D Background, Texture MapTexture, int timeToEnd, float interval, Color scoreColor)
+		public Level(GameInstance game, Map map, Texture2D Background, Texture MapTexture, int timeToEnd, float interval, Color textColor)
 		{
 			this.game = game;
 			this.map = map;
@@ -35,7 +35,7 @@ namespace tim_dodge
 			this.MapTexture = MapTexture;
 			this.interval = interval;
 			this.TimeToEnd = timeToEnd;
-			this.scoreColor = scoreColor;
+			this.textColor = textColor;
 
 			falling = new FallingObjects(game);
 			walking = new WalkingObjects(game);
@@ -57,7 +57,7 @@ namespace tim_dodge
 		public void BeginLevel()
 		{
 			//game.UndoPoisons();
-			game.SetScoresColor(scoreColor);
+			game.SetTextColor(textColor);
 			map.gMap.changeTexture(MapTexture);
 			map.gMap.changeBackground(Background);
 		}

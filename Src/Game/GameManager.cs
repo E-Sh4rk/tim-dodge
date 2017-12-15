@@ -46,7 +46,6 @@ namespace tim_dodge
 				}
 				if (allDead)
 				{
-					//gi.UndoPoisons();
 					gi.focus = false;
 					Menu.LaunchGameOver();
 				}
@@ -59,7 +58,6 @@ namespace tim_dodge
 				if (Controller.KeyPressed(Keys.Escape))
 				{
 					editor.focus = false;
-					//Menu.LaunchPause();
 					Menu.LaunchSaveMap();
 				}
 				editor.Update(gameTime);

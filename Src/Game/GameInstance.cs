@@ -48,18 +48,16 @@ namespace tim_dodge
 			foreach (Player p in players)
 				p.Score.incr(v);
 		}
-		public void SetScoresColor(Color c)
+		public void SetTextColor(Color c)
 		{
 			foreach (Player p in players)
+			{
 				p.Score.Color = c;
+				p.Life.Color = c;
+				if (Fuel != null)
+					Fuel.ColorText = c;
+			}
 		}
-
-		/*public void UndoPoisons()
-		{
-			rotation = false;
-			flipH = false;
-			flipV = false;
-		}*/
 
 		public GameManager gm;
 
@@ -90,7 +88,6 @@ namespace tim_dodge
 			}
 
 			Level = new LevelManager(this, MapLoad);
-			//UndoPoisons();
 			focus = true;
 			if (nbPlayer == 1)
 				Fuel = new FuelBar(GetNewFuelPosition(0), gm, Color.Black);
