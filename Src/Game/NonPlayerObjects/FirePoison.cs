@@ -10,7 +10,7 @@ namespace tim_dodge
 	{
 		public FirePoison(Vector2 p): base(p)
 		{
-			Damage = 0;
+			Damage = 1;
 			color = Color.DarkViolet;
 			poisonState = PoisonState.Rotation;
 		}
