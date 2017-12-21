@@ -32,16 +32,18 @@ namespace tim_dodge
 		public enum Maps
 		{
 			DuneMap = 0,
-			FlatMap = 1,
-			WaterMap = 2
+			StairMap = 1,
+			WaterMap = 2,
+			FlatMap = 3
 		}
 
-		public static int nbMaps = 3;
+		public static int nbMaps = Enum.GetNames(typeof(Maps)).Length;
 
 		private static List<string> EnvMaps = new List<string>
 		{ "Content/environment/dune.xml",
-			"Content/environment/flat.xml",
-			"Content/environment/water.xml"};
+			"Content/environment/staircase.xml",
+			"Content/environment/water.xml",
+			"Content/environment/flat.xml"};
 
 		public static String StringEnv(Maps env)
 		{
