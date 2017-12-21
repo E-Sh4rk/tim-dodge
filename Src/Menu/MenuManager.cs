@@ -20,6 +20,7 @@ namespace tim_dodge
 		private MenuWindow ParamMenu;
 		private MenuItem choiceMusicItem;
 		private MenuItem choiceSoundItem;
+		private MenuItem Difficulty;
 		private MenuWindow Gameover;
 		private MenuWindow QuitMenu;
 		private MenuWindow Highscores;
@@ -42,6 +43,14 @@ namespace tim_dodge
 
 		GameManager GameManager;
 
+		private enum diff
+		{
+			Easy = 0,
+			Medium = 1,
+			Hard = 2
+		}
+		private diff currentDiff = diff.Medium;
+
 		public MenuManager(GameManager GameManager)
 		{
 			chooseMap = new ChooseMap();
@@ -58,10 +67,12 @@ namespace tim_dodge
 			QuitMenu = new MenuWindow();
 			Highscores = new MenuWindow();
 
-			// Constructrion of menus
-			Initialize(InitialMenu, "< Maps >", new List<MenuItem> {
+			// Construction of menus
+			Difficulty = new MenuItem("Difficulty : Medium", choiceDiff);
+			Initialize(InitialMenu, "Menu", new List<MenuItem> {
 				new MenuItem("One Player", NewGame),
 				new MenuItem("Two Players", NewMultiGame),
+				Difficulty,
 				new MenuItem("Map Editor", NewEditor),
 				new MenuItem("Parameters", Parameters),
 				new MenuItem("Best Scores", BestScores),
@@ -144,7 +155,7 @@ namespace tim_dodge
 				Load.sounds.playSound(Sound.SoundName.toogle);
 				Previous();
 			}
-			else if (Controller.KeyPressed(Keys.Right))
+			/*else if (Controller.KeyPressed(Keys.Right))
 			{
 				Load.sounds.playSound(Sound.SoundName.toogle);
 				if (!GameManager.GameRunning)
@@ -155,7 +166,7 @@ namespace tim_dodge
 				Load.sounds.playSound(Sound.SoundName.toogle);
 				if (!GameManager.GameRunning)
 					chooseMap.LeftMap();
-			}
+			}*/
 
 			if (CurrentMenu.Last() == Congrats)
 			{
@@ -199,6 +210,31 @@ namespace tim_dodge
 		}
 
 		// Menu functions
+		private void choiceDiff()
+		{
+			if (currentDiff == diff.Easy)
+			{
+				currentDiff = diff.Medium;
+				Difficulty.Text = "Difficulty : Medium";
+				chooseMap.currentMap = ChooseMap.Maps.DuneMap;
+				chooseMap.loadTileMap(chooseMap.currentMap);
+			}
+			else if (currentDiff == diff.Medium)
+			{
+				currentDiff = diff.Hard;
+				Difficulty.Text = "Difficulty : Hard";
+				chooseMap.currentMap = ChooseMap.Maps.StairMap;
+				chooseMap.loadTileMap(chooseMap.currentMap);
+			}
+			else
+			{
+				currentDiff = diff.Easy;
+				Difficulty.Text = "Difficulty : Easy";
+				chooseMap.currentMap = ChooseMap.Maps.FlatMap;
+				chooseMap.loadTileMap(chooseMap.currentMap);
+			}
+		}
+
 		private void PlayAgain()
 		{
 			if (GameManager.gi.InitialNbPlayers == 1)

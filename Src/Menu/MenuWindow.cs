@@ -21,7 +21,7 @@ namespace tim_dodge
 		public int itemNumber;
 
 		// Proportionnality constant (proportional to the size of the item)
-		public const float BackgroundBordureX = 1f / 4f;
+		public const float BackgroundBordureX = 1f / 6f;
 		public const float BackgroundBordureY = 1f / 2f;
 		public const float SpacingBetweenItems = 1f / 3f;
 

@@ -708,17 +708,17 @@
       <y_offset>0</y_offset>
       <platform>
 	<SavePlatformObject>
-	  <x>300</x>
+	  <x>850</x>
 	  <y>650</y>
 	  <state>LeftPlatform</state>
 	</SavePlatformObject>
 	<SavePlatformObject>
-	  <x>350</x>
+	  <x>900</x>
 	  <y>650</y>
 	  <state>MiddlePlatform</state>
 	</SavePlatformObject>
 	<SavePlatformObject>
-	  <x>400</x>
+	  <x>950</x>
 	  <y>650</y>
 	  <state>RightPlatform</state>
 	</SavePlatformObject>
