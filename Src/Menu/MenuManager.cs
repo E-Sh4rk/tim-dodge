@@ -73,7 +73,7 @@ namespace tim_dodge
 				new MenuItem("One Player", NewGame),
 				new MenuItem("Two Players", NewMultiGame),
 				Difficulty,
-				new MenuItem("Map Editor", NewEditor),
+				//new MenuItem("Map Editor", NewEditor),
 				new MenuItem("Parameters", Parameters),
 				new MenuItem("Best Scores", BestScores),
 				new MenuItem("Quit", Quit) }
