@@ -69,22 +69,31 @@ namespace tim_dodge
 			Debug.Assert(nbPlayer >= 1 && nbPlayer <=2);
 			players = new List<Player>();
 
-			for (int i = nbPlayer - 1; i > -1; i--)
+			if (nbPlayer == 1 && MapLoad == ChooseMap.Maps.StairMap)
 			{
-				players.Add(new Player(new Vector2((TimGame.GAME_WIDTH/nbPlayer)*i+(TimGame.GAME_WIDTH / nbPlayer / 2), 300),
-				                       GetNewScorePosition(i), this));
+				players.Add(new Player(new Vector2(TimGame.GAME_WIDTH / 4, 300),
+										   GetNewScorePosition(0), this));
 			}
 
-			if (nbPlayer > 1)
+			else
 			{
-				Player p1 = players[0];
-				Player p2 = players[1];
-				p1.ColorPlayer = Color.PaleTurquoise;
-				p2.ColorPlayer = Color.PaleVioletRed;
-				p1.Score.Title = "Right Score : ";
-				p2.Score.Title = "Left Score : ";
-				p1.Life.sfuel = "Right Player : ";
-				p2.Life.sfuel = "Left Player : ";
+				for (int i = nbPlayer - 1; i > -1; i--)
+				{
+					players.Add(new Player(new Vector2((TimGame.GAME_WIDTH / nbPlayer) * i + (TimGame.GAME_WIDTH / nbPlayer / 2), 300),
+										   GetNewScorePosition(i), this));
+				}
+
+				if (nbPlayer > 1)
+				{
+					Player p1 = players[0];
+					Player p2 = players[1];
+					p1.ColorPlayer = Color.PaleTurquoise;
+					p2.ColorPlayer = Color.PaleVioletRed;
+					p1.Score.Title = "Right Score : ";
+					p2.Score.Title = "Left Score : ";
+					p1.Life.sfuel = "Right Player : ";
+					p2.Life.sfuel = "Left Player : ";
+				}
 			}
 
 			Level = new LevelManager(this, MapLoad);

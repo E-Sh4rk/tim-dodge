@@ -111,6 +111,7 @@
     <None Include="Content\objects\coin.png" />
     <None Include="Content\objects\food.png" />
     <None Include="Content\SpriteFonts\MenuHighlight.spritefont" />
+    <None Include="Content\environment\staircase.xml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icon.ico" />
