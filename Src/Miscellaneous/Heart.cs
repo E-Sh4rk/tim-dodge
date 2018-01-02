@@ -44,7 +44,7 @@ namespace tim_dodge
 
 			Container = new HeartState[slotNumber];
 
-            value = 1;//slotNumber * 2;
+            value = slotNumber * 2;
 			position = new Vector2(TimGame.GAME_WIDTH - ((slotNumber) * (spacement.X)), pos.Y);
 		}
 
