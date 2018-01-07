@@ -3,6 +3,13 @@ using System.Collections.Generic;
 
 namespace tim_dodge
 {
+    /// <summary>
+    /// Represent a snapshot of the game, that is a save of every in-game element.
+    /// Used for the back-in-time feature and for replays.
+    /// 
+    /// Snapshots are not directly serializable because they have a reference to a game object, which should not be serialized.
+    /// See the Replay class to transform it into a serializable object.
+    /// </summary>
 	public class Snapshot
 	{
 		// Objects (immutable snapshots)

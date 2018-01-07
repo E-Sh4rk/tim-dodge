@@ -15,20 +15,33 @@ namespace tim_dodge
 		public new bool Equals(object x, object y) => ReferenceEquals(x, y);
 		public int GetHashCode(object obj) => RuntimeHelpers.GetHashCode(obj);
 	}
+    /// <summary>
+    /// Represent a replay, that is a collection of snapshots that can be serialized and deserialized.
+    /// </summary>
 	[Serializable]
 	public class Replay
 	{
-		[Serializable]
+        /// <summary>
+        /// Represent a serializable snapshot.
+        /// </summary>
+        [Serializable]
 		public class SSnapshot
 		{
 			// Objects (immutable snapshots)
 			public List<ObjectSnapshot> objects_states;
-			public List<int> objects_ids;
+            /// <summary>
+            /// Each game object is associated to an identifier. Conversion between ID and GameObject is done before serialization and after deserialization.
+            /// </summary>
+            public List<int> objects_ids;
 
 			// Level&map
 			public LevelSnapshot lvl;
 		}
 
+        /// <summary>
+        /// Serializable form of a game object.
+        /// Used to serialize a game object and then reinstanciate it after deserialization (when converting ID into GameObject).
+        /// </summary>
 		[Serializable]
 		public class GameObjectBuilder
 		{

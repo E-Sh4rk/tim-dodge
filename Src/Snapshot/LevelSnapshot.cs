@@ -3,6 +3,9 @@ using System.Xml.Serialization;
 
 namespace tim_dodge
 {
+    /// <summary>
+    /// Serializable structure that can capture and restore all information relative to the current level of a game (level number, progression...).
+    /// </summary>
 	[Serializable]
 	public class LevelSnapshot
 	{

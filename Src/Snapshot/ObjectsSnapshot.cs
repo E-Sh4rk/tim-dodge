@@ -4,7 +4,10 @@ using Microsoft.Xna.Framework;
 
 namespace tim_dodge
 {
-	[Serializable]
+    /// <summary>
+    /// Serializable structure that represents a 3D vector (because Vector3 is not serializable).
+    /// </summary>
+    [Serializable]
 	public struct SVector
 	{
 		public SVector(float x, float y) { this.x = x; this.y = y; }
@@ -20,6 +23,9 @@ namespace tim_dodge
 			return new SVector(v.X,v.Y);
 		}
 	}
+    /// <summary>
+    /// Serializable structure that represents a color (because Color is not serializable).
+    /// </summary>
 	[Serializable]
 	public struct SColor
 	{
@@ -44,6 +50,9 @@ namespace tim_dodge
 			return new SColor(c.R, c.G, c.B, c.A);
 		}
 	}
+    /// <summary>
+    /// Serializable structure that can capture and restore all information relative to a basic game object.
+    /// </summary>
 	[Serializable]
 	[XmlInclude(typeof(PhysicalObjectSnapshot))]
 	public class ObjectSnapshot
@@ -72,6 +81,9 @@ namespace tim_dodge
 			sprite_direction = model_ptr.Sprite.Direction;
 		}
 	}
+    /// <summary>
+    /// Serializable structure that can capture and restore all information relative to a physical game object.
+    /// </summary>
 	[Serializable]
 	[XmlInclude(typeof(PlayerObjectSnapshot))]
 	[XmlInclude(typeof(NonPlayerObjectSnapshot))]
@@ -97,6 +109,9 @@ namespace tim_dodge
 			last_velocity = SVector.FromVector2(((PhysicalObject)model_ptr).last_computed_velocity);
 		}
 	}
+    /// <summary>
+    /// Serializable structure that can capture and restore all information relative to a player object.
+    /// </summary>
 	[Serializable]
 	public class PlayerObjectSnapshot : PhysicalObjectSnapshot
 	{
@@ -121,6 +136,9 @@ namespace tim_dodge
 			score = ((Player)model_ptr).Score.value;
 		}
 	}
+    /// <summary>
+    /// Serializable structure that can capture and restore all information relative to a non-player object.
+    /// </summary>
 	[Serializable]
 	public class NonPlayerObjectSnapshot : PhysicalObjectSnapshot
 	{

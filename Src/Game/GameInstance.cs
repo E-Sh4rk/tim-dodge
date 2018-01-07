@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Input;
 namespace tim_dodge
 {
 	/// <summary>
-	/// Represents a game party.
+	/// Defines a game play.
 	/// </summary>
 	public class GameInstance
 	{
