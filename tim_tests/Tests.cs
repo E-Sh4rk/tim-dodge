@@ -132,5 +132,33 @@ namespace tim_tests
 
         }
 
+        [Test]
+        public void ScoreIsIncreasing()
+        {
+            // verify that score is increasing
+
+            g.initializeEasyLevel();
+
+            int score = g.Game.gi.players[0].Score.value;
+
+            int maxFrames = 150;
+            for (int i = 0; i < maxFrames; i++)
+            {
+                g.RunOneFrame();
+            }
+
+            int nowscore = g.Game.gi.players[0].Score.value;
+            Assert.IsFalse(score == nowscore);
+
+            for (int i = 0; i < maxFrames; i++)
+            {
+                g.RunOneFrame();
+            }
+
+            score = nowscore;
+            nowscore = g.Game.gi.players[0].Score.value;
+            Assert.IsFalse(score == nowscore);
+        }
+
     }
 }

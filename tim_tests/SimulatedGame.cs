@@ -89,7 +89,7 @@ namespace tim_tests
 
 	public class SimulatedGame : TimGame
 	{
-		SimulatedGameManager Game;
+		public SimulatedGameManager Game;
 
 		public SimulatedGame()
 		{
