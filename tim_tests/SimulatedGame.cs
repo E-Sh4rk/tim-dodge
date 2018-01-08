@@ -18,9 +18,9 @@ namespace tim_tests
 			sgi = null;	
 		}
 
-		public void StartGameInstance(bool hard)
+		public void StartGameInstance(bool hard, int nbPlayers)
 		{
-			sgi = new SimulatedGameInstance(hard, this);
+			sgi = new SimulatedGameInstance(hard, this, nbPlayers);
 		}
 
 		public override void Update(GameTime gameTime)
@@ -42,8 +42,8 @@ namespace tim_tests
 	}
 	public class SimulatedGameInstance : tim_dodge.GameInstance
 	{
-		public SimulatedGameInstance(bool hard, GameManager gm) :
-		base(tim_dodge.ChooseMap.Maps.FlatMap, 1, gm)
+		public SimulatedGameInstance(bool hard, GameManager gm, int nbPlayers) :
+		base(tim_dodge.ChooseMap.Maps.FlatMap, nbPlayers, gm)
 		{
 			if (hard)
 			{
@@ -104,11 +104,16 @@ namespace tim_tests
 
 		public void initializeHardLevel()
 		{
-			Game.StartGameInstance(true);
+			Game.StartGameInstance(true, 1);
 		}
 		public void initializeEasyLevel()
 		{
-			Game.StartGameInstance(false);
+			Game.StartGameInstance(false, 1);
+		}
+
+		public void initializeMultiPlayers()
+		{
+			Game.StartGameInstance(true, 2);
 		}
 
 		public bool isGameTerminated()

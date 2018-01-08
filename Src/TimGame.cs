@@ -35,8 +35,6 @@ namespace tim_dodge
      * (roofs, grounds, left and right walls). Each object touching a wall is translated to the corresponding side of the wall.
      * All these walls are computed from the graphical map (composed of blocks), once, when the map loads.
      * 
-     * \section s Sprite
-     * 
      * \section serial Saving maps and replay
      * 
      * For saving maps and replay, serialization is used. Small transition classes/structures are used in order to have an efficient serialization/deserialization. 
