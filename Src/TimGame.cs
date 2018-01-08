@@ -7,19 +7,28 @@ using Microsoft.Xna.Framework.Input;
 
 namespace tim_dodge
 {
-    /*! \mainpage My Personal Index Page
+    /*! \mainpage Index Page
      *
      * \section intro_sec Introduction
      *
      * Hello, and welcome to the Team Dodge ! If you are here, it is because you want to take part of the Team, or you 
      * want to evaluate us. This documentation is here to help you in your noble quest.
      *
-     * \section install_sec General composition of the project
+     * \section composition_sec General composition of the project
      * 
      * The class which leads the project is the class GameManager.cs. It is the class which gather menus, game instances,
      * and the renderer. 
      * 
      * \subsection pe Physical environment
+     * 
+     * Each object that is part of the physical environment must inherits the PhysicalObject class.
+     * It implements methods to compute the new velocity of the object by taking into account the forces and collisions with other physical objects.
+     * It also implements a method UpdatePosition that computes the new position of the object given its velocity,
+     * and handle the collisions with the map (which is not a physical object, and so is treated separately).
+     * 
+     * The collisions with the map are computed thanks to the class PhysicalMap. It represents the physical aspect as a list of walls of different types
+     * (roofs, grounds, left and right walls). Each object touching a wall is translated to the corresponding side of the wall.
+     * All these walls are computed from the graphical map (composed of blocks), once, when the map loads.
      * 
      * \subsection s Sprite
      * 
