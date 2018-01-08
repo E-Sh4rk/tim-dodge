@@ -3,7 +3,11 @@ using Microsoft.Xna.Framework;
 
 namespace tim_dodge
 {
-	public class PlatformObject : GameObject
+    /// <summary>
+    /// Represents a block on the map which can move
+    /// MapPlatform is composed of many object like this
+    /// </summary>
+    public class PlatformObject : GameObject
 	{
 		public PlatformObject(float x, float y, BlockObject.Ground state) :
 		base(Load.MapTextureNature, new Sprite("Content.ground.natureXml.xml"), new Vector2(x,y))
@@ -16,6 +20,9 @@ namespace tim_dodge
 		public int h;
 		public int w;
 
+        /// <summary>
+        /// For serialization
+        /// </summary>
 		public class SavePlatformObject
 		{
 			public float x;
@@ -33,12 +40,18 @@ namespace tim_dodge
 			}
 		}
 
-		public SavePlatformObject CreateSave()
+        /// <summary>
+        /// For serialization
+        /// </summary>
+        public SavePlatformObject CreateSave()
 		{
 			return new SavePlatformObject(x, y, state);
 		}
 
-		public static PlatformObject LoadBlock(SavePlatformObject sbl)
+        /// <summary>
+        /// For serialization
+        /// </summary>
+        public static PlatformObject LoadBlock(SavePlatformObject sbl)
 		{
 			return new PlatformObject(sbl.x, sbl.y, sbl.state);
 		}

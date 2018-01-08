@@ -20,7 +20,11 @@ namespace tim_dodge
 			Sprite.ChangeDirection(dir);
 		}
 
-		protected void autoDestruct(float elapsed)
+        /// <summary>
+        /// When the end animation is finished, "destroy" this object
+        /// </summary>
+        /// <param name="elapsed">Useless here</param>
+        protected void autoDestruct(float elapsed)
 		{
 			if (Ghost)
 			{
@@ -67,7 +71,11 @@ namespace tim_dodge
 			autoDestruct(elapsed);
 		}
 
-		protected void destructionMode(float elapsed)
+        /// <summary>
+        /// Used to have the end animation of this object
+        /// </summary>
+        /// <param name="elapsed">Useless here</param>
+        protected void destructionMode(float elapsed)
 		{
 			if (!Ghost)
 			{

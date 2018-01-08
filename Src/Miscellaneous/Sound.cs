@@ -56,6 +56,11 @@ namespace tim_dodge
 			catch { }
 		}
 
+        /// <summary>
+        /// Because the original stop fonction is bugged
+        /// This is a way to fix it
+        /// </summary>
+        /// <param name="song"></param>
         public void realStopMusic(MusicName song)
         {
             int i = (int)song;
@@ -88,7 +93,10 @@ namespace tim_dodge
             menu = 2
 		}
 
-
+        /// <summary>
+        /// Play a sound effect
+        /// </summary>
+        /// <param name="son"></param>
 		public void playSound(SoundName son)
 		{
 			try // Catch exceptions in case the computer can't play songs (example: Travis)
@@ -99,6 +107,10 @@ namespace tim_dodge
 			catch { }
 		}
 
+        /// <summary>
+        /// Play a music
+        /// </summary>
+        /// <param name="mus"></param>
 		public void playMusic(MusicName mus)
 		{
 			try // Catch exceptions in case the computer can't play songs (example: Travis)
@@ -114,6 +126,9 @@ namespace tim_dodge
 			catch { }
 		}
 
+        /// <summary>
+        /// Play sound effect for time manipulation
+        /// </summary>
 		public void playRewind()
 		{
 			try
@@ -127,7 +142,11 @@ namespace tim_dodge
 			}
 			catch { }
 		}
-		public void stopRewind()
+
+        /// <summary>
+        /// Stop sound effect for time manipulation
+        /// </summary>
+        public void stopRewind()
 		{
 			try
 			{
@@ -166,7 +185,9 @@ namespace tim_dodge
 			}
 			catch { }
 		}
-
+        /// <summary>
+        /// Reload the cuphead song
+        /// </summary>
         public void newGameSong()
         {
             try // Catch exceptions in case the computer can't play songs (example: Travis)

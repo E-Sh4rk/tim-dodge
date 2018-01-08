@@ -52,6 +52,7 @@ namespace tim_dodge
 					walls[i].AddRange(result[i]);
 			});
 
+            // screen walls
 			walls[(int)Wall.left].Add(new Rectangle(-100, 0, 100, TimGame.GAME_HEIGHT));
 			walls[(int)Wall.right].Add(new Rectangle(TimGame.GAME_WIDTH, 0, 100, TimGame.GAME_HEIGHT));
 			walls[(int)Wall.roof].Add(new Rectangle(0, -100, TimGame.GAME_WIDTH, 100));
@@ -97,6 +98,13 @@ namespace tim_dodge
 
 		const int ground_detection_space = 1;
 		const int wall_detection_space = 1;
+
+        /// <summary>
+        /// Return the X velocity of the platform on which the player is
+        /// Used in order to attract the player on the platform
+        /// </summary>
+        /// <param name="o">A physical Object</param>
+        /// <returns>The velocity of the platform</returns>
 		public float getXReferential(PhysicalObject o)
 		{
 			Point pos = o.Position.ToPoint();
@@ -112,6 +120,13 @@ namespace tim_dodge
 			}
 			return 0f;
 		}
+
+        /// <summary>
+        /// Indicate whether a object is on the ground or not
+        /// Used to know if a player can jump ...
+        /// </summary>
+        /// <param name="o">A physical object</param>
+        /// <returns>The response</returns>
 		public bool nearTheGround(PhysicalObject o)
 		{
 			Point pos = o.Position.ToPoint();
@@ -125,6 +140,12 @@ namespace tim_dodge
 			}
 			return false;
 		}
+
+        /// <summary>
+        /// Indicate whether a object is near the right wall or not
+        /// </summary>
+        /// <param name="o">A physical object</param>
+        /// <returns>The response</returns>
 		public bool nearRightWall(PhysicalObject o)
 		{
 			Point pos = o.Position.ToPoint();
@@ -137,7 +158,13 @@ namespace tim_dodge
 			}
 			return false;
 		}
-		public bool nearLeftWall(PhysicalObject o)
+
+        /// <summary>
+        /// Indicate whether a object is near the left wall or not
+        /// </summary>
+        /// <param name="o">A physical object</param>
+        /// <returns>The response</returns>
+        public bool nearLeftWall(PhysicalObject o)
 		{
 			Point pos = o.Position.ToPoint();
 			pos.X = pos.X - wall_detection_space;
@@ -149,6 +176,13 @@ namespace tim_dodge
 			}
 			return false;
 		}
+
+        /// <summary>
+        /// If a player is near the ground and want to jump
+        /// we should wall this method before to adjust his position
+        /// and reinit his y velocity
+        /// </summary>
+        /// <param name="o">A physical object</param>
 		public void magnetizeToGround(PhysicalObject o)
 		{
 			Vector2 pos = o.Position;
@@ -156,6 +190,11 @@ namespace tim_dodge
 			o.Position = pos;
 			adjustPositionAndVelocity(o);
 		}
+
+        /// <summary>
+        /// Adjust position and velocity of an object according to the map
+        /// </summary>
+        /// <param name="o">A physical object</param>
 		public void adjustPositionAndVelocity(PhysicalObject o)
 		{
 			Vector2 position = o.Position;
@@ -210,6 +249,12 @@ namespace tim_dodge
 			bo.Position = new Vector2(po.x, po.y);
 			return walls_of_ground(bo);
 		}
+
+        /// <summary>
+        /// Convert a graphical block into a physical wall
+        /// </summary>
+        /// <param name="bl">A block object</param>
+        /// <returns>List of walls</returns>
 		public List<Rectangle>[] walls_of_ground(BlockObject bl)
 		{
 			BlockObject.Ground ground = bl.state;
