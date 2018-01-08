@@ -16,11 +16,16 @@ namespace tim_dodge
      *
      * \section composition_sec General composition of the project
      * 
-     * The class which leads the project is the class GameManager.cs. It is the class which gather menus, game instances,
+     * The class which leads the project is the class GameManager. It is the class which gathers menus, game instances,
      * and the renderer. 
      * 
-     * \subsection pe Physical environment
+     * \section menu Menu
      * 
+     * The menu is managed in the class MenuManager. It is a stack of MenuItem with the name CurrentMenu. The Menu displayed
+     * is the menu at the top of the stack.
+     *
+     * \section physics Physical environment
+     *
      * Each object that is part of the physical environment must inherits the PhysicalObject class.
      * It implements methods to compute the new velocity of the object by taking into account the forces and collisions with other physical objects.
      * It also implements a method UpdatePosition that computes the new position of the object given its velocity,
@@ -30,21 +35,16 @@ namespace tim_dodge
      * (roofs, grounds, left and right walls). Each object touching a wall is translated to the corresponding side of the wall.
      * All these walls are computed from the graphical map (composed of blocks), once, when the map loads.
      * 
-     * \subsection s Sprite
+     * \section s Sprite
      * 
-     * \subsection gmac Game manager and cie
+     * \section serial Saving maps and replay
      * 
-     * \subsection p Player
+     * For maps and replay, serialization is used. A small class representation of a class is used in order to have efficiency in loading/saving. 
+     * One should look at classes like SaveBlock or SaveMap.
      * 
-     * \subsection npo NonPlayerObjects
+     * For replay, we save all the positions of all objects at each frame for the entire game. This is not really heavy in space.
+     * This is also usefull to be able to back to the past.
      * 
-     * \subsection lam LevelAndMap
-     * 
-     * \subsection s Snapshot
-     * 
-     * \subsection menu Menu
-     * 
-     * \subsection misc Miscellaneous
      * 
      */
 
