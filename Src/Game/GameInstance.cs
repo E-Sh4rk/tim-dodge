@@ -31,7 +31,6 @@ namespace tim_dodge
 		int newest_snapshot_index = -1;
 		bool mode_rewind = false;
 		bool mode_replay = false;
-		// TODO: modify falling&walking objects to not use alea if the future is known
 
 		public int GetGlobalScore()
 		{

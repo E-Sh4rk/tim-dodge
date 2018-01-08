@@ -23,6 +23,9 @@ namespace tim_dodge
 		public List<BlockObject> tileMap;
 		public List<MapPlatform> platforms;
 
+        /// <summary>
+        /// Serializable class for saving a map
+        /// </summary>
 		public class SaveMap
 		{
 			public SaveMap() { }
@@ -41,6 +44,10 @@ namespace tim_dodge
 			gMap.changeTexture(NewMapTexture);
 		}
 
+        /// <summary>
+        /// Load a saved map and create a real game map with it 
+        /// </summary>
+        /// <param name="name">Path of saved map file</param>
 		public void loadTileMap(string name)
 		{
 			SaveMap sm = Serializer<SaveMap>.Load(name);
@@ -67,7 +74,12 @@ namespace tim_dodge
 			}
 			catch { }
 		}
-
+        /// <summary>
+        /// Indicate whether moving platform is in collision with
+        /// an other platform or a screen edge
+        /// </summary>
+        /// <param name="pl">A moving platform</param>
+        /// <returns></returns>
 		bool platformInCollision(MapPlatform pl)
 		{
 			foreach (MapPlatform mp in platforms)

@@ -32,6 +32,7 @@ namespace tim_dodge
 				mask = null;
 			}
 		}
+        // mask for collision
 		protected BitArray mask = null;
 		public BitArray Mask
 		{
@@ -46,7 +47,9 @@ namespace tim_dodge
 				mask = value;
 			}
 		}
-
+        /// <summary>
+        /// Com
+        /// </summary>
 		protected void computeMask()
 		{
 			Color[] T = new Color[image.Width * image.Height];

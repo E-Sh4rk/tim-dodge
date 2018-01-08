@@ -17,7 +17,11 @@ namespace tim_dodge
 			Sprite.ChangeState(14);
 		}
 
-		protected void autoDestruct(float elapsed)
+        /// <summary>
+        /// Wait a certain amount of time before "destroying" this object
+        /// </summary>
+        /// <param name="elapsed">elapsed time</param>
+        protected void autoDestruct(float elapsed)
 		{
 			if (Damaged)
 			{

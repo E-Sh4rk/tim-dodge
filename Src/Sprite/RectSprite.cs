@@ -16,6 +16,10 @@ namespace tim_dodge
 			protected set;
 		}
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="ligne">A Xml line</param>
 		public RectSprite(System.Xml.XmlAttributeCollection ligne)
 		{
 			int[] att = new int[] { 0, 0, 0, 0 };

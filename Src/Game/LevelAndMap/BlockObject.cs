@@ -3,6 +3,9 @@ using Microsoft.Xna.Framework;
 
 namespace tim_dodge
 {
+    /// <summary>
+    /// Represents a fixed block on the map which is aligned on the grid
+    /// </summary>
 	public class BlockObject : GameObject
 	{
 		public BlockObject(int x, int y, Ground state) : 
@@ -30,12 +33,18 @@ namespace tim_dodge
 			}
 		}
 
-		public SaveBlock CreateSave()
+        /// <summary>
+        /// For serialization
+        /// </summary>
+        public SaveBlock CreateSave()
 		{
 			return new SaveBlock(_x, _y, state);
 		}
 
-		public static BlockObject LoadBlock(SaveBlock sbl)
+        /// <summary>
+        /// For serialization
+        /// </summary>
+        public static BlockObject LoadBlock(SaveBlock sbl)
 		{
 			return new BlockObject(sbl.x, sbl.y, sbl.state);
 		}

@@ -18,6 +18,10 @@ namespace tim_dodge
 			y_velocity = yvel;
 		}
 
+
+        /// <summary>
+        /// Serializable class for saving a platform
+        /// </summary>
 		public class SavePlatform
 		{
 			public float x_offset = 0;
@@ -43,6 +47,11 @@ namespace tim_dodge
 			return new SavePlatform(x_velocity, y_velocity, bs);
 		}
 
+        /// <summary>
+        /// Load a platform from a saved version
+        /// </summary>
+        /// <param name="sp">A saved platform </param>
+        /// <returns>A map platform (a real one)</returns>
 		public static MapPlatform LoadPlatform(SavePlatform sp)
 		{
 			PlatformObject[] objs = new PlatformObject[sp.platform.Length];
@@ -66,6 +75,11 @@ namespace tim_dodge
 			y_velocity = -y_velocity;
 		}
 
+        /// <summary>
+        /// Check if a rectangle intersect with the current platform
+        /// </summary>
+        /// <param name="r">A rectangle</param>
+        /// <returns></returns>
 		public bool Intersect(Rectangle r)
 		{
 			foreach (PlatformObject po in objs)

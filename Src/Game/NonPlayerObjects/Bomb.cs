@@ -15,6 +15,10 @@ namespace tim_dodge
 			Damage = 2;
 		}
 
+        /// <summary>
+        /// When the end animation is finished, "destroy" this object
+        /// </summary>
+        /// <param name="elapsed">Useless here</param>
 		protected void autoDestruct(float elapsed)
 		{
 			if (Ghost)
@@ -38,6 +42,10 @@ namespace tim_dodge
 			autoDestruct(elapsed);
 		}
 
+        /// <summary>
+        /// Used to have the end animation of this object
+        /// </summary>
+        /// <param name="elapsed">Useless here</param>
 		protected void destructionMode(float elapsed)
 		{
 			if (!Ghost)

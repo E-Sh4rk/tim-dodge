@@ -15,7 +15,11 @@ namespace tim_dodge
 			Bonus = 250;
 		}
 
-		protected void autoDestruct(float elapsed)
+        /// <summary>
+        /// Wait a certain amount of time before "destroying" this object
+        /// </summary>
+        /// <param name="elapsed">elapsed time</param>
+        protected void autoDestruct(float elapsed)
 		{
 			if (Damaged)
 			{
@@ -37,6 +41,7 @@ namespace tim_dodge
 			base.UpdatePosition(objects, map, elapsed);
 			autoDestruct(elapsed);
 		}
+
 		float wait_before_die = 1.0f;
 
 		public override void TouchPlayer()
