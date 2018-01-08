@@ -19,7 +19,7 @@ namespace tim_dodge
      * The class which leads the project is the class GameManager.cs. It is the class which gathers menus, game instances,
      * and the renderer. 
      * 
-     * 
+     * The menu is managed in the class MenuManager. 
      * 
      */
 
