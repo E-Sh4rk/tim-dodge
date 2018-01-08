@@ -39,11 +39,11 @@ namespace tim_dodge
      * 
      * \section serial Saving maps and replay
      * 
-     * For maps and replay, serialization is used. A small class representation of a class is used in order to have efficiency in loading/saving. 
-     * One should look at classes like SaveBlock or SaveMap.
+     * For saving maps and replay, serialization is used. Small transition classes/structures are used in order to have an efficient serialization/deserialization. 
+     * For instance, see SaveBlock and SaveMap classes.
      * 
-     * For replay, we save all the positions of all objects at each frame for the entire game. This is not really heavy in space.
-     * This is also usefull to be able to back to the past.
+     * For replay, we save snapshots of all objects at each frame for the entire game. This is not really heavy in space.
+     * This is also usefull to be able to go back in the past.
      * 
      * 
      */
