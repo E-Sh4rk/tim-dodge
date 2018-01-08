@@ -19,6 +19,8 @@ namespace tim_dodge
 		public bool flipH;
 		public bool flipV;
 
+        public int controlNumber = 0;
+
 		private Color colorPlayer = Color.White;
 		public Color ColorPlayer
 		{
@@ -34,10 +36,11 @@ namespace tim_dodge
 			return (Life.value == 0);
 		}
 
-		public Player(Vector2 pos, Vector2 scorePosition, GameInstance gi)
+		public Player(Vector2 pos, Vector2 scorePosition, GameInstance gi, int controlNb)
 			: base(Load.TimTexture, new Sprite("Content.character.TimXml.xml"), pos)
 		{
-			JumpImpulsion = new Vector2(0f, -180f);//-250f);//-180f);
+            controlNumber = controlNb;
+			JumpImpulsion = new Vector2(0f, -180f);//-250f);
 			JumpMore = new Vector2(0, -150);
 			DashForceLeft = new Vector2(-1500f, 0f);
 			DashForceRight = -DashForceLeft;

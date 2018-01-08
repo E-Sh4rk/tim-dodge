@@ -71,7 +71,7 @@ namespace tim_dodge
 				if (type == typeof(Monstar))
 					o = new Monstar(p, g, Controller.Direction.RIGHT);
 				if (type == typeof(Player))
-					o = new Player(p, g.GetNewScorePosition(nb_players), g);
+					o = new Player(p, g.GetNewScorePosition(nb_players), g, -1);
 
 				return o;
 			}
