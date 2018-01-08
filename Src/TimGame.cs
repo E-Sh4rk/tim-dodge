@@ -19,6 +19,13 @@ namespace tim_dodge
      * The class which leads the project is the class GameManager.cs. It is the class which gathers menus, game instances,
      * and the renderer. 
      * 
+     * \section serial Saving maps and replay
+     * 
+     * For maps and replay, serialization is used. A small class representation of a class is used in order to have efficiency in loading/saving. 
+     * One should look at classes like SaveBlock or SaveMap.
+     * 
+     * For replay, we save all the positions of all objects at each frame for the entire game. This is not really heavy in space.
+     * This is also usefull to be able to back to the past.
      * 
      * 
      */
