@@ -102,5 +102,25 @@ namespace tim_tests
 
 			Assert.IsTrue(ok1 && ok2);
 		}
+
+		[Test]
+		public void MultiPlayerDeath() // Simulate the multiplayer game to see wether they do dye
+		{
+			g.initializeMultiPlayers();
+			int remainingFrames = 500;
+			bool testGood = false;
+			while (remainingFrames > 0)
+			{
+				g.RunOneFrame();
+				remainingFrames--;
+				if (g.isGameTerminated())
+				{
+					testGood = true;
+					break;
+				}
+			}
+
+			Assert.IsTrue(testGood);
+		}
 	}
 }
