@@ -69,7 +69,7 @@ namespace tim_dodge
 			LevelDefinition Level4 = new LevelDefinition(map, Load.BackgroundWinter, Load.MapTextureWinter,
 														 25, 0.15f, Color.Black, true, true);
 			LevelDefinition Level5 = new LevelDefinition(map, Load.BackgroundSun, Load.MapTextureNature,
-														 50, 0.1f, Color.Black, true, true);
+														 int.MaxValue, 0.1f, Color.Black, true, true);
 			Levels = new List<LevelDefinition> { Level1, Level2, Level3, Level4, Level5 };
 			SetLevel(0);
 		}
