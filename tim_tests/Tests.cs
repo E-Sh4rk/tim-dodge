@@ -102,5 +102,35 @@ namespace tim_tests
 
 			Assert.IsTrue(ok1 && ok2);
 		}
-	}
+
+        [Test]
+        public void IncrementTest()
+        {
+            tim_dodge.Heart heart = new tim_dodge.Heart(Vector2.Zero, Color.White);
+            int init_value = heart.value;
+            heart.decr(1);
+            heart.incr(1);
+            Assert.IsTrue(heart.value == init_value);
+            heart.incr(1);
+            // max value, cannot increase more
+            Assert.IsTrue(heart.value == init_value);
+            heart.decr(1);
+            int value2 = heart.value;
+            // value has changed
+            Assert.IsFalse(heart.value == init_value);
+            heart.incr(-1);
+            // similar to decr(1)
+            Assert.IsFalse(heart.value == init_value);
+            Assert.IsFalse(heart.value == value2);
+
+            heart.decr(100);
+            // normally heart.value==0
+            Assert.IsTrue(heart.value == 0);
+            heart.incr(-1);
+            // similar to decr(1) 
+            Assert.IsTrue(heart.value == 0);
+
+        }
+
+    }
 }
