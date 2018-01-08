@@ -11,13 +11,29 @@ namespace tim_dodge
      *
      * \section intro_sec Introduction
      *
-     * This is the introduction.
+     * Hello, and welcome to the Team Dodge ! If you are here, it is because you want to take part of the Team, or you 
+     * want to evaluate us. This documentation is here to help you in your noble quest.
      *
-     * \section install_sec Installation
-     *
-     * \subsection step1 Step 1: Opening the box
-     *
-     * etc...
+     * \section install_sec General composition of the project
+     * 
+     * \subsection pe Physical environment
+     * 
+     * \subsection s Sprite
+     * 
+     * \subsection gmac Game manager and cie
+     * 
+     * \subsection p Player
+     * 
+     * \subsection npo NonPlayerObjects
+     * 
+     * \subsection lam LevelAndMap
+     * 
+     * \subsection s Snapshot
+     * 
+     * \subsection menu Menu
+     * 
+     * \subsection misc Miscellaneous
+     * 
      */
 
 
