@@ -161,7 +161,7 @@ namespace tim_dodge
             {
                 time_multiplicator /= 1.2f;
             }
-            if (Controller.TimeReinitPressed())
+            if (Controller.TimeReinitPressed(state))
             {
                 time_multiplicator = 1.0f;
             }

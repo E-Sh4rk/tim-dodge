@@ -20,7 +20,6 @@ namespace tim_dodge
      * etc...
      */
 
-
     /// <summary>
     /// This is just a MonoGame requirement. See GameManager and GameInstance for more interesting stuff.
     /// </summary>

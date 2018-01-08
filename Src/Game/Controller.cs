@@ -56,15 +56,15 @@ namespace tim_dodge
 
         public static bool TimeSpeedupPressed()
         {
-            return KeyPressed(Keys.LeftShift);
+            return KeyPressed(Keys.LeftAlt);
         }
         public static bool TimeSlowdownPressed()
         {
             return KeyPressed(Keys.LeftControl);
         }
-        public static bool TimeReinitPressed()
+        public static bool TimeReinitPressed(KeyboardState state)
         {
-            return KeyPressed(Keys.LeftAlt);
+            return state.IsKeyDown(Keys.LeftControl) && state.IsKeyDown(Keys.LeftAlt);
         }
 
         public static bool RewindKeyDown(KeyboardState state)
