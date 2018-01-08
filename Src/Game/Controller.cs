@@ -54,7 +54,20 @@ namespace tim_dodge
 			return directions;
 		}
 
-		public static bool RewindKeyDown(KeyboardState state)
+        public static bool TimeSpeedupPressed()
+        {
+            return KeyPressed(Keys.LeftShift);
+        }
+        public static bool TimeSlowdownPressed()
+        {
+            return KeyPressed(Keys.LeftControl);
+        }
+        public static bool TimeReinitPressed()
+        {
+            return KeyPressed(Keys.LeftAlt);
+        }
+
+        public static bool RewindKeyDown(KeyboardState state)
 		{
             return state.IsKeyDown(Keys.LeftShift) || state.IsKeyDown(Keys.RightShift);
         }

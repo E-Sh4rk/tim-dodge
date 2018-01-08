@@ -20,7 +20,7 @@ namespace tim_dodge
 
 		public FuelBar Fuel { get; protected set; }	
 
-		public float time_multiplicator = 1f;
+		public static float time_multiplicator = 1f;
 
 		public bool focus;
 
@@ -153,6 +153,19 @@ namespace tim_dodge
 		public void Update(GameTime gameTime)
 		{
 			KeyboardState state = Keyboard.GetState();
+
+            if (Controller.TimeSpeedupPressed())
+            {
+                time_multiplicator *= 1.2f;
+            }
+            if (Controller.TimeSlowdownPressed())
+            {
+                time_multiplicator /= 1.2f;
+            }
+            if (Controller.TimeReinitPressed())
+            {
+                time_multiplicator = 1.0f;
+            }
 
 			if (players.Count == 1)
 			{

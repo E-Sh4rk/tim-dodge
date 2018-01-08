@@ -7,10 +7,24 @@ using Microsoft.Xna.Framework.Input;
 
 namespace tim_dodge
 {
-	/// <summary>
-	/// This is just a MonoGame requirement. See GameManager and GameInstance for more interesting stuff.
-	/// </summary>
-	public class TimGame : Game
+    /*! \mainpage My Personal Index Page
+     *
+     * \section intro_sec Introduction
+     *
+     * This is the introduction.
+     *
+     * \section install_sec Installation
+     *
+     * \subsection step1 Step 1: Opening the box
+     *
+     * etc...
+     */
+
+
+    /// <summary>
+    /// This is just a MonoGame requirement. See GameManager and GameInstance for more interesting stuff.
+    /// </summary>
+    public class TimGame : Game
 	{
 		protected GraphicsDeviceManager graphics;
 		protected Renderer renderer;

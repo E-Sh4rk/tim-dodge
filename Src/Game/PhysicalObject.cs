@@ -136,6 +136,8 @@ namespace tim_dodge
 		public virtual void UpdatePosition(List<PhysicalObject> objects, Map map, float elapsed)
 		{
 			float xref = map.pMap.getXReferential(this);
+            if (this is Player)
+                xref *= GameInstance.time_multiplicator;
 			double dt = elapsed;
 			Vector2 lp = position;
 			position += (velocity + new Vector2(xref, 0)) * (float)dt * pixels_per_meter;
