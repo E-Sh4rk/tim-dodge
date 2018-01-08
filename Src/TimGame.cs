@@ -16,6 +16,9 @@ namespace tim_dodge
      *
      * \section install_sec General composition of the project
      * 
+     * The class which leads the project is the class GameManager.cs. It is the class which gather menus, game instances,
+     * and the renderer. 
+     * 
      * \subsection pe Physical environment
      * 
      * \subsection s Sprite
