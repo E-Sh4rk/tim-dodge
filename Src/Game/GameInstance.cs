@@ -68,31 +68,22 @@ namespace tim_dodge
 			Debug.Assert(nbPlayer >= 1 && nbPlayer <=2);
 			players = new List<Player>();
 
-			if (nbPlayer == 1 && MapLoad == ChooseMap.Maps.StairMap)
+			for (int i = nbPlayer - 1; i > -1; i--)
 			{
-				players.Add(new Player(new Vector2(TimGame.GAME_WIDTH / 4, 300),
-										   GetNewScorePosition(0), this));
+				players.Add(new Player(new Vector2((TimGame.GAME_WIDTH / nbPlayer) * (nbPlayer - 1 - i) + (TimGame.GAME_WIDTH / nbPlayer / 2), 300),
+										GetNewScorePosition(i), this, i));
 			}
 
-			else
+			if (nbPlayer > 1)
 			{
-				for (int i = nbPlayer - 1; i > -1; i--)
-				{
-					players.Add(new Player(new Vector2((TimGame.GAME_WIDTH / nbPlayer) * i + (TimGame.GAME_WIDTH / nbPlayer / 2), 300),
-										   GetNewScorePosition(i), this));
-				}
-
-				if (nbPlayer > 1)
-				{
-					Player p1 = players[0];
-					Player p2 = players[1];
-					p1.ColorPlayer = Color.PaleTurquoise;
-					p2.ColorPlayer = Color.PaleVioletRed;
-					p1.Score.Title = "Right Score : ";
-					p2.Score.Title = "Left Score : ";
-					p1.Life.sfuel = "Right Player : ";
-					p2.Life.sfuel = "Left Player : ";
-				}
+				Player p1 = players[0];
+				Player p2 = players[1];
+				p1.ColorPlayer = Color.PaleTurquoise;
+				p2.ColorPlayer = Color.PaleVioletRed;
+				p1.Score.Title = "Right Score : ";
+				p2.Score.Title = "Left Score : ";
+				p1.Life.sfuel = "Right Player : ";
+				p2.Life.sfuel = "Left Player : ";
 			}
 
 			Level = new LevelManager(this, MapLoad);
@@ -228,10 +219,13 @@ namespace tim_dodge
 				Level.Current.map.Update(elapsed);
 
 				// Move players
-				if (players.Count >= 1)
-					players[0].Move(Controller.GetDirectionsPlayer1(state), insensible_elapsed); // Insensible to time speed
-				if (players.Count >= 2)
-					players[1].Move(Controller.GetDirectionsPlayer2(state), insensible_elapsed); // Insensible to time speed
+                foreach(Player p in players)
+                {
+                    if (p.controlNumber == 0)
+                        p.Move(Controller.GetDirectionsPlayer1(state), insensible_elapsed); // Insensible to time speed
+                    if (p.controlNumber == 1)
+                        p.Move(Controller.GetDirectionsPlayer2(state), insensible_elapsed); // Insensible to time speed
+                }
 
 				// All physical objects
 				List<PhysicalObject> phys_obj = new List<PhysicalObject>();

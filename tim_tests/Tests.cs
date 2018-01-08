@@ -36,7 +36,7 @@ namespace tim_tests
 			{
 				/*Monitor.PulseAll(g);
 				Monitor.Exit(this);*/
-				g.Exit();
+				//g.Exit();
 				g.Dispose();
 				Console.WriteLine("Simulated game disposed!");
 			}
