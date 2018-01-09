@@ -33,6 +33,12 @@ namespace tim_tests
 			}
 		}
 
+		public void StopGame()
+		{
+			if (sgi != null)
+				sgi.Die();
+		}
+
 		public bool HasDied()
 		{
 			return sgi == null || sgi.HasDied();
@@ -62,6 +68,14 @@ namespace tim_tests
 		}
 
 		private bool alreadyDead = false;
+
+		public void Die()
+		{
+			foreach (tim_dodge.Player p in players)
+			{
+				p.Life.decr(p.Life.value);
+			}
+		}
 
 		public new void Update(GameTime gameTime)
 		{
@@ -119,6 +133,12 @@ namespace tim_tests
 		public bool isGameTerminated()
 		{
 			return Game.HasDied();
+		}
+
+		public void terminateGame()
+		{
+			Game.StopGame();
+			this.RunOneFrame();
 		}
 
 		public Texture2D textureFromStream(Stream stream)

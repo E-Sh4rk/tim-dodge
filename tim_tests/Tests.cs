@@ -5,9 +5,12 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using NUnit.Framework;
 
+[assembly: LevelOfParallelism(1)]
+[assembly: NonParallelizable]
+
 namespace tim_tests
 {
-	[TestFixture, Apartment(ApartmentState.STA)]
+	[TestFixture, Apartment(ApartmentState.STA), SingleThreaded, NonParallelizable]
 	public class Tests
 	{
 		/* INIT */
@@ -36,7 +39,7 @@ namespace tim_tests
 			{
 				/*Monitor.PulseAll(g);
 				Monitor.Exit(this);*/
-				//g.Exit();
+				// g.Exit();
 				g.Dispose();
 				Console.WriteLine("Simulated game disposed!");
 			}
@@ -73,7 +76,7 @@ namespace tim_tests
 		{
 			// Should be dead at the end
 			g.initializeHardLevel();
-			int remainingFrames = 500;
+			int remainingFrames = 750;
 			bool ok1 = false;
 			while (remainingFrames > 0)
 			{
@@ -85,9 +88,10 @@ namespace tim_tests
 					break;
 				}
 			}
+			g.terminateGame();
 			// Should be alive at the end
 			g.initializeEasyLevel();
-			remainingFrames = 250;
+			remainingFrames = 200;
 			bool ok2 = true;
 			while (remainingFrames > 0)
 			{
@@ -99,6 +103,7 @@ namespace tim_tests
 					break;
 				}
 			}
+			g.terminateGame();
 
 			Assert.IsTrue(ok1 && ok2);
 		}
@@ -129,7 +134,6 @@ namespace tim_tests
             heart.incr(-1);
             // similar to decr(1) 
             Assert.IsTrue(heart.value == 0);
-
         }
 
         [Test]
@@ -158,6 +162,8 @@ namespace tim_tests
             score = nowscore;
             nowscore = g.Game.sgi.players[0].Score.value;
             Assert.IsFalse(score == nowscore);
+			
+			g.terminateGame();
         }
 
 		[Test]
@@ -176,6 +182,7 @@ namespace tim_tests
 					break;
 				}
 			}
+			g.terminateGame();
 
 			Assert.IsTrue(testGood);
 		}
