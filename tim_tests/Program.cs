@@ -11,8 +11,10 @@ namespace tim_tests
 	{
 		public static int Main(string[] args)
 		{
-			Environment.ExitCode = new AutoRun().Execute(new string[] { "--workers=1" });
+			Environment.ExitCode = new AutoRun().Execute(args);
+			System.IO.File.WriteAllText("tests_output", Environment.ExitCode.ToString());
 			Process.GetCurrentProcess().Kill();
+			//Environment.Exit(Environment.ExitCode);
 			return Environment.ExitCode;
 		}
 	}

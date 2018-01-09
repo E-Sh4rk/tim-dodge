@@ -6,7 +6,6 @@ using Microsoft.Xna.Framework.Graphics;
 using NUnit.Framework;
 
 [assembly: LevelOfParallelism(1)]
-[assembly: NonParallelizable]
 
 namespace tim_tests
 {

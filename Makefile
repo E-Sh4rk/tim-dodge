@@ -16,4 +16,4 @@ clean:
 	rm -fr bin obj Documentation tim_tests/bin tim_tests/obj
 
 test:
-	cd tim_tests/bin/Release && mono tim_tests.exe
+	cd tim_tests/bin/Release && (mono tim_tests.exe ; exit `cat tests_output`)
