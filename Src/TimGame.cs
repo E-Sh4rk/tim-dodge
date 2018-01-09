@@ -16,8 +16,8 @@ namespace tim_dodge
      *
      * \section composition_sec General composition of the project
      * 
-     * The class which leads the project is the class GameManager. It is the class which gathers menus, game instances,
-     * and the renderer. 
+     * The class which leads the project is the class GameManager. It is the class which gathers menus, game instances.
+     * The renderer is in an annex file Renderer. The project is composed of different thematic folders. 
      * 
      * \section menu Menu
      * 

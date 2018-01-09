@@ -139,15 +139,15 @@ namespace tim_tests
 
             g.initializeEasyLevel();
 
-            int score = g.Game.gi.players[0].Score.value;
+			int score = g.Game.sgi.players[0].Score.value;
 
-            int maxFrames = 150;
+            int maxFrames = 300;
             for (int i = 0; i < maxFrames; i++)
             {
                 g.RunOneFrame();
             }
 
-            int nowscore = g.Game.gi.players[0].Score.value;
+            int nowscore = g.Game.sgi.players[0].Score.value;
             Assert.IsFalse(score == nowscore);
 
             for (int i = 0; i < maxFrames; i++)
@@ -156,7 +156,7 @@ namespace tim_tests
             }
 
             score = nowscore;
-            nowscore = g.Game.gi.players[0].Score.value;
+            nowscore = g.Game.sgi.players[0].Score.value;
             Assert.IsFalse(score == nowscore);
         }
 

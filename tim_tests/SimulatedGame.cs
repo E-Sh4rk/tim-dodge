@@ -10,7 +10,7 @@ namespace tim_tests
 {
 	public class SimulatedGameManager : GameManager
 	{
-		SimulatedGameInstance sgi;
+		public SimulatedGameInstance sgi;
 
 		public SimulatedGameManager(ContentManager Content, TimGame Application):
 		base(Content, Application)
